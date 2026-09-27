@@ -1,0 +1,785 @@
+QuantScore V1.3 机器可执行评分规则规范
+最终语义冻结版 Stage 1.2
+本文件为新的Single Source of Truth。第一部分是用户最终确认，优先于任何继承文字；V1.1和V1.2原文件保持不变。U01至U04全部RESOLVED_IN_V1_3，resolution_source=USER_CONFIRMED。No unresolved user-defined trading semantics remain in V1.3.
+第一部分 最终冻结规则
+U01 R7 该涨不涨
+前提为历史冻结QuantScore>=80且Risk Level!=HIGH。观察信号日之后3个完整交易日，禁止未来数据回写历史评分。信号日及不足3日返回UNKNOWN，reason_code=AWAITING_FORWARD_CONFIRMATION。
+三日max(High)<signal_close*1.03时触发。max_close_return<=0扣10；0<max_close_return<3%且max_high_return<3%扣6。0~3%没有断档。任一日High>=signal_close*1.03，完整观察后返回INVALIDATED、扣0。
+快照保留信号日期、信号收盘价、QuantScore、Risk Level、规范版本及证据摘要；信号价格必须与当时复权口径一致。不同版本快照不得静默混用。
+三日High均未达+3%且最大收盘收益<=0 → -10
+三日High均未达+3%且0<最大收盘收益<3% → -6
+任一High达到+3%（完成三日观察） → 0 / INVALIDATED
+未满3个完整交易日 → UNKNOWN / AWAITING_FORWARD_CONFIRMATION
+U02 E1 底部小连阳
+连续至少7个交易日。普通小阳0<daily_return<4%；过渡阳线4%<=daily_return<5%，可计入连续长度，但整个连续段最多1根。daily_return>=5%大阳立即终止当前段。
+小阴线-3%<daily_return<=0；十字星abs(close-open)/previous_close<=0.5%。小阴/十字星合计最多1根，与过渡阳线是两个独立容错槽位。过渡阳线按收益优先归类，不再占用十字星槽位；其余满足十字星定义者使用例外槽位。
+第2根过渡阳线、第2根小阴/十字星、>=5%大阳或<=-3%大跌终止本段并清零；不能截掉破坏日拼接旧段，后续交易日可重新累计。3.999%普通小阳，4.000%和4.999%过渡阳，5.000%大阳。
+保留LOW_ZONE和已有工程扫描窗口。合法底部连续段得4分，未满7日得0。正式启动仅Close>M60且Close>C5.platform_high；单独站上M60不算启动。
+底部连续>=7日，过渡阳<=1，小阴/十字星<=1，尚未正式启动 → +4
+连续不足7日且未破坏 → CANDIDATE 0
+第2根过渡阳/例外、>=5%大阳或<=-3%大跌 → INVALIDATED 0
+数据不足 → UNKNOWN
+U03 F1-Y 鲤鱼跃龙门与单日假摔
+突破日前至少两个已确认重要局部高点，沿用LOCAL_PEAK左右各2根，确认不得读取突破日或未来数据。最近合法两高点连线外推至突破日，得到resistance_price。
+abs(resistance_price-M60_price)/M60_price<=3%构成dragon_gate_zone。多个组合按第二高点最近、第一高点最近的顺序检查；最近组合不共振就继续向前，选最近合法共振组合。
+dragon_gate_breakout = Close>resistance_price AND Close>M60_price。仅High突破不成立。没有涨幅>=7%、量比>=1.2、NEAR_LIMIT_UP或额外突破幅度门槛；这些旧强势条件全部废止，不得再次用于F1-Y突破。突破本身不要求成交量或涨跌停价。
+假摔必须紧随突破的下1个交易日，持续仅1天。保留open_near_limit_up、close_near_limit_down、large_drop、huge_volume配置。开盘>=涨停价*0.98，收盘<=跌停价*1.02；实体跌幅>=12%，或实际涨跌停区间较窄时按接近实际跌停适配；量比>=2.0或假摔成交量>=突破日1.5倍。
+假摔后1~3日内Close>M5且收复假摔实体至少50%才CONFIRMED +8；等待恢复CANDIDATE 0，满3日未恢复INVALIDATED 0。恢复条件不反向修改突破定义。无假摔不发放完整形态分。
+收盘同时突破共振区两线、紧随单日假摔、3日内恢复 → CONFIRMED +8
+突破后等待假摔或等待恢复 → CANDIDATE 0
+假摔后3日未恢复 → INVALIDATED 0
+无共振或收盘未突破或无假摔 → 0
+必要数据不足 → UNKNOWN
+U04 F1-O 一字板与一字T
+沿用非HIGH_ZONE前置和价格结构：open/high/close均距真实涨停价不超过0.2%；一字板(high-low)/limit<=0.5%，一字T low<=limit*0.98。前3日均量<=前20日均量*1.2为pre_volume_clean，两段均不含当日。
+价格成立、前期量干净且未触发R12：换手<=5%，一字板+6、一字T+5；5%<换手<15%，PARTIAL +2。前期已明显放量但未触发R12，PARTIAL +2。
+换手>=15%进入R12异常判定；R12沿用换手>=15%或量比>=3.0任一成立扣5，两项同时成立扣10。R12成立时F1-O正分清零，不能保留+2再扣风险。旧一字T换手<=10%及当前量比<=1.5满分门槛被本轮完整分档替代；价格结构未改。
+未触发R12且前期量干净，换手<=5%，一字板 → +6
+未触发R12且前期量干净，换手<=5%，一字T → +5
+未触发R12且形态成立，5%<换手<15%或前期已放量 → PARTIAL +2
+R12成立或价格形态不成立 → 0
+必要数据不足 → UNKNOWN
+C5 连续平台与T02_NEW
+连续至少5个交易日，100%收盘Close>=M60，至少80%日满足0<=Close/M60-1<=8%；不增加成交量条件。platform_high为该连续有效平台段的最高High。
+任一日Close<M60，旧平台立即INVALIDATED、正分清零。TERMINATED仅为历史描述，不新增统一状态枚举。跌破日及后续收复不能并入原平台；重新站上后从当日重新累计，新平台必须再次连续>=5日。
+1~3日快速收复仅交C4按其原有完整条件判断，不修改C4的阈值、强度或确认规则。新C5只有4日时不得得分；第5日重新满足条件才得4分。保留最近跌破日期、旧平台起止日期、新段起点和连续长度。
+T02_NEW：平台先形成；第6日Close<M60则原平台INVALIDATED且0分；2日后强势收复可由C4命中，但C5不立即成立；收复后4日仍0，第5日满足条件后新平台+4。所有旧C5洗盘并入同一平台文字均为SUPERSEDED_BY_V1_3。
+连续>=5日全close>=M60且至少80%距M60<=8% → +4
+旧平台任一收盘跌破M60 → INVALIDATED 0
+收复后新连续段不足5日或无平台 → 0
+M60历史或必要数据不足 → UNKNOWN
+状态 版本与范围
+统一状态仍为PASS/PARTIAL/FAIL/UNKNOWN/CANDIDATE/FORMED/CONFIRMED/INVALIDATED。所有新结果spec_version=1.3、assumption_version=v1.3。UNKNOWN仅因数据不足、无可靠历史证据、确认期未结束、未实现规则或未提交人工证据；不再返回USER_DECISION_REQUIRED。未实现不是语义歧义。权重不变。
+R4仍按最近P2、同P2绝对峰差最小选择；从CANDIDATE保留exit_risk_alert与相应扣分，INVALIDATED撤销。C6/E2/E3/F1-N/F1-T/F3/R8/R12和Coverage的V1.2修订继续有效。本阶段不接真实行情、不自动选股、不做前端或回测。
+第二部分 继承规则与历史对照
+未修改定义沿用V1.2。被替代的段落逐段标SUPERSEDED_BY_V1_3，只用于历史对照，禁止据其生成当前代码或验收预期。继承的原始V1.1条款还须服从V1.2活动定义；其旧窗口、分档或状态不可覆盖第一部分。
+第一部分 V1.2冻结修订
+二、统一解决区间端点歧义
+所有连续数值分档统一使用： 左闭右开 [a,b) 最高档允许右侧无穷。 例如： -3% <= x < 0% 0% <= x < 3% x >= 3% 不得因为 x=0、0.5%、1.10 等边界值返回 AMBIGUOUS_SPEC。 针对原 A01： 全部消除。 必须补边界测试。
+三、Coverage 规则重新冻结
+Coverage 衡量的是： “规则能否被可靠判断” 而不是： “规则有没有得分”。 因此： 只要规则返回确定状态，包括： PASS PARTIAL FAIL CANDIDATE FORMED CONFIRMED INVALIDATED 都算“已判断”。
+只有： UNKNOWN NOT_IMPLEMENTED 不算已判断。 PositiveCoverage： 已判断正向规则的有效最大分值 / 100 但必须应用所有组内封顶： A 10 B 15 C 25 D 20 E 15
+F 15 F1 多种启动形态仍只按 F1 组的有效上限计算， 不能因为多个F1规则导致 Coverage >100%。 RiskCoverage： 可被可靠判断的风险规则数量 / 当前应执行的全部风险规则数量 如果某条风险规则所需数据齐全、前置条件明确不成立： 视为“已判断但未触发”，不是 UNKNOWN。 只有： 缺关键数据 或实现尚未完成 才允许 UNKNOWN。 最终 Coverage 不得因为数学定义歧义返回 null。
+SUPERSEDED_BY_V1_3 历史对照：四、C5 M60起飞平台
+SUPERSEDED_BY_V1_3 历史对照：正式冻结： 平台至少持续： 5个交易日。 平台期间： 每个交易日收盘价必须： Close >= M60 只要任一交易日： Close < M60 该段不能被认定为“完整M60起飞平台”。 注意： 用户过去提到“主力可能故意跌破M60后1~3日重新收回”。 这种情况归 C4： M60快速收复 不要再算 C5 完整起飞平台。
+SUPERSEDED_BY_V1_3 历史对照：“在M60上方一点点”工程化定义： 0 <= (Close - M60) / M60 <= 8% 参数： m60_platform_max_distance_pct = 0.08 最近至少5日中： 至少80%的交易日满足上述距离条件， 且100%的收盘价不得低于M60。 平台振幅可以存在， 不要擅自要求成交量一定缩小或突破必须放量。 实现 C5。
+五、C6 / R8 上升安全带
+用户定义： 安全带分别存在于： 日K 周K 月K 每个周期都使用： “收盘价形成的波谷” 不是最低价 Low。 安全带由至少两个已确认的收盘价局部波谷连线形成。 局部收盘波谷： 当前周期 Close 小于前后各2根K线的 Close。 最近两个已确认波谷： 按时间最近的两个有效波谷建立上升支撑线。 只有：
+第二个波谷收盘价 > 第一个波谷收盘价 才属于上升安全带。 将两点连线外推到当前评价周期。 判断破位时： 盘中 Low 跌破安全带但 Close 收回： 不算失效。 只有当前周期： Close < 安全带价格 才判该周期安全带跌破。 日K： 使用日收盘。 周K： 只能在完整周线收盘后确认。 月K：
+只能在完整月线收盘后确认。 任何周期出现正式收盘跌破： 对应安全带 INVALIDATED。 R8执行规范中的风险扣分。 不能用 Low 代替 Close。 实现 C6 和 R8。
+SUPERSEDED_BY_V1_3 历史对照：六、E1 底部小连阳
+SUPERSEDED_BY_V1_3 历史对照：正式冻结： 最短观察长度： >=7个交易日。 小阳线： 0% < daily_return < 4% 大阳线： daily_return >= 5% 如果观察窗口内出现任何大阳线： 本轮“底部小连阳”结构失效。 4% <= daily_return < 5%： 定义为中间过渡阳线， 不计作“小阳”， 但单独出现时不直接使整个结构失效。 允许中间最多存在：
+SUPERSEDED_BY_V1_3 历史对照：1根小阴线 或 1根十字星 总计最多1根例外K线。 十字星工程定义： abs(close-open)/previous_close <= 0.5% 小阴线： -3% < daily_return <= 0% 如果 daily_return <= -3%： 不能作为允许的小阴线。 “底部”仍按照规范已有价格位置定义。 注意： 股票超过M60本身不代表正式启动。 用户定义：
+SUPERSEDED_BY_V1_3 历史对照：只有： 股价超过M60 并进一步突破M60起飞平台 才认为真正进入启动阶段。 实现 E1。
+七、E2 周线成交量反转
+使用完整周K。 步骤： 1. 找到上一轮主要价格高点； 2. 以上一轮主要高点所在周为中心； 3. 搜索： 高点前2周 高点周 高点后2周 共最多5周； 4. 在这5周内找到最大周成交量： previous_cycle_peak_volume 该周不要求与最高价发生在完全同一周。 底部阶段缩量持续时间： 不设固定长度。
+当前底部区域只要某完整周： weekly_volume > previous_cycle_peak_volume 即满足： 周线成交量反转。 不得擅自要求： 必须连续放量 必须先缩量N周 必须ATR收缩。 若存在多个上一轮主要高点： 优先选择距离当前评价日最近的、已结束的上一轮主要价格高点。 实现 E2。
+八、E3 阻尼运动
+用户定义： 阻尼运动不要求振幅越来越小。 核心只有： 1. 股价处于小幅波动； 2. 上涨时放量； 3. 下跌时缩量。 “小幅波动”工程定义： 观察窗口内至少80%的交易日： abs(daily_return) <= 5% 参数： damping_small_move_pct = 0.05 上涨日： daily_return > 0 下跌日：
+daily_return < 0 计算： avg_up_volume avg_down_volume 必须： avg_up_volume > avg_down_volume 才满足量价方向要求。 不设置固定持续天数。 程序需要在已有可用窗口内进行检测， 但至少要有： 3个上涨日 3个下跌日 否则证据不足返回 UNKNOWN。 不要重新加入“振幅持续收窄”的旧规则。
+实现 E3。
+九、F1-N N板多起点规则
+用户确认： 换手期间任意一天： Low < M5 即立即失效。 即使当天最终： Close > M5 仍然失效。 换手最长： 6个交易日。 如果窗口内存在多个可能 first_start： 按照 first_start 距评价日由近到远排序。 优先选择： 距离当前最近， 且完整满足：
+首次启动 → 2~6日换手 → 换手任何一天Low不得低于M5 → 二次启动 的完整结构。 如果最近候选失败： 继续向前检查下一候选。 如果找到一个完整合法结构： 使用距离当前最近的合法结构。 不要因为 multiple first_start 返回 UNKNOWN。 将 F1-N 从 PARTIAL 尽量升级到 IMPLEMENTED。 补多起点测试。
+十、F1-T T板
+用户定义： 不要求开盘价必须位于涨停附近。 核心是： 当天形成T形 且最终涨停。 机器规则： 1. 当日 Close 达到真实涨停价判定范围； 2. 当日 High 接近/等于真实涨停价； 3. 盘中发生明显开板： Low <= limit_up_price * 0.98 即最低价至少比涨停价低2%。 4. 最终重新封住涨停。 满足： 完整T板。
+不要额外要求： Open必须涨停。 成交量是否异常： 由 D 类和 R12 单独判断， 不要在F1-T重复扣分。 实现 F1-T。
+SUPERSEDED_BY_V1_3 历史对照：十一、F1-O 一字板 / 一字T
+SUPERSEDED_BY_V1_3 历史对照：用户确认： “此前没有放量”： 过去3个完整交易日平均成交量 <= 20日平均成交量 * 1.2 参数： one_word_pre_volume_ratio = 1.20 当日干净成交： turnover_rate <= 5% 参数： one_word_max_turnover_pct = 5.0 同时必须满足规范已有一字板/一字T价格结构。 如果价格形态满足但： 换手率 >5%
+SUPERSEDED_BY_V1_3 历史对照：或此前已经明显放量： 不能得到“干净启动”满分。 根据规范执行PARTIAL/FAIL或风险逻辑。 实现 F1-O。
+十二、F3 空中加油
+用户定义： 第一阶段： 出现涨停， 且涨停时成交量较小。 之后股票进入较高位置。 进入整理阶段： 整理持续2~6个交易日。 整理阶段相对于此前拉升阶段： 成交量明显更大。 这几天股价允许下跌， 但是： 任何一天 Low < M5 则空中加油结构立即 INVALIDATED。 即使收盘重新站回M5也不能恢复。
+整理结束以后继续上涨： 结构成立。 强度按照整理时间： 2日整理后重新上涨： +8 3~4日： +7 5~6日： +6 已经进入合法整理但尚未再次上涨： CANDIDATE +3 超过6日没有重新启动： 结构失效。
+“继续上涨”使用规范已有突破/上涨确认规则， 不得只因为单日微涨0.1%判定重新启动。 实现 F3。
+SUPERSEDED_BY_V1_3 历史对照：十三、F1-Y 鲤鱼跃龙门 + 假摔
+SUPERSEDED_BY_V1_3 历史对照：现在补全“龙门”的定义。 龙门不是单独M60， 也不是单独前高。 龙门 = “前期重要高点形成的压力连线” 与 “M60” 在同一价格区域形成的共同压力区。 步骤： 1. 在突破日前寻找至少两个已经确认的局部重要高点； 2. 高点必须发生在突破日前，禁止使用未来数据； 3. 使用距离突破日最近的两个有效重要高点建立压力线； 4. 将压力线外推到突破日； 5. 计算：
+SUPERSEDED_BY_V1_3 历史对照：resistance_price m60_price 共同区间要求： abs(resistance_price - m60_price) / m60_price <= 3% 参数： dragon_gate_confluence_pct = 0.03 只有满足共同区间， 才存在有效“龙门”。 “跃龙门”： 突破日 Close 同时高于： resistance_price
+SUPERSEDED_BY_V1_3 历史对照：和 M60 并满足规范中的强势突破要求。 若多个可能压力线候选： 优先使用距离突破日最近的一组合法高点组合。 假摔按照用户已冻结定义： 发生在跃龙门之后。 假摔只持续： 1个交易日。 特征： 1. 开盘价接近涨停价； 2. 收盘价接近跌停价； 3. 当日跌幅很大； 4. 当日成交量巨大。
+SUPERSEDED_BY_V1_3 历史对照：使用规范现有“接近涨停/接近跌停/巨大成交量”参数； 如果这些参数存在端点歧义，按左闭右开规则消除。 必须完整保留后续恢复确认逻辑， 防止真实出货被误判为假摔。 实现 F1-Y。
+SUPERSEDED_BY_V1_3 历史对照：十四、R7 该涨不涨
+SUPERSEDED_BY_V1_3 历史对照：用户定义： 只有此前评分已经达到明显高匹配， 才存在“应该涨”的前提。 冻结： 评价日： QuantScore >= 80 并且： Risk Level != HIGH 则进入 R7 forward observation。 参数： should_rise_score_threshold = 80 观察未来： 3个完整交易日。 参数：
+SUPERSEDED_BY_V1_3 历史对照：should_rise_observation_days = 3 如果这3日内： max(High) < 评价日Close * 1.03 即价格最高都没有超过评价日收盘价3%， 则判： R7 “该涨不涨”成立。 参数： should_rise_min_upside_pct = 0.03 执行规范中的风险扣分。 注意： 严格防止未来数据泄漏。 在评价日当天只能返回：
+SUPERSEDED_BY_V1_3 历史对照：PENDING / UNKNOWN reason_code=AWAITING_FORWARD_CONFIRMATION 等未来3个交易日真实结束后， 才能回溯确认 R7。 做历史回测时同样不能把未来结果泄漏给评价日评分。 实现 R7。
+十五、R4 双子顶多结构选择 + 卖出风险提醒
+保留已有完整双子顶算法。 如果同一窗口存在多个合法双子顶： 必须选择： P2距离当前评价日最近的一组。 如果多个结构 P2 日期相同： 选择： abs(P2_high - P1_high) 最小的一组， 即两个顶部高度最接近者。 不再因为 multiple double-top candidates 返回 UNKNOWN。 双子顶状态和扣分继续保留： CANDIDATE： 按规范扣分 FORMED：
+按规范进一步扣分 CONFIRMED： 按规范最高等级扣分 一旦检测到双子顶： 至少从 CANDIDATE 开始， 必须生成： exit_risk_alert = true alert_type = "DOUBLE_TOP_EXIT_RISK" UI未来展示文本： “检测到双子顶卖出风险信号，请重点关注顶部结构及破位风险。” 注意： 这是用户自定义交易规则的风险提醒， 不是自动下单功能。 如果后续满足 INVALIDATED：
+撤销该双子顶风险和相应扣分。 补： 多组候选 最近P2优先 同P2峰差优先 风险提醒 失效撤销 测试。
+统一工程执行约定
+连续数值评分档位统一左闭右开。结构条件中明确的<=、>=、>、<保持用户原意；例如平台8%距离、颈线严格跌破、N板Low<M5不因此改写。确定的无适用前置为FAIL/0；到期结构为INVALIDATED/0；未来观察不足为UNKNOWN并附等待原因，不增造正式状态。
+Coverage以已判断规则的最大分值计算，F1贡献为已判断子项最大max_score且不超过10，再应用F类15及其他类别封顶；所有7种确定状态计入。风险分母为本次应执行的风险规则全集（包括前置已判断不成立者、缺数据与未实现者）；分母为空时返回1并标记empty_execution_set。
+局部峰谷确认不得读未来。尚缺右侧确认的峰可保留CANDIDATE，不提前升级。多结构按最近合法完整结构优先；双顶按P2最近、绝对峰差最小排序，再以P1最近作完全同值工程稳定排序。
+周/月输入必须声明已完成周期，或由评价日之前已明确结束的日历周期聚合；不得把未来周期完成标记带入历史评价。日线输入视为已完成交易日。缺历史交易日或复权口径未确认必须明确UNKNOWN。
+压力线的重要高点沿用已冻结LOCAL_PEAK(k=2)，不增造显著性指标。S4真实封停以close_raw>=真实limit_up_price判断，NEAR_LIMIT_UP仅为其他明文允许代理的规则使用。
+V1.2活动规则契约
+SUPERSEDED_BY_V1_3 历史对照：C5 活动定义
+SUPERSEDED_BY_V1_3 历史对照：字段：close_adj、high_adj、low_adj、M60。窗口：当前结尾至少5个完整交易日；最多250日工程搜索。前置：至少5日，全部close>=M60且至少80%日0<=close/M60-1<=8%。
+SUPERSEDED_BY_V1_3 历史对照：完整平台条件满足 → +4
+SUPERSEDED_BY_V1_3 历史对照：最近5日内任一close<M60或无有效平台 → 0
+SUPERSEDED_BY_V1_3 历史对照：M60历史不足 → UNKNOWN
+C6 活动定义
+字段：daily close_adj；已完成weekly/monthly close_adj。窗口：D120/W52/M36工程窗口；三周期均前后2根确认。前置：最近两个严格收盘波谷已确认且第二波谷高于第一波谷。
+日线安全带未被周期收盘跌破 → +1
+完整周线安全带未被周期收盘跌破 → +1
+完整月线安全带未被周期收盘跌破 → +1
+对应周期收盘跌破 → 0 / INVALIDATED
+数据或完整周期不足 → UNKNOWN
+SUPERSEDED_BY_V1_3 历史对照：E1 活动定义
+SUPERSEDED_BY_V1_3 历史对照：字段：open_adj、high_adj、low_adj、close_adj、M60、C5平台、position_120。窗口：最近60日工程扫描；连续至少7日。前置：开始于LOW_ZONE；未同时突破M60与起飞平台。
+SUPERSEDED_BY_V1_3 历史对照：连续>=7日；小阳0<日收益<4%；小阴/十字星合计<=1；无>=5%大阳 → +4
+SUPERSEDED_BY_V1_3 历史对照：尚未满7日，未破坏 → CANDIDATE 0
+SUPERSEDED_BY_V1_3 历史对照：出现>=5%大阳、<=-3%大跌或第2根例外 → 0 / INVALIDATED
+SUPERSEDED_BY_V1_3 历史对照：4%~5%过渡阳线计数待用户确认 → UNKNOWN
+E2 活动定义
+字段：完整weekly high_adj/low_adj/close_adj/volume。窗口：最近52周，至少20周。前置：最近已结束且已确认局部高点；高点后底部位置<=35%。
+底部完整周成交量>高点前后各2周最大周量 → +4 / CONFIRMED
+底部但周量未超过参考量 → CANDIDATE 0
+非底部或没有前轮高点 → 0
+完整周数据不足 → UNKNOWN
+E3 活动定义
+字段：close_adj、volume。窗口：全部已有可用日线；不设固定持续天数。前置：至少3上涨日和3下跌日，至少80%日abs(return)<=5%。
+小幅波动且上涨均量/下跌均量>=1.15 → +3
+小幅波动且1<上涨均量/下跌均量<1.15 → +2
+样本充分但价格/量价方向不成立 → 0
+上涨/下跌各3日证据不足 → UNKNOWN
+F1-N 活动定义
+字段：close_adj/high_adj/low_adj、M5、volume、close_raw、limit_up_price。窗口：最近20日候选；换手2~6日。前置：按first_start由近到远；优先最近完整合法结构。
+合法启动后2~6日换手low始终>=M5且二次启动 → +10 / CONFIRMED
+合法换手>=2日且尚未再启动 → CANDIDATE +4
+任一换手日low<M5 → 0 / INVALIDATED
+超过6日仍未再启动 → 0 / INVALIDATED
+关键数据/后续观察不足 → UNKNOWN
+F1-T 活动定义
+字段：open_raw/high_raw/low_raw/close_raw、limit_up_price。窗口：当前完整交易日。前置：真实涨停价可用；Open无涨停前置。
+close和high达到涨停范围且low<=limit_up*0.98 → +8
+完整T形或收盘封停不成立 → 0
+价格/涨停价缺失 → UNKNOWN
+SUPERSEDED_BY_V1_3 历史对照：F1-O 活动定义
+SUPERSEDED_BY_V1_3 历史对照：字段：raw OHLC、limit_up_price、volume、turnover_rate、HIGH_ZONE。窗口：前3日与前20日均量均不含当日。前置：非高位；沿用一字/一字T价格结构。
+SUPERSEDED_BY_V1_3 历史对照：一字板；前3日均量<=前20日1.2倍；换手<=5%；当前量比<=1.5 → +6
+SUPERSEDED_BY_V1_3 历史对照：一字T；此前无放量且换手<=5% → +5
+SUPERSEDED_BY_V1_3 历史对照：形态成立但此前已明显放量；无异常成交 → PARTIAL +2
+SUPERSEDED_BY_V1_3 历史对照：R12异常成交或价格结构不成立 → 0
+SUPERSEDED_BY_V1_3 历史对照：此前量干净但5%<换手<15%的分值待明确 → UNKNOWN
+F3 活动定义
+字段：daily OHLCV、M5、limit_up_price、HIGH_ZONE。窗口：涨停后2~6日整理。前置：低量涨停后高位；整理均量/此前3日拉升均量>=1.2；盘中M5不破。
+2日整理后明确继续上涨 → +8
+3~4日整理后明确继续上涨 → +7
+5~6日整理后明确继续上涨 → +6
+合法整理尚未确认上涨 → CANDIDATE +3
+盘中M5破位或超过6日未再启动 → 0 / INVALIDATED
+SUPERSEDED_BY_V1_3 历史对照：F1-Y 活动定义
+SUPERSEDED_BY_V1_3 历史对照：字段：raw/adjusted OHLCV、M5/M60、真实limit_up/limit_down。窗口：突破后紧随1日假摔，再观察最多3日恢复。前置：已确认最近合法两高点压力线与M60距离<=3%；close同时越过两线且强势。
+SUPERSEDED_BY_V1_3 历史对照：共同龙门强势突破、次日近涨停开近跌停收巨量、3日内恢复M5及实体50% → +8 / CONFIRMED
+SUPERSEDED_BY_V1_3 历史对照：假摔已发生且等待恢复 → CANDIDATE 0
+SUPERSEDED_BY_V1_3 历史对照：3日未恢复 → 0 / INVALIDATED
+SUPERSEDED_BY_V1_3 历史对照：非涨停强势突破量能定义待明确或关键数据不足 → UNKNOWN
+SUPERSEDED_BY_V1_3 历史对照：R7 活动定义
+SUPERSEDED_BY_V1_3 历史对照：字段：冻结V1.2评分快照、信号日close、之后3日high_adj/close_adj。窗口：历史信号后3个完整交易日。前置：冻结QuantScore>=80且Risk Level!=HIGH。
+SUPERSEDED_BY_V1_3 历史对照：未来3日最高价<信号close*1.03且最大收盘收益<=0 → -10
+SUPERSEDED_BY_V1_3 历史对照：触发风险且0<最大收盘收益<2%（继承明确分档） → -6
+SUPERSEDED_BY_V1_3 历史对照：达到信号close*1.03 → 0 / INVALIDATED
+SUPERSEDED_BY_V1_3 历史对照：触发但最大收盘收益>=2%的扣分映射待明确 → UNKNOWN
+SUPERSEDED_BY_V1_3 历史对照：未来3日未完成 → UNKNOWN / AWAITING_FORWARD_CONFIRMATION
+R8 活动定义
+字段：C6分周期收盘波谷支撑与完整周期close。窗口：已完成日/周/月周期。前置：对应周期已形成上升收盘安全带。
+日线收盘跌破 → -6
+周线收盘跌破 → -10
+月线收盘跌破 → -12
+多周期破位 → 只取最高档
+Low破但Close收回 → 0
+第二部分 继承的48条规则及原始评分依据
+以下保留V1.1原文以追溯每条规则。遇到与第一部分修订冲突的旧定义、旧分档端点、旧状态或旧窗口，以第一部分为准；旧文不具有覆盖修订条款的效力。未修改规则继续适用。
+继承的总架构 数据契约与全局定义
+2. 评分总架构 | 模块 | 满分/作用 | 说明 | A 大盘环境 | 10 | 判断当前市场是否支持顺势交易。 | B 板块与相对强度 | 15 | 先识别风口板块，再判断个股是否具有板块内主动性。 | C 趋势与关键位置 | 25 | 以 M60、均线结构、平台和安全带为核心。 | D 量价与换手 | 20 | 判断突破是否有量、回踩是否缩量、换手是否健康。 | E 建仓/筹码迹象 | 15 | 识别底部小连阳、周线成交量反转、阻尼、筹码峰等。 | F 启动形态 | 15 | 识别 N板、T板、仙人指路、鲤鱼跃龙门+假摔等；互斥/封顶。 | 风险 R 系列 | 独立扣分 | 高位异常换手/放量、出货板、双子顶、反转组合等。
+PositiveScore = min(100, A + B + C + D + E + F) | FinalQuantScore = max(0, PositiveScore - RiskPenalty) | 85–100：高度符合当前交易策略；70–84：较符合；55–69：信号混合；40–54：匹配度较低；0–39：明显不符合。 | Risk Level 与 FinalQuantScore 分开显示。高分不能掩盖 HIGH RISK。 | 3. 数据契约与统一计算口径 | 3.1 必需字段 | 字段 | 用途 | 缺失处理 | date | 交易日索引 | 缺失则整条K线无效 | open/high/low/close_raw | 涨停、T板、形态和真实交易价格 | 关键形态规则 UNKNOWN | open/high/low/close_adj | 均线、收益、趋势；建议前复权 | 趋势类规则 UNKNOWN | volume | 成交量 | 量价类规则 UNKNOWN | amount | 成交额（板块活跃度） | 对应规则 UNKNOWN | turnover_rate | 换手率 | 换手类规则 UNKNOWN | limit_up_price | 当日真实涨停价 | 涨停/T板/一字板规则 UNKNOWN，不得写死固定百分比 | benchmark_index | 大盘基准指数 | A 类 UNKNOWN | sector_id / sector_constituents | 板块归属和成分股 | B 类和自动选股 UNKNOWN | chip_distribution（可选） | 筹码峰与成本分布 | E4/E5/R10 UNKNOWN | minute_bars（可选） | 分时缩量诱多等 | R6 UNKNOWN
+3.2 统一派生变量 | M5(t) = mean(close_adj[t-4:t]) | M20(t) = mean(close_adj[t-19:t]) | M30(t) = mean(close_adj[t-29:t]) | M60(t) = mean(close_adj[t-59:t]) | VMA20(t) = mean(volume[t-19:t]) | volume_ratio_20(t) = volume[t] / VMA20(t-1)    # 分母默认不含当日，避免自身稀释 | return_Nd(t) = close_adj[t] / close_adj[t-N] - 1 | position_120(t) = (close_adj[t]-min(low_adj[t-119:t])) / (max(high_adj[t-119:t])-min(low_adj[t-119:t])) | M60_slope_10(t) = M60(t) / M60(t-10) - 1 | ATR10_pct(t) = ATR10(t) / close_adj[t] | 3.3 全局区间定义 | 名称 | 机器定义 | NEAR_M60 | abs(close_adj / M60 - 1) <= 8% | LOW_ZONE | position_120 <= 0.35，且 close_adj <= M60×1.15 | HIGH_ZONE | position_120 >= 0.80 且 return_20d >= 15%，或 return_60d >= 30% | NEAR_LIMIT_UP | close_raw >= limit_up_price×0.995 | LOCAL_PEAK(k=2) | high[t] 为前后各2个交易日共5日窗口最高值 | LOCAL_TROUGH(k=2) | low[t] 为前后各2个交易日共5日窗口最低值
+3.4 状态枚举 | 状态 | 含义 | PASS | 数据充分且满足规则。 | PARTIAL | 只满足部分条件，对应分档得部分分。 | FAIL | 数据充分且明确不满足。 | UNKNOWN | 数据缺失/概念在 V1 无法可靠判断。 | CANDIDATE | 形态雏形形成但尚未完成确认。 | FORMED | 主要结构已形成但未完成最终破位/突破确认。 | CONFIRMED | 完成最终确认条件。 | INVALIDATED | 此前候选结构被后续走势明确破坏。
+4. 风口板块 SectorHeatScore（自动选股前置） | 板块热度分单独计算 0–100，不直接等同于个股 QuantScore。 | 默认 SectorHeatScore >= 70 才进入“风口候选板块”；该 70 分为 V1 工程阈值，可后续回测调整。 | 自动选股先筛板块，再扫描成分股，符合用户笔记“先看大盘、再看板块、最后看个股”的顺序。 | Rule | 指标 | 满分 | 核心计算 | S1 | 板块1日相对强度 | 20 | sector_return_1d - benchmark_return_1d | S2 | 板块5日相对强度 | 20 | sector_return_5d - benchmark_return_5d | S3 | 上涨广度 | 15 | 上涨成分股数 / 有效成分股数 | S4 | 涨停联动密度 | 15 | 涨停成分股数 / 有效成分股数，并保留绝对数量门槛 | S5 | 成交活跃度 | 15 | 当日板块成交额 / 20日平均成交额 | S6 | 强势持续性 | 10 | 过去5日跑赢大盘的交易日数 | S7 | 强势股深度 | 5 | 板块内当日涨幅>=5%的股票占比
+S1 板块1日相对强度
+字段 | 规范 | 最大分值/扣分 | +20 | 自动化级别 | AUTO | 规则来源 | 笔记：热点板块/板块效应；阈值为V1工程假设 | 笔记依据 | 笔记第4页
+1）规则目的：判断板块当天是否明显跑赢大盘。
+2）所需数据： | sector_return_1d | benchmark_return_1d
+3）观察窗口：1个交易日
+4）前置条件： | 板块有效成分股覆盖率>=80%
+5）精确定义/公式： | excess_1d = sector_return_1d - benchmark_return_1d
+6）判定步骤： | 计算板块等权或数据源板块指数收益；计算相对大盘超额收益。
+7）评分/扣分分档： | 条件 | 得分/扣分 | > +2.0% | +20 | +1.0% ~ +2.0% | +16 | +0.5% ~ +1.0% | +10 | 0 ~ +0.5% | +5 | <=0 | 0
+8）失效与 UNKNOWN： | 板块或基准缺数据=>UNKNOWN。
+9）冲突与去重规则： | 不得与S2合并；两个时间尺度分别表达“当天爆发”和“持续性”。
+10）解释模板： | 板块当日跑赢大盘 {excess_1d:.2%}，对应 S1 得 {score}/20 分。
+S2 板块5日相对强度
+字段 | 规范 | 最大分值/扣分 | +20 | 自动化级别 | AUTO | 规则来源 | 笔记：热点板块/板块效应；阈值为V1工程假设 | 笔记依据 | 笔记第4页
+1）规则目的：判断热点是否仅一日脉冲，还是在5日尺度持续强于大盘。
+2）所需数据： | sector_return_5d | benchmark_return_5d
+3）观察窗口：5个交易日
+4）前置条件： | 5日数据完整
+5）精确定义/公式： | excess_5d = sector_return_5d - benchmark_return_5d
+6）判定步骤： | 计算5日累计超额。
+7）评分/扣分分档： | 条件 | 得分/扣分 | > +6% | +20 | +4% ~ +6% | +16 | +2% ~ +4% | +12 | 0 ~ +2% | +6 | <=0 | 0
+8）失效与 UNKNOWN： | 不足5日=>UNKNOWN。
+9）冲突与去重规则： | S1/S2均可得分，但板块热度最终总分封顶100。
+10）解释模板： | 板块近5日累计跑赢大盘 {excess_5d:.2%}，对应 S2 得 {score}/20 分。
+S3 上涨广度
+字段 | 规范 | 最大分值/扣分 | +15 | 自动化级别 | AUTO | 规则来源 | 笔记：真正板块联动应有多只股票共同走强 | 笔记依据 | 笔记第4页
+1）规则目的：防止仅由一两只权重股制造“假热点”。
+2）所需数据： | component_daily_return
+3）观察窗口：1个交易日
+4）前置条件： | 有效成分股数量>=10，数据覆盖>=80%
+5）精确定义/公式： | breadth = count(return_1d>0) / valid_components
+6）判定步骤： | 统计上涨股票占比。
+7）评分/扣分分档： | 条件 | 得分/扣分 | >=80% | +15 | 70%~80% | +12 | 60%~70% | +8 | 50%~60% | +4 | <50% | 0
+8）失效与 UNKNOWN： | 有效样本<10=>UNKNOWN。
+9）冲突与去重规则： | 涨停股也属于上涨股，但S4仍独立反映极强联动。
+10）解释模板： | 板块有效成分股中 {breadth:.1%} 上涨，S3 得 {score}/15 分。
+S4 涨停联动密度
+字段 | 规范 | 最大分值/扣分 | +15 | 自动化级别 | AUTO | 规则来源 | 笔记明确：当日板块至少三只以上封涨停，越多联动越真实 | 笔记依据 | 笔记第4页
+1）规则目的：直接刻画板块内极强个股的同步程度。
+2）所需数据： | limit_up_price | close_raw | sector_components
+3）观察窗口：1个交易日
+4）前置条件： | 真实涨停价可用；有效成分股>=10
+5）精确定义/公式： | limit_count = count(close_raw >= limit_up_price*0.995) | limit_ratio = limit_count / valid_components
+6）判定步骤： | 先计算绝对涨停数，再结合比例分档。
+7）评分/扣分分档： | 条件 | 得分/扣分 | limit_count>=5 且 limit_ratio>=5% | +15 | limit_count>=3 | +12 | limit_count=2 | +6 | limit_count=1 | +3 | 0 | 0
+8）失效与 UNKNOWN： | 涨停价无法可靠取得=>UNKNOWN。
+9）冲突与去重规则： | 不可把接近涨停但未封板当成涨停；NEAR_LIMIT_UP不用于S4。
+10）解释模板： | 板块当日 {limit_count} 只股票封涨停，S4 得 {score}/15 分。
+S5 板块成交活跃度
+字段 | 规范 | 最大分值/扣分 | +15 | 自动化级别 | AUTO | 规则来源 | 工程化补充，用于证明资金参与，不等价于“主力” | 笔记依据 | V1工程规则
+1）规则目的：识别板块是否出现显著资金活跃，而不是价格无量上涨。
+2）所需数据： | sector_amount | sector_amount_ma20
+3）观察窗口：20个交易日
+4）前置条件： | 成交额数据覆盖>=80%
+5）精确定义/公式： | amount_ratio = sector_amount_today / mean(sector_amount_prev20)
+6）判定步骤： | 分母不含当日。
+7）评分/扣分分档： | 条件 | 得分/扣分 | >=1.8 | +15 | 1.4~1.8 | +12 | 1.15~1.4 | +8 | 0.9~1.15 | +4 | <0.9 | 0
+8）失效与 UNKNOWN： | 20日历史不足=>UNKNOWN。
+9）冲突与去重规则： | 本指标只描述成交活跃，不得解释成“资金净流入”。
+10）解释模板： | 板块成交额为前20日均值的 {amount_ratio:.2f} 倍，S5 得 {score}/15 分。
+S6 强势持续性
+字段 | 规范 | 最大分值/扣分 | +10 | 自动化级别 | AUTO | 规则来源 | 笔记：板块效应应具有持续性；数值阈值为工程假设 | 笔记依据 | 笔记第4页 + V1工程规则
+1）规则目的：衡量过去5个交易日板块跑赢大盘的天数。
+2）所需数据： | sector_return_daily | benchmark_return_daily
+3）观察窗口：5个交易日
+4）前置条件： | 5日完整
+5）精确定义/公式： | win_days = count(sector_return_1d[d] > benchmark_return_1d[d])
+6）判定步骤： | 逐日比较，禁止用累计收益替代。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 5天 | +10 | 4天 | +8 | 3天 | +5 | 2天 | +2 | 0~1天 | 0
+8）失效与 UNKNOWN： | 缺任何关键日=>按有效覆盖率，覆盖<80%则UNKNOWN。
+9）冲突与去重规则： | 与S2不同：S2看累计强度，S6看持续天数。
+10）解释模板： | 过去5个交易日中有 {win_days} 天跑赢大盘，S6 得 {score}/10 分。
+S7 强势股深度
+字段 | 规范 | 最大分值/扣分 | +5 | 自动化级别 | AUTO | 规则来源 | 笔记：板块强势应有多个强势股助攻 | 笔记依据 | 笔记第4页 + V1工程规则
+1）规则目的：判断板块是否有足够多中强势个股，而非只有涨停股。
+2）所需数据： | component_daily_return
+3）观察窗口：1个交易日
+4）前置条件： | 有效成分股>=10
+5）精确定义/公式： | strong_ratio = count(return_1d>=5%) / valid_components
+6）判定步骤： | 计算强势股占比。
+7）评分/扣分分档： | 条件 | 得分/扣分 | >=15% | +5 | 10%~15% | +4 | 5%~10% | +2 | <5% | 0
+8）失效与 UNKNOWN： | 样本不足=>UNKNOWN。
+9）冲突与去重规则： | S7不替代S4；S4看涨停极强股，S7看更广的强势层。
+10）解释模板： | 板块中当日涨幅>=5%的股票占 {strong_ratio:.1%}，S7 得 {score}/5 分。
+A1 大盘短期趋势
+字段 | 规范 | 最大分值/扣分 | +4 | 自动化级别 | AUTO | 规则来源 | 笔记强调“先看大盘、顺势”；阈值为V1工程假设 | 笔记依据 | 笔记第1–2页
+1）规则目的：判断大盘短期是否处于可顺势参与的环境。
+2）所需数据： | benchmark close_adj | benchmark M20
+3）观察窗口：20个交易日
+4）前置条件： | 基准指数已配置；20日数据完整
+5）精确定义/公式： | m20_up = M20(t) > M20(t-5) | above_m20 = close(t) > M20(t)
+6）判定步骤： | 分别判断指数是否位于M20之上以及M20是否抬升。
+7）评分/扣分分档： | 条件 | 得分/扣分 | above_m20=True 且 m20_up=True | +4 | 仅满足一个 | +2 | 均不满足 | 0
+8）失效与 UNKNOWN： | 基准缺失或M20不可算=>UNKNOWN。
+9）冲突与去重规则： | A1只看短期；不得用A2中期条件替代。
+10）解释模板： | 大盘当前{above_text}M20，且M20{trend_text}，A1 得 {score}/4 分。
+A2 大盘中期结构
+字段 | 规范 | 最大分值/扣分 | +3 | 自动化级别 | AUTO | 规则来源 | 笔记“买涨不买跌/看趋势”；阈值为工程化 | 笔记依据 | 笔记第1–2页
+1）规则目的：确认大盘中期是否位于M60之上且M60没有明显下行。
+2）所需数据： | benchmark close_adj | benchmark M60
+3）观察窗口：70个交易日
+4）前置条件： | 60日均线可计算
+5）精确定义/公式： | above_m60 = close(t) > M60(t) | m60_slope_10 = M60(t)/M60(t-10)-1
+6）判定步骤： | 计算位置与10日斜率。
+7）评分/扣分分档： | 条件 | 得分/扣分 | above_m60 且 slope>0.5% | +3 | above_m60 且 slope>=-0.5% | +2 | 其余 | 0
+8）失效与 UNKNOWN： | 不足70日=>UNKNOWN。
+9）冲突与去重规则： | A2不重复奖励个股C类均线。
+10）解释模板： | 大盘位于M60{position_text}，M60十日变化 {m60_slope_10:.2%}，A2 得 {score}/3 分。
+A3 大盘5日动能
+字段 | 规范 | 最大分值/扣分 | +3 | 自动化级别 | AUTO | 规则来源 | 工程化补充，服务于“顺势” | 笔记依据 | V1工程规则
+1）规则目的：用短期累计收益给市场强弱再分层。
+2）所需数据： | benchmark close_adj
+3）观察窗口：5个交易日
+4）前置条件： | 5日数据完整
+5）精确定义/公式： | ret5 = close(t)/close(t-5)-1
+6）判定步骤： | 计算5日累计收益。
+7）评分/扣分分档： | 条件 | 得分/扣分 | >+3% | +3 | 0~+3% | +2 | -3%~0 | +1 | <-3% | 0
+8）失效与 UNKNOWN： | 不足5日=>UNKNOWN。
+9）冲突与去重规则： | 不得把A3作为未来收益预测。
+10）解释模板： | 大盘近5日涨跌幅 {ret5:.2%}，A3 得 {score}/3 分。
+B1 所属板块热度映射
+字段 | 规范 | 最大分值/扣分 | +8 | 自动化级别 | AUTO | 规则来源 | 笔记强调热点板块；直接复用SectorHeatScore | 笔记依据 | 笔记第4页
+1）规则目的：将板块热度分映射到个股评分，保证个股首先处于有效风口。
+2）所需数据： | SectorHeatScore
+3）观察窗口：当日
+4）前置条件： | SectorHeatScore覆盖率>=80%
+5）精确定义/公式： | heat = SectorHeatScore
+6）判定步骤： | 按热度区间映射，不重复计算S1-S7。
+7）评分/扣分分档： | 条件 | 得分/扣分 | >=85 | +8 | 75~84 | +7 | 70~74 | +6 | 60~69 | +4 | 50~59 | +2 | <50 | 0
+8）失效与 UNKNOWN： | 板块归属或Heat不可算=>UNKNOWN。
+9）冲突与去重规则： | B1只读取最终Heat，禁止再次把S1-S7直接累加进个股分。
+10）解释模板： | 所属板块热度为 {heat}/100，B1 得 {score}/8 分。
+B2 个股相对板块5日强度
+字段 | 规范 | 最大分值/扣分 | +4 | 自动化级别 | AUTO | 规则来源 | 笔记：主动性上涨而非被动跟涨；阈值为工程代理 | 笔记依据 | 笔记第4页
+1）规则目的：判断个股是否显著跑赢所属板块。
+2）所需数据： | stock_return_5d | sector_return_5d
+3）观察窗口：5个交易日
+4）前置条件： | 个股与板块5日数据完整
+5）精确定义/公式： | rel5 = stock_return_5d - sector_return_5d
+6）判定步骤： | 计算5日超额。
+7）评分/扣分分档： | 条件 | 得分/扣分 | >+8% | +4 | +4%~+8% | +3 | +1%~+4% | +2 | 0~+1% | +1 | <=0 | 0
+8）失效与 UNKNOWN： | 缺板块收益=>UNKNOWN。
+9）冲突与去重规则： | 不得将单日涨停直接当作5日主动性。
+10）解释模板： | 个股近5日跑赢所属板块 {rel5:.2%}，B2 得 {score}/4 分。
+B3 板块内龙头代理
+字段 | 规范 | 最大分值/扣分 | +3 | 自动化级别 | AUTO | 规则来源 | 用户补充定义：板块龙头=本轮板块中最先封涨停的股票；其后任一交易日盘中跌破M5即失去领涨地位 | 笔记依据 | 笔记第4页 + 用户补充（v1.1）
+1）规则目的：把“最先涨停、M5不破”的龙头定义直接转成日线可执行规则，不再用收益分位替代。
+2）所需数据：所属板块全部有效成分股的 daily OHLC、M5、真实 limit_up_price。
+3）观察窗口：默认搜索最近10个交易日作为“当前板块启动波段”的工程扫描窗口；10日只是实现窗口，不改变“最先涨停”的业务定义。
+4）前置条件：板块有效成分股>=10；各股涨停价可可靠取得；当前板块在该窗口内至少出现1只真实封涨停股票。
+5）精确定义/公式：is_limit_up[s,d] = close_raw[s,d] >= limit_up_price[s,d]*0.995；first_limit_day = min(d where any stock is_limit_up=True)；leader_candidate[s] = is_limit_up[s,first_limit_day]；leader_intact[s,t] = all(low_adj[s,k] >= M5[s,k] for k=first_limit_day+1..t)。同一天多只同时最先封板时，日线粒度无法排序，全部标记 CO_LEADER。
+6）判定步骤：先对板块所有成分股逐日判断真实封涨停；找到窗口内最早封板日；确认目标股票是否在该日封板；再逐日检查该股最低价是否曾低于当日M5。
+7）评分/扣分分档：
+8）失效与 UNKNOWN：若目标股票在成为 leader/co-leader 后任一交易日 low_adj < M5，则立即 INVALIDATED、B3=0；缺板块全量成分股、涨停价或M5=>UNKNOWN。
+9）冲突与去重规则：B3只描述“本轮最先涨停且M5未破”的领涨资格；不得再用5日收益分位把非最先涨停股票升级成龙头。
+10）解释模板：本轮板块最早涨停日为 {first_limit_day}；目标股票{leader_text}最早涨停组，之后M5完整性={m5_intact}，B3 得 {score}/3 分。 | 条件 | 得分/扣分 | 目标股属于 first_limit_day 最早涨停组，且此后从未 low<M5 | +3 | 属于最早涨停组，但后续任一日 low<M5 | 0 / INVALIDATED | 不是最早涨停组 | 0 | 无法确定全板块最早涨停日 | UNKNOWN
+C1 站稳M60
+字段 | 规范 | 最大分值/扣分 | +5 | 自动化级别 | AUTO | 规则来源 | 笔记多次强调M60及其上方运行 | 笔记依据 | 笔记第5、10、14页
+1）规则目的：区分“刚站上一天”和“持续站稳”，避免一天假突破获得满分。
+2）所需数据： | close_adj | M60
+3）观察窗口：最近5个交易日
+4）前置条件： | M60可计算
+5）精确定义/公式： | days_above = count(close[d] >= M60[d]*(1-0.003), d=t-4..t)
+6）判定步骤： | 统计5日内收盘不低于M60（允许0.3%数值容差）的天数。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 5天 | +5 | 4天 | +4 | 3天 | +2 | 0~2天 | 0
+8）失效与 UNKNOWN： | 不足64日历史=>UNKNOWN。
+9）冲突与去重规则： | 若C4“有效突破M60”同日成立，两者可同时得分：C1表达持续位置，C4表达事件。
+10）解释模板： | 最近5个交易日有 {days_above} 天收盘位于M60之上，C1 得 {score}/5 分。
+C2 M60方向
+字段 | 规范 | 最大分值/扣分 | +5 | 自动化级别 | AUTO | 规则来源 | 笔记把M60视为重要趋势/成本线；阈值为V1工程假设 | 笔记依据 | 笔记第5、10页
+1）规则目的：判断M60自身是否向上，而非仅看股价偶然站上。
+2）所需数据： | M60
+3）观察窗口：10个交易日
+4）前置条件： | M60(t-10)存在
+5）精确定义/公式： | slope = M60(t)/M60(t-10)-1
+6）判定步骤： | 按10日变化率分档。
+7）评分/扣分分档： | 条件 | 得分/扣分 | >+2% | +5 | +0.5%~+2% | +4 | 0~+0.5% | +2 | -1%~0 | +1 | <-1% | 0
+8）失效与 UNKNOWN： | 历史不足=>UNKNOWN。
+9）冲突与去重规则： | C2只看M60，不使用M5/M30。
+10）解释模板： | M60较10日前变化 {slope:.2%}，C2 得 {score}/5 分。
+C3 均线多头结构
+字段 | 规范 | 最大分值/扣分 | +4 | 自动化级别 | AUTO | 规则来源 | 工程化表达“趋势向上/多周期一致” | 笔记依据 | 笔记第2、5页
+1）规则目的：用M5、M30、M60判断短中期方向是否一致。
+2）所需数据： | close_adj | M5 | M30 | M60
+3）观察窗口：60个交易日
+4）前置条件： | 三条均线可计算
+5）精确定义/公式： | full = close>M5>M30>M60 | partial = close>M5 and M5>M60 and close>M60
+6）判定步骤： | 优先判断完整结构。
+7）评分/扣分分档： | 条件 | 得分/扣分 | full=True | +4 | partial=True | +2 | 其余 | 0
+8）失效与 UNKNOWN： | 任一均线缺失=>UNKNOWN。
+9）冲突与去重规则： | 完整结构命中后不再加partial分。
+10）解释模板： | 当前均线关系为 {ma_order}，C3 得 {score}/4 分。
+C4 M60有效突破/快速收复
+字段 | 规范 | 最大分值/扣分 | +4 | 自动化级别 | AUTO | 规则来源 | 笔记：突破M60；以及短暂跌破后1–3日以强势方式收回 | 笔记依据 | 笔记第10页
+1）规则目的：识别真正突破和“洗盘后快速收复”，避免普通穿越M60被高估。
+2）所需数据： | close_adj | M60 | limit_up_price | close_raw
+3）观察窗口：最近10日
+4）前置条件： | M60、原始价格、涨停价可用
+5）精确定义/公式： | cross_up[d] = close[d-1] <= M60[d-1] and close[d] >= M60[d]*1.01 | confirmed = cross_up后3日内至少2日 close>=M60 | reclaim = 最近1~3日前曾close<M60，当前close>=M60*1.01且当日涨幅>=7%或NEAR_LIMIT_UP
+6）判定步骤： | 搜索最近10日事件；若同时存在，取更高分。
+7）评分/扣分分档： | 条件 | 得分/扣分 | confirmed=True | +4 | reclaim=True | +4 | 仅cross_up且尚未确认 | +2 | 无事件 | 0
+8）失效与 UNKNOWN： | 涨停价缺失不影响普通cross_up，但reclaim中的NEAR_LIMIT_UP子条件只可使用日涨幅>=7%的替代条件并标注proxy。
+9）冲突与去重规则： | 同一事件只能得一次C4。
+10）解释模板： | 最近出现{event_type}，并{confirm_text}，C4 得 {score}/4 分。
+SUPERSEDED_BY_V1_3 历史对照：C5 M60起飞平台
+SUPERSEDED_BY_V1_3 历史对照：字段 | 规范 | 最大分值/扣分 | +4 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：股票长期/短期均可在M60上方不远处小幅波动；无固定持续时间；起飞前可故意跌破M60，但1~3日内重新站回视为洗盘；平台突破不要求明显放量 | 笔记依据 | 笔记第10页 + 用户补充（v1.1）
+SUPERSEDED_BY_V1_3 历史对照：1）规则目的：识别“贴近M60、总体稳定在M60上方的小幅整理平台”，并允许一次或多次1~3日内快速收复M60的洗盘事件。
+SUPERSEDED_BY_V1_3 历史对照：2）所需数据：close_adj、high_adj、low_adj、M60。
+SUPERSEDED_BY_V1_3 历史对照：3）观察窗口：策略本身无最短/最长持续时间。工程实现从最近250个交易日向前搜索“结束于当前或最近5日”的最大连续平台段；250日仅为性能扫描上限，不是交易定义。
+SUPERSEDED_BY_V1_3 历史对照：4）前置条件：M60可计算；至少存在3个连续交易日用于构成可识别的“平台段”（3日仅为算法最低样本量，不代表策略要求）。
+SUPERSEDED_BY_V1_3 历史对照：5）精确定义/公式：near_m60_day = M60 <= close <= M60*(1+C5.near_m60_upper_pct)；platform_width=(max(close_segment)-min(close_segment))/median(close_segment)；washout_episode = close<M60 后在1~3个交易日内重新 close>=M60；允许 washout_episode 计入平台，但任何一次连续3日后仍未收复M60即终止平台。默认工程参数 near_m60_upper_pct=8%、platform_width_max=15%。platform_high=max(high of platform excluding washout days)。platform_breakout = close>platform_high 且 close>M60；不设置成交量必要条件。
+SUPERSEDED_BY_V1_3 历史对照：6）判定步骤：从当前向前搜索满足“多数日贴近M60、小幅波动”的最长连续段；遇到跌破M60时启动3日收复计时器；1~3日内收复则继续同一平台，超过3日未收复则平台在跌破日前结束；最后计算平台上沿及是否已突破。
+SUPERSEDED_BY_V1_3 历史对照：7）评分/扣分分档：
+SUPERSEDED_BY_V1_3 历史对照：8）失效与 UNKNOWN：M60不可算=>UNKNOWN；连续跌破M60且3个交易日内未收复=>原平台 TERMINATED；平台突破后本规则仍可保留“历史平台已形成”状态，但后续启动由F类规则评价。
+SUPERSEDED_BY_V1_3 历史对照：9）冲突与去重规则：C5不要求突破时放量，D1只能额外评价“若有放量是否健康”；C4的快速收复M60与C5 washout可同时记录，但同一收复事件只生成一个 event_id。
+SUPERSEDED_BY_V1_3 历史对照：10）解释模板：检测到持续 {platform_len} 日的M60附近平台，平台宽度 {width:.1%}；期间洗盘次数 {washout_count}，最长 {max_reclaim_days} 日收复；当前突破状态={breakout_status}，C5 得 {score}/4 分。 | 条件 | 得分/扣分 | 平台已形成，当前仍处平台或已向上突破；所有M60跌破均在1~3日内收复 | +4 | 平台结构基本成立，但有效样本仅3~4日或部分阈值处工程边界 | +2 / PARTIAL | 连续跌破M60超过3日未收复，平台终止 | 0 / TERMINATED | 数据不足 | UNKNOWN
+C6 上升安全带完整
+字段 | 规范 | 最大分值/扣分 | +3（D/W/M各1分） | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：安全带=日K、周K、月K各自波动波谷的“收盘价”连线；不用最低价；盘中可跌破，只要周期收盘收回；周期收盘跌破即失效 | 笔记依据 | 笔记第6、21页 + 用户补充（v1.1）
+1）规则目的：分别在日线、周线、月线构造基于“收盘价波谷”的上升支持线，并严格用对应周期收盘价判断是否完整。
+2）所需数据：日线 close_adj；由日线聚合得到 weekly_close（每周最后一个交易日收盘）、monthly_close（每月最后一个交易日收盘）。low 不参与安全带构造或跌破判定。
+3）观察窗口：日线默认最近120日、周线最近52周、月线最近36月作为工程搜索窗口；窗口仅用于寻找波谷，不限制安全带实际持续时间。
+4）前置条件：某周期至少存在2个“已确认收盘波谷”；实时模式的最新波谷只有在右侧确认窗口完成后才可从 CANDIDATE 升级为 CONFIRMED。
+5）精确定义/公式：LOCAL_CLOSE_TROUGH_D[t]: close[t] <= close[t-2:t+2]全部值；周/月线用前后各1根K线确认。取最近两个已确认且第二个收盘波谷价格>T1的波谷 T1=(x1,c1), T2=(x2,c2)，support(x)=c1+(c2-c1)/(x2-x1)*(x-x1)。若最近3个已确认波谷收盘价严格递增，则 confidence=HIGH；仅2个递增则 MEDIUM。belt_intact_tf = period_close >= support(current_index)。
+6）判定步骤：对D/W/M分别重采样并找收盘波谷；构造最近一段上升波谷连线；将线外推到当前周期；只比较“周期收盘价”与support，不使用盘中最低价。
+7）评分/扣分分档：
+8）失效与 UNKNOWN：某周期少于2个有效递增波谷=>该周期UNKNOWN/NOT_APPLICABLE；若该周期最终收盘 close<support，则该周期安全带立即 INVALIDATED。日线盘中 low<support 但 close>=support 不失效；周/月线周期尚未收盘时只能 PENDING，不能提前判破位。
+9）冲突与去重规则：C6与R8一一对应；R8某周期破位后必须取消C6该周期的+1分。D/W/M三个时间尺度各自判断，不得互相替代。
+10）解释模板：{timeframe}安全带由 {t1_date}/{t2_date} 两个收盘波谷构造，当前周期收盘相对安全带 {distance:.2%}，状态={status}；C6该周期得 {score_tf}/1 分。 | 条件 | 得分/扣分 | 日线安全带已形成且当前日收盘未跌破 | +1 | 周线安全带已形成且已完成周收盘未跌破 | +1 | 月线安全带已形成且已完成月收盘未跌破 | +1 | 对应周期收盘跌破 | 该周期0，并触发R8 | 波谷不足 | 该周期UNKNOWN
+D1 关键突破放量
+字段 | 规范 | 最大分值/扣分 | +5 | 自动化级别 | AUTO | 规则来源 | 笔记反复强调突破配合成交量 | 笔记依据 | 笔记第5、7、10、14页
+1）规则目的：判断关键压力突破是否有量能确认。
+2）所需数据： | close_adj | high_adj | volume | M60
+3）观察窗口：最近25日
+4）前置条件： | 成交量和价格完整
+5）精确定义/公式： | res20[d] = max(high[d-20:d-1]) | breakout = close[d] >= res20[d]*1.01 或 C4发生M60突破 | vr = volume[d] / mean(volume[d-20:d-1])
+6）判定步骤： | 优先寻找最近5日的最新突破事件；无突破事件则D1=0而不是UNKNOWN。
+7）评分/扣分分档： | 条件 | 得分/扣分 | breakout 且 vr>=1.8 | +5 | breakout 且1.5<=vr<1.8 | +4 | breakout 且1.2<=vr<1.5 | +2 | breakout 且vr<1.2 | 0 | 无breakout | 0
+8）失效与 UNKNOWN： | 成交量缺失=>UNKNOWN。
+9）冲突与去重规则： | 同一突破若同时是M60和20日新高，只计一次D1。
+10）解释模板： | 突破日成交量为此前20日均量的 {vr:.2f} 倍，D1 得 {score}/5 分。
+D2 突破后缩量回踩
+字段 | 规范 | 最大分值/扣分 | +5 | 自动化级别 | AUTO | 规则来源 | 笔记：突破后回踩/假摔和缩量更健康 | 笔记依据 | 笔记第7、10页
+1）规则目的：识别“上攻放量、回踩缩量、支撑未破”。
+2）所需数据： | breakout event | close_adj | low_adj | volume
+3）观察窗口：突破后1~5日
+4）前置条件： | 最近10日存在D1/C4突破事件
+5）精确定义/公式： | breakout_level = max(M60_at_breakout, prior20_resistance) | pullback_drop = (breakout_close - min(low after breakout))/breakout_close | vol_ratio = mean(volume pullback days)/volume_breakout
+6）判定步骤： | 找到突破后首次1~5日回踩；要求任一收盘不低于breakout_level*0.99。
+7）评分/扣分分档： | 条件 | 得分/扣分 | vol_ratio<=0.60 且 pullback_drop<=8% | +5 | 0.60<vol_ratio<=0.80 且 pullback_drop<=8% | +3 | vol_ratio<=1.0 且未破位 | +1 | 破位或放量回踩 | 0
+8）失效与 UNKNOWN： | 无突破事件=>FAIL/0；成交量缺失=>UNKNOWN。
+9）冲突与去重规则： | 若回踩阶段触发R11/R8等结构破坏，则D2取消。
+10）解释模板： | 突破后回踩最大跌幅 {pullback_drop:.1%}，平均量为突破日的 {vol_ratio:.2f}，D2 得 {score}/5 分。
+D3 上涨量强于下跌量
+字段 | 规范 | 最大分值/扣分 | +4 | 自动化级别 | AUTO | 规则来源 | 笔记强调上涨放量、下跌缩量 | 笔记依据 | 笔记第8页
+1）规则目的：比较近期上涨日与下跌日的平均成交量。
+2）所需数据： | daily_return | volume
+3）观察窗口：最近10日
+4）前置条件： | 上涨日和下跌日至少各2天
+5）精确定义/公式： | up_vol=mean(volume where close>prev_close) | down_vol=mean(volume where close<prev_close) | ratio=up_vol/down_vol
+6）判定步骤： | 剔除平盘日。
+7）评分/扣分分档： | 条件 | 得分/扣分 | ratio>=1.30 | +4 | 1.10~1.30 | +3 | 0.90~1.10 | +1 | <0.90 | 0
+8）失效与 UNKNOWN： | 任一组样本<2=>UNKNOWN。
+9）冲突与去重规则： | D3是整体量价关系，不替代D1单次突破量。
+10）解释模板： | 近10日上涨日平均量/下跌日平均量={ratio:.2f}，D3 得 {score}/4 分。
+D4 整理期成交量收缩
+字段 | 规范 | 最大分值/扣分 | +3 | 自动化级别 | AUTO | 规则来源 | 笔记多处强调整理/换手阶段缩量 | 笔记依据 | 笔记第7、14页
+1）规则目的：判断最近整理阶段是否出现量能自然收缩。
+2）所需数据： | volume | close_adj
+3）观察窗口：最近13日
+4）前置条件： | 最近3日价格振幅不超过8%
+5）精确定义/公式： | vol_ratio = mean(volume[t-2:t]) / mean(volume[t-12:t-3]) | range3=(max(high3)-min(low3))/mean(close3)
+6）判定步骤： | 先确认最近3日属于整理而非单边暴涨暴跌，再计算量比。
+7）评分/扣分分档： | 条件 | 得分/扣分 | range3<=8% 且 vol_ratio<=0.70 | +3 | range3<=8% 且0.70<vol_ratio<=0.85 | +2 | range3<=8% 且0.85<vol_ratio<=1.0 | +1 | 其余 | 0
+8）失效与 UNKNOWN： | 历史不足=>UNKNOWN。
+9）冲突与去重规则： | 若最近3日包含涨停启动日，则D4不评价，返回UNKNOWN/NOT_APPLICABLE。
+10）解释模板： | 最近3日处于整理，成交量为此前10日均量的 {vol_ratio:.2f}，D4 得 {score}/3 分。
+D5 换手率健康度
+字段 | 规范 | 最大分值/扣分 | +3 | 自动化级别 | AUTO | 规则来源 | 笔记对仙人指路强调5%内更好、>10%慎重；普通启动阈值为工程假设 | 笔记依据 | 笔记第11、14、17页
+1）规则目的：给普通启动/整理阶段的换手一个可解释分层；高位风险另由R1处理。
+2）所需数据： | turnover_rate | HIGH_ZONE
+3）观察窗口：当日
+4）前置条件： | 换手率存在
+5）精确定义/公式： | turn=turnover_rate
+6）判定步骤： | 若HIGH_ZONE=True，不在D5奖励高换手；仍按区间打分并由R1独立扣分。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 2%<=turn<=8% | +3 | 8%<turn<=12% | +2 | 1%<=turn<2% | +1 | 12%<turn<=20% | +1 | 其余 | 0
+8）失效与 UNKNOWN： | 换手率缺失=>UNKNOWN。
+9）冲突与去重规则： | 仙人指路F规则使用更严格换手要求；D5不覆盖该规则。
+10）解释模板： | 当日换手率 {turn:.2f}% ，D5 得 {score}/3 分。
+SUPERSEDED_BY_V1_3 历史对照：E1 底部小连阳
+SUPERSEDED_BY_V1_3 历史对照：字段 | 规范 | 最大分值/扣分 | +4 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：连续7日或以上温和小阳，中间最多夹1根小阴/十字星，不允许大阳；是否真正启动不以单纯站上M60判断，而要站上M60并继续突破起飞平台 | 笔记依据 | 笔记第7页 + 用户补充（v1.1）
+SUPERSEDED_BY_V1_3 历史对照：1）规则目的：识别底部持续、温和、非暴力拉升的吸筹型“小连阳”，并与真正“起飞启动”分开。
+SUPERSEDED_BY_V1_3 历史对照：2）所需数据：open_adj、high_adj、low_adj、close_adj、M60、C5.platform_high、position_120。
+SUPERSEDED_BY_V1_3 历史对照：3）观察窗口：从最近60个交易日中寻找最长连续候选段；策略要求候选段长度>=7日，无固定最大持续天数；60日只是工程扫描窗口。
+SUPERSEDED_BY_V1_3 历史对照：4）前置条件：候选段开始时应处于底部/低位阶段：LOW_ZONE=True，或尚未满足“close>M60 且 close>C5.platform_high”的正式启动条件。
+SUPERSEDED_BY_V1_3 历史对照：5）精确定义/公式：bull_day = close>open；doji_or_small_bear = close<=open 且 abs(close/open-1)<=E1.small_negative_abs_max；big_bull = (close/open-1)>=E1.big_bull_body_min 或 daily_return>=E1.big_bull_return_min。一个有效连续段要求 length>=7、big_bull_count=0、doji_or_small_bear_count<=1，其余交易日均为 bull_day。用户未给“小阳”的固定涨幅上限，因此V1不以3%封顶；只排除配置化“大阳线”。默认工程阈值 small_negative_abs_max=2%、big_bull_body_min=5%、big_bull_return_min=7%。started = close>M60 且 C5.platform_high存在 且 close>C5.platform_high。
+SUPERSEDED_BY_V1_3 历史对照：6）判定步骤：在最近60日中枚举连续段；剔除包含大阳线或超过1根小阴/十字星的段；优先选择最长且结束日期最近的有效段；额外输出该段当前是否已正式started。
+SUPERSEDED_BY_V1_3 历史对照：7）评分/扣分分档：
+SUPERSEDED_BY_V1_3 历史对照：8）失效与 UNKNOWN：长度<7只能 CANDIDATE、不得得分；若出现大阳线则当前“小连阳段”在该日前结束；C5.platform_high不可得时仍可识别E1，但 started 状态=UNKNOWN。
+SUPERSEDED_BY_V1_3 历史对照：9）冲突与去重规则：E1可以跨过M60继续存在，但一旦 close>M60 且突破C5平台上沿，后续阶段归入启动规则，E1不再为新日期持续累加。
+SUPERSEDED_BY_V1_3 历史对照：10）解释模板：连续 {run_len} 日中有 {bull_count} 根温和阳线、{small_nonbull_count} 根小阴/十字星、0根大阳线；正式启动状态={started}，E1 得 {score}/4 分。 | 条件 | 得分/扣分 | 连续>=7日；最多1根小阴/十字星；无大阳；仍处底部/起飞前阶段 | +4 | 已连续5~6日且结构未被破坏 | CANDIDATE，0分 | 出现大阳线或第2根小阴/十字星 | 当前连续段终止，0 | 基础数据不足 | UNKNOWN
+E2 周线成交量反转
+字段 | 规范 | 最大分值/扣分 | +4 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：在上一轮价格最高点或最高点附近寻找对应的最大周成交量；之后处于周线底部区间时，若周成交量再次放大并超过上一轮该“天量”，即构成周线成交量反转；缩量下跌持续时间不固定且不是必要条件 | 笔记依据 | 笔记第8页 + 用户补充（v1.1）
+1）规则目的：严格实现“上一轮高位区最大周量 vs 当前底部区周量”的反转比较，不再强制要求中间缩量持续若干周。
+2）所需数据：weekly high/low/close/volume。
+3）观察窗口：默认最近52周用于寻找上一轮高点和底部；52周仅为工程搜索窗口，可配置延长。
+4）前置条件：至少20周有效周线；能找到一个早于当前底部阶段的“上一轮局部价格高点”P。
+5）精确定义/公式：P为周线局部高点（high[P]为前后各2周局部最大）；high_zone_weeks = {w: |w-P|<=4 且 high[w]>=0.95*high[P]}；reference_peak_volume=max(volume[w] for w in high_zone_weeks)。在P之后定义 post_low=min(low[P+1:t])，post_high=high[P]，bottom_position=(close[t]-post_low)/(post_high-post_low)；bottom_zone = bottom_position<=E2.bottom_position_max（默认35%，工程阈值）。volume_reversal = bottom_zone 且 volume[t]>reference_peak_volume 且 volume[t]>volume[t-1]。不要求P本周既是绝对价格最高又是最大成交量周；参考量取“高点附近”周集合中的最大值。
+6）判定步骤：先确定上一轮价格局部高点；在其±4周且价格仍位于高点95%以上的周中找到最大周成交量；再判断当前是否处于P之后价格区间的底部35%；若当前周量同时大于上一周且严格超过reference_peak_volume，则确认成交量反转。
+7）评分/扣分分档：
+8）失效与 UNKNOWN：找不到上一轮价格高点或高点附近有效成交量=>UNKNOWN；当前不处底部区=>0；底部周量虽然放大但尚未超过reference_peak_volume=>CANDIDATE、0分。
+9）冲突与去重规则：E2不要求“高点后必须持续缩量”；缩量过程可以记录为描述信息但不得作为硬门槛。E2只能表达“符合用户定义的周线成交量反转/建仓迹象”，不得断言主力真实持仓。
+10）解释模板：上一轮高位区最大周成交量为 {ref_volume}（{ref_date}）；当前位于高点后价格区间底部 {bottom_position:.1%}，本周成交量 {cur_volume}，为上一周的 {wow_ratio:.2f} 倍、上一轮天量的 {reversal_ratio:.2f} 倍，E2 状态={status}，得 {score}/4 分。 | 条件 | 得分/扣分 | 当前处底部区，周量较上周增大且严格超过上一轮高位区最大周量 | +4 / CONFIRMED | 底部周量正在增大但尚未超过上一轮最大周量 | CANDIDATE，0分 | 不在底部区或未放量 | 0 | 前一轮高点/周量数据不足 | UNKNOWN
+E3 日/周线阻尼收敛
+字段 | 规范 | 最大分值/扣分 | +3 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：阻尼运动不要求振幅一段比一段更小；核心是持续小幅波动，同时上涨日放量、下跌日缩量；无固定持续时间 | 笔记依据 | 笔记第8页 + 用户补充（v1.1）
+1）规则目的：删除“振幅必须逐级收敛”的错误硬条件，把阻尼定义为“低幅波动 + 上涨量大于下跌量”的持续量价关系。
+2）所需数据：daily/weekly OHLCV。
+3）观察窗口：策略无固定持续时间。工程实现对日线枚举5~30日窗口、周线枚举3~12周窗口并选最近/最长有效段；这些上下限仅是算法扫描范围，可配置。
+4）前置条件：优先在LOW_ZONE、NEAR_M60或C5平台阶段启用；窗口中至少2个上涨日和2个下跌日，否则量价比较不充分。
+5）精确定义/公式：range_width=(max(high)-min(low))/median(close)；avg_abs_ret=mean(abs(close[d]/close[d-1]-1))；small_fluctuation = range_width<=E3.range_width_max 且 avg_abs_ret<=E3.avg_abs_return_max。up_day = close[d]>close[d-1]；down_day=close[d]<close[d-1]；volume_ratio_ud=mean(volume on up_days)/mean(volume on down_days)。默认工程阈值 range_width_max=12%、avg_abs_return_max=2.5%、full_volume_ratio=1.15。无需 amp3<amp2<amp1。
+6）判定步骤：对候选窗口计算整体波动宽度和平均绝对收益；再分别计算上涨日/下跌日平均成交量；搜索满足small_fluctuation且volume_ratio_ud>1的最长有效段。日线和周线可独立识别。
+7）评分/扣分分档：
+8）失效与 UNKNOWN：上涨/下跌样本各不足2个=>PARTIAL/UNKNOWN；价格波动超过工程“小幅”阈值=>0；不得因为振幅没有逐步缩小而判失败。
+9）冲突与去重规则：E3与D3都涉及上涨/下跌量比，但E3必须同时满足“小幅波动阶段”；同一窗口命中时，D3描述一般量价健康，E3描述阻尼结构，可同时记录但E类总分仍按类别封顶。
+10）解释模板：最近 {L} 个交易日价格区间宽度 {range_width:.1%}、平均绝对日变动 {avg_abs_ret:.1%}；上涨日均量/下跌日均量={volume_ratio_ud:.2f}，E3 得 {score}/3 分。 | 条件 | 得分/扣分 | 满足小幅波动且上涨日均量/下跌日均量>=1.15 | +3 | 满足小幅波动且1.00<量比<1.15 | +2 | 小幅波动成立但量价样本不足 | PARTIAL +1 | 不满足小幅波动或上涨量<=下跌量且样本充分 | 0
+E4 低位筹码峰
+字段 | 规范 | 最大分值/扣分 | +2 | 自动化级别 | AUTO_IF_DATA | 规则来源 | 笔记：低位筹码峰反映筹码集中在主力成本附近；工程定义需筹码分布数据 | 笔记依据 | 笔记第5、6页
+1）规则目的：在有可靠筹码分布数据时，识别成本峰是否集中于低位。
+2）所需数据： | chip_distribution price bins | position_120
+3）观察窗口：当日筹码分布 + 120日价格区间
+4）前置条件： | 筹码分布来源可信且概率和≈100%
+5）精确定义/公式： | dominant_bin = 最高筹码占比价格区间 | dominant_share = 该bin及相邻±1bin总占比 | peak_position=(dominant_price-low120)/(high120-low120)
+6）判定步骤： | 定位主峰、计算峰占比和所处价格位置。
+7）评分/扣分分档： | 条件 | 得分/扣分 | peak_position<=0.40 且 dominant_share>=20% | +2 | peak_position<=0.50 且 dominant_share>=15% | +1 | 其余 | 0
+8）失效与 UNKNOWN： | 无筹码分布=>UNKNOWN，禁止从K线猜筹码峰。
+9）冲突与去重规则： | 若R10筹码向高位迁移成立，E4必须取消。
+10）解释模板： | 主要筹码峰位于120日价格区间的 {peak_position:.1%}，峰区占比 {dominant_share:.1%}，E4 得 {score}/2 分。
+E5 筹码集中度改善
+字段 | 规范 | 最大分值/扣分 | +2 | 自动化级别 | AUTO_IF_DATA | 规则来源 | 笔记：筹码集中/低位峰是建仓线索；数值为工程代理 | 笔记依据 | 笔记第5、6页
+1）规则目的：比较当前与20日前的筹码成本区间宽度，判断是否收窄。
+2）所需数据： | chip_distribution current and t-20
+3）观察窗口：20个交易日
+4）前置条件： | 两期筹码分布可比且同一数据源
+5）精确定义/公式： | width90 = (p95_cost-p05_cost)/median_cost | improve = 1 - width90_now/width90_20d_ago
+6）判定步骤： | 计算覆盖90%筹码的成本区间宽度变化。
+7）评分/扣分分档： | 条件 | 得分/扣分 | improve>=20% | +2 | 10%<=improve<20% | +1 | 其余 | 0
+8）失效与 UNKNOWN： | 筹码分布缺失或算法口径变更=>UNKNOWN。
+9）冲突与去重规则： | 不得与E4合并：E4看“位置”，E5看“集中变化”。
+10）解释模板： | 90%筹码成本区间较20日前收窄 {improve:.1%}，E5 得 {score}/2 分。
+F1-N N板启动
+字段 | 规范 | 最大分值/扣分 | 主启动形态最高+10 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：首次快速拉升/涨停→2~6日换手→期间允许下跌但盘中最低价也不能跌破M5→再次启动；任一日盘中跌破M5，即使收盘收回也判失效 | 笔记依据 | 笔记第14页 + 用户补充（v1.1）
+1）规则目的：识别首次强势启动后完成2~6日换手、全过程M5不破、随后再次启动的N形结构。
+2）所需数据：daily adjusted OHLCV、M5、M60、真实 limit_up_price。
+3）观察窗口：首次启动后换手期固定允许2~6个交易日；超过6日仍未再次启动则该次N板候选失效。
+4）前置条件：存在 first_start；first_start 可为真实/接近涨停，或明显快速拉升事件。
+5）精确定义/公式：first_start = NEAR_LIMIT_UP 或 (daily_return>=7% 且 volume_ratio_20>=1.2)；exchange_len∈[2,6]；m5_integrity = all(low_adj[d] >= M5[d] for every exchange day)。注意：判断使用当日最低价 low，不使用收盘价；任何 low<M5 即 hard_break=True，即使收盘重新站回M5也失效。second_start = close > max(high during exchange)*1.01 且 (volume_ratio_20>=1.2 或 NEAR_LIMIT_UP)。
+6）判定步骤：在最近20日寻找first_start；依次尝试2、3、4、5、6日换手窗口；逐日检查low是否低于M5；只要一次跌破立即INVALIDATED；若完整未破，再寻找换手结束后的二次突破。
+7）评分/扣分分档：
+8）失效与 UNKNOWN：任一换手日 low<M5=>立即 INVALIDATED，F1-N=0并触发R11；超过6日无二次启动=>EXPIRED；M5或必要行情缺失=>UNKNOWN。
+9）冲突与去重规则：删除v1.0的“盘中跌破但收盘收回可恢复”分支；N板与其他F1主启动形态仍只取最高一个。
+10）解释模板：首次启动后经历 {exchange_len} 日换手；换手期最低价相对M5最小距离 {min_m5_distance:.2%}；M5完整性={integrity}；二次启动={second_start}，F1-N 得 {score}/10 分。 | 条件 | 得分/扣分 | 2~6日换手全过程 low>=M5，且二次启动确认 | +10 | 换手已满2日且全过程 low>=M5，但二次启动尚未确认 | CANDIDATE +4 | 任一日 low<M5（即使收盘收回） | 0 / INVALIDATED，并触发R11 | 换手>6日仍未二次启动 | 0 / EXPIRED
+F1-T T板启动
+字段 | 规范 | 最大分值/扣分 | 主启动形态最高+8 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：当天K线形成T形，最终收盘封涨停即可；不再要求开盘价本身必须处于涨停价附近 | 笔记依据 | 笔记第14页 + 用户补充（v1.1）
+1）规则目的：用K线几何和最终封涨停识别T板，避免v1.0把“开/高/收均接近涨停”写成过严硬条件。
+2）所需数据：open_raw、high_raw、low_raw、close_raw、prev_close_raw、真实 limit_up_price、turnover_rate、volume_ratio_20。
+3）观察窗口：形态当日；位置质量另由F2检查。
+4）前置条件：limit_up_price可可靠计算；当日存在有效高低价区间。
+5）精确定义/公式：final_limit = close_raw >= limit_up_price*0.995；touch_limit = high_raw >= limit_up_price*0.995；body=abs(close-open)；lower_shadow=min(open,close)-low；range=high-low；t_shape = final_limit 且 touch_limit 且 range>0 且 close_position=(close-low)/range>=0.90 且 lower_shadow>=max(body*1.2, prev_close*0.01)。open不要求接近涨停价；若开盘较低，只要最终几何仍符合T形且封涨停即可。
+6）判定步骤：先确认最终封涨停；计算实体、下影线和收盘在全天区间的位置；判断下影线是否足够显著形成“T形”；成交量/换手不用于定义T形本身，只交给R12检查异常成交。
+7）评分/扣分分档：
+8）失效与 UNKNOWN：close未封涨停=>0；K线区间为0且无法形成下影=>不属于T板；缺涨停价=>UNKNOWN。若R12异常成交成立则取消F1-T正分。
+9）冲突与去重规则：F1-T只评价“T形+最终涨停”；位置由F2、异常成交由R12、高位风险由R1/R3处理，避免重复编码。
+10）解释模板：当日最终封涨停，收盘位于全天区间顶部 {close_position:.1%}，下影线/实体比={shadow_body_ratio:.2f}，T形状态={t_shape}，F1-T 得 {score}/8 分。 | 条件 | 得分/扣分 | 满足t_shape，且R12未触发 | +8 | 最终封涨停但T形几何仅部分满足 | PARTIAL +3 | 最终未封涨停或无明显T形 | 0 | 涨停价缺失 | UNKNOWN
+SUPERSEDED_BY_V1_3 历史对照：F1-O 一字板/一字T干净启动
+SUPERSEDED_BY_V1_3 历史对照：字段 | 规范 | 最大分值/扣分 | 主启动形态最高+6 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充：此前未放量，直接涨停，封板过程中无大成交；笔记第15页讨论一字T/N | 笔记依据 | 笔记第15页 + 用户补充
+SUPERSEDED_BY_V1_3 历史对照：1）规则目的：识别“未提前放量+强封板+成交交换有限”的一字型启动。
+SUPERSEDED_BY_V1_3 历史对照：2）所需数据： | raw OHLC | limit_up_price | volume | turnover_rate
+SUPERSEDED_BY_V1_3 历史对照：3）观察窗口：前20日+当日
+SUPERSEDED_BY_V1_3 历史对照：4）前置条件： | 非HIGH_ZONE；涨停价可用
+SUPERSEDED_BY_V1_3 历史对照：5）精确定义/公式： | one_line = 四价中至少open/high/close均在limit_up±0.2%，且(high-low)/limit_up<=0.5% | pre_volume_clean = mean(volume prev3) <= mean(volume prev20)*1.2 | current_not_excessive = volume_ratio_20<=1.5 且 turnover<=5% | one_line_T = open/high/close接近涨停且low<=limit_up*0.98，且turnover<=10%
+SUPERSEDED_BY_V1_3 历史对照：6）判定步骤： | 先判断一字板或一字T；再检查前期是否无明显放量。
+SUPERSEDED_BY_V1_3 历史对照：7）评分/扣分分档： | 条件 | 得分/扣分 | one_line 且 pre_volume_clean 且 current_not_excessive | +6 | one_line_T 且 pre_volume_clean | +5 | 形态成立但前期已明显放量 | +2（低置信） | 异常大成交 | 0并检查R12
+SUPERSEDED_BY_V1_3 历史对照：8）失效与 UNKNOWN： | 缺涨停价/成交量=>UNKNOWN。
+SUPERSEDED_BY_V1_3 历史对照：9）冲突与去重规则： | 与F1-T、F1-N互斥，只取主启动最高分。
+SUPERSEDED_BY_V1_3 历史对照：10）解释模板： | 检测到{pattern}，前3日量能相对20日均值 {pre_ratio:.2f}，当日换手 {turn:.1f}% ，得 {score} 分。
+F1-X 仙人指路
+字段 | 规范 | 最大分值/扣分 | 主启动形态最高+6 | 自动化级别 | AUTO_PROXY | 规则来源 | 笔记明确：启动位置、跳出M60/整理平台、盘中冲高7%~10%后回落且不涨停、换手5%内最好>10%慎重 | 笔记依据 | 笔记第11页
+1）规则目的：识别启动前试盘式长上影/冲高回落结构。
+2）所需数据： | daily OHLC | M60 | turnover_rate | limit_up_price
+3）观察窗口：当日+前20日
+4）前置条件： | 非HIGH_ZONE；close>M60；最近20日未出现同规则PASS（“首次”代理）
+5）精确定义/公式： | intraday_gain = high/prev_close-1 | pullback_from_high = 1-close/high | not_limit = close < limit_up_price*0.995 | launch_location = close>M60 and (C5>0 or NEAR_M60) | first_signal = no prior F1-X PASS in prev20
+6）判定步骤： | 要求7%<=intraday_gain<=10.5%；pullback_from_high>=2%；收盘未封涨停。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 全部条件且turnover<=5% | +6 | 全部条件且5%<turnover<=10% | +4 | 形态成立但turnover>10% | 0 + 风险提示 | 不在启动位置/已高位 | 0
+8）失效与 UNKNOWN： | 涨停价缺失时可用“收盘涨幅<9.5%”做proxy并标注；换手缺失=>UNKNOWN。
+9）冲突与去重规则： | 与其他F1主启动形态只取最高分。
+10）解释模板： | 盘中最高较昨收上涨 {intraday_gain:.1%} 后回落 {pullback:.1%}，换手 {turn:.1f}% ，仙人指路得 {score} 分。
+SUPERSEDED_BY_V1_3 历史对照：F1-Y 鲤鱼跃龙门 + 假摔
+SUPERSEDED_BY_V1_3 历史对照：字段 | 规范 | 最大分值/扣分 | 主启动形态最高+8 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：龙门突破后“假摔”只持续1个交易日；该日必须大成交量、跌幅很大、开盘接近涨停价、收盘接近跌停价；为避免把真实出货误判成假摔，V1增加后续恢复确认作为工程保护 | 笔记依据 | 笔记第7页 + 用户补充（v1.1）
+SUPERSEDED_BY_V1_3 历史对照：1）规则目的：把“鲤鱼跃龙门后的单日巨量假摔”与普通小阴回踩彻底区分，并通过后续恢复确认降低把真实崩跌/出货误判成正向形态的风险。
+SUPERSEDED_BY_V1_3 历史对照：2）所需数据：daily raw/adjusted OHLCV、M5、M60、真实 limit_up_price/limit_down_price、C5.platform_high。
+SUPERSEDED_BY_V1_3 历史对照：3）观察窗口：龙门突破日 t0 + 紧随其后的1个“假摔日” t1；恢复确认最多观察 t1 后1~3个交易日。假摔本体持续时间固定为1天。
+SUPERSEDED_BY_V1_3 历史对照：4）前置条件：先存在龙门突破 jump：dragon_level=max(C5.platform_high(若存在), M60, 最近20日有效压力位)；close[t0]>dragon_level 且 t0 为强势突破日。
+SUPERSEDED_BY_V1_3 历史对照：5）精确定义/公式：fake_fall_day 必须为 t1=t0+1；open_near_limit_up = open_raw[t1] >= limit_up_price[t1]*0.98；close_near_limit_down = close_raw[t1] <= limit_down_price[t1]*1.02；large_drop = close_raw[t1]/open_raw[t1]-1 <= -0.12（默认工程阈值，用于适配20%涨跌停板时仍要求显著大跌；同时若市场实际跌停幅度较小，以接近真实limit_down为主）；huge_volume = volume_ratio_20[t1]>=2.0 或 volume[t1]>=volume[t0]*1.5。fake_fall_signature = open_near_limit_up and close_near_limit_down and huge_volume。confirmation（工程保护）= t1后1~3日内至少一日 close>M5 且 close >= close[t1] + 0.5*(open[t1]-close[t1])，即至少收复假摔实体50%。
+SUPERSEDED_BY_V1_3 历史对照：6）判定步骤：确认龙门突破；只检查紧随次日是否满足“近涨停开盘→近跌停收盘→巨量”的单日假摔签名；满足时先标记CANDIDATE，不立即给满分；随后最多等3日观察是否重新站回M5并收复假摔实体至少一半。
+SUPERSEDED_BY_V1_3 历史对照：7）评分/扣分分档：
+SUPERSEDED_BY_V1_3 历史对照：8）失效与 UNKNOWN：t1不是紧随突破日=>本次模式不成立；缺真实涨跌停价=>UNKNOWN；fake_fall_signature成立但3日内未恢复=>INVALIDATED，不能正向计分，并交由高位/异常成交风险规则继续评估。
+SUPERSEDED_BY_V1_3 历史对照：9）冲突与去重规则：删除v1.0“假摔只是<=5%小阴且不能跌破龙门”的定义。假摔当日本身巨大成交不触发R12（R12仅T/一字板）；若处HIGH_ZONE仍可由R1/R2/R3独立给出风险。
+SUPERSEDED_BY_V1_3 历史对照：10）解释模板：龙门突破后次日开盘距涨停价 {open_gap_to_limit:.1%}、收盘距跌停价 {close_gap_to_downlimit:.1%}，量比 {vr:.2f}；后续 {confirm_days} 日内收复假摔实体 {recover_ratio:.1%}，F1-Y 状态={status}，得 {score}/8 分。 | 条件 | 得分/扣分 | 单日假摔签名成立，且1~3日内重新站回M5并收复实体>=50% | +8 / CONFIRMED | 单日假摔签名刚发生，尚无足够后续日 | CANDIDATE，0分 | 签名成立但3日内未恢复 | 0 / INVALIDATED | 缺涨跌停价或关键数据 | UNKNOWN
+F2 启动位置质量
+字段 | 规范 | 最大分值/扣分 | +5 | 自动化级别 | AUTO | 规则来源 | 笔记强调启动位、M60附近、起飞平台，且高位形态不能按启动看 | 笔记依据 | 笔记第10–15页
+1）规则目的：对F1命中的形态进行位置校验，而不是单独寻找形态。
+2）所需数据： | F1 event price | M60 | position_120 | C5
+3）观察窗口：F1事件当日
+4）前置条件： | 至少一个F1主启动形态命中
+5）精确定义/公式： | dist_m60 = event_close/M60-1 | high_zone_at_event = HIGH_ZONE(event) | platform = C5>0
+6）判定步骤： | 以形态发生当天而非当前日判断位置。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 非高位 且 platform=True 且 0<=dist_m60<=10% | +5 | 非高位 且 abs(dist_m60)<=15% | +3 | 非高位但离M60>15% | +1 | HIGH_ZONE=True | 0
+8）失效与 UNKNOWN： | F1无命中=>0；M60不可算=>UNKNOWN。
+9）冲突与去重规则： | F2不能脱离F1独立得分。
+10）解释模板： | 主启动形态发生时距M60 {dist_m60:.1%}，平台状态={platform}，F2 得 {score}/5 分。
+F3 空中加油（高位中继）
+字段 | 规范 | 最大分值/扣分 | 最高+8；F类总分仍封顶15 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：低成交量涨停后进入高位，随后2~6日整理；整理量显著大于此前拉升量；允许下跌但盘中不得跌破M5；整理越短越强；之后继续上涨 | 笔记依据 | 笔记“空中加油” + 用户补充（v1.1）
+1）规则目的：识别“低量涨停启动→高位2~6日放量换手整理→M5不破→再次上涨”的高位中继，而不是把它误作新的底部启动。
+2）所需数据：daily OHLCV、M5、limit_up_price、volume_ratio_20、HIGH_ZONE或20日累计涨幅。
+3）观察窗口：初始低量涨停日t0后2~6个交易日整理，随后检查第3~7日是否出现继续上涨；整理长度严格2~6日，越短强度越高。
+4）前置条件：t0必须真实/接近涨停且成交量较小；随后股价已进入相对高位。V1默认 low_volume_limit = volume_ratio_20[t0]<=1.2（工程阈值）；high_context = HIGH_ZONE=True 或 return_20d>=15%。
+5）精确定义/公式：rise_volume_ref = mean(volume of max(1,t0-2)..t0)；对L∈{2,3,4,5,6}，consolidation=t0+1..t0+L；m5_integrity = all(low_adj[d]>=M5[d])；consolidation_volume_ratio=mean(volume during consolidation)/rise_volume_ref；large_exchange = consolidation_volume_ratio>=1.20（工程阈值，表示整理量大于此前拉升量）；continuation = close[t0+L+1] > max(high during consolidation) 或 (daily_return[t0+L+1]>=5% 且 close>M5)。选择最早满足continuation的L，因此天然体现“整理越短越强”。
+6）判定步骤：先找低量涨停t0；确认进入高位环境；从2日整理开始逐步扩展到6日，每天检查low是否破M5和整理均量是否高于rise_volume_ref；首次出现向上突破整理区即确认空中加油完成。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 2日整理后继续上涨，且整理量放大、M5未破 | +8 | 3~4日整理后继续上涨，且整理量放大、M5未破 | +7 | 5~6日整理后继续上涨，且整理量放大、M5未破 | +6 | 已整理2~6日且M5未破，但尚未继续上涨 | CANDIDATE +3 | 任一日low<M5或>6日未继续上涨 | 0 / INVALIDATED或EXPIRED
+8）失效与 UNKNOWN：整理期任一日 low<M5=>立即INVALIDATED；超过6日仍未继续上涨=>EXPIRED；t0量能、M5、涨停价缺失=>UNKNOWN。
+9）冲突与去重规则：F3属于“高位中继”，可发生在更早的F1启动之后，但F类总分始终封顶15；同一交易日不得同时把F3再次当F1启动计分。
+10）解释模板：低量涨停后在高位整理 {L} 日，整理期均量为此前拉升阶段的 {exchange_ratio:.2f} 倍，最低价始终未破M5；第 {L_plus_1} 日重新向上，F3 得 {score}/8 分。
+R1 高位异常换手
+字段 | 规范 | 最大分值/扣分 | 最高-15 | 自动化级别 | AUTO | 规则来源 | 笔记：双子顶/高位出货强调20%以上、30%左右大换手 | 笔记依据 | 笔记第12、17页
+1）规则目的：识别高位大量筹码交换风险。
+2）所需数据： | turnover_rate | HIGH_ZONE
+3）观察窗口：当日
+4）前置条件： | HIGH_ZONE=True
+5）精确定义/公式： | turn=turnover_rate
+6）判定步骤： | 仅在高位前置成立时分档扣分。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 15%~<20% | -5 | 20%~<30% | -10 | >=30% | -15 且 Risk=HIGH | <15% | 0
+8）失效与 UNKNOWN： | 换手缺失=>UNKNOWN；非高位=>0，不用本规则惩罚正常启动换手。
+9）冲突与去重规则： | 同日只取一个换手档位；与R3可同时成立，因为R3描述封板行为。
+10）解释模板： | 当前位于高位区，换手率 {turn:.1f}% ，R1 扣 {penalty} 分。
+R2 高位异常放量
+字段 | 规范 | 最大分值/扣分 | 最高-15 | 自动化级别 | AUTO | 规则来源 | 笔记：高位大成交量/天量是卖出风险线索 | 笔记依据 | 笔记第12、17、18页
+1）规则目的：识别高位成交量突然异常放大的风险。
+2）所需数据： | volume | VMA20 | HIGH_ZONE
+3）观察窗口：当日
+4）前置条件： | HIGH_ZONE=True
+5）精确定义/公式： | vr=volume/VMA20(prev20)
+6）判定步骤： | 按量比扣分。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 1.5~<2.0 | -5 | 2.0~<3.0 | -10 | >=3.0 | -15 | <1.5 | 0
+8）失效与 UNKNOWN： | 成交量历史不足=>UNKNOWN；非高位=>0。
+9）冲突与去重规则： | 与R1可同时出现；一个量、一个换手，不强制合并。
+10）解释模板： | 高位当日成交量为前20日均量的 {vr:.2f} 倍，R2 扣 {penalty} 分。
+R3 高位涨停出货/烂板
+字段 | 规范 | 最大分值/扣分 | -15 | 自动化级别 | AUTO_PROXY | 规则来源 | 笔记：相对高位（如第4/5板）、成交量大、换手约30%、出现烂板属于借涨停出货风险 | 笔记依据 | 笔记第12页
+1）规则目的：识别高位连续强势后的封板失败和大规模换手。
+2）所需数据： | daily OHLCV | limit_up_price | turnover | HIGH_ZONE
+3）观察窗口：最近5日
+4）前置条件： | HIGH_ZONE=True；过去5日内至少2次NEAR_LIMIT_UP或累计涨幅>=25%
+5）精确定义/公式： | touch_limit = high>=limit_up_price*0.995 | failed_seal = touch_limit and close<=limit_up_price*0.98 | large_trade = turnover>=20% or volume_ratio_20>=2.0
+6）判定步骤： | 确认高位强势背景；判断触板但收不住；检查大成交/换手。
+7）评分/扣分分档： | 条件 | 得分/扣分 | failed_seal 且 large_trade | -15 + HIGH | failed_seal但交易量未异常 | -8 | 未触发 | 0
+8）失效与 UNKNOWN： | 涨停价缺失=>UNKNOWN。
+9）冲突与去重规则： | R3成立时取消F1-T/F1-O相关正向分。
+10）解释模板： | 高位阶段触及涨停但收盘未封住，且出现{trade_desc}，R3 扣 {penalty} 分。
+R4 双子顶 Double-Top Risk
+字段 | 规范 | 最大分值/扣分 | 最高-12 | 自动化级别 | AUTO_PROXY | 规则来源 | 笔记：高位双子顶、第二顶不超前顶，常伴大投量/大换手；价格结构单独识别 | 笔记依据 | 笔记第17页
+1）规则目的：识别一轮上涨后两个相近顶部、第二次未有效突破并进一步破位的结构。
+2）所需数据： | daily OHLC | M5
+3）观察窗口：最近40~60日
+4）前置条件： | 至少30日数据；两个顶部中至少一个位于高位区或P1前20日涨幅>=15%
+5）精确定义/公式： | LOCAL_PEAK: high[t]为前后2日共5日最高 | 4<=days(P1,P2)<=20 | peak_diff=abs(high[P2]-high[P1])/high[P1] <=3% | Valley=min(low[P1+1:P2-1]) | valley_drawdown=(min(high[P1],high[P2])-Valley)/min(high[P1],high[P2]) >=5% | 有效突破失效条件: close[P2] > high[P1]*1.03 | neckline=Valley
+6）判定步骤： | 找P1/P2；检查高位/前期涨幅；检查顶部高度、间隔和中间回撤；判断P2后转弱及颈线破位。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 结构满足但P2后尚未走弱：CANDIDATE | -4 | P2后3日内 close<M5 或较P2收盘跌>=3%：FORMED | -8 | P2后 close<neckline：CONFIRMED | -12 | 连续2日close>high[P1]*1.03：INVALIDATED | 0
+8）失效与 UNKNOWN： | 历史不足=>UNKNOWN；P2为最新日且无后续数据只能CANDIDATE；复权口径不一致=>UNKNOWN。
+9）冲突与去重规则： | R4只评价价格结构；大成交/换手由R1/R2另评。
+10）解释模板： | 两个高位局部顶部相隔 {days} 日，高度差 {peak_diff:.1%}，中间回撤 {drawdown:.1%}；状态={status}，R4 扣 {penalty} 分。
+R5 三K高位反转组合
+字段 | 规范 | 最大分值/扣分 | -10 | 自动化级别 | AUTO_PROXY | 规则来源 | 笔记给出反转K线组合：先阳线，后跳空高开小实体，再中/大阴线跌破前阳线中部 | 笔记依据 | 笔记第16页
+1）规则目的：把笔记中的三K反转组合转成固定三日结构。
+2）所需数据： | daily OHLC | HIGH_ZONE
+3）观察窗口：连续3个交易日
+4）前置条件： | 第1~3日至少第2日或第3日处于HIGH_ZONE
+5）精确定义/公式： | A: bullish且body_return=(close-open)/open >=3% | B: open_B>=close_A*1.01 且 abs(close_B-open_B)/open_B<=2% | C: bearish且(close_C-open_C)/open_C<=-3% | A_mid=(open_A+close_A)/2 | confirm = close_C < A_mid
+6）判定步骤： | 依次检查A/B/C，不允许跳日拼接。
+7）评分/扣分分档： | 条件 | 得分/扣分 | A+B+C+confirm全部满足 | -10 | A+B+C满足但close_C尚未跌破A_mid | CANDIDATE -5 | 其余 | 0
+8）失效与 UNKNOWN： | 高位前置不满足=>0；任何日数据缺失=>UNKNOWN。
+9）冲突与去重规则： | R5与R4可同时成立；一个是三K反转，一个是双峰结构。
+10）解释模板： | 检测到三K高位反转组合，第三日收盘{relation}第一阳线实体中点，R5 扣 {penalty} 分。
+R6 分时缩量诱多
+字段 | 规范 | 最大分值/扣分 | 最高-8 | 自动化级别 | AUTO_IF_MINUTE_DATA | 规则来源 | 笔记：第一次拉升有成交量，第二次拉升达到/接近前高但量能明显缩小，随后跌破分时颈线 | 笔记依据 | 笔记第19页
+1）规则目的：识别日内第二次冲高“价不弱、量明显弱”的诱多风险。
+2）所需数据： | 1min/5min price and volume
+3）观察窗口：当日分时
+4）前置条件： | 至少存在两个相隔>=20分钟的局部高点
+5）精确定义/公式： | P1/P2为日内局部高点；P2_price>=P1_price*0.995 | V1=sum(volume in 15min window centered P1) | V2=sum(volume in 15min window centered P2) | shrink=V2/V1 | neckline=min(price between P1,P2) | confirmed=current_price or close < neckline*0.995
+6）判定步骤： | 找第一次和第二次拉升峰；比较15分钟窗口量；检查颈线。
+7）评分/扣分分档： | 条件 | 得分/扣分 | P2>=P1*0.995 且 shrink<=0.60 且 confirmed | -8 | shrink<=0.75 且 confirmed | -5 | 仅缩量但未破颈线 | CANDIDATE -3 | 其余 | 0
+8）失效与 UNKNOWN： | 无分钟数据=>UNKNOWN；两个峰无法稳定识别=>UNKNOWN。
+9）冲突与去重规则： | 不得用日线成交量猜R6。
+10）解释模板： | 第二次冲高价格达到第一次的 {price_ratio:.1%}，但15分钟成交量仅为第一次的 {shrink:.1%}，R6 扣 {penalty} 分。
+SUPERSEDED_BY_V1_3 历史对照：R7 该涨不涨/关键位突破失败
+SUPERSEDED_BY_V1_3 历史对照：字段 | 规范 | 最大分值/扣分 | 最高-10 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：“该涨不涨”不是单个压力位概念，而是按照本套笔记/QuantScore此前评分本应走强，但随后实际没有上涨 | 笔记依据 | 笔记第20页 + 用户补充（v1.1）
+SUPERSEDED_BY_V1_3 历史对照：1）规则目的：把“按此前评分应该涨、结果没涨”转成一个严格的滞后验证规则；它是对高匹配信号的事后失败反馈，不允许在信号当天凭感觉触发。
+SUPERSEDED_BY_V1_3 历史对照：2）所需数据：评价日t0的 PositiveScore、RiskPenalty（排除R7本身）、PositiveCoverage、各规则明细，以及t0后1~3个交易日OHLC。
+SUPERSEDED_BY_V1_3 历史对照：3）观察窗口：信号日t0后的3个交易日。新近信号不足3个后续交易日时状态=PENDING，不得提前扣分。
+SUPERSEDED_BY_V1_3 历史对照：4）前置条件：t0 的 PositiveScore>=70；PositiveCoverage>=80%；RiskPenalty_without_R7<8（LOW）；且t0至少存在一个明确的趋势/启动/板块正向信号（B、C、F任一非零），才定义为“按照本体系应该走强的高匹配信号”。70/80%/8为V1工程阈值，必须配置化。
+SUPERSEDED_BY_V1_3 历史对照：5）精确定义/公式：close_ret_i=close[t0+i]/close[t0]-1, i=1..3；max_close_ret=max(close_ret_1..3)；end_ret=close[t0+3]/close[t0]-1。NOT_RISE_STRONG = max_close_ret<=0；NOT_RISE_WEAK = max_close_ret<0.02。R7只在完整3日观察结束后判定。
+SUPERSEDED_BY_V1_3 历史对照：6）判定步骤：冻结t0当日的评分快照（禁止用未来数据重算t0）；等满3个交易日后读取后续收盘表现；若3日内从未出现至少2%的收盘上涨，则判“该涨不涨”；若完全没有任何收盘上涨，判更严重。
+SUPERSEDED_BY_V1_3 历史对照：7）评分/扣分分档：
+SUPERSEDED_BY_V1_3 历史对照：8）失效与 UNKNOWN：t0后不足3日=>PENDING；t0评分覆盖不足/不是高匹配信号=>NOT_APPLICABLE；后续3日内任一收盘涨幅>=2%=>INVALIDATED/0。
+SUPERSEDED_BY_V1_3 历史对照：9）冲突与去重规则：R7必须基于“历史冻结评分快照”运行，绝不能把后3日数据反向写入t0的正向规则；实时自动选股对当天新信号不应用R7，只能检查更早已满3日观察期的信号。
+SUPERSEDED_BY_V1_3 历史对照：10）解释模板：{signal_date} 的正向匹配分 {positive_score}、风险扣分 {risk_penalty}、覆盖率 {coverage:.0%}；随后3日最大收盘涨幅仅 {max_close_ret:.1%}，R7 状态={status}，扣 {penalty} 分。 | 条件 | 得分/扣分 | t0为高匹配信号，后3日max_close_ret<=0 | -10 | t0为高匹配信号，0<max_close_ret<2% | -6 | 后3日任一收盘涨幅>=2% | 0 / INVALIDATED | 后续不足3日 | PENDING，0 | t0非高匹配/覆盖不足 | NOT_APPLICABLE
+R8 安全带跌破
+字段 | 规范 | 最大分值/扣分 | 最高-12 | 自动化级别 | AUTO_PROXY | 规则来源 | 用户补充定义：安全带用日/周/月收盘波谷连线；盘中跌破后收回允许；对应周期“收盘价”跌破即失效，不需要连续两日确认 | 笔记依据 | 笔记第6、21页 + 用户补充（v1.1）
+1）规则目的：严格按C6的日/周/月收盘安全带判断破位；取消v1.0“盘中破位警告”和“两日确认”逻辑。
+2）所需数据：C6.daily_support / weekly_support / monthly_support；对应周期close。盘中low仅用于展示，不参与破位判定。
+3）观察窗口：当前已完成的日/周/月周期。
+4）前置条件：对应时间尺度C6安全带曾经CONFIRMED且当前support可外推。
+5）精确定义/公式：broken_tf = completed_period_close_tf < support_tf(current_period)。不设2%或1%宽松带；仅可在代码中使用极小数值epsilon处理浮点误差（<=0.1%，必须配置且不得展示成交易容差）。日内/周内/月内 low<support 但对应周期close>=support => NOT_BROKEN。
+6）判定步骤：D/W/M逐一读取“已完成周期的最终收盘价”；与对应安全带比较；某周期收盘首次低于support即把该周期安全带标记INVALIDATED。
+7）评分/扣分分档：
+8）失效与 UNKNOWN：安全带尚未形成=>NOT_APPLICABLE；周/月周期未结束=>PENDING；盘中低点跌破但收盘收回=>0，不警告、不扣分。
+9）冲突与去重规则：某周期R8触发后，C6该周期+1必须清零；D/W/M同时破位时风险扣分只取最严重一档，不累加。
+10）解释模板：{timeframe}安全带当前值 {support:.2f}，该周期最终收盘 {close:.2f}；收盘{relation}安全带，R8 状态={status}，扣 {penalty} 分。 | 条件 | 得分/扣分 | 日线收盘跌破日线安全带 | -6 | 周线已完成周收盘跌破周线安全带 | -10 | 月线已完成月收盘跌破月线安全带 | -12 | 盘中/周期内曾跌破但最终收盘收回 | 0 | 多周期同时跌破 | 只取最高严重度，不累加
+R9 M30有效跌破
+字段 | 规范 | 最大分值/扣分 | 最高-10 | 自动化级别 | AUTO | 规则来源 | 笔记：M30是判断趋势/反顶的重要指标，跌破可提前减仓 | 笔记依据 | 笔记第21页
+1）规则目的：识别中期趋势线M30的有效破位。
+2）所需数据： | close_adj | M30
+3）观察窗口：当前+前2日
+4）前置条件： | M30可计算
+5）精确定义/公式： | below = close < M30*0.99
+6）判定步骤： | 允许1%容差避免轻微穿越。
+7）评分/扣分分档： | 条件 | 得分/扣分 | 连续2日below | -10 | 单日below | -6 | 盘中low<M30但close>=M30 | -2警告 | 其余 | 0
+8）失效与 UNKNOWN： | 不足30日=>UNKNOWN。
+9）冲突与去重规则： | 若2日内重新close>M30*1.01，则原单日R9标记INVALIDATED；已连续2日破位仍保留历史事件但当前风险可降档。
+10）解释模板： | 收盘{relation}M30，连续有效跌破 {n} 日，R9 扣 {penalty} 分。
+R10 筹码由低位向高位迁移
+字段 | 规范 | 最大分值/扣分 | -12 | 自动化级别 | AUTO_IF_DATA | 规则来源 | 笔记：低位筹码峰变为高位筹码峰是强烈下跌/派发信号 | 笔记依据 | 笔记第5页
+1）规则目的：在有筹码分布数据时检测主峰位置显著上移且低位峰衰减。
+2）所需数据： | chip_distribution current and t-20 | 120d price range
+3）观察窗口：20个交易日
+4）前置条件： | 两期筹码数据同源可比
+5）精确定义/公式： | peak_pos_now, peak_pos_prev as E4 | low_peak_share_change = share_low_zone_now - share_low_zone_prev | high_peak_share_change = share_high_zone_now - share_high_zone_prev
+6）判定步骤： | 比较主峰位置和低/高价区筹码占比变化。
+7）评分/扣分分档： | 条件 | 得分/扣分 | peak_pos_prev<=0.45 且 peak_pos_now>=0.70 且 low_share下降>=10pp 且 high_share上升>=10pp | -12 | 主峰上移>=20个百分点且低位筹码下降>=8pp | -8 | 其余 | 0
+8）失效与 UNKNOWN： | 无筹码分布=>UNKNOWN。
+9）冲突与去重规则： | R10成立时E4/E5相关正向分取消。
+10）解释模板： | 筹码主峰由价格区间 {prev_pos:.1%} 上移至 {now_pos:.1%}，低位筹码下降 {low_drop:.1f}pp，R10 扣 {penalty} 分。
+R11 N板换手期失效
+字段 | 规范 | 最大分值/扣分 | -8 | 自动化级别 | AUTO | 规则来源 | 用户明确补充：N板换手期只要盘中最低价跌破M5，即使收盘收回也算失效 | 笔记依据 | 笔记第14页 + 用户补充（v1.1）
+1）规则目的：对F1-N换手期执行硬失效约束，不再保留“盘中破M5可恢复”的软分支。
+2）所需数据：F1-N candidate、low_adj、M5。
+3）观察窗口：首次启动后的2~6日换手期。
+4）前置条件：已存在F1-N first_start并处于exchange阶段。
+5）精确定义/公式：hard_break[d] = low_adj[d] < M5[d]。任一交易日 hard_break=True 即 N板失效；判断只看盘中最低价是否破M5，不因close重新站回而恢复。
+6）判定步骤：换手期逐日比较low与当日M5；首次出现low<M5时记录break_date、break_low、m5_value并立即终止该N板候选。
+7）评分/扣分分档：
+8）失效与 UNKNOWN：M5或low缺失=>UNKNOWN；不存在N板候选=>NOT_APPLICABLE。
+9）冲突与去重规则：R11触发必须先将F1-N正分清零并标记INVALIDATED，再扣-8；同一N板事件只扣一次。
+10）解释模板：N板换手第 {day_no} 日盘中最低价 {low:.2f} 低于M5 {m5:.2f}，即使收盘重新站回也按用户规则判定失效，R11=-8。 | 条件 | 得分/扣分 | 换手期任一日 low<M5 | -8 + F1-N清零/INVALIDATED | 全过程 low>=M5 | 0 | 不存在N板候选 | NOT_APPLICABLE | M5/low缺失 | UNKNOWN
+R12 T板/一字板异常成交
+字段 | 规范 | 最大分值/扣分 | 最高-10 | 自动化级别 | AUTO | 规则来源 | 笔记与用户补充：干净启动不应伴随异常大成交；异常换手需谨慎 | 笔记依据 | 笔记第14–15页 + 用户补充
+1）规则目的：防止只看T/一字形状而忽略大规模筹码交换。
+2）所需数据： | F1-T/F1-O candidate | volume_ratio_20 | turnover_rate
+3）观察窗口：形态当日
+4）前置条件： | 已命中T板或一字板候选
+5）精确定义/公式： | abnormal_1 = turnover>15% | abnormal_2 = volume_ratio_20>=3.0
+6）判定步骤： | 判断异常程度。
+7）评分/扣分分档： | 条件 | 得分/扣分 | abnormal_1 且 abnormal_2 | -10 + 取消F1对应正分 | 任一异常成立 | -5 + 取消F1对应正分 | 均不成立 | 0
+8）失效与 UNKNOWN： | 成交量或换手缺失=>UNKNOWN，F1相应形态最多只能PARTIAL。
+9）冲突与去重规则： | R12与R1在HIGH_ZONE可同时成立；启动位则R1不启用。
+10）解释模板： | 形态当日换手 {turn:.1f}%、量比 {vr:.2f}，异常成交状态={status}，R12 扣 {penalty} 分。
+继承的风险等级 汇总和版本约束
+7. 去重、互斥与类别封顶 | v1.1 F类封顶补充：F1为主启动形态、F2为F1位置质量、F3为空中加油高位中继；F1与F3可发生在不同阶段，但F类总分仍封顶15。 | 规则组 | 处理 | F1 主启动形态 | N板、T板、一字板/一字T、仙人指路、鲤鱼跃龙门+假摔只取单项最高分，不累加。 | F2 启动位置 | 只有F1至少一项命中时才可得分。F类总分封顶15。 | R1 换手分档 | 只取最高档，不把20%和30%两档重复相加。 | R9 M30跌破 | 单日-6与连续两日-10只取更严重档。 | R11 vs F1-N | R11 hard_break先把F1-N清零，再扣R11。 | R12 vs F1-T/F1-O | 异常成交先清零对应F1正分，再执行风险扣分。 | R8 vs C6 | 安全带有效跌破时C6清零。 | R10 vs E4/E5 | 筹码迁移风险成立时E4/E5清零。 | R3 vs F1-T/F1-O | 高位烂板不能被解释成启动T/一字板，正分清零。
+8. UNKNOWN、Coverage 与自动筛股 | 8.1 Coverage（数据覆盖率） | PositiveCoverage = 已成功判定(PASS/PARTIAL/FAIL)的正向规则最大分值 / 100 | RiskCoverage = 已成功判定的风险规则数量 / 当前应适用风险规则数量 | Coverage | 显示策略 | >=90% | FULL：可显示完整QuantScore。 | 70%~90% | PARTIAL：显示分数，但明显标注“部分规则缺数据”。 | <70% | INSUFFICIENT：不输出强等级，只显示已判定规则明细。
+SUPERSEDED_BY_V1_3 历史对照：8.2 自动选股 AutoScreenScore | 自动扫描时只允许使用 AUTO / AUTO_PROXY / AUTO_IF_DATA（数据实际存在时）规则；MANUAL/UNKNOWN 不得默认当作满足。 | 先计算 SectorHeatScore，默认只扫描 Heat>=70 的板块；按热度取 Top 5，可配置。 | 对每个板块成分股要求至少120个交易日日线；关键字段缺失导致 AutoCoverage<80% 时不得进入排名。 | AutoPositiveMax 为本次实际可自动判定的正向最大分值；AutoPositiveNormalized = 100×AutoPositiveRaw/AutoPositiveMax。 | AutoScreenScore = max(0, AutoPositiveNormalized - AutoRiskPenalty)。 | 若 AutoRiskLevel=HIGH，默认进入“高风险候选”区，不进入主排名前列；除非用户显式取消该过滤器。 | 排名主键：AutoScreenScore降序；同分时依次比较 RiskPenalty升序、SectorHeatScore降序、Coverage降序。 | 页面名称必须是“策略匹配候选/Top Strategy Matches”，不得写“推荐买入”。 | 9. 可解释输出与 Codex 数据结构约束 | 9.1 每条规则最低输出字段 | {  "rule_id": "C4",  "name_cn": "M60有效突破/快速收复",  "category": "C",  "automation": "AUTO",  "status": "PASS",  "score": 4,  "max_score": 4,  "raw_values": {"close": 12.84, "m60": 12.21, "event_date": "YYYY-MM-DD"},  "conditions": {"cross_up": true, "confirmed": true},  "assumption_version": "v1.1",  "explanation": "……",  "source_note_pages": [10]} | raw_values 必须是真实计算输入，不允许只给最终布尔值。 | conditions 必须逐项展示，便于调试误判。 | score/max_score 必须来自配置文件，禁止散落在代码中的魔法数字。 | assumption_version 用于后续调整阈值后区分回测结果。 | 任何工程代理规则必须在 explanation 中出现“V1代理规则/工程阈值”提示。 | 9.2 总结果最低输出字段 | {  "positive_score": 78,  "risk_penalty": 10,  "final_score": 68,  "risk_level": "MEDIUM",  "positive_coverage": 0.92,  "risk_coverage": 0.88,  "score_status": "PARTIAL",  "sector_heat_score": 82,  "top_positive_reasons": [...],  "top_risk_reasons": [...],  "rules": [...]} | 10. Codex 实现禁止项（防幻觉硬约束） | 不得新增本规范不存在的技术指标、形态、阈值或分数。需要新增时必须先修改规范版本。 | 不得把“筹码峰”“主力建仓”“龙头带动”等无法直接证明的概念擅自从K线推断为事实；只能使用本文定义的代理指标，并在字段名中保留 proxy。 | 涨停价必须来自证券元数据/行情源或独立的 market_rule 模块计算；不得统一写死为10%。 | 缺少分钟数据时 R6 必须 UNKNOWN；缺少筹码分布时 E4/E5/R10 必须 UNKNOWN。 | UNKNOWN 不允许自动改成0后继续宣称Coverage=100%。 | 形态检测函数必须返回中间条件和触发日期，禁止只返回一个True/False。 | 所有回测和排名必须避免未来数据泄漏，尤其LOCAL_PEAK/LOCAL_TROUGH在实时模式下需要等待右侧2个交易日确认；实时模式可输出“候选峰/谷”，不得伪装已确认。 | 同一事件的互斥/去重必须按照第7章执行。 | 自动选股只能按AutoScreenScore排序；人工信号未填写时不能默认成立。 | UI不得显示“强烈买入/必涨/预测收益率”等超出本规范含义的结论。 | 11. 实现验收测试矩阵 | 测试ID | 场景 | 期望结果 | T01 | 不足60日历史数据 | M60相关规则UNKNOWN；Coverage下降；不得用短均线替代。 | T02 | M60平台中某日收盘跌破，2日后重新站回M60 | C5仍属于同一平台并记录washout；不要求突破日放量。 | T03 | N板换手期盘中low跌破M5但收盘重新站回 | F1-N立即INVALIDATED；R11=-8；绝不能恢复。 | T04 | N板换手完整2~6日且任何日low都未破M5，随后突破整理区 | F1-N=+10。 | T05 | T板开盘并不在涨停附近，但K线几何呈T形且最终封涨停 | 允许F1-T按几何判定；不得因open不在涨停附近直接否决。 | T06 | 双顶第二峰后有效突破第一峰3%以上并连续两日站稳 | R4=INVALIDATED，扣分0。 | T07 | 双顶跌破颈线 | R4=CONFIRMED，-12。 | T08 | 日线盘中跌破安全带但收盘重新站上 | R8=0；C6日线安全带仍有效。 | T09 | 日线收盘首次跌破安全带 | C6日线分清零；R8日线=-6，当日即失效，不等待第二日。 | T10 | 周线底部当前周量超过上一轮高点附近最大周量且较上周放大 | E2=CONFIRMED +4；不要求中间缩量持续固定周数。 | T11 | 阻尼窗口振幅没有逐级缩小，但整体小幅波动且上涨日均量>下跌日均量 | E3可PASS，不得因“不收敛”判0。 | T12 | 板块中目标股最早涨停，但之后盘中跌破M5 | B3=0/INVALIDATED；失去领涨资格。 | T13 | 连续7日小连阳，中间1根小阴，无大阳 | E1=+4；若尚未同时突破M60与起飞平台，不标记正式启动。 | T14 | 空中加油：低量涨停后2日高位大成交整理，低点不破M5，第3日继续上涨 | F3=+8。 | T15 | 空中加油整理第4日盘中low<M5后收回 | F3=INVALIDATED，0。 | T16 | 鲤鱼跃龙门后次日近涨停开盘、近跌停收盘且巨量，3日内恢复M5并收复实体50% | F1-Y=CONFIRMED +8。 | T17 | 高分信号日PositiveScore>=70、低风险、覆盖>=80%，随后3日最大收盘涨幅<2% | R7按档位-6/-10。 | T18 | 筹码数据缺失 | E4/E5/R10全部UNKNOWN，不得从K线猜。 | T19 | 无分钟数据 | R6=UNKNOWN。 | T20 | AutoCoverage<80% | 不进入自动选股排名。
+SUPERSEDED_BY_V1_3 历史对照：12. V1 参数注册表（必须配置化） | 所有下列阈值必须集中放在 scoring_rules_v1.yaml/json，不得硬编码在多个函数。 | 调整任何参数必须提升 assumption_version，并保存旧版本以便复现实验。 | 参数 | V1默认值 | GLOBAL.near_m60_pct | 0.08 | GLOBAL.low_zone_position | 0.35 | GLOBAL.high_zone_position | 0.80 | GLOBAL.high_zone_ret20 | 0.15 | GLOBAL.high_zone_ret60 | 0.30 | GLOBAL.near_limit_tol | 0.005 | SECTOR.hot_threshold | 70 | B3.leader_lookback_days | 10 | C1.above_tolerance | 0.003 | C4.breakout_margin | 0.01 | C5.near_m60_upper_pct | 0.08 | C5.platform_width_max | 0.15 | C5.washout_reclaim_days_max | 3 | C5.search_days_max | 250 (仅工程扫描上限) | C6.daily_trough_side_bars | 2 | C6.weekly_monthly_trough_side_bars | 1 | C6.float_epsilon | <=0.001 | D1.volume_ratio_full | 1.8 | D2.pullback_max | 0.08 | E1.small_negative_abs_max | 0.02 | E1.big_bull_body_min | 0.05 | E1.big_bull_return_min | 0.07 | E1.min_run_days | 7 | E2.high_zone_price_ratio | 0.95 | E2.high_zone_week_radius | 4 | E2.bottom_position_max | 0.35 | E3.daily_scan_days_min/max | 5 / 30 | E3.weekly_scan_weeks_min/max | 3 / 12 | E3.range_width_max | 0.12 | E3.avg_abs_return_max | 0.025 | E3.full_volume_ratio | 1.15 | F1N.exchange_days_min/max | 2 / 6 | F1N.m5_break_rule | low < M5 => INVALIDATED（无恢复分支） | F1T.close_position_min | 0.90 | F1T.lower_shadow_body_ratio_min | 1.20 | F1T.lower_shadow_prev_close_min | 0.01 | F1Y.open_near_limit_up_ratio | 0.98 | F1Y.close_near_limit_down_ratio | 1.02 | F1Y.large_drop_body_min | 0.12 | F1Y.huge_volume_ratio20 | 2.0 | F1Y.huge_volume_vs_breakout | 1.5 | F1Y.recovery_days_max | 3 | F1Y.recovery_body_ratio | 0.50 | F3.low_volume_limit_ratio20 | 1.20 | F3.exchange_volume_vs_rise_min | 1.20 | F3.exchange_days_min/max | 2 / 6 | F3.continuation_return_proxy | 0.05 | F1X.intraday_gain_min | 0.07 | F1X.intraday_gain_max | 0.105 | R4.peak_diff_max | 0.03 | R4.valley_drawdown_min | 0.05 | R4.peak_gap_days_min | 4 | R4.peak_gap_days_max | 20 | R7.signal_positive_score_min | 70 | R7.signal_coverage_min | 0.80 | R7.signal_risk_penalty_max_exclusive | 8 | R7.observation_days | 3 | R7.min_expected_close_gain | 0.02 | R9.m30_break_margin | 0.01
+SUPERSEDED_BY_V1_3 历史对照：13. 笔记来源映射与未纳入项 | 笔记页 | 主要内容 | V1处理 | 1–2 | 先大盘/板块/个股；早期量化想法 | 保留顺序，不采用旧手写分值（按用户明确要求）。 | 4 | 板块效应、至少多只涨停、主动性龙头 | 用于S/B规则。 | 5–6 | M60、低位筹码峰、安全带、筹码分布 | 用于C/E/R规则。 | 7 | 底部小连阳、鲤鱼跃龙门+假摔 | 用于E1、F1-Y；v1.1按用户补充重写小连阳与单日巨量假摔。 | 8 | 周线成交量反转、日/周线阻尼 | 用于E2/E3；v1.1取消“必须逐级缩幅/固定缩量期”等非用户定义硬条件。 | 10 | M60起飞平台、快速收复M60 | 用于C4/C5；v1.1允许起飞前跌破M60后1~3日收复，平台无固定持续时间。 | 11 | 仙人指路：启动位、冲高7%~10%、换手率条件 | 用于F1-X。 | 12 | 涨停板位置与含义、高位大换手出货 | 用于R1/R3。 | 13–15 | T板、N板、一字T/N及启动位置 | 用于F1系列/R11/R12/F3；v1.1明确N板盘中破M5即失效、T板按T形+最终涨停、空中加油2~6日。 | 16–17 | 反转K线组合、双子顶 | 用于R4/R5。 | 19 | 分时缩量诱多 | 用于R6（必须分钟数据）。 | 20 | 该涨不涨 | 用于R7；v1.1改为“历史高匹配信号后3日没有按预期上涨”的滞后验证。 | 21 | 安全带卖点、M30卖点 | 用于C6/R8/R9；v1.1安全带按日/周/月收盘波谷连线，只有周期收盘跌破才失效。 | 用户补充 v1.1 | 板块龙头、M60平台、安全带、周量反转、阻尼、N/T板、空中加油、假摔、该涨不涨 | 已全部纳入对应机器规则；任何工程数值阈值均配置化并标记为V1工程参数。
+v1.1 已补全概念与仍需数据条件 | 空中加油已根据用户v1.1补充定义机器化为 F3：低量涨停→高位2~6日较大成交整理→盘中不破M5→继续上涨；整理越短评分越高。 | 仍未获得足够定义的任何新形态一律保持UNKNOWN/NOT_IMPLEMENTED；Codex不得依据名称自行补规则。 | v1.1 已吸收用户本轮补充；后续若发现工程阈值与实盘习惯不符，必须先升级规范/assumption_version，再改代码和回测。 | 14. Codex 开发前最终冻结清单 | 检查项 | 冻结要求 | 规则文件 | 所有分值和阈值进入单一配置文件；用户定义的硬条件（如N板low不得破M5）不得被Codex软化。 | 规则函数 | 一条Rule ID一个独立 evaluator，返回标准RuleResult。 | 数据层 | 原始价/复权价分开；缺字段显式记录。 | 解释层 | 每条规则必须输出原始值、条件、得分、解释。 | 测试层 | 至少覆盖第11章20个验收场景，并为每条规则做边界值测试。 | 版本层 | scoring_spec_version=v1.1；任何阈值/定义修改必须升版并保留旧版本。 | 自动选股 | SectorHeat>=70→成分股AutoScreen→风险过滤→排序。 | 产品措辞 | “策略匹配/候选/风险”，不出现收益承诺。
+—— QuantScore V1 Scoring Specification End ——
+风险等级保持：RiskPenalty 0–7为LOW，8–19为MEDIUM，>=20为HIGH。高位换手>=30%、明显高位出货板、CONFIRMED双子顶同时出现高位异常量或换手，直接触发HIGH。风险分不占正向100分。
+第三部分 最终验收与用户决策结案
+T02_NEW取代旧T02：已形成平台跌破当日INVALIDATED，收复交C4，新C5从收复日重新连续累计5日。R7测试-10/-6/盘中+3%失效和不足3日等待；E1测试3.999/4.000/4.999/5.000及两个独立槽位；F1-Y测试2%低量突破、仅盘中突破失败及多组合；F1-O测试4.9/5.0/5.1/14.9/15.0和R12清零。
+U01 R7、U02 E1、U03 F1-Y、U04 F1-O：RESOLVED_IN_V1_3；resolution_source=USER_CONFIRMED。No unresolved user-defined trading semantics remain in V1.3.

@@ -1,0 +1,58 @@
+[
+  [
+    "二、统一解决区间端点歧义",
+    "所有连续数值分档统一使用：\n\n左闭右开 [a,b)\n\n最高档允许右侧无穷。\n\n例如：\n\n-3% <= x < 0%\n0% <= x < 3%\nx >= 3%\n\n不得因为 x=0、0.5%、1.10 等边界值返回 AMBIGUOUS_SPEC。\n\n针对原 A01：\n全部消除。\n\n必须补边界测试。"
+  ],
+  [
+    "三、Coverage 规则重新冻结",
+    "Coverage 衡量的是：\n\n“规则能否被可靠判断”\n\n而不是：\n\n“规则有没有得分”。\n\n因此：\n\n只要规则返回确定状态，包括：\n\nPASS\nPARTIAL\nFAIL\nCANDIDATE\nFORMED\nCONFIRMED\nINVALIDATED\n\n都算“已判断”。\n\n只有：\n\nUNKNOWN\nNOT_IMPLEMENTED\n\n不算已判断。\n\nPositiveCoverage：\n\n已判断正向规则的有效最大分值\n/\n100\n\n但必须应用所有组内封顶：\n\nA 10\nB 15\nC 25\nD 20\nE 15\nF 15\n\nF1 多种启动形态仍只按 F1 组的有效上限计算，\n不能因为多个F1规则导致 Coverage >100%。\n\nRiskCoverage：\n\n可被可靠判断的风险规则数量\n/\n当前应执行的全部风险规则数量\n\n如果某条风险规则所需数据齐全、前置条件明确不成立：\n视为“已判断但未触发”，不是 UNKNOWN。\n\n只有：\n缺关键数据\n或实现尚未完成\n才允许 UNKNOWN。\n\n最终 Coverage 不得因为数学定义歧义返回 null。"
+  ],
+  [
+    "四、C5 M60起飞平台",
+    "正式冻结：\n\n平台至少持续：\n\n5个交易日。\n\n平台期间：\n\n每个交易日收盘价必须：\n\nClose >= M60\n\n只要任一交易日：\n\nClose < M60\n\n该段不能被认定为“完整M60起飞平台”。\n\n注意：\n\n用户过去提到“主力可能故意跌破M60后1~3日重新收回”。\n\n这种情况归 C4：\n\nM60快速收复\n\n不要再算 C5 完整起飞平台。\n\n“在M60上方一点点”工程化定义：\n\n0 <= (Close - M60) / M60 <= 8%\n\n参数：\n\nm60_platform_max_distance_pct = 0.08\n\n最近至少5日中：\n\n至少80%的交易日满足上述距离条件，\n且100%的收盘价不得低于M60。\n\n平台振幅可以存在，\n不要擅自要求成交量一定缩小或突破必须放量。\n\n实现 C5。"
+  ],
+  [
+    "五、C6 / R8 上升安全带",
+    "用户定义：\n\n安全带分别存在于：\n\n日K\n周K\n月K\n\n每个周期都使用：\n\n“收盘价形成的波谷”\n\n不是最低价 Low。\n\n安全带由至少两个已确认的收盘价局部波谷连线形成。\n\n局部收盘波谷：\n当前周期 Close 小于前后各2根K线的 Close。\n\n最近两个已确认波谷：\n按时间最近的两个有效波谷建立上升支撑线。\n\n只有：\n\n第二个波谷收盘价 > 第一个波谷收盘价\n\n才属于上升安全带。\n\n将两点连线外推到当前评价周期。\n\n判断破位时：\n\n盘中 Low 跌破安全带但 Close 收回：\n不算失效。\n\n只有当前周期：\n\nClose < 安全带价格\n\n才判该周期安全带跌破。\n\n日K：\n使用日收盘。\n\n周K：\n只能在完整周线收盘后确认。\n\n月K：\n只能在完整月线收盘后确认。\n\n任何周期出现正式收盘跌破：\n对应安全带 INVALIDATED。\n\nR8执行规范中的风险扣分。\n\n不能用 Low 代替 Close。\n\n实现 C6 和 R8。"
+  ],
+  [
+    "六、E1 底部小连阳",
+    "正式冻结：\n\n最短观察长度：\n\n>=7个交易日。\n\n小阳线：\n\n0% < daily_return < 4%\n\n大阳线：\n\ndaily_return >= 5%\n\n如果观察窗口内出现任何大阳线：\n本轮“底部小连阳”结构失效。\n\n4% <= daily_return < 5%：\n\n定义为中间过渡阳线，\n不计作“小阳”，\n但单独出现时不直接使整个结构失效。\n\n允许中间最多存在：\n\n1根小阴线\n或\n1根十字星\n\n总计最多1根例外K线。\n\n十字星工程定义：\n\nabs(close-open)/previous_close <= 0.5%\n\n小阴线：\n\n-3% < daily_return <= 0%\n\n如果 daily_return <= -3%：\n不能作为允许的小阴线。\n\n“底部”仍按照规范已有价格位置定义。\n\n注意：\n\n股票超过M60本身不代表正式启动。\n\n用户定义：\n\n只有：\n股价超过M60\n并进一步突破M60起飞平台\n才认为真正进入启动阶段。\n\n实现 E1。"
+  ],
+  [
+    "七、E2 周线成交量反转",
+    "使用完整周K。\n\n步骤：\n\n1. 找到上一轮主要价格高点；\n2. 以上一轮主要高点所在周为中心；\n3. 搜索：\n   高点前2周\n   高点周\n   高点后2周\n   共最多5周；\n4. 在这5周内找到最大周成交量：\n\nprevious_cycle_peak_volume\n\n该周不要求与最高价发生在完全同一周。\n\n底部阶段缩量持续时间：\n不设固定长度。\n\n当前底部区域只要某完整周：\n\nweekly_volume > previous_cycle_peak_volume\n\n即满足：\n\n周线成交量反转。\n\n不得擅自要求：\n必须连续放量\n必须先缩量N周\n必须ATR收缩。\n\n若存在多个上一轮主要高点：\n\n优先选择距离当前评价日最近的、已结束的上一轮主要价格高点。\n\n实现 E2。"
+  ],
+  [
+    "八、E3 阻尼运动",
+    "用户定义：\n\n阻尼运动不要求振幅越来越小。\n\n核心只有：\n\n1. 股价处于小幅波动；\n2. 上涨时放量；\n3. 下跌时缩量。\n\n“小幅波动”工程定义：\n\n观察窗口内至少80%的交易日：\n\nabs(daily_return) <= 5%\n\n参数：\n\ndamping_small_move_pct = 0.05\n\n上涨日：\n\ndaily_return > 0\n\n下跌日：\n\ndaily_return < 0\n\n计算：\n\navg_up_volume\navg_down_volume\n\n必须：\n\navg_up_volume > avg_down_volume\n\n才满足量价方向要求。\n\n不设置固定持续天数。\n\n程序需要在已有可用窗口内进行检测，\n但至少要有：\n\n3个上涨日\n3个下跌日\n\n否则证据不足返回 UNKNOWN。\n\n不要重新加入“振幅持续收窄”的旧规则。\n\n实现 E3。"
+  ],
+  [
+    "九、F1-N N板多起点规则",
+    "用户确认：\n\n换手期间任意一天：\n\nLow < M5\n\n即立即失效。\n\n即使当天最终：\n\nClose > M5\n\n仍然失效。\n\n换手最长：\n\n6个交易日。\n\n如果窗口内存在多个可能 first_start：\n\n按照 first_start 距评价日由近到远排序。\n\n优先选择：\n\n距离当前最近，\n且完整满足：\n\n首次启动\n→ 2~6日换手\n→ 换手任何一天Low不得低于M5\n→ 二次启动\n\n的完整结构。\n\n如果最近候选失败：\n继续向前检查下一候选。\n\n如果找到一个完整合法结构：\n使用距离当前最近的合法结构。\n\n不要因为 multiple first_start 返回 UNKNOWN。\n\n将 F1-N 从 PARTIAL 尽量升级到 IMPLEMENTED。\n\n补多起点测试。"
+  ],
+  [
+    "十、F1-T T板",
+    "用户定义：\n\n不要求开盘价必须位于涨停附近。\n\n核心是：\n\n当天形成T形\n且最终涨停。\n\n机器规则：\n\n1. 当日 Close 达到真实涨停价判定范围；\n2. 当日 High 接近/等于真实涨停价；\n3. 盘中发生明显开板：\n\nLow <= limit_up_price * 0.98\n\n即最低价至少比涨停价低2%。\n\n4. 最终重新封住涨停。\n\n满足：\n完整T板。\n\n不要额外要求：\nOpen必须涨停。\n\n成交量是否异常：\n由 D 类和 R12 单独判断，\n不要在F1-T重复扣分。\n\n实现 F1-T。"
+  ],
+  [
+    "十一、F1-O 一字板 / 一字T",
+    "用户确认：\n\n“此前没有放量”：\n\n过去3个完整交易日平均成交量\n\n<=\n\n20日平均成交量 * 1.2\n\n参数：\n\none_word_pre_volume_ratio = 1.20\n\n当日干净成交：\n\nturnover_rate <= 5%\n\n参数：\n\none_word_max_turnover_pct = 5.0\n\n同时必须满足规范已有一字板/一字T价格结构。\n\n如果价格形态满足但：\n换手率 >5%\n或此前已经明显放量：\n\n不能得到“干净启动”满分。\n\n根据规范执行PARTIAL/FAIL或风险逻辑。\n\n实现 F1-O。"
+  ],
+  [
+    "十二、F3 空中加油",
+    "用户定义：\n\n第一阶段：\n\n出现涨停，\n且涨停时成交量较小。\n\n之后股票进入较高位置。\n\n进入整理阶段：\n\n整理持续2~6个交易日。\n\n整理阶段相对于此前拉升阶段：\n成交量明显更大。\n\n这几天股价允许下跌，\n但是：\n\n任何一天 Low < M5\n\n则空中加油结构立即 INVALIDATED。\n\n即使收盘重新站回M5也不能恢复。\n\n整理结束以后继续上涨：\n结构成立。\n\n强度按照整理时间：\n\n2日整理后重新上涨：\n+8\n\n3~4日：\n+7\n\n5~6日：\n+6\n\n已经进入合法整理但尚未再次上涨：\nCANDIDATE\n+3\n\n超过6日没有重新启动：\n结构失效。\n\n“继续上涨”使用规范已有突破/上涨确认规则，\n不得只因为单日微涨0.1%判定重新启动。\n\n实现 F3。"
+  ],
+  [
+    "十三、F1-Y 鲤鱼跃龙门 + 假摔",
+    "现在补全“龙门”的定义。\n\n龙门不是单独M60，\n也不是单独前高。\n\n龙门 =\n\n“前期重要高点形成的压力连线”\n与\n“M60”\n在同一价格区域形成的共同压力区。\n\n步骤：\n\n1. 在突破日前寻找至少两个已经确认的局部重要高点；\n2. 高点必须发生在突破日前，禁止使用未来数据；\n3. 使用距离突破日最近的两个有效重要高点建立压力线；\n4. 将压力线外推到突破日；\n5. 计算：\n\nresistance_price\nm60_price\n\n共同区间要求：\n\nabs(resistance_price - m60_price)\n/\nm60_price\n<= 3%\n\n参数：\n\ndragon_gate_confluence_pct = 0.03\n\n只有满足共同区间，\n才存在有效“龙门”。\n\n“跃龙门”：\n\n突破日 Close 同时高于：\n\nresistance_price\n和\nM60\n\n并满足规范中的强势突破要求。\n\n若多个可能压力线候选：\n优先使用距离突破日最近的一组合法高点组合。\n\n假摔按照用户已冻结定义：\n\n发生在跃龙门之后。\n\n假摔只持续：\n\n1个交易日。\n\n特征：\n\n1. 开盘价接近涨停价；\n2. 收盘价接近跌停价；\n3. 当日跌幅很大；\n4. 当日成交量巨大。\n\n使用规范现有“接近涨停/接近跌停/巨大成交量”参数；\n如果这些参数存在端点歧义，按左闭右开规则消除。\n\n必须完整保留后续恢复确认逻辑，\n防止真实出货被误判为假摔。\n\n实现 F1-Y。"
+  ],
+  [
+    "十四、R7 该涨不涨",
+    "用户定义：\n\n只有此前评分已经达到明显高匹配，\n才存在“应该涨”的前提。\n\n冻结：\n\n评价日：\n\nQuantScore >= 80\n\n并且：\n\nRisk Level != HIGH\n\n则进入 R7 forward observation。\n\n参数：\n\nshould_rise_score_threshold = 80\n\n观察未来：\n\n3个完整交易日。\n\n参数：\n\nshould_rise_observation_days = 3\n\n如果这3日内：\n\nmax(High)\n<\n评价日Close * 1.03\n\n即价格最高都没有超过评价日收盘价3%，\n\n则判：\n\nR7 “该涨不涨”成立。\n\n参数：\n\nshould_rise_min_upside_pct = 0.03\n\n执行规范中的风险扣分。\n\n注意：\n\n严格防止未来数据泄漏。\n\n在评价日当天只能返回：\n\nPENDING / UNKNOWN reason_code=AWAITING_FORWARD_CONFIRMATION\n\n等未来3个交易日真实结束后，\n才能回溯确认 R7。\n\n做历史回测时同样不能把未来结果泄漏给评价日评分。\n\n实现 R7。"
+  ],
+  [
+    "十五、R4 双子顶多结构选择 + 卖出风险提醒",
+    "保留已有完整双子顶算法。\n\n如果同一窗口存在多个合法双子顶：\n\n必须选择：\n\nP2距离当前评价日最近的一组。\n\n如果多个结构 P2 日期相同：\n\n选择：\n\nabs(P2_high - P1_high)\n\n最小的一组，\n即两个顶部高度最接近者。\n\n不再因为 multiple double-top candidates 返回 UNKNOWN。\n\n双子顶状态和扣分继续保留：\n\nCANDIDATE：\n按规范扣分\n\nFORMED：\n按规范进一步扣分\n\nCONFIRMED：\n按规范最高等级扣分\n\n一旦检测到双子顶：\n\n至少从 CANDIDATE 开始，\n必须生成：\n\nexit_risk_alert = true\n\nalert_type = \"DOUBLE_TOP_EXIT_RISK\"\n\nUI未来展示文本：\n\n“检测到双子顶卖出风险信号，请重点关注顶部结构及破位风险。”\n\n注意：\n这是用户自定义交易规则的风险提醒，\n不是自动下单功能。\n\n如果后续满足 INVALIDATED：\n撤销该双子顶风险和相应扣分。\n\n补：\n多组候选\n最近P2优先\n同P2峰差优先\n风险提醒\n失效撤销\n测试。"
+  ]
+]

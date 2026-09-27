@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QuantScore RuleResult v1.4",
+  "type": "object",
+  "properties": {
+    "rule_id": {
+      "type": "string"
+    },
+    "name_cn": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "rule_type": {
+      "enum": [
+        "POSITIVE",
+        "RISK",
+        "SECTOR",
+        "SYSTEM"
+      ]
+    },
+    "source_type": {
+      "enum": [
+        "AUTO",
+        "AUTO_PROXY",
+        "AUTO_IF_DATA",
+        "MANUAL"
+      ]
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "PARTIAL",
+        "FAIL",
+        "UNKNOWN",
+        "CANDIDATE",
+        "FORMED",
+        "CONFIRMED",
+        "INVALIDATED"
+      ]
+    },
+    "score": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "max_score": {
+      "type": "number",
+      "minimum": 0
+    },
+    "penalty": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "max_penalty": {
+      "type": "number",
+      "minimum": 0
+    },
+    "raw_values": {
+      "type": "object"
+    },
+    "conditions": {
+      "type": "object"
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "spec_version": {
+      "const": "1.4"
+    },
+    "assumption_version": {
+      "const": "v1.3"
+    },
+    "data_contract_version": {
+      "const": "1.4"
+    },
+    "code_status": {
+      "enum": [
+        "IMPLEMENTED",
+        "PARTIAL",
+        "NOT_IMPLEMENTED"
+      ]
+    },
+    "reason_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "exit_risk_alert": {
+      "type": "boolean"
+    },
+    "alert_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "alert_text": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "applicable": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "source_note_pages": {
+      "type": "string"
+    },
+    "adjustments": {
+      "type": "array"
+    },
+    "data_provenance": {
+      "type": "array"
+    }
+  },
+  "required": [
+    "rule_id",
+    "name_cn",
+    "category",
+    "rule_type",
+    "source_type",
+    "status",
+    "score",
+    "max_score",
+    "penalty",
+    "max_penalty",
+    "raw_values",
+    "conditions",
+    "explanation",
+    "spec_version",
+    "assumption_version",
+    "data_contract_version",
+    "code_status",
+    "reason_code",
+    "event_id",
+    "exit_risk_alert",
+    "alert_type",
+    "alert_text",
+    "applicable",
+    "source_note_pages",
+    "adjustments",
+    "data_provenance"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "UNKNOWN"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "score": {
+            "type": "null"
+          },
+          "penalty": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

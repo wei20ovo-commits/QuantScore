@@ -1,0 +1,4 @@
+provider_order:
+  - baostock
+  - akshare
+  - tushare
