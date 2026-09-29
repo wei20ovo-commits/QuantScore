@@ -35,14 +35,26 @@ class SDK:
     def query_history_k_data_plus(self, **kwargs):
         self.calls.append(kwargs)
         values = dict(date='2024-01-02',code=kwargs['code'],open='10',high='11',low='9',close='10',
-                      preclose='9.9',volume='12345',amount='123450',adjustflag=kwargs['adjustflag'],
+                      preclose='9.9',pctChg='1.01',volume='12345',amount='123450',adjustflag=kwargs['adjustflag'],
                       turn='' if self.blank_turn else '5.1',tradestatus='1',isST='0')
         fields = kwargs['fields'].split(',')
         return Result(fields, [[values[k] for k in fields]], self.query_error)
-    def query_stock_basic(self):
+    def query_stock_basic(self, **kwargs):
+        self.calls.append(kwargs)
         return Result(['code','code_name','ipoDate','type'],
                       [['sh.600519','测试沪股','2001-08-27','1'],['sz.000001','测试深股','1991-04-03','1'],
                        ['sh.000001','测试指数','1991-07-15','2']])
+    def query_trade_dates(self, **kwargs):
+        return Result(['calendar_date','is_trading_day'], [['2024-01-02','1'],['2024-01-01','0']])
+
+
+def test_metadata_and_trade_calendar_queries():
+    p = BaoStockProvider(SDK())
+    basic = p.query_stock_basic('600519.SH')
+    assert basic.iloc[0].code == 'sh.600519'
+    calendar = p.query_trade_dates('2024-01-01', '2024-01-02')
+    assert list(calendar.calendar_date.dt.strftime('%Y-%m-%d')) == ['2024-01-01', '2024-01-02']
+    assert list(calendar.is_trading_day) == [0, 1]
 
 
 @pytest.mark.parametrize('symbol,code', [('600519.SH','sh.600519'),('000001.SZ','sz.000001'),('000001.SH','sh.000001')])
@@ -55,7 +67,7 @@ def test_fields_units_and_logout(adjustment,flag,capsys):
     d=p.fetch_stock_daily('600519.SH','2024-01-01','2024-01-03',adjustment)
     assert sdk.calls[0]['adjustflag']==flag
     assert d.volume.iloc[0]==12345 and d.turnover_rate.iloc[0]==5.1
-    assert d.preclose.iloc[0]==9.9 and d.isST.iloc[0]==0 and d.tradestatus.iloc[0]==1
+    assert d.preclose.iloc[0]==9.9 and d.pctChg.iloc[0]==1.01 and d.isST.iloc[0]==0 and d.tradestatus.iloc[0]==1
     assert d.provider.iloc[0]=='baostock' and flag in d.data_provenance.iloc[0]
     assert sdk.logouts==1 and capsys.readouterr().out==''
 

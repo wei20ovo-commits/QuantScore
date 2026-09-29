@@ -1,3 +1,9 @@
+# Stage 3A.5 最新完整测试（2026-09-29）
+
+526项：525 PASS / 0 FAIL / 0 ERROR / 1 SKIP。新增55项，原471项全部保留。原始结果：outputs/stage35/pytest.xml、pytest_final.txt。命令：python -m pytest --basetemp=outputs/tmp/pytest/stage35-final --junitxml=outputs/stage35/pytest.xml。
+
+下方为历史报告，保留供复现。
+
 # 实际测试报告
 
 - 总数：433

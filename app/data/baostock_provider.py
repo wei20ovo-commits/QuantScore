@@ -78,7 +78,7 @@ class BaoStockProvider(BaseProvider):
         return exchange.lower() + '.' + code
 
     def list_securities(self):
-        data = self._call('query_stock_basic')
+        data = self.query_stock_basic()
         required = {'code', 'code_name', 'ipoDate', 'type'}
         if not required <= set(data):
             raise DataError('BaoStock security fields missing')
@@ -86,8 +86,33 @@ class BaoStockProvider(BaseProvider):
         data['canonical_symbol'] = data.code.str[3:] + '.' + data.code.str[:2].str.upper()
         return data.rename(columns={'code_name':'name', 'ipoDate':'listing_date'}).assign(asset_type='STOCK')
 
+    def query_stock_basic(self, code=None):
+        """查询证券基础资料；code 为空时返回全量证券表。"""
+        kwargs = {} if code is None else {'code': self.source_code(code) if re.fullmatch(r'\d{6}\.(SH|SZ)', str(code)) else code}
+        data = self._call('query_stock_basic', **kwargs)
+        required = {'code', 'code_name', 'ipoDate', 'type'}
+        if not required <= set(data):
+            raise DataError('BaoStock security fields missing')
+        return data
+
+    def query_trade_dates(self, start_date=None, end_date=None, exchange=''):
+        """查询交易日历，返回 BaoStock 原始字段并规范日期类型。"""
+        kwargs = {}
+        if start_date is not None:
+            kwargs['start_date'] = pd.Timestamp(start_date).strftime('%Y-%m-%d')
+        if end_date is not None:
+            kwargs['end_date'] = pd.Timestamp(end_date).strftime('%Y-%m-%d')
+        if exchange:
+            kwargs['exchange'] = exchange
+        data = self._call('query_trade_dates', **kwargs)
+        if 'calendar_date' not in data or 'is_trading_day' not in data:
+            raise DataError('BaoStock trade calendar fields missing')
+        data['calendar_date'] = pd.to_datetime(data['calendar_date'], errors='raise')
+        data['is_trading_day'] = pd.to_numeric(data['is_trading_day'], errors='raise').astype('int64')
+        return data.sort_values('calendar_date').reset_index(drop=True)
+
     def _history(self, symbol, start, end, adjustment, index=False):
-        fields = 'date,code,open,high,low,close,preclose,volume,amount,adjustflag'
+        fields = 'date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag'
         if not index:
             fields += ',turn,tradestatus,isST'
         flag = {'raw':'3', 'qfq':'2'}[adjustment]
@@ -100,7 +125,7 @@ class BaoStockProvider(BaseProvider):
         if not data.code.eq(code).all() or not data.adjustflag.eq(flag).all():
             raise DataError('BaoStock returned unexpected symbol/adjustment')
         data = data.rename(columns={'turn':'turnover_rate'}).replace('', float('nan'))
-        for col in ('open','high','low','close','preclose','volume','amount','turnover_rate','tradestatus','isST'):
+        for col in ('open','high','low','close','preclose','pctChg','volume','amount','turnover_rate','tradestatus','isST'):
             if col in data:
                 data[col] = pd.to_numeric(data[col], errors='raise')
         # Blank optional values remain missing; volume already shares, turn already %.

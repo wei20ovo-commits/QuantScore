@@ -1,0 +1,4 @@
+industry,trade_date,expected_count,valid_count,missing_count,coverage,status,sector_amount_today,sector_amount_prior_20d_mean,amount_ratio,prior_window_start,prior_window_end,prior_trading_days
+C18纺织服装、服饰业,2026-09-28,41,41,0,1.0,VALID,4694878005.190001,4125861705.619499,1.1379145352340556,2026-08-28,2026-09-24,20
+C25石油、煤炭及其他燃料加工业,2026-09-28,17,17,0,1.0,VALID,2824546061.19,3495416814.5165,0.8080713148313623,2026-08-28,2026-09-24,20
+H61住宿业,2026-09-28,5,5,0,1.0,VALID,481814649.12,1084725900.2335002,0.44418101293265294,2026-08-28,2026-09-24,20

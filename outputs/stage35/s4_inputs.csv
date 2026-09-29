@@ -1,0 +1,4 @@
+industry,trade_date,expected_count,valid_count,missing_count,coverage,status,valid_limit_count,limit_up_count,limit_up_ratio,definition
+C18纺织服装、服饰业,2026-09-28,41,41,0,1.0,VALID,41,0,0.0,close_raw >= verified limit_up_price
+C25石油、煤炭及其他燃料加工业,2026-09-28,17,17,0,1.0,VALID,17,0,0.0,close_raw >= verified limit_up_price
+H61住宿业,2026-09-28,5,5,0,1.0,VALID,5,0,0.0,close_raw >= verified limit_up_price

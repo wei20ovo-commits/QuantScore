@@ -1,0 +1,4 @@
+industry,trade_date,expected_count,valid_count,missing_count,coverage,status,advancing_constituents,valid_constituents,expected_constituents,breadth
+C18纺织服装、服饰业,2026-09-28,41,41,0,1.0,VALID,4,41,41,0.0975609756097561
+C25石油、煤炭及其他燃料加工业,2026-09-28,17,17,0,1.0,VALID,4,17,17,0.23529411764705882
+H61住宿业,2026-09-28,5,5,0,1.0,VALID,0,5,5,0.0

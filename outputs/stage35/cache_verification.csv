@@ -1,0 +1,4 @@
+phase,provider,symbol,provider_fetch,cache_hit,rows,as_of,retrieved_at
+first_fetch,baostock,600519.SH,True,False,19,2026-09-28 00:00:00,2026-09-29T00:27:30.794243+00:00
+cache_hit,baostock,600519.SH,False,True,19,2026-09-28 00:00:00,2026-09-29T00:27:30.801244+00:00
+force_refresh_fetch,baostock,600519.SH,True,False,19,2026-09-28 00:00:00,2026-09-29T00:27:32.338360+00:00

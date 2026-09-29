@@ -1,0 +1,10 @@
+{
+  "changed_existing_files": [
+    "app\\data\\market_rule.py",
+    "app\\sector\\market_data.py",
+    "docs\\MARKET_LIMIT_RULES_SSOT.md"
+  ],
+  "existing_tests_unchanged": true,
+  "scoring_config_unchanged": true,
+  "ui_unchanged": true
+}

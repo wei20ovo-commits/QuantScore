@@ -1,0 +1,45 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.0, pytest-9.1.1, pluggy-1.6.0
+rootdir: <PROJECT_ROOT>
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.1
+collected 526 items
+
+tests\test_additional_boundaries.py .....................                [  3%]
+tests\test_baostock_provider.py ..................                       [  7%]
+tests\test_basic_rules.py .............................................. [ 16%]
+........................                                                 [ 20%]
+tests\test_engines.py ......................................             [ 27%]
+tests\test_limit_price_engine.py ........                                [ 29%]
+tests\test_resume_audit.py ............                                  [ 31%]
+tests\test_risks_and_patterns.py .................................       [ 38%]
+tests\test_sector_contract.py ...                                        [ 38%]
+tests\test_spec_acceptance.py ...................s                       [ 42%]
+tests\test_stage21_consistency_proxy.py ..............                   [ 45%]
+tests\test_stage2_completion.py ...........................              [ 50%]
+tests\test_stage2_data.py ..............................                 [ 55%]
+tests\test_stage2_service.py ......................                      [ 60%]
+tests\test_stage31_sector_integrity.py .....                             [ 61%]
+tests\test_stage32_data_closure.py ................                      [ 64%]
+tests\test_stage35_acceptance.py ....................................... [ 71%]
+................                                                         [ 74%]
+tests\test_ui_final.py ...                                               [ 75%]
+tests\test_v12_rules.py ................................................ [ 84%]
+.......                                                                  [ 85%]
+tests\test_v12_spec.py ....                                              [ 86%]
+tests\test_v13_rules.py ................................................ [ 95%]
+......                                                                   [ 96%]
+tests\test_web.py ................                                       [ 99%]
+tests\test_web_visuals.py ..                                             [100%]
+
+============================== warnings summary ===============================
+.deps\fastapi\testclient.py:1
+  <PROJECT_ROOT>\.deps\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: <PROJECT_ROOT>\outputs\stage35\pytest.xml -
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_spec_acceptance.py:91: T20: 自动选股排名属于明确排除的Stage 2；不伪造通过。
+============ 525 passed, 1 skipped, 1 warning in 66.13s (0:01:06) =============
