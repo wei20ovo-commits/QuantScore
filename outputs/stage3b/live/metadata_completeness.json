@@ -1,0 +1,13 @@
+{
+  "original_rows": 4000,
+  "missing_target_symbols": [
+    "000059.SZ",
+    "000723.SZ",
+    "000819.SZ",
+    "002377.SZ",
+    "002778.SZ",
+    "300135.SZ",
+    "300839.SZ"
+  ],
+  "action": "Fetch each missing target explicitly; preserve original response"
+}

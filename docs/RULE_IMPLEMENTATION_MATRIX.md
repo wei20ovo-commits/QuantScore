@@ -5,13 +5,13 @@ Test Status只针对评分执行器：未实现规则的UNKNOWN守卫测试即�
 
 | Rule ID | 名称 | Source Type | Spec Status | Code Status | Test Status |
 |---|---|---|---|---|---|
-| S1 | 板块1日相对强度 | AUTO | FROZEN_V1_4 | NOT_IMPLEMENTED | NOT_TESTED |
-| S2 | 板块5日相对强度 | AUTO | FROZEN_V1_4 | NOT_IMPLEMENTED | NOT_TESTED |
-| S3 | 上涨广度 | AUTO | FROZEN_V1_4 | NOT_IMPLEMENTED | NOT_TESTED |
-| S4 | 涨停联动密度 | AUTO | FROZEN_V1_4 | NOT_IMPLEMENTED | NOT_TESTED |
-| S5 | 板块成交活跃度 | AUTO | FROZEN_V1_4 | NOT_IMPLEMENTED | NOT_TESTED |
-| S6 | 强势持续性 | AUTO | FROZEN_V1_4 | NOT_IMPLEMENTED | NOT_TESTED |
-| S7 | 强势股深度 | AUTO | FROZEN_V1_4 | NOT_IMPLEMENTED | NOT_TESTED |
+| S1 | 板块1日相对强度 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
+| S2 | 板块5日相对强度 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
+| S3 | 上涨广度 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
+| S4 | 涨停联动密度 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
+| S5 | 板块成交活跃度 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
+| S6 | 强势持续性 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
+| S7 | 强势股深度 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
 | A1 | 大盘短期趋势 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
 | A2 | 大盘中期结构 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
 | A3 | 大盘5日动能 | AUTO | FROZEN_V1_4 | IMPLEMENTED | PASS |
@@ -62,3 +62,7 @@ Test Status只针对评分执行器：未实现规则的UNKNOWN守卫测试即�
 
 R6原文source_type=AUTO_IF_MINUTE_DATA，注册时规范化为AUTO_IF_DATA并保留source_type_in_spec。
 均线/量比等派生变量不新增评分Rule ID。MANUAL和SYSTEM受Schema支持，但不凭空增加规范中没有的规则。
+
+## Stage 3B 独立SectorHeat执行器
+
+S1–S7 IMPLEMENTED指app/sector/scoring.py的独立评分层，尚未连接单股RuleEngine/ScoreEngine。B1/B2仍未正式接入。阈值及优先级见STAGE3B_RULE_FREEZE.md；住宿业样本不足返回空分不构成实现失败。完整回归665项：664 PASS / 0 FAIL / 0 ERROR / 1 SKIP。Live验收见STAGE3B_RESULT.md，不能用离线测试代替。

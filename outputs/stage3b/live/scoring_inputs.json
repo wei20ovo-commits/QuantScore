@@ -1,0 +1,377 @@
+{
+  "S1": {
+    "sector_return_1d": -0.0009609375332291291,
+    "benchmark_return_1d": 0.0017864481638163454,
+    "sector_excess_return_1d": -0.0027473856970454745,
+    "coverage": 1.0,
+    "return_intervals": 5
+  },
+  "S2": {
+    "sector_return_5d": -0.03077871424157288,
+    "benchmark_return_5d": -0.030242612306700556,
+    "sector_excess_return_5d": -0.0005361019348723225,
+    "coverage": 1.0,
+    "return_intervals": 5
+  },
+  "S3": {
+    "advancing_constituents": 10,
+    "valid_constituents": 17,
+    "expected_constituents": 17,
+    "breadth": 0.5882352941176471,
+    "coverage": 1.0
+  },
+  "S4": {
+    "limit_up_count": 0,
+    "limit_up_ratio": 0.0,
+    "expected_count": 17,
+    "valid_limit_count": 17,
+    "limit_details": [
+      {
+        "symbol": "000059.SZ",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.szse.cn/lawrules/rule/trade/t20260424_620190.html",
+        "calculated_limit_up": 6.18,
+        "actual_close": 5.47,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "000723.SZ",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.szse.cn/lawrules/rule/trade/t20260424_620190.html",
+        "calculated_limit_up": 3.78,
+        "actual_close": 3.47,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "000819.SZ",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.szse.cn/lawrules/rule/trade/t20260424_620190.html",
+        "calculated_limit_up": 13.01,
+        "actual_close": 12.19,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "002377.SZ",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.szse.cn/lawrules/rule/trade/t20260424_620190.html",
+        "calculated_limit_up": 3.18,
+        "actual_close": 2.93,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "002778.SZ",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.szse.cn/lawrules/rule/trade/t20260424_620190.html",
+        "calculated_limit_up": 17.26,
+        "actual_close": 15.88,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "300135.SZ",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.szse.cn/lawrules/rule/trade/t20260424_620190.html",
+        "calculated_limit_up": 4.1,
+        "actual_close": 3.46,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "300839.SZ",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.szse.cn/lawrules/rule/trade/t20260424_620190.html",
+        "calculated_limit_up": 15.08,
+        "actual_close": 12.71,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "600506.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 18.01,
+        "actual_close": 16.18,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "600688.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 2.99,
+        "actual_close": 2.73,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "600740.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 4.1,
+        "actual_close": 3.7,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "600792.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 6.05,
+        "actual_close": 5.29,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "600997.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 5.74,
+        "actual_close": 5.18,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "601011.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 3.15,
+        "actual_close": 2.87,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "601015.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 3.86,
+        "actual_close": 3.58,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "603351.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 29.7,
+        "actual_close": 27.21,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "603798.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 15.74,
+        "actual_close": 13.69,
+        "closed_at_limit_up": false
+      },
+      {
+        "symbol": "603822.SH",
+        "date": "2026-09-29",
+        "status": "VALID",
+        "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+        "calculated_limit_up": 69.22,
+        "actual_close": 62.7,
+        "closed_at_limit_up": false
+      }
+    ]
+  },
+  "S5": {
+    "sector_amount_today": 2207639784.3999996,
+    "sector_amount_prior_20d_mean": 3484581504.361,
+    "amount_ratio": 0.6335451708152354,
+    "coverage": 1.0,
+    "daily_amounts": [
+      {
+        "date": "2026-08-31",
+        "sector_amount": 3702091409.2,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-01",
+        "sector_amount": 4197543389.3200006,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-02",
+        "sector_amount": 4344146646.110001,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-03",
+        "sector_amount": 3970008605.9300003,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-04",
+        "sector_amount": 3313336263.44,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-07",
+        "sector_amount": 2725803259.25,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-08",
+        "sector_amount": 3565080628.7599998,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-09",
+        "sector_amount": 4551722916.85,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-10",
+        "sector_amount": 4339559302.77,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-11",
+        "sector_amount": 4694486722.68,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-14",
+        "sector_amount": 3210932045.9100003,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-15",
+        "sector_amount": 3504166493.4399996,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-16",
+        "sector_amount": 3084865207.08,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-17",
+        "sector_amount": 2878828314.6800003,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-18",
+        "sector_amount": 2652307305.18,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-21",
+        "sector_amount": 2784319097.67,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-22",
+        "sector_amount": 3584353999.07,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-23",
+        "sector_amount": 2699152007.2999997,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-24",
+        "sector_amount": 3064380411.39,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-28",
+        "sector_amount": 2824546061.19,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-29",
+        "sector_amount": 2207639784.3999996,
+        "coverage": 1.0,
+        "status": "VALID"
+      }
+    ]
+  },
+  "S6": {
+    "coverage": 1.0,
+    "daily_comparisons": [
+      {
+        "date": "2026-09-22",
+        "sector_return": 0.004522640714818978,
+        "benchmark_return": 0.0005623423823568618,
+        "sector_win": true,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-23",
+        "sector_return": -0.027497566543707424,
+        "benchmark_return": -0.003949290103964387,
+        "sector_win": false,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-24",
+        "sector_return": 0.009234614404076802,
+        "benchmark_return": -0.012230625329748723,
+        "sector_win": true,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-28",
+        "sector_return": -0.014615567747232527,
+        "benchmark_return": -0.01665302857456752,
+        "sector_win": true,
+        "coverage": 1.0,
+        "status": "VALID"
+      },
+      {
+        "date": "2026-09-29",
+        "sector_return": -0.0009609375332291291,
+        "benchmark_return": 0.0017864481638163454,
+        "sector_win": false,
+        "coverage": 1.0,
+        "status": "VALID"
+      }
+    ],
+    "expected_trade_dates": [
+      "2026-09-22",
+      "2026-09-23",
+      "2026-09-24",
+      "2026-09-28",
+      "2026-09-29"
+    ],
+    "win_days": 3
+  },
+  "S7": {
+    "strong_count": 0,
+    "expected_count": 17,
+    "valid_return_count": 17,
+    "strong_ratio": 0.0
+  }
+}

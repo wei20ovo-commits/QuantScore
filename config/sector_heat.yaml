@@ -1,0 +1,114 @@
+spec_version: '1.4'
+assumption_version: v1.3
+rules:
+  S1:
+    name: 板块1日相对强度
+    max_score: 20
+    source: docs/SPEC_V1_4_EXTRACTED.txt:231–242
+    explanation: 行业1日收益{sector}，基准{benchmark}，超额{x}，区间{band}，得{score}/20
+    bands:
+    - - 0
+      - 5
+    - - 0.005
+      - 10
+    - - 0.01
+      - 16
+    - - 0.02
+      - 20
+    min_coverage: 0.8
+  S2:
+    name: 板块5日相对强度
+    max_score: 20
+    source: docs/SPEC_V1_4_EXTRACTED.txt:243–254
+    explanation: 行业5日收益{sector}，基准{benchmark}，超额{x}，区间{band}，得{score}/20
+    bands:
+    - - 0
+      - 6
+    - - 0.02
+      - 12
+    - - 0.04
+      - 16
+    - - 0.06
+      - 20
+    days: 5
+  S3:
+    name: 上涨广度
+    max_score: 15
+    source: docs/SPEC_V1_4_EXTRACTED.txt:255–266
+    explanation: 上涨{advancing}/{valid}，广度{x}，得{score}/15
+    bands:
+    - - 0.5
+      - 4
+    - - 0.6
+      - 8
+    - - 0.7
+      - 12
+    - - 0.8
+      - 15
+    min_coverage: 0.8
+    min_members: 10
+  S4:
+    name: 涨停联动密度
+    max_score: 15
+    source: docs/SPEC_V1_4_EXTRACTED.txt:145、267–278
+    explanation: 收盘封停{count}/{valid}，占比{ratio}，得{score}/15
+    min_members: 10
+    bands:
+    - count: 5
+      ratio: 0.05
+      score: 15
+    - count: 3
+      ratio: 0
+      score: 12
+    - count: 2
+      ratio: 0
+      score: 6
+    - count: 1
+      ratio: 0
+      score: 3
+    - count: 0
+      ratio: 0
+      score: 0
+  S5:
+    name: 板块成交活跃度
+    max_score: 15
+    source: docs/SPEC_V1_4_EXTRACTED.txt:279–290
+    explanation: 当日额{today}，前20日均额{mean}，比值{x}，得{score}/15
+    bands:
+    - - 0.9
+      - 4
+    - - 1.15
+      - 8
+    - - 1.4
+      - 12
+    - - 1.8
+      - 15
+    min_coverage: 0.8
+    days: 20
+  S6:
+    name: 强势持续性
+    max_score: 10
+    source: docs/SPEC_V1_4_EXTRACTED.txt:291–302
+    explanation: 过去5日逐日跑赢{wins}日，得{score}/10
+    min_coverage: 0.8
+    days: 5
+    scores:
+      0: 0
+      1: 0
+      2: 2
+      3: 5
+      4: 8
+      5: 10
+  S7:
+    name: 强势股深度
+    max_score: 5
+    source: docs/SPEC_V1_4_EXTRACTED.txt:303–314
+    explanation: 强势{strong}/{expected}，比例{x}，得{score}/5
+    bands:
+    - - 0.05
+      - 2
+    - - 0.1
+      - 4
+    - - 0.15
+      - 5
+    min_members: 10

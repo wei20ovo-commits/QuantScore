@@ -1,0 +1,392 @@
+[
+  {
+    "request": "industry list",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T15:54:13.620812+00:00"
+  },
+  {
+    "request": "constituents C25石油、煤炭及其他燃料加工业",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T15:55:28.004104+00:00"
+  },
+  {
+    "request": "metadata",
+    "attempt": 1,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_stock_basic deadline exceeded"
+  },
+  {
+    "request": "metadata",
+    "attempt": 2,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_stock_basic deadline exceeded"
+  },
+  {
+    "request": "metadata",
+    "attempt": 3,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_stock_basic deadline exceeded"
+  },
+  {
+    "request": "metadata",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:00:03.684672+00:00"
+  },
+  {
+    "request": "calendar",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:16.588413+00:00"
+  },
+  {
+    "request": "benchmark",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:18.063471+00:00"
+  },
+  {
+    "request": "000059.SZ raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:19.422343+00:00"
+  },
+  {
+    "request": "000723.SZ raw",
+    "attempt": 1,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_history_k_data_plus error 10001001"
+  },
+  {
+    "request": "000819.SZ raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:20.597099+00:00"
+  },
+  {
+    "request": "000059.SZ qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:21.579094+00:00"
+  },
+  {
+    "request": "002377.SZ raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:22.177847+00:00"
+  },
+  {
+    "request": "000819.SZ qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:22.760255+00:00"
+  },
+  {
+    "request": "002377.SZ qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:23.674522+00:00"
+  },
+  {
+    "request": "002778.SZ raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:24.463750+00:00"
+  },
+  {
+    "request": "002778.SZ qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:01:26.978051+00:00"
+  },
+  {
+    "request": "300135.SZ raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:21.906093+00:00"
+  },
+  {
+    "request": "300839.SZ raw",
+    "attempt": 1,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_history_k_data_plus error 10001001"
+  },
+  {
+    "request": "300135.SZ qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:23.369058+00:00"
+  },
+  {
+    "request": "300839.SZ raw",
+    "attempt": 2,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_history_k_data_plus error 10001001"
+  },
+  {
+    "request": "000723.SZ raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:24.536108+00:00"
+  },
+  {
+    "request": "300839.SZ raw",
+    "attempt": 3,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:24.907331+00:00"
+  },
+  {
+    "request": "600506.SH raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:25.209811+00:00"
+  },
+  {
+    "request": "300839.SZ qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:26.145661+00:00"
+  },
+  {
+    "request": "600506.SH qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:26.757979+00:00"
+  },
+  {
+    "request": "600688.SH raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:29.046577+00:00"
+  },
+  {
+    "request": "600740.SH raw",
+    "attempt": 1,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_history_k_data_plus error 10001001"
+  },
+  {
+    "request": "000723.SZ qfq",
+    "attempt": 1,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_history_k_data_plus error 10001001"
+  },
+  {
+    "request": "600688.SH qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:31.860102+00:00"
+  },
+  {
+    "request": "600740.SH raw",
+    "attempt": 2,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:33.664650+00:00"
+  },
+  {
+    "request": "600792.SH raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:34.870941+00:00"
+  },
+  {
+    "request": "000723.SZ qfq",
+    "attempt": 2,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:35.083870+00:00"
+  },
+  {
+    "request": "600740.SH qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:35.410596+00:00"
+  },
+  {
+    "request": "600792.SH qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:36.090846+00:00"
+  },
+  {
+    "request": "601011.SH raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:37.884653+00:00"
+  },
+  {
+    "request": "600997.SH raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:38.281821+00:00"
+  },
+  {
+    "request": "601015.SH raw",
+    "attempt": 1,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_history_k_data_plus error 10001001"
+  },
+  {
+    "request": "601011.SH qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:39.110815+00:00"
+  },
+  {
+    "request": "600997.SH qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:40.467404+00:00"
+  },
+  {
+    "request": "601015.SH raw",
+    "attempt": 2,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:41.845168+00:00"
+  },
+  {
+    "request": "603798.SH raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:42.088859+00:00"
+  },
+  {
+    "request": "603351.SH raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:42.279195+00:00"
+  },
+  {
+    "request": "603351.SH qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:43.564882+00:00"
+  },
+  {
+    "request": "601015.SH qfq",
+    "attempt": 1,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_history_k_data_plus error 10001001"
+  },
+  {
+    "request": "603798.SH qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:44.615297+00:00"
+  },
+  {
+    "request": "601015.SH qfq",
+    "attempt": 2,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:44.846784+00:00"
+  },
+  {
+    "request": "603822.SH raw",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:44.934659+00:00"
+  },
+  {
+    "request": "603822.SH qfq",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:02:48.606273+00:00"
+  },
+  {
+    "request": "000059.SZ metadata",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:04:35.929060+00:00"
+  },
+  {
+    "request": "000819.SZ metadata",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:04:36.095126+00:00"
+  },
+  {
+    "request": "002377.SZ metadata",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:04:37.128059+00:00"
+  },
+  {
+    "request": "000723.SZ metadata",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:04:37.593148+00:00"
+  },
+  {
+    "request": "002778.SZ metadata",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:04:38.340836+00:00"
+  },
+  {
+    "request": "300135.SZ metadata",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:04:38.588019+00:00"
+  },
+  {
+    "request": "300839.SZ metadata",
+    "attempt": 1,
+    "status": "DATA_ERROR",
+    "error": "BaoStock query_stock_basic error 10001001"
+  },
+  {
+    "request": "300839.SZ metadata",
+    "attempt": 2,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:04:39.952979+00:00"
+  },
+  {
+    "request": "calendar 2000-01-01..2004-12-31",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:05:41.126087+00:00"
+  },
+  {
+    "request": "calendar 1995-01-01..1999-12-31",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:05:42.376650+00:00"
+  },
+  {
+    "request": "calendar 1990-01-01..1994-12-31",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:05:43.112273+00:00"
+  },
+  {
+    "request": "calendar 2010-01-01..2014-12-31",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:05:45.341997+00:00"
+  },
+  {
+    "request": "calendar 2020-01-01..2024-12-31",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:05:49.745345+00:00"
+  },
+  {
+    "request": "calendar 2015-01-01..2019-12-31",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:05:50.202426+00:00"
+  },
+  {
+    "request": "calendar 2005-01-01..2009-12-31",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:05:50.586964+00:00"
+  },
+  {
+    "request": "calendar 2025-01-01..2026-09-29",
+    "attempt": 1,
+    "status": "SUCCESS",
+    "retrieved_at": "2026-09-29T16:05:54.027952+00:00"
+  }
+]

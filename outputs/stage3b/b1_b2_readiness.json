@@ -1,0 +1,15 @@
+{
+  "B1_READY": true,
+  "B2_READY": true,
+  "b1_input": {
+    "SectorHeatScore": 25,
+    "score_coverage": 1.0
+  },
+  "b2_input": {
+    "stock_return_5d": -0.02857142857142847,
+    "primary_industry_return_5d": -0.002398479950789,
+    "excess_return_5d": -0.026172948620639472
+  },
+  "blockers": [],
+  "integrated_into_stock_score": false
+}

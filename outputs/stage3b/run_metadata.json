@@ -1,0 +1,44 @@
+{
+  "baseline_commit": "fecf1a87ef1a7559e7f5c9b194fc1f6a8a244b63",
+  "spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "replay_status": "PASS",
+  "manual_crosscheck": "PASS",
+  "tests": {
+    "tests": 665,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 664
+  },
+  "live_status": "PASS",
+  "stage3b_status": "PASS",
+  "B1_READY": true,
+  "B2_READY": true,
+  "stock_score_integration": false,
+  "commit_or_push_performed": false,
+  "live_trade_date": "2026-09-29",
+  "live_total_score": 9,
+  "live_breakdown": {
+    "S1": 0,
+    "S2": 0,
+    "S3": 4,
+    "S4": 0,
+    "S5": 0,
+    "S6": 5,
+    "S7": 0
+  },
+  "live_provenance": {
+    "provider": "baostock",
+    "industry_provider": "BaoStockIndustryProvider",
+    "trade_date": "2026-09-29",
+    "retrieved_at": "2026-09-29T16:05:54.400682+00:00",
+    "expected_count": 17,
+    "valid_count": 17,
+    "network_used": true
+  },
+  "live_quality_notes": [
+    "Initial metadata requests timed out; preserved logs",
+    "Large metadata/calendar responses had 4000 rows and were incomplete; explicit per-symbol metadata and bounded calendar requests completed this run"
+  ]
+}

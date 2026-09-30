@@ -1,0 +1,9 @@
+sector,rule_id,manual_working,manual_score,engine_score,match
+C25,S1,"0.2037460827% in [0,0.5%)",5,5,True
+C25,S2,"2.0161259615% in [2%,4%)",12,12,True
+C25,S3,4/17 < 50%,0,0,True
+C25,S4,0 sealed; 17 valid,0,0,True
+C25,S5,0.8080713148 < 0.9,0,0,True
+C25,S6,4 daily wins -> 8,8,8,True
+C25,S7,0/17 < 5%,0,0,True
+C25,TOTAL,5+12+0+0+0+8+0=25,25,25,True

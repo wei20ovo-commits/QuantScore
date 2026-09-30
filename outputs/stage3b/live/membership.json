@@ -1,0 +1,223 @@
+[
+  {
+    "symbol": "000059.SZ",
+    "name": "华锦股份",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "000723.SZ",
+    "name": "美锦能源",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "000819.SZ",
+    "name": "岳阳兴长",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "002377.SZ",
+    "name": "国创高新",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "002778.SZ",
+    "name": "中晟高科",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "300135.SZ",
+    "name": "宝利国际",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "300839.SZ",
+    "name": "博汇股份",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "600506.SH",
+    "name": "统一股份",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "600688.SH",
+    "name": "上海石化",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "600740.SH",
+    "name": "山西焦化",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "600792.SH",
+    "name": "云煤能源",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "600997.SH",
+    "name": "开滦股份",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "601011.SH",
+    "name": "宝泰隆",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "601015.SH",
+    "name": "陕西黑猫",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "603351.SH",
+    "name": "威尔药业",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "603798.SH",
+    "name": "康普顿",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  },
+  {
+    "symbol": "603822.SH",
+    "name": "ST嘉澳",
+    "sector": "C25石油、煤炭及其他燃料加工业",
+    "provenance": {
+      "provider": "baostock",
+      "retrieved_at": "2026-09-29T23:55:27.999175",
+      "source": "query_stock_industry",
+      "request": {
+        "industry": "C25石油、煤炭及其他燃料加工业"
+      }
+    }
+  }
+]
