@@ -20,8 +20,14 @@ class SymbolResolver:
         if self.securities is None:
             if self.provider is None:
                 raise DataError('缺少真实证券列表，不能猜测交易所')
-            self.securities = self.provider.list_securities()
-        table = self.securities
+            lookup = getattr(self.provider, 'lookup_securities', None)
+            if lookup is not None and getattr(self.provider, 'supports_security_lookup', True) and not text.endswith('.BJ'):
+                table = lookup(text)
+            else:
+                self.securities = self.provider.list_securities()
+                table = self.securities
+        else:
+            table = self.securities
         if not isinstance(table, pd.DataFrame):
             table = pd.DataFrame(table)
         if 'canonical_symbol' not in table:

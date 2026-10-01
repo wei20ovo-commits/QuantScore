@@ -1,3 +1,13 @@
+# Stage 3B.1 Live Recovery 最新回归
+
+727项：726 PASS / 0 FAIL / 0 ERROR / 1 SKIP。原有测试全部保留；本轮新增4项根因/传输保护测试。真实验收状态PASS，详见STAGE3B1_LIVE_RECOVERY.md。证据outputs/stage3b1_recovery/pytest.xml与pytest.txt。
+
+# Stage 3B.1 最新完整回归
+
+723项：722 PASS / 0 FAIL / 0 ERROR / 1 SKIP，新增58项；原665项全部保留。原始证据outputs/stage3b1/pytest.xml、pytest.txt。SKIP仍为本阶段范围外的自动选股排名；存在1条第三方弃用警告。真实网络验收另见STAGE3B1_RESULT.md，不以单元测试代替。
+
+以下保留历史报告。
+
 # Stage 3B 最新完整回归
 
 665项：664 PASS / 0 FAIL / 0 ERROR / 1 SKIP，新增139项；原526项全部保留。原始结果outputs/stage3b/pytest.xml、pytest.txt。Windows使用项目内TMP/TEMP/TMPDIR。1条第三方弃用警告；SKIP仍为范围之外的自动选股排名。
@@ -6,7 +16,7 @@
 
 # Stage 3A.5 最新完整测试（2026-09-29）
 
-526项：525 PASS / 0 FAIL / 0 ERROR / 1 SKIP。新增55项，原471项全部保留。原始结果：outputs/stage35/pytest.xml、pytest_final.txt。命令：python -m pytest --basetemp=outputs/tmp/pytest/stage35-final --junitxml=outputs/stage35/pytest.xml。
+526项：525 PASS / 0 FAIL / 0 ERROR / 1 SKIP。新增58项，原471项全部保留。原始结果：outputs/stage35/pytest.xml、pytest_final.txt。命令：python -m pytest --basetemp=outputs/tmp/pytest/stage35-final --junitxml=outputs/stage35/pytest.xml。
 
 下方为历史报告，保留供复现。
 

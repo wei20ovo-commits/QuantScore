@@ -1,0 +1,20 @@
+[
+  {
+    "industry": "C18纺织服装、服饰业",
+    "score": 18,
+    "status": "VALID",
+    "return_status": "VALID"
+  },
+  {
+    "industry": "C25石油、煤炭及其他燃料加工业",
+    "score": 25,
+    "status": "VALID",
+    "return_status": "VALID"
+  },
+  {
+    "industry": "H61住宿业",
+    "score": null,
+    "status": "DATA_INCOMPLETE",
+    "return_status": "VALID"
+  }
+]

@@ -4,11 +4,16 @@ from io import StringIO
 import multiprocessing as mp
 import re
 import socket
+import threading
+import time
 import pandas as pd
 from app.data.base import BaseProvider
 from app.data.models import DataError, ProviderError, BENCHMARK_SYMBOL
 from app.data.validators import DataValidator
 
+
+_REQUEST_LOCK = threading.Lock()
+_NEXT_REQUEST_AT = 0.0
 
 def query_session(client, method, kwargs):
     # SDK prints login messages: never contaminate CLI JSON.
@@ -16,13 +21,31 @@ def query_session(client, method, kwargs):
         try:
             login = client.login()
             if login.error_code != '0':
-                raise ProviderError(f'BaoStock login error {login.error_code}')
+                raise ProviderError(f"BaoStock login error {login.error_code}: {getattr(login, 'error_msg', '')}")
             result = getattr(client, method)(**kwargs)
             rows = []
-            while result.error_code == '0' and result.next():
+            while result.error_code == '0':
+                more = result.next()
+                # Blank continuation responses do not advance the SDK page.
+                # Retry that same idempotent read, never reappend the prior page.
+                for _ in range(2):
+                    page = getattr(result, 'data', None)
+                    size = int(getattr(result, 'per_page_count', 0) or 0)
+                    if more or result.error_code != '0' or page is None or not size or len(page) != size:
+                        break
+                    more = result.next()
+                if not more:
+                    break
                 rows.append(result.get_row_data())
             if result.error_code != '0':
-                raise ProviderError(f'BaoStock {method} error {result.error_code}')
+                raise ProviderError(f"BaoStock {method} error {result.error_code}: {getattr(result, 'error_msg', '')}; parameters={kwargs!r}")
+            # SDK 0.9.4 next() returns False without setting error_code when
+            # a full page's continuation response is empty (socket failure).
+            # A successful terminal page instead has fewer rows, or data=[].
+            page = getattr(result, 'data', None)
+            page_size = int(getattr(result, 'per_page_count', 0) or 0)
+            if page is not None and page_size and len(page) == page_size:
+                raise ProviderError(f'BaoStock {method} incomplete pagination')
             return pd.DataFrame(rows, columns=result.fields)
         finally:
             client.logout()
@@ -43,15 +66,32 @@ def _worker(pipe, method, kwargs, timeout):
 class BaoStockProvider(BaseProvider):
     name = 'baostock'
 
-    def __init__(self, client=None, timeout=40):
+    def __init__(self, client=None, timeout=150):
         self.client, self.timeout = client, timeout
 
     def _call(self, method, **kwargs):
         if self.client is not None:
+            return self._call_once(method, **kwargs)
+        # One live SDK session per application process, across provider instances.
+        # Existing caller retry limits remain unchanged (at most three attempts).
+        global _NEXT_REQUEST_AT
+        with _REQUEST_LOCK:
+            time.sleep(max(0, _NEXT_REQUEST_AT - time.monotonic()))
+            delay = .3
+            try:
+                return self._call_once(method, **kwargs)
+            except ProviderError:
+                delay = 1.0
+                raise
+            finally:
+                _NEXT_REQUEST_AT = time.monotonic() + delay
+
+    def _call_once(self, method, **kwargs):
+        if self.client is not None:
             return query_session(self.client, method, kwargs)
         context = mp.get_context('spawn')
         receiver, sender = context.Pipe(duplex=False)
-        process = context.Process(target=_worker, args=(sender, method, kwargs, min(12, self.timeout)), daemon=True)
+        process = context.Process(target=_worker, args=(sender, method, kwargs, min(45, self.timeout)), daemon=True)
         process.start()
         sender.close()
         try:
@@ -117,9 +157,26 @@ class BaoStockProvider(BaseProvider):
             fields += ',turn,tradestatus,isST'
         flag = {'raw':'3', 'qfq':'2'}[adjustment]
         code = self.source_code(symbol)
-        data = self._call('query_history_k_data_plus', code=code, fields=fields,
-                          start_date=pd.Timestamp(start).strftime('%Y-%m-%d'),
-                          end_date=pd.Timestamp(end).strftime('%Y-%m-%d'), frequency='d', adjustflag=flag)
+        kwargs = dict(code=code, start_date=pd.Timestamp(start).strftime('%Y-%m-%d'),
+                      end_date=pd.Timestamp(end).strftime('%Y-%m-%d'), frequency='d', adjustflag=flag)
+        if (pd.Timestamp(end)-pd.Timestamp(start)).days > 120:
+            # Preserve the exact date range and adjustment anchor. Smaller field
+            # responses avoid the observed wide-history receive timeout.
+            payload = fields.split(',')[2:]
+            data = None
+            for offset in range(0, len(payload), 3):
+                requested = ['date','code',*payload[offset:offset+3]]
+                part = self._call('query_history_k_data_plus', fields=','.join(requested), **kwargs)
+                if not set(requested) <= set(part):
+                    raise DataError('BaoStock history field group missing')
+                if data is None:
+                    data = part
+                else:
+                    if data[['date','code']].to_dict('records') != part[['date','code']].to_dict('records'):
+                        raise DataError('BaoStock history field groups have inconsistent dates')
+                    data = data.merge(part,on=['date','code'],validate='one_to_one')
+        else:
+            data = self._call('query_history_k_data_plus', fields=fields, **kwargs)
         if not set(fields.split(',')) <= set(data):
             raise DataError('BaoStock history fields missing')
         if not data.code.eq(code).all() or not data.adjustflag.eq(flag).all():

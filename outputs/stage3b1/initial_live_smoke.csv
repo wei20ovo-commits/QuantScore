@@ -1,0 +1,4 @@
+symbol,name,provider,is_mock,trade_date,primary_industry,sector_heat_status,sector_heat_score,B1_score,B1_status,B1_reason,B2_score,B2_status,B2_reason,quant_score,api_status,retrieved_at,other_rule_scores_unchanged,baseline_without_B1_B2
+,,baostock,False,,,,,,UNKNOWN,DATA_INSUFFICIENT,,UNKNOWN,DATA_INSUFFICIENT,0.0,200,2026-09-30T01:37:23.506506+00:00,False,0.0
+600258.SH,,baostock,False,,,,,,UNKNOWN,DATA_INSUFFICIENT,,UNKNOWN,DATA_INSUFFICIENT,0.0,200,2026-09-30T01:44:31.084261+00:00,,
+600519.SH,贵州茅台,baostock,False,2026-09-29,C15酒、饮料和精制茶制造业,,,,UNKNOWN,Raw/qfq dates inconsistent,,UNKNOWN,Raw/qfq dates inconsistent,0.0,200,2026-09-30T01:45:09.020662+00:00,True,0.0

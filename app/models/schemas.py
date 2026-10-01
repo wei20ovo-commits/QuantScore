@@ -71,6 +71,7 @@ class AnalysisResult(BaseModel):
     top_risk_reasons: list = Field(default_factory=list)
     rules: list = Field(default_factory=list)
     market_context: dict = Field(default_factory=dict)
+    industry_context: dict = Field(default_factory=dict)
     score: ScoreSummary
     warnings: list[str] = Field(default_factory=list)
 
@@ -146,4 +147,8 @@ class RuleResult:
 
     def to_dict(self):
         # Fail loudly if a handler leaks NaN, infinity or non-JSON data.
-        return json.loads(json.dumps(asdict(self), ensure_ascii=False, allow_nan=False))
+        output = asdict(self)
+        if self.rule_id in ('B1','B2'):
+            # Additive audit fields; preserve the existing RuleResult shape and raw_values.
+            output.update({k:v for k,v in self.raw_values.items() if k not in output})
+        return json.loads(json.dumps(output, ensure_ascii=False, allow_nan=False))

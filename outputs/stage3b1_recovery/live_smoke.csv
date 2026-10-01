@@ -1,0 +1,4 @@
+symbol,stock_name,industry,stock_data_status,sector_data_status,SectorHeat,B1_status,B1_score,B2_status,B2_score,stock_return_5d,industry_return_5d,relative_return_5d,QuantScore,Risk,provider,latest_trade_date,overall_analysis_status,http_status
+600519.SH,贵州茅台,C15酒、饮料和精制茶制造业,PARTIAL,VALID,70,PARTIAL,6,PARTIAL,1,0.003844313287605594,-0.00026704120720617754,0.004111354494811772,0.0,HIGH,baostock,2026-09-30,SUCCESS,200
+600688.SH,上海石化,C25石油、煤炭及其他燃料加工业,PARTIAL,VALID,30,FAIL,0,PARTIAL,2,-0.014336917562724039,-0.02762620112336999,0.01328928356064595,0.0,HIGH,baostock,2026-09-30,SUCCESS,200
+600107.SH,*ST尔雅,C18纺织服装、服饰业,PARTIAL,VALID,6,FAIL,0,PARTIAL,1,-0.020905923344947785,-0.023269175053563882,0.002363251708616097,0.0,HIGH,baostock,2026-09-30,SUCCESS,200

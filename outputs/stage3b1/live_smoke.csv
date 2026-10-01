@@ -1,0 +1,4 @@
+symbol,name,provider,is_mock,trade_date,primary_industry,sector_heat_status,sector_heat_score,B1_score,B1_status,B1_reason,B2_score,B2_status,B2_reason,quant_score,api_status,retrieved_at
+600688.SH,,baostock,False,,,,,,UNKNOWN,DATA_INSUFFICIENT,,UNKNOWN,DATA_INSUFFICIENT,0.0,200,2026-09-30T14:04:40.263286+00:00
+600258.SH,,baostock,False,,,,,,UNKNOWN,DATA_INSUFFICIENT,,UNKNOWN,DATA_INSUFFICIENT,0.0,200,2026-09-30T14:06:33.327540+00:00
+600519.SH,,baostock,False,,,,,,UNKNOWN,DATA_INSUFFICIENT,,UNKNOWN,DATA_INSUFFICIENT,0.0,200,2026-09-30T14:08:12.567185+00:00

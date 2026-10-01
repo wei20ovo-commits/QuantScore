@@ -1,0 +1,3838 @@
+[
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sh.600519"
+    },
+    "timestamp": "2026-10-01T00:24:30.074443+00:00",
+    "status": "SUCCESS",
+    "rows": 1
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sz.600519"
+    },
+    "timestamp": "2026-10-01T00:24:32.959132+00:00",
+    "status": "SUCCESS",
+    "rows": 0
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:24:37.055218+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:24:47.023605+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:25:04.239503+00:00",
+    "status": "FAILED",
+    "error": "BaoStock query_history_k_data_plus error 10002007: 网络接收错误。; parameters={'fields': 'date,code,volume,amount,adjustflag', 'code': 'sh.600519', 'start_date': '2000-01-01', 'end_date': '2026-09-30', 'frequency': 'd', 'adjustflag': '3'}"
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:26:38.892148+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:26:47.657133+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:27:11.413591+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,turn,tradestatus,isST",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:27:22.349487+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:27:44.813198+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:27:59.831746+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:28:09.329262+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,turn,tradestatus,isST",
+      "code": "sh.600519",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:28:18.308959+00:00",
+    "status": "SUCCESS",
+    "rows": 6089
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.000001",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:28:26.151758+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.000001",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:30:19.582428+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.000001",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:30:42.047132+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2026-09-16",
+      "end_date": "2026-09-30"
+    },
+    "timestamp": "2026-10-01T00:30:58.996400+00:00",
+    "status": "SUCCESS",
+    "rows": 15
+  },
+  {
+    "method": "query_stock_industry",
+    "parameters": {},
+    "timestamp": "2026-10-01T00:31:04.270131+00:00",
+    "status": "SUCCESS",
+    "rows": 5556
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag",
+      "code": "sh.000001",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:32:02.678942+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {},
+    "timestamp": "2026-10-01T00:32:07.697579+00:00",
+    "status": "SUCCESS",
+    "rows": 8991
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "1992-01-01",
+      "end_date": "1996-12-31"
+    },
+    "timestamp": "2026-10-01T00:33:07.891558+00:00",
+    "status": "SUCCESS",
+    "rows": 1827
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "1997-01-01",
+      "end_date": "2001-12-31"
+    },
+    "timestamp": "2026-10-01T00:33:11.271520+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2002-01-01",
+      "end_date": "2006-12-31"
+    },
+    "timestamp": "2026-10-01T00:33:15.156235+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2007-01-01",
+      "end_date": "2011-12-31"
+    },
+    "timestamp": "2026-10-01T00:33:18.776190+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2012-01-01",
+      "end_date": "2016-12-31"
+    },
+    "timestamp": "2026-10-01T00:33:24.002061+00:00",
+    "status": "SUCCESS",
+    "rows": 1827
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2017-01-01",
+      "end_date": "2021-12-31"
+    },
+    "timestamp": "2026-10-01T00:33:28.353803+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2022-01-01",
+      "end_date": "2026-09-30"
+    },
+    "timestamp": "2026-10-01T00:33:31.527620+00:00",
+    "status": "SUCCESS",
+    "rows": 1734
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600059",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:33:35.271094+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600084",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:33:39.421591+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600132",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:33:44.686624+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600059",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:33:48.363953+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600084",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:33:52.478348+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600132",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:33:58.601897+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600189",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:34:02.132561+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600197",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:34:05.877387+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600199",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:34:08.094764+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600189",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:34:11.289169+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600197",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:34:24.107408+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600199",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:34:28.385006+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600238",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:34:38.304874+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600300",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:34:41.704511+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600519",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:34:44.444287+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600238",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:34:48.461776+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600300",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:34:51.295665+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600519",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:34:53.593465+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600543",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:34:55.928285+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600559",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:35:01.020858+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600573",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:35:03.672224+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600543",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:35:07.062925+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600559",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:35:10.272621+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600573",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:35:14.912750+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600600",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:35:17.409114+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600616",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:35:21.085845+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600702",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:35:25.306394+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600600",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:35:27.512875+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600616",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:35:29.855096+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600702",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:35:32.779217+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600779",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:35:38.236368+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600809",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:35:41.640661+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600962",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:35:46.567826+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600779",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:35:50.845474+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600809",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:35:53.360119+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600962",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:35:57.363135+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601579",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:36:02.063175+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603156",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:36:06.925520+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603198",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:36:12.873570+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601579",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:36:16.827330+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603156",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:36:19.848453+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603198",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:36:22.488461+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603369",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:36:24.716077+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603589",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:36:28.066527+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603711",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:36:32.404323+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603369",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:36:36.414693+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603589",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:36:39.537975+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603711",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:36:41.905566+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603779",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:36:44.137572+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603919",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:36:46.388264+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605198",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:36:50.542297+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603779",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:36:53.737611+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603919",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:36:57.007515+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605198",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:37:02.673909+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605337",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:37:06.315918+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605388",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:37:09.098010+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605499",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:37:12.655168+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605337",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:37:18.082714+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605388",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:37:21.201130+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000568",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:37:30.486335+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605499",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:37:33.560851+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000596",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:37:37.399165+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000568",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:37:39.535408+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000729",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:37:43.018695+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000596",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:37:48.039855+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000752",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:37:50.380355+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000729",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:37:54.645507+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000799",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:37:57.238865+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000752",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:37:59.522336+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000848",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:38:02.224168+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000799",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:38:07.863193+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000858",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:38:10.177797+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000848",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:38:12.402653+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000860",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:38:15.330615+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000858",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:38:17.654560+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000869",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:38:19.863136+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000860",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:38:22.676479+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000929",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:38:26.125522+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000869",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:38:31.848552+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000995",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:38:35.428936+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000929",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:38:37.946437+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.001338",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:38:42.385381+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000995",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:38:46.048604+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002304",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:38:49.358477+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.001338",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:38:52.278132+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002461",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:38:56.976711+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002304",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:38:59.599595+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002568",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:39:02.980274+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002461",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:39:07.559206+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002646",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:39:09.830485+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002568",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:39:16.063778+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300997",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:39:22.206954+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002646",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:39:30.927535+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300997",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:39:34.753885+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sh.600688"
+    },
+    "timestamp": "2026-10-01T00:39:57.267120+00:00",
+    "status": "SUCCESS",
+    "rows": 1
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sz.600688"
+    },
+    "timestamp": "2026-10-01T00:40:00.240305+00:00",
+    "status": "SUCCESS",
+    "rows": 0
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.600688",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:40:04.926008+00:00",
+    "status": "FAILED",
+    "error": "BaoStock query_history_k_data_plus incomplete pagination"
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.600688",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:40:17.583608+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.600688",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:40:27.400739+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.600688",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:40:43.836898+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,turn,tradestatus,isST",
+      "code": "sh.600688",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:40:57.682113+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.600688",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:41:04.730824+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.600688",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:41:13.289619+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.600688",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:41:23.245485+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,turn,tradestatus,isST",
+      "code": "sh.600688",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:41:32.936344+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.000001",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:41:42.356861+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.000001",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:41:56.114625+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.000001",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:42:08.026342+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2026-09-16",
+      "end_date": "2026-09-30"
+    },
+    "timestamp": "2026-10-01T00:42:23.449276+00:00",
+    "status": "SUCCESS",
+    "rows": 15
+  },
+  {
+    "method": "query_stock_industry",
+    "parameters": {},
+    "timestamp": "2026-10-01T00:42:26.989078+00:00",
+    "status": "SUCCESS",
+    "rows": 5556
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag",
+      "code": "sh.000001",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:42:54.924681+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {},
+    "timestamp": "2026-10-01T00:43:01.282996+00:00",
+    "status": "SUCCESS",
+    "rows": 8991
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "1993-01-01",
+      "end_date": "1997-12-31"
+    },
+    "timestamp": "2026-10-01T00:43:42.818454+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "1998-01-01",
+      "end_date": "2002-12-31"
+    },
+    "timestamp": "2026-10-01T00:43:47.898275+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2003-01-01",
+      "end_date": "2007-12-31"
+    },
+    "timestamp": "2026-10-01T00:43:55.569471+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2008-01-01",
+      "end_date": "2012-12-31"
+    },
+    "timestamp": "2026-10-01T00:44:03.181522+00:00",
+    "status": "SUCCESS",
+    "rows": 1827
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2013-01-01",
+      "end_date": "2017-12-31"
+    },
+    "timestamp": "2026-10-01T00:44:06.184027+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2018-01-01",
+      "end_date": "2022-12-31"
+    },
+    "timestamp": "2026-10-01T00:44:09.333474+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2023-01-01",
+      "end_date": "2026-09-30"
+    },
+    "timestamp": "2026-10-01T00:44:15.346853+00:00",
+    "status": "SUCCESS",
+    "rows": 1369
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600506",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:44:19.870834+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600688",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:44:24.048785+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600740",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:44:28.627307+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600506",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:44:31.611775+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600688",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:44:34.937647+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600740",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:44:37.894035+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600792",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:44:43.913358+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600997",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:44:47.348633+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601011",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:44:49.440044+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600792",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:44:52.716513+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600997",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:44:55.004604+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601011",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:44:57.673327+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601015",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:00.607664+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603351",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:04.309903+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603798",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:07.994706+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601015",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:45:11.306112+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603351",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:45:13.445858+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603798",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:45:16.028952+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603822",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:19.539599+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000059",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:23.471811+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000723",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:27.421602+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603822",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:45:29.563427+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000059",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:45:32.288736+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000723",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:45:35.359109+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000819",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:38.329093+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002377",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:44.517202+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002778",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:47.319925+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.000819",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:45:50.318638+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002377",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:45:54.507578+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002778",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:45:57.604981+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300135",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:45:59.762578+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300839",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:46:02.944496+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300135",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:46:05.565584+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300839",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:46:09.140597+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sh.600107"
+    },
+    "timestamp": "2026-10-01T00:46:29.400191+00:00",
+    "status": "SUCCESS",
+    "rows": 1
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sz.600107"
+    },
+    "timestamp": "2026-10-01T00:46:34.303186+00:00",
+    "status": "SUCCESS",
+    "rows": 0
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.600107",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:46:36.451004+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.600107",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:46:42.731224+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.600107",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:47:14.646683+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,turn,tradestatus,isST",
+      "code": "sh.600107",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:47:21.235394+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.600107",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:47:29.263994+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.600107",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:47:36.263455+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.600107",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:47:52.175483+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,turn,tradestatus,isST",
+      "code": "sh.600107",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:48:05.948967+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low",
+      "code": "sh.000001",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:48:13.123289+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,close,preclose,pctChg",
+      "code": "sh.000001",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:48:19.877428+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,volume,amount,adjustflag",
+      "code": "sh.000001",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:48:32.139066+00:00",
+    "status": "SUCCESS",
+    "rows": 6482
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2026-09-16",
+      "end_date": "2026-09-30"
+    },
+    "timestamp": "2026-10-01T00:48:45.491237+00:00",
+    "status": "SUCCESS",
+    "rows": 15
+  },
+  {
+    "method": "query_stock_industry",
+    "parameters": {},
+    "timestamp": "2026-10-01T00:48:48.983297+00:00",
+    "status": "SUCCESS",
+    "rows": 5556
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag",
+      "code": "sh.000001",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:49:17.317625+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {},
+    "timestamp": "2026-10-01T00:49:21.063911+00:00",
+    "status": "SUCCESS",
+    "rows": 8991
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "1993-01-01",
+      "end_date": "1997-12-31"
+    },
+    "timestamp": "2026-10-01T00:49:52.895193+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "1998-01-01",
+      "end_date": "2002-12-31"
+    },
+    "timestamp": "2026-10-01T00:49:55.795391+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2003-01-01",
+      "end_date": "2007-12-31"
+    },
+    "timestamp": "2026-10-01T00:50:00.185587+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2008-01-01",
+      "end_date": "2012-12-31"
+    },
+    "timestamp": "2026-10-01T00:50:05.066503+00:00",
+    "status": "SUCCESS",
+    "rows": 1827
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2013-01-01",
+      "end_date": "2017-12-31"
+    },
+    "timestamp": "2026-10-01T00:50:08.487507+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2018-01-01",
+      "end_date": "2022-12-31"
+    },
+    "timestamp": "2026-10-01T00:50:15.604483+00:00",
+    "status": "SUCCESS",
+    "rows": 1826
+  },
+  {
+    "method": "query_trade_dates",
+    "parameters": {
+      "start_date": "2023-01-01",
+      "end_date": "2026-09-30"
+    },
+    "timestamp": "2026-10-01T00:50:20.352083+00:00",
+    "status": "SUCCESS",
+    "rows": 1369
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600107",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:50:23.682117+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600137",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:50:26.444113+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600177",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:50:29.331991+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600107",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:50:32.251140+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600137",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:50:34.362255+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600177",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:50:37.847590+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600398",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:50:40.357125+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600400",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:50:44.132491+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600630",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:50:46.475131+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600398",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:50:49.545180+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600400",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:50:53.244980+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.600630",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:50:56.608178+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601566",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:50:58.847107+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601718",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:01.197413+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603196",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:04.914628+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601566",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:51:07.605610+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.601718",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:51:12.765896+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603196",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:51:15.910213+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603511",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:19.489790+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603518",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:22.631101+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603558",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:25.746359+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603511",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:51:30.421712+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603518",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:51:32.827726+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603558",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:51:35.855432+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603587",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:39.252205+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603808",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:41.392695+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603839",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:44.604595+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603587",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:51:48.500785+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603808",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:51:52.000235+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603839",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:51:54.603688+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603877",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:56.737619+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605138",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:51:59.866196+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.001209",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:52:03.004415+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.603877",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:52:05.961369+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sh.605138",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:52:11.288833+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.001209",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:52:15.932995+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.001234",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:52:19.279969+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002003",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:52:22.847889+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002029",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:52:28.136098+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.001234",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:52:32.421167+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002003",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:52:34.640465+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002029",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:52:39.439788+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002154",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:52:45.496837+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002193",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:52:47.910910+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002269",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:52:53.111534+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002154",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:52:56.852141+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002193",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:52:59.541585+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002269",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:53:02.361133+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002404",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:53:04.727253+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002486",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:53:07.297930+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002563",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:53:11.502079+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002404",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:53:14.668467+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002486",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:53:18.873230+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002563",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:53:22.619552+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002569",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:53:25.746213+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002612",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:53:27.917170+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002634",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:53:30.059763+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002569",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:53:35.627453+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002612",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:53:40.646218+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002634",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:53:43.429453+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002656",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:53:54.069861+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002687",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:54:00.183190+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002762",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:54:02.687825+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002656",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:54:05.780574+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002687",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:54:08.391038+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002762",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:54:12.323766+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002763",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:54:16.260628+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002832",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:54:23.078269+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002875",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:54:25.264833+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002763",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:54:30.677166+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002832",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:54:35.790677+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.002875",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:54:40.348167+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.003016",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:54:45.923825+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300005",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:54:48.523174+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300840",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:54:50.820740+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.003016",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:54:52.950142+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300005",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:54:55.521716+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.300840",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:54:59.535468+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.301066",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:55:03.999265+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.301276",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-10-01T00:55:06.438533+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.301066",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:55:09.987361+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "code": "sz.301276",
+      "start_date": "2026-07-12",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "2"
+    },
+    "timestamp": "2026-10-01T00:55:12.784317+00:00",
+    "status": "SUCCESS",
+    "rows": 57
+  }
+]

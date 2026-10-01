@@ -2503,8 +2503,8 @@ rules:
   explanation_template: 所属板块热度为 {heat}/100，B1 得 {score}/8 分。
   spec_version: '1.4'
   spec_status: FROZEN_V1_4
-  code_status: NOT_IMPLEMENTED
-  evaluator: null
+  code_status: IMPLEMENTED
+  evaluator: app.rules.trend.industry:b1
   definition: heat = SectorHeatScore
   steps: 按热度区间映射，不重复计算S1-S7。
   source_note: 笔记第4页
@@ -2765,8 +2765,8 @@ rules:
   explanation_template: 个股近5日跑赢所属板块 {rel5:.2%}，B2 得 {score}/4 分。
   spec_version: '1.4'
   spec_status: FROZEN_V1_4
-  code_status: NOT_IMPLEMENTED
-  evaluator: null
+  code_status: IMPLEMENTED
+  evaluator: app.rules.trend.industry:b2
   definition: rel5 = stock_return_5d - sector_return_5d
   steps: 计算5日超额。
   source_note: 笔记第4页

@@ -1,0 +1,13 @@
+added_field,fields,symbol,start_date,end_date,frequency,adjustflag,login_code,login_msg,query_error_code,query_error_msg,returned_rows,attempt,timestamp
+minimal,"date,code,close",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:46:22.207252+00:00
+open,"date,code,close,open",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:46:30.784359+00:00
+high,"date,code,close,open,high",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:46:40.084662+00:00
+low,"date,code,close,open,high,low",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:46:48.106916+00:00
+preclose,"date,code,close,open,high,low,preclose",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:46:54.368794+00:00
+volume,"date,code,close,open,high,low,preclose,volume",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:47:02.071533+00:00
+amount,"date,code,close,open,high,low,preclose,volume,amount",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:47:11.415452+00:00
+turn,"date,code,close,open,high,low,preclose,volume,amount,turn",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:47:18.936234+00:00
+tradestatus,"date,code,close,open,high,low,preclose,volume,amount,turn,tradestatus",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:47:29.954012+00:00
+pctChg,"date,code,close,open,high,low,preclose,volume,amount,turn,tradestatus,pctChg",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:47:37.040216+00:00
+isST,"date,code,close,open,high,low,preclose,volume,amount,turn,tradestatus,pctChg,isST",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:47:48.939592+00:00
+adjustflag,"date,code,close,open,high,low,preclose,volume,amount,turn,tradestatus,pctChg,isST,adjustflag",sh.600519,2026-08-21,2026-09-30,d,3,0,success,0,success,28,1,2026-09-30T15:47:57.563848+00:00

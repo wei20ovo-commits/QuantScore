@@ -1,0 +1,4 @@
+case,symbol,start_date,end_date,fields,frequency,adjustflag,login_code,login_msg,attempt,timestamp,query_error_code,query_error_msg,returned_fields,final_error_code,final_error_msg,returned_rows,last_date
+conservative_retry,sh.600519,2026-09-09,2026-09-30,"date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",d,3.0,0.0,success,1,2026-09-30T15:32:26.106286+00:00,0,success,"date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",0.0,success,15.0,2026-09-30
+production_600519_raw_volume_group,,,,,,,,,1,2026-10-01T00:25:04.239503+00:00,10002007,"BaoStock query_history_k_data_plus error 10002007: 网络接收错误。; parameters={'fields': 'date,code,volume,amount,adjustflag', 'code': 'sh.600519', 'start_date': '2000-01-01', 'end_date': '2026-09-30', 'frequency': 'd', 'adjustflag': '3'}",,,,,
+production_600519_raw_volume_group,,,,,,,,,2,2026-10-01T00:27:11.413591+00:00,0,success,,,,6089.0,

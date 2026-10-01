@@ -1,0 +1,32 @@
+[
+  {
+    "start": "2000-01-01",
+    "end": "2003-12-31",
+    "flag": "3",
+    "login_code": "0",
+    "error_code": "0",
+    "error_msg": "success",
+    "rows": 564,
+    "elapsed": 9.078000000037719
+  },
+  {
+    "start": "2000-01-01",
+    "end": "2003-12-31",
+    "flag": "2",
+    "login_code": "0",
+    "error_code": "10002007",
+    "error_msg": "网络接收错误。",
+    "rows": 0,
+    "elapsed": 56.82900000002701
+  },
+  {
+    "start": "2022-01-01",
+    "end": "2025-12-31",
+    "flag": "3",
+    "login_code": "0",
+    "error_code": "0",
+    "error_msg": "success",
+    "rows": 969,
+    "elapsed": 26.75
+  }
+]

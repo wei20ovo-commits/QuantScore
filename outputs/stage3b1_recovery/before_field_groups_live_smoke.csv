@@ -1,0 +1,2 @@
+symbol,stock_name,industry,stock_data_status,sector_data_status,SectorHeat,B1_status,B1_score,B2_status,B2_score,stock_return_5d,industry_return_5d,relative_return_5d,QuantScore,Risk,provider,latest_trade_date,overall_analysis_status,http_status
+600519.SH,,,UNAVAILABLE,,,UNKNOWN,,UNKNOWN,,,,,0.0,LOW,baostock,,INCOMPLETE,200

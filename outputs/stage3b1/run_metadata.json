@@ -1,0 +1,67 @@
+{
+  "stage": "3B.1",
+  "status": "PARTIAL",
+  "baseline": "8df39e4775a18fca11547959df1bf57c9fcf31bc",
+  "recorded_at": "2026-09-30T14:09:57.982131+00:00",
+  "spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "data_contract_version": "1.4",
+  "tests": {
+    "tests": 723,
+    "passed": 722,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "offline_replay": "PASS",
+  "manual_crosscheck": "PASS",
+  "latest_cli_exit": 1,
+  "earlier_cli_exit": 0,
+  "live_acceptance": "NOT_PASSED",
+  "commit": false,
+  "push": false,
+  "network_errors": [
+    "BaoStock error 10001001",
+    "BaoStock error 10002007",
+    "incomplete history pagination",
+    "security list unavailable"
+  ],
+  "network_probe": "Three actual single-security metadata queries succeeded",
+  "live_smoke_exit": 1,
+  "latest_cli_warnings": [
+    "All providers unavailable: baostock: baostock raw 获取失败（2轮）：BaoStock query_history_k_data_plus error 10002007; akshare: akshare raw 获取失败（1轮）：AKShare stock_zh_a_hist 请求超时（包含可能的代理回退，总截止已到）"
+  ],
+  "live_symbols": [
+    "600688.SH",
+    "600258.SH",
+    "600519.SH"
+  ],
+  "live_api_http_status": [
+    200,
+    200,
+    200
+  ],
+  "live_data_status": "UNAVAILABLE",
+  "explanation": "HTTP 200 is graceful degradation, not successful real scoring",
+  "evidence_sha256": {
+    "600258_analysis.json": "9029962ccb728d8b7250b7fa885d98af26e4f028811aa96331314a12e67f62a3",
+    "600519_analysis.json": "e81e1eb0d68809aefb0600c691ea85099b0d41d890fb7f33fddae4bbfdf37dbd",
+    "600519_cli.json": "2b1a0eab94f6f8edbfa2147b507b2334c0c27b8675f34b3e9fdf2e6e10c47135",
+    "600519_cli_initial.json": "32ad92810315eb2d956281cc212b47956cccaef56ca1397ca232fd7fc66f475a",
+    "600519_cli_retry.json": "d1532704f2d81517e6be52c76b5a550d85474beaf5624f9f08812f1eb0ae7edb",
+    "600688_analysis.json": "6d9c76c30928ced36fd3dbfb675f86adacf7d7b3cbd5975ea782ed1d8cac83fe",
+    "b1_replay.csv": "b1c3c2fd82a55a0b66003f8f574082dfbce76e8eed26c42b321a1157762e8f4b",
+    "b2_replay.csv": "1f26db74da7a7e46758828d4c3a326dd1f10adc3bb00b84f99395b7450f000c0",
+    "context_replay.json": "0c11ca53746d5239a33787bfe3060f5961af8f7cee7e6f844870970521796f08",
+    "initial_600258_analysis.json": "940caed2c5eb149f37bf2da32408e915e4fa5f939b4213b0ae1fbe7ec67e6032",
+    "initial_600519_analysis.json": "65c208ba93ebc88fe647c60725f0b4c4892e273cd9aff6c45d1ea1ddc3329087",
+    "initial_600688_analysis.json": "3327e955f0e7f8096339f8f897dc1941e2c16bea4069e04ce3d3c3d969834588",
+    "initial_live_smoke.csv": "e1afdb328a09168e31993738ba139bdc6ba7259563f8937c1cf471ef8a4557d7",
+    "live_smoke.csv": "352c9b7c7e75f7a8dc1e700faf47debf8b3a30d25d53b6532e310cb46e2c8daa",
+    "manual_crosscheck.csv": "d25012707904fde7b724c619c29ef2f41a279a35c803aa5f27030e675cc3066c",
+    "network_probe.json": "23681c072fa1ce69e6b173a3aa0e6feebc4c22181747f440ccb688f95bcf0f49",
+    "pytest.xml": "e6c2d8a054ccde1a048b26b56f6f068c769cd9829d843c3187747f7fe2566b4a",
+    "replay_details.json": "c21c6d8d76769b99c7bd860aa2e2bddaa6d5b54923d6bd2d8be02ec0fb83eeca",
+    "single_stock_integration.csv": "2a392e183d30bbd91fbdfbadca27068f8ce9a11ff29f4e631262a250966e0aa3"
+  }
+}

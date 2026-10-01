@@ -149,3 +149,66 @@ def test_benchmark_can_fall_back_without_mixing_stock_pair(provider,tmp_path):
 def test_invalid_symbol_is_not_network_unavailable(provider,tmp_path):
     manager=ProviderManager(providers=[Broken(),provider],cache=DataCache(tmp_path/'c.sqlite'))
     with pytest.raises(DataError):manager.fetch('invalid!')
+
+
+def test_silent_truncated_pagination_is_rejected_and_logged_out():
+    sdk=SDK()
+    def truncated(**kwargs):
+        result=Result(['code'],[['sh.600519']])
+        result.data=[['sh.600519']];result.per_page_count=1
+        return result
+    sdk.query_stock_basic=truncated
+    with pytest.raises(ProviderError,match='incomplete pagination'):
+        BaoStockProvider(sdk).query_stock_basic()
+    assert sdk.logouts==1
+
+
+def test_real_catalog_retry_and_persistent_cache(tmp_path):
+    class Catalog:
+        name='catalog_fixture';is_mock=False;enabled=True
+        def __init__(self):self.calls=0
+        def list_securities(self):
+            self.calls+=1
+            if self.calls==1:raise ProviderError('fixture transient outage')
+            return pd.DataFrame([{'canonical_symbol':'600519.SH','name':'fixture'}])
+    p=Catalog();cache=DataCache(tmp_path/'catalog.sqlite')
+    first=ProviderManager(p,cache=cache).list_securities()
+    assert p.calls==2
+    second=ProviderManager(p,cache=cache).list_securities()
+    assert p.calls==2 and first.equals(second)
+
+
+def test_blank_page_retry_does_not_duplicate_rows():
+    from app.data.baostock_provider import query_session
+    sdk=SDK()
+    class Pages:
+        error_code='0';fields=['code'];per_page_count=1
+        def __init__(self):self.calls=0;self.data=[['sh.600519']]
+        def next(self):
+            self.calls+=1
+            if self.calls==1:return True
+            if self.calls==2:return False  # Empty transport response; page unchanged.
+            self.data=[];return False  # Retried final page succeeds and is empty.
+        def get_row_data(self):return ['sh.600519']
+    pages=Pages();sdk.query_stock_basic=lambda **kwargs:pages
+    assert len(query_session(sdk,'query_stock_basic',{}))==1
+    assert pages.calls==3 and sdk.logouts==1
+
+
+def test_targeted_lookup_checks_both_exchanges_without_guessing(tmp_path):
+    class TargetSDK(SDK):
+        def query_stock_basic(self,**kwargs):
+            self.calls.append(kwargs)
+            rows=[['sh.600519','测试沪股','2001-08-27','1']] if kwargs['code']=='sh.600519' else []
+            return Result(['code','code_name','ipoDate','type'],rows)
+    sdk=TargetSDK();manager=ProviderManager(BaoStockProvider(sdk),cache=DataCache(tmp_path/'target.sqlite'))
+    assert manager.resolver.resolve('600519').symbol=='600519.SH'
+    assert [c['code'] for c in sdk.calls]==['sh.600519','sz.600519']
+    assert manager.resolver.resolve('600519').symbol=='600519.SH'
+    assert len(sdk.calls)==2
+
+
+def test_target_lookup_failure_preserves_provider_fallback(provider,tmp_path):
+    sdk=SDK();sdk.login_error='1'
+    manager=ProviderManager(providers=[BaoStockProvider(sdk),provider],cache=DataCache(tmp_path/'fallback.sqlite'))
+    assert manager.resolver.resolve('000001').symbol=='000001.SZ'

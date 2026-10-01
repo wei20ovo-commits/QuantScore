@@ -2058,3 +2058,10 @@ R12:
   - 0
   - 5
   - 10
+
+# Stage 3B.1: executable transcription of active V1.4 B1/B2 bands.
+B_INTEGRATION:
+  B1_bands: [[50, 2], [60, 4], [70, 6], [75, 7], [85, 8]]
+  B1_min_coverage: 0.8
+  B2_bands: [[0, 1], [0.01, 2], [0.04, 3], [0.08, 4]]
+  return_intervals: 5

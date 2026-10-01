@@ -1,0 +1,66 @@
+[
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sh.600519"
+    },
+    "timestamp": "2026-09-30T15:50:10.343416+00:00",
+    "status": "SUCCESS",
+    "rows": 1
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sz.600519"
+    },
+    "timestamp": "2026-09-30T15:50:23.439711+00:00",
+    "status": "SUCCESS",
+    "rows": 0
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "code": "sh.600519",
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-09-30T15:50:28.527369+00:00",
+    "status": "FAILED",
+    "error": "BaoStock query_history_k_data_plus error 10002007: 网络接收错误。; parameters={'code': 'sh.600519', 'fields': 'date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST', 'start_date': '2000-01-01', 'end_date': '2026-09-30', 'frequency': 'd', 'adjustflag': '3'}"
+  },
+  {
+    "method": "query_history_k_data_plus",
+    "parameters": {
+      "code": "sh.600519",
+      "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+      "start_date": "2000-01-01",
+      "end_date": "2026-09-30",
+      "frequency": "d",
+      "adjustflag": "3"
+    },
+    "timestamp": "2026-09-30T15:52:46.160161+00:00",
+    "status": "FAILED",
+    "error": "BaoStock query_history_k_data_plus error 10002007: 网络接收错误。; parameters={'code': 'sh.600519', 'fields': 'date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST', 'start_date': '2000-01-01', 'end_date': '2026-09-30', 'frequency': 'd', 'adjustflag': '3'}"
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sh.600688"
+    },
+    "timestamp": "2026-09-30T15:54:59.429417+00:00",
+    "status": "SUCCESS",
+    "rows": 1
+  },
+  {
+    "method": "query_stock_basic",
+    "parameters": {
+      "code": "sz.600688"
+    },
+    "timestamp": "2026-09-30T15:55:02.923695+00:00",
+    "status": "SUCCESS",
+    "rows": 0
+  }
+]

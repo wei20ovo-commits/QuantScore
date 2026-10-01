@@ -1,0 +1,44 @@
+[
+  {
+    "symbol": "600519.SH",
+    "status": "SUCCESS",
+    "rows": [
+      {
+        "code": "sh.600519",
+        "code_name": "贵州茅台",
+        "ipoDate": "2001-08-27",
+        "outDate": "",
+        "type": "1",
+        "status": "1"
+      }
+    ]
+  },
+  {
+    "symbol": "600688.SH",
+    "status": "SUCCESS",
+    "rows": [
+      {
+        "code": "sh.600688",
+        "code_name": "上海石化",
+        "ipoDate": "1993-11-08",
+        "outDate": "",
+        "type": "1",
+        "status": "1"
+      }
+    ]
+  },
+  {
+    "symbol": "600258.SH",
+    "status": "SUCCESS",
+    "rows": [
+      {
+        "code": "sh.600258",
+        "code_name": "首旅酒店",
+        "ipoDate": "2000-06-01",
+        "outDate": "",
+        "type": "1",
+        "status": "1"
+      }
+    ]
+  }
+]

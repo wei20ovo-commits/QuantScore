@@ -1,0 +1,7 @@
+symbol,rule_id,manual_score,engine_score,reason,match
+600506.SH,B1,0.0,0.0,Heat below 50 or incomplete,True
+600506.SH,B2,0.0,0.0,negative,True
+600107.SH,B1,0.0,0.0,Heat below 50 or incomplete,True
+600107.SH,B2,1.0,1.0,"[0%,1%)",True
+600258.SH,B1,,,Heat below 50 or incomplete,True
+600258.SH,B2,0.0,0.0,negative,True

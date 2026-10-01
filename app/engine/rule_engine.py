@@ -10,10 +10,11 @@ from app.rules.patterns.launch import f1t,f1o,f1x,f2,f3,r12
 from app.rules.patterns.dragon_gate import f1y
 from app.rules.risks.should_rise import r7
 from app.rules.trend.leader import b3
+from app.rules.trend.industry import b1,b2
 
 EVALUATORS={'D2':d2,'F1-X':f1x,'F2':f2,'R3':r3,'R5':r5,'A1':a1,'A2':a2,'A3':a3,'C1':c1,'C2':c2,'C3':c3,'C4':c4,
             'D1':d1,'D3':d3,'D4':d4,'D5':d5,'R1':r1,'R2':r2,'R4':r4,'R9':r9,'R11':r11,'F1-N':f1n,
-            'B3':b3,'C5':c5,'C6':c6,'E1':e1,'E2':e2,'E3':e3,'F1-T':f1t,'F1-O':f1o,'F1-Y':f1y,'F3':f3,'R7':r7,'R8':r8,'R12':r12}
+            'B1':b1,'B2':b2,'B3':b3,'C5':c5,'C6':c6,'E1':e1,'E2':e2,'E3':e3,'F1-T':f1t,'F1-O':f1o,'F1-Y':f1y,'F3':f3,'R7':r7,'R8':r8,'R12':r12}
 
 
 class RuleEngine:

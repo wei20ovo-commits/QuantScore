@@ -1,0 +1,67 @@
+{
+  "history_entries": 112,
+  "empty_history_entries": 0,
+  "suspect_entries": [
+    {
+      "adjustment": "raw",
+      "end_date": "2026-09-26 00:00:00",
+      "provider": "baostock",
+      "start_date": "2000-01-01 00:00:00",
+      "symbol": "000001.SZ",
+      "rows": 2000,
+      "last_date": "2008-04-23T00:00:00.000",
+      "empty_history": false,
+      "suspect_truncated_history": true,
+      "ttl_expired": true
+    },
+    {
+      "adjustment": "raw",
+      "end_date": "2026-09-29 00:00:00",
+      "provider": "baostock",
+      "start_date": "2000-01-01 00:00:00",
+      "symbol": "600688.SH",
+      "rows": 4000,
+      "last_date": "2016-07-13T00:00:00.000",
+      "empty_history": false,
+      "suspect_truncated_history": true,
+      "ttl_expired": true
+    },
+    {
+      "adjustment": "qfq",
+      "end_date": "2026-09-29 00:00:00",
+      "provider": "baostock",
+      "start_date": "2000-01-01 00:00:00",
+      "symbol": "600688.SH",
+      "rows": 2000,
+      "last_date": "2008-04-23T00:00:00.000",
+      "empty_history": false,
+      "suspect_truncated_history": true,
+      "ttl_expired": true
+    },
+    {
+      "adjustment": "raw",
+      "end_date": "2026-09-29 00:00:00",
+      "provider": "baostock",
+      "start_date": "2000-01-01 00:00:00",
+      "symbol": "600258.SH",
+      "rows": 2000,
+      "last_date": "2008-09-03T00:00:00.000",
+      "empty_history": false,
+      "suspect_truncated_history": true,
+      "ttl_expired": true
+    },
+    {
+      "adjustment": "qfq",
+      "end_date": "2026-09-29 00:00:00",
+      "provider": "baostock",
+      "start_date": "2000-01-01 00:00:00",
+      "symbol": "600258.SH",
+      "rows": 4000,
+      "last_date": "2016-11-29T00:00:00.000",
+      "empty_history": false,
+      "suspect_truncated_history": true,
+      "ttl_expired": true
+    }
+  ],
+  "note": "Historical suspect entries preserved; expired entries are not served. No error result or empty history is written by the current validated path."
+}

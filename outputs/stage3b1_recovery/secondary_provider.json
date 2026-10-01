@@ -1,0 +1,10 @@
+[
+  {
+    "provider": "akshare",
+    "endpoint": "stock_zh_a_hist",
+    "configured_history_url": "https://push2his.eastmoney.com/api/qt/stock/kline/get",
+    "error_type": "ProviderError / timeout",
+    "error_message": "All providers unavailable: baostock: baostock raw 获取失败（2轮）：BaoStock query_history_k_data_plus error 10002007: 网络接收错误。; parameters={'code': 'sh.600519', 'fields': 'date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST', 'start_date': '2000-01-01', 'end_date': '2026-09-30', 'frequency': 'd', 'adjustflag': '3'}; akshare: akshare raw 获取失败（1轮）：AKShare stock_zh_a_hist 请求超时（包含可能的代理回退，总截止已到）",
+    "source": "before_field_groups_600519_live.json"
+  }
+]

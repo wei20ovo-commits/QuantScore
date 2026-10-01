@@ -1,0 +1,75 @@
+{
+  "stage": "3B.1 Live Recovery",
+  "status": "PASS",
+  "finished_at": "2026-10-01T00:57:30.099157+00:00",
+  "spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "data_contract_version": "1.4",
+  "latest_completed_trade_date": "2026-09-30",
+  "live_checks": [
+    {
+      "symbol": "600519.SH",
+      "raw_rows": 6089,
+      "qfq_rows": 6089,
+      "benchmark_available": true,
+      "trade_date": "2026-09-30",
+      "check": true
+    },
+    {
+      "symbol": "600688.SH",
+      "raw_rows": 6482,
+      "qfq_rows": 6482,
+      "benchmark_available": true,
+      "trade_date": "2026-09-30",
+      "check": true
+    },
+    {
+      "symbol": "600107.SH",
+      "raw_rows": 6482,
+      "qfq_rows": 6482,
+      "benchmark_available": true,
+      "trade_date": "2026-09-30",
+      "check": true
+    }
+  ],
+  "cli_exit": 0,
+  "cli_check": true,
+  "tests": {
+    "tests": 727,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 726
+  },
+  "request_count": 286,
+  "request_failures": 2,
+  "commit": false,
+  "push": false,
+  "root_cause": "Reproduced SDK receive timeout -> empty response -> 10002007; underlying remote/network internals are not inferred.",
+  "evidence_sha256": {
+    "600107_live.json": "7a95b8bdc64e16f0546dc218a2da274ff7b387786fddbfadb7d97c2bfac026af",
+    "600519_live.json": "6d28d740b5d1f069e7df1ae0d5ad88c98a23664960154df060d954c1e7c2b9cb",
+    "600688_live.json": "32dcc325aca3dd0475366e41b94b02afef06e95424bcea9ff882d3d6d9b793f5",
+    "api_600519.json": "6d28d740b5d1f069e7df1ae0d5ad88c98a23664960154df060d954c1e7c2b9cb",
+    "baostock_isolation_matrix.csv": "a61de8275ebc0d32cae8ccb361a6453936bb4ffbbc376ddcfc608a59b9fac679",
+    "before_field_groups_600519_live.json": "4ef0514d9f95b035be88e7912491a4bbbc3ac4e7b267ead94d180d2807d4b0c2",
+    "before_field_groups_api_600519.json": "4ef0514d9f95b035be88e7912491a4bbbc3ac4e7b267ead94d180d2807d4b0c2",
+    "before_field_groups_live_smoke.csv": "c63ca3d083d693cb9d69d7d0d0b71c44e77fb9a8189846d3adffe2a373f6140c",
+    "before_field_groups_wrapper_requests.json": "7eb6ad2e0f644fd2b524853ea5c9a1265f7ff2e98377b47febaa9254eb68c16b",
+    "bounded_window_tests.json": "b3ce7c7a35ab2827822a1e06042123f800c20f37caf48bdbc3176f173606d02d",
+    "cache_audit.json": "3850fea3d7d371508e67a5e758d0403b4e834df766cc1cbd6ae3fb766f1a708a",
+    "calendar.csv": "f2f929c7373c71948facb256b4cebaabd9350651ec0fcc695647f1e9c62cf3f4",
+    "cli_600519.json": "f81739159694ca193096cf7b4a922df001db3400c1f0009390604e6f115747ef",
+    "date_context.json": "9fc4903786d157b6c97bf4e15b03819781ec575d9cb0f61ad4928cdb6f04257b",
+    "incremental_fields.csv": "a79ed67be8949b785491484d4910d1e97c818dbc510ca762f387e8f0fcab6a71",
+    "initial_baostock_isolation_matrix.csv": "dc2427acc0fc42b75cb4502d59899a1391f97134c73f83da9e01be3d85f0ba6a",
+    "live_smoke.csv": "7f326391f7ee5fd49ec3e2abc78f7d3234ae75b4db2a84f6e5bf0d42ef1a26bc",
+    "long_window_tests.json": "4635bbb7f96f1dd8afc21581ecacc59054bb009f632494ccbc7797a4495dd95f",
+    "overlap_long_window_tests.json": "c02dff5a6570428c2bdb52cf4e2c5e2f31287bf4c0ffd4ac3fceb778ef502dfc",
+    "pytest.xml": "48018f0871c55514b15e3c81e90be34159f36abf685d5be4d299cf965dbb042f",
+    "retry_log.csv": "e0a2ab1ee940a1cec88be3a48e281df23ee7cf087563aaaf19f1add9ad8b65b6",
+    "secondary_provider.json": "91008f06c2314bd1149f11a0e1fdcb029403bcd7d5b54e66dc64dfa2421ad1cb",
+    "session_tests.csv": "cd2da7e66493efd0553fc828f7b890bbecf2b7325b17f231cd5bba3ac56446e6",
+    "wrapper_requests.json": "cc66248b0a4a8ac72f5d111adfb060fe1bf4f9c7488e8cf00e46f519b885378d"
+  }
+}
