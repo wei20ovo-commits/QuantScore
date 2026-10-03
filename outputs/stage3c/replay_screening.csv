@@ -1,0 +1,4 @@
+symbol,sector_id,candidate_status,data_status,QuantScore,explanation,source
+600519.SH,C15,NOT_MATCHED,VALID,0.0,行业Heat=70，QuantScore=0.0，Risk=HIGH；未满足冻结策略条件。,archived-real-stock-diagnostic-not-production-scan
+600688.SH,C25,NOT_MATCHED,VALID,0.0,行业Heat=30，QuantScore=0.0，Risk=HIGH；未满足冻结策略条件。,archived-real-stock-diagnostic-not-production-scan
+600107.SH,C18,NOT_MATCHED,VALID,0.0,行业Heat=6，QuantScore=0.0，Risk=HIGH；未满足冻结策略条件。,archived-real-stock-diagnostic-not-production-scan

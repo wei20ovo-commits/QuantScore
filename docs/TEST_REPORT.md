@@ -1,3 +1,15 @@
+# Stage 3C Environment Closure (2026-10-03)
+
+Clean `.venv` installed from `requirements.txt` with Python 3.11.0. PyYAML 6.0.3 imports from the isolated environment; `ScreeningPolicy.current()` and `app.cli screen --help` pass with no project `.deps` PYTHONPATH. Full suite: 759 total, 758 PASS / 0 FAIL / 0 ERROR / 1 historical SKIP. JUnit/text: `outputs/stage3c/pytest_clean_venv.xml` and `.txt`. Full-market evidence is separately audited in `docs/STAGE3C_RESULT.md`; no second scan was run.
+
+# Stage 3C 最新回归
+
+759项：758 PASS / 0 FAIL / 0 ERROR / 1 SKIP。
+新增32项筛选测试，全部原测试保留。历史T20的旧AutoCoverage门槛已被Stage3C用户冻结语义替代，保留历史SKIP。
+完整命令：python -m pytest -q --basetemp=outputs/tmp/pytest/stage3c_nullable_final --junitxml=outputs/stage3c/pytest.xml。
+Windows临时目录权限失败已保留在outputs/stage3c/pytest_initial_permission_error.txt；未修改业务逻辑规避错误。
+真实全市场验收独立记录于STAGE3C_RESULT.md，离线测试不代替Live。
+
 # Stage 3B.1 Live Recovery 最新回归
 
 727项：726 PASS / 0 FAIL / 0 ERROR / 1 SKIP。原有测试全部保留；本轮新增4项根因/传输保护测试。真实验收状态PASS，详见STAGE3B1_LIVE_RECOVERY.md。证据outputs/stage3b1_recovery/pytest.xml与pytest.txt。

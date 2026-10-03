@@ -1,0 +1,136 @@
+{
+  "stage": "3C",
+  "status": "PARTIAL",
+  "observed_at": "2026-10-02T12:02:28.438298+00:00",
+  "evidence_scope": "outputs\\stage3c\\full_market",
+  "small_live": {
+    "state": "PARTIAL",
+    "trade_date": "2026-09-30",
+    "stats": {
+      "industry_total": 3,
+      "industry_scoreable": 2,
+      "industry_candidate": 1,
+      "industry_invalid": 1,
+      "stock_expected": 47,
+      "stock_analyzed": 47,
+      "stock_success": 47,
+      "stock_incomplete": 0,
+      "stock_error": 0,
+      "provider_error": 0,
+      "other_error": 0,
+      "strategy_match_candidates": 0,
+      "quality_counts": {
+        "VALID": 47,
+        "DATA_INCOMPLETE": 0,
+        "DATA_ERROR": 0,
+        "DATA_STALE": 0,
+        "DATA_INCONSISTENT": 0,
+        "SEMANTIC_GAP": 0
+      }
+    },
+    "stocks_completed": 47,
+    "sectors_completed": 3,
+    "performance": {
+      "provider_requests": 241,
+      "cache_hits": 308,
+      "cache_misses": 106,
+      "retry_count": 1,
+      "industry_heat_evaluations": 3,
+      "worker_starts": 2,
+      "provider_request_errors": [
+        {
+          "method": "query_history_k_data_plus",
+          "parameters": {
+            "fields": "date,code,volume,amount,adjustflag",
+            "code": "sh.600962",
+            "start_date": "2000-01-01",
+            "end_date": "2026-09-30",
+            "frequency": "d",
+            "adjustflag": "2"
+          },
+          "error": "BaoStock query_history_k_data_plus incomplete pagination"
+        }
+      ],
+      "total_duration_seconds": 2201.3590000000004,
+      "sector_phase_seconds": 6.405999999999949,
+      "stock_phase_seconds": 2194.9530000000004,
+      "average_stock_seconds": 46.701127659574475
+    },
+    "start_time": "2026-10-02T08:01:34.050156+00:00",
+    "end_time": "2026-10-02T08:38:15.415928+00:00"
+  },
+  "full_market": {
+    "state": "RUNNING",
+    "trade_date": "2026-09-30",
+    "stats": {},
+    "stocks_completed": 0,
+    "sectors_completed": 23,
+    "performance": {
+      "provider_requests": 1116,
+      "cache_hits": 214,
+      "cache_misses": 1114,
+      "retry_count": 2,
+      "industry_heat_evaluations": 23,
+      "worker_starts": 3,
+      "provider_request_errors": [
+        {
+          "method": "query_trade_dates",
+          "parameters": {
+            "start_date": "2007-01-01",
+            "end_date": "2011-12-31"
+          },
+          "error": "BaoStock query_trade_dates error 10002007: 网络接收错误。; parameters={'start_date': '2007-01-01', 'end_date': '2011-12-31'}"
+        },
+        {
+          "method": "query_history_k_data_plus",
+          "parameters": {
+            "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+            "code": "sz.000552",
+            "start_date": "2026-07-12",
+            "end_date": "2026-09-30",
+            "frequency": "d",
+            "adjustflag": "3"
+          },
+          "error": "BaoStock login error 10002007: 网络接收错误。"
+        }
+      ],
+      "total_duration_seconds": 2056.1410000000005
+    },
+    "start_time": "2026-10-02T08:41:26.657057+00:00",
+    "end_time": null
+  },
+  "small_gate": {
+    "verified": true,
+    "trade_date": "2026-09-30"
+  },
+  "full_universe_completed": false,
+  "cli_exit": 0,
+  "api_assertion_passed": true,
+  "tests": {
+    "tests": 759,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 758
+  },
+  "scoring_spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "data_contract_version": "1.4",
+  "screening_semantics_version": "stage3c-user-confirmed-2026-10-02",
+  "commit": false,
+  "push": false,
+  "evidence_sha256": {
+    "api_screen.json": "011b3f19e9cace712d887b67f2a27353ef458465f15be08320141d07259e9623",
+    "cli_screen.json": "844e04dbc16cb0bb77e8093dece4d62ad08419705348a4670df2661dadb153f2",
+    "performance.json": "2a6b10aca36bc4a724165e4c6a3f383e8161602adf3f6a6c40c949cb824dfbf7",
+    "pytest.xml": "9b23e15dbbd8468f82fd01cc3c8435cd414342c12260f5b77a89504477ac6cde",
+    "replay_screening.csv": "fcfd8608a8559babc196a04ed0f687d0bc7dde2c4a4df7d7ef8376f5975b4579",
+    "screening_details.json": "b2c819f2084c3454706f5349a4aa4e1683982b52dce1efc4539c3dd3dfe9e249",
+    "sector_quality.csv": "71a8954950a031269832a6068dab0fe5db56c66a98d42ddbbdba41e4e4c69812",
+    "sector_scan.csv": "f2b94e2eba31df08d7b6dcaeafd8065ef3d3c600245e1d762ef19e2772b1d568",
+    "small_live_gate.json": "7499a66a88b6145931849b376d2506b7602e5c2761555982a74db3f87ea328a5",
+    "stock_failures.csv": "7703741f562b3f2c276fc35a9aba6f2de114df21e80f56ebf257cdb5ea03115c",
+    "stock_scan.csv": "7703741f562b3f2c276fc35a9aba6f2de114df21e80f56ebf257cdb5ea03115c",
+    "strategy_match_candidates.csv": "7703741f562b3f2c276fc35a9aba6f2de114df21e80f56ebf257cdb5ea03115c"
+  }
+}

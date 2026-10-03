@@ -1,0 +1,12 @@
+spec_version: '1.4'
+assumption_version: v1.3
+screening_semantics_version: stage3c-user-confirmed-2026-10-02
+resolution_source: USER_CONFIRMED
+sector_heat_min: 70
+quant_score_min: 80
+excluded_risks: [HIGH]
+global_coverage_gate: null
+sector_business_limit: null
+display_order: [quant_score_desc, sector_heat_desc, symbol_asc]
+display_order_scope: ENGINEERING_DISPLAY_ORDER
+old_auto_screen_score: SUPERSEDED_NOT_USED

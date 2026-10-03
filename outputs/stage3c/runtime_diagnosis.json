@@ -1,0 +1,333 @@
+{
+  "stage": "Stage 3C Runtime Stall Diagnosis",
+  "observed_at": "2026-10-02T12:27:48.678594+00:00",
+  "original_pid": 11468,
+  "original_alive": true,
+  "original_start_time": "2026-10-02T16:01:33.0684360+08:00",
+  "full_phase_start": "2026-10-02T08:41:26.657057+00:00",
+  "sample_count": 5,
+  "sample_interval_seconds": 30,
+  "sample_window_seconds": 120.001213,
+  "classification": "PROGRESSING",
+  "BUSINESS_PROGRESS": true,
+  "business_progress_definition": "frozen 30-minute window: any new final record OR persisted valid provider result",
+  "business_progress_during_sample_window": false,
+  "completed_sectors": 24,
+  "completed_stocks": 0,
+  "sector_quality_counts": {
+    "DATA_INCOMPLETE": 9,
+    "VALID": 14,
+    "DATA_ERROR": 1
+  },
+  "last_final_sector": {
+    "sector_id": "C26",
+    "sector_name": "C26化学原料和化学制品制造业",
+    "constituent_count": 354,
+    "data_status": "DATA_ERROR",
+    "candidate_status": "NOT_EVALUABLE"
+  },
+  "last_final_sector_reason": "BaoStock login error 10002007: 网络接收错误。",
+  "last_checkpoint_time": "2026-10-02T12:14:27.819227+00:00",
+  "seconds_since_checkpoint": 800.859367,
+  "latest_cache_write": "2026-10-02T11:52:57.106990+00:00",
+  "seconds_since_cache_write": 2091.571604,
+  "latest_provider_response": {
+    "evidence": "persisted cache frame; not current in-flight request",
+    "rows": 57,
+    "key": {
+      "adjustment": "industry_context:qfq",
+      "end_date": "2026-09-30",
+      "provider": "baostock",
+      "start_date": "2026-07-12",
+      "symbol": "002666.SZ"
+    },
+    "persisted_at": "2026-10-02T11:52:57.106990+00:00"
+  },
+  "latest_modified_business_file": "outputs\\stage3c\\full_market\\run_metadata.json",
+  "current_object": {
+    "sector_id": "UNKNOWN",
+    "sector_name": "UNKNOWN",
+    "symbol": "UNKNOWN",
+    "provider_operation": "UNKNOWN",
+    "request_start_time": "UNKNOWN",
+    "request_duration_seconds": null,
+    "reason": "No in-flight identifiers or request timestamps in existing log/checkpoint/process command; do not infer from sector order or last result"
+  },
+  "provider": {
+    "name": "BaoStock",
+    "endpoint_from_sdk": "public-api.baostock.com:10030",
+    "new_requests_issued_by_diagnosis": 0,
+    "observed_connection_states": [
+      "Bound",
+      "SynSent"
+    ],
+    "last_checkpoint_requests": 1595,
+    "last_checkpoint_retries": 10,
+    "last_checkpoint_worker_starts": 14,
+    "last_checkpoint_errors": [
+      {
+        "method": "query_trade_dates",
+        "parameters": {
+          "start_date": "2007-01-01",
+          "end_date": "2011-12-31"
+        },
+        "error": "BaoStock query_trade_dates error 10002007: 网络接收错误。; parameters={'start_date': '2007-01-01', 'end_date': '2011-12-31'}"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.000552",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002648",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "2"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002669",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002734",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002648",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "2"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002669",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002734",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002648",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "2"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002669",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002734",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002748",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002748",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002748",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      }
+    ],
+    "metrics_freshness": "checkpoint only; not current in-flight counters"
+  },
+  "child_process_churn": {
+    "replacements_in_sample_window": 1,
+    "replacements_per_minute": 0.49999494588442195,
+    "observed_worker_births": {
+      "31632": "2026-10-02T20:25:08.1166230+08:00",
+      "18040": "2026-10-02T20:27:00.9479800+08:00"
+    },
+    "observed_birth_interval_seconds": 112.831357
+  },
+  "process_resources": {
+    "cpu_delta_seconds": 0.03125,
+    "cpu_percent_one_core_mean": 0.02604140343148031,
+    "memory_bytes": 303083520,
+    "threads": 21,
+    "open_handles": 617
+  },
+  "timeout_audit": [
+    {
+      "layer": "SDK socket",
+      "connect_timeout_seconds": 45,
+      "read_timeout_seconds": 45,
+      "scope": "inherited socket default, each blocking socket operation; DNS and entire response lack a separate deadline",
+      "source": "app/screening/batch_provider.py:14; .deps/baostock/util/socketutil.py:34,71"
+    },
+    {
+      "layer": "batch worker",
+      "process_result_poll_timeout_seconds": 150,
+      "whole_query_hard_timeout": false,
+      "source": "app/screening/batch_provider.py:48-76",
+      "gaps": [
+        "parent pipe.send has no timeout",
+        "poll deadline does not bound subsequent blocking pipe.recv",
+        "close pipe.send(None) and post-terminate join have no deadline"
+      ]
+    },
+    {
+      "layer": "BaoStock synchronization",
+      "request_throttle_seconds": 0.3,
+      "failure_backoff_seconds": 1.0,
+      "mutex_wait_timeout": null,
+      "source": "app/data/baostock_provider.py:73-88"
+    },
+    {
+      "layer": "industry fetch",
+      "max_attempts": 3,
+      "per_sector_timeout_seconds": null,
+      "source": "app/sector/industry_context.py:86-95,118-123",
+      "gaps": [
+        "pool.map results have no timeout",
+        "executor context waits for queued/running tasks after first failure"
+      ]
+    },
+    {
+      "layer": "universe acquisition",
+      "max_attempts": 3,
+      "source": "app/screening/live.py:42-57"
+    },
+    {
+      "layer": "stock ProviderManager",
+      "default_max_attempts": 2,
+      "configurable_attempt_cap": 3,
+      "per_stock_timeout_seconds": null,
+      "source": "app/data/provider_manager.py:19,42,105-120"
+    },
+    {
+      "layer": "screening orchestration",
+      "run_lock_timeout_seconds": null,
+      "per_sector_timeout_seconds": null,
+      "per_stock_timeout_seconds": null,
+      "whole_run_timeout_seconds": null,
+      "source": "app/screening/service.py:92-99,140-195"
+    }
+  ],
+  "RUNTIME_CONTROL_BUG": "UNKNOWN: no measured in-flight request duration to prove a deadline breach",
+  "unbounded_wait_paths_found": true,
+  "request_exceeds_10_minutes": "UNKNOWN",
+  "request_exceeds_20_minutes": "UNKNOWN",
+  "request_exceeds_30_minutes": "UNKNOWN",
+  "throughput": {
+    "elapsed_seconds": 13582.021537,
+    "completed_sectors": 24,
+    "seconds_per_completed_sector": 565.9175640416667,
+    "observed_sector_records_per_hour": 6.361350537151632,
+    "sample_window_sector_records": 0,
+    "estimated_remaining_sector_seconds": 33389.13627845833,
+    "linear_projected_sector_finish_time": "2026-10-02T21:44:17.814872+00:00",
+    "includes_stock_phase": false,
+    "estimate_only": true,
+    "completion_guarantee": false
+  },
+  "SAFE_TERMINATION_RECOMMENDED": false,
+  "termination_reason": "Recent final sector record satisfies PROGRESSING; exact in-flight request unknown; no intervention or termination performed",
+  "stage3c_status": "PARTIAL",
+  "changes": "read-only observation tooling and diagnosis documents only; no scan, engine, UI, commit or push",
+  "evidence_sha256": {
+    "runtime_samples.csv": "d6f3794f0bd83d3ff05861938d0f6769f82c8b670a36c0b2893e8f026bbefc37",
+    "runtime_samples_detail.json": "843ea95c768bf4b7e028bdbb0807f6d670caa71a1b5971bb2d55bc2fdc109346"
+  }
+}

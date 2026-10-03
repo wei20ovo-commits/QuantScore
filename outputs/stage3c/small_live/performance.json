@@ -1,0 +1,26 @@
+{
+  "provider_requests": 241,
+  "cache_hits": 308,
+  "cache_misses": 106,
+  "retry_count": 1,
+  "industry_heat_evaluations": 3,
+  "worker_starts": 2,
+  "provider_request_errors": [
+    {
+      "method": "query_history_k_data_plus",
+      "parameters": {
+        "fields": "date,code,volume,amount,adjustflag",
+        "code": "sh.600962",
+        "start_date": "2000-01-01",
+        "end_date": "2026-09-30",
+        "frequency": "d",
+        "adjustflag": "2"
+      },
+      "error": "BaoStock query_history_k_data_plus incomplete pagination"
+    }
+  ],
+  "total_duration_seconds": 2201.3590000000004,
+  "sector_phase_seconds": 6.405999999999949,
+  "stock_phase_seconds": 2194.9530000000004,
+  "average_stock_seconds": 46.701127659574475
+}

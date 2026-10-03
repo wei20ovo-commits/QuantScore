@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-10-02T12:10:57.469409+00:00",
+  "original_process_id": 11468,
+  "status": "RUNNING_NOT_ACCEPTED",
+  "industry_total": 83,
+  "industry_processed": 23,
+  "industry_quality_counts": {
+    "DATA_INCOMPLETE": 9,
+    "VALID": 14
+  },
+  "eligible_sectors": [
+    {
+      "sector_id": "C15",
+      "sector_heat": 70,
+      "constituent_count": 47
+    }
+  ],
+  "stocks_completed": 0,
+  "full_start_time": "2026-10-02T08:41:26.657057+00:00",
+  "end_time": null,
+  "wall_elapsed_seconds": 12570.812352,
+  "checkpoint_measured_seconds": 2056.1410000000005,
+  "checkpoint_updated_at": "2026-10-02T09:15:42.880995+00:00",
+  "tests_rerun": false,
+  "new_scan_started": false,
+  "final_acceptance_session": 57921
+}

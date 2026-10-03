@@ -1,0 +1,144 @@
+{
+  "stage": "3C",
+  "status": "PASS",
+  "original_process_id": 11468,
+  "metrics": {
+    "trade_date": "2026-09-30",
+    "start_time": "2026-10-02T08:41:26.657057+00:00",
+    "end_time": "2026-10-02T17:02:30.835920+00:00",
+    "total_duration_seconds": 30064.172,
+    "industry_total": 83,
+    "industry_processed": 83,
+    "industry_scoreable": 40,
+    "industry_not_evaluable": 43,
+    "industry_data_error": 3,
+    "industry_stale": 0,
+    "industry_inconsistent": 0,
+    "industry_heat_ge_70": 2,
+    "stock_expected": 78,
+    "stock_attempted": 78,
+    "stock_success": 78,
+    "stock_not_evaluable": 0,
+    "stock_data_error": 0,
+    "stock_stale": 0,
+    "stock_inconsistent": 0,
+    "strategy_match_candidates": 0,
+    "provider_request_count": 10329,
+    "cache_hit_count": 935,
+    "retry_count": 37,
+    "sector_phase_seconds": 25882.125,
+    "stock_phase_seconds": 4182.046999999999,
+    "sector_average_seconds": 311.8328313253012,
+    "stock_average_seconds": 53.61598717948716
+  },
+  "tests": {
+    "tests": 759,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 758
+  },
+  "final_test_exit_code": 0,
+  "validation_errors": [],
+  "sector_quality_counts": {
+    "DATA_INCOMPLETE": 40,
+    "VALID": 40,
+    "DATA_ERROR": 3
+  },
+  "stock_quality_counts": {
+    "VALID": 78
+  },
+  "small_live": {
+    "status": "PARTIAL",
+    "stats": {
+      "industry_total": 3,
+      "industry_scoreable": 2,
+      "industry_candidate": 1,
+      "industry_invalid": 1,
+      "stock_expected": 47,
+      "stock_analyzed": 47,
+      "stock_success": 47,
+      "stock_incomplete": 0,
+      "stock_error": 0,
+      "provider_error": 0,
+      "other_error": 0,
+      "strategy_match_candidates": 0,
+      "quality_counts": {
+        "VALID": 47,
+        "DATA_INCOMPLETE": 0,
+        "DATA_ERROR": 0,
+        "DATA_STALE": 0,
+        "DATA_INCONSISTENT": 0,
+        "SEMANTIC_GAP": 0
+      }
+    },
+    "gate": {
+      "verified": true,
+      "trade_date": "2026-09-30"
+    }
+  },
+  "cli_api_passed": true,
+  "full_universe_completed": true,
+  "PERFORMANCE_OPTIMIZATION_REQUIRED": true,
+  "CURRENT_RUNTIME_ACCEPTABLE_FOR": {
+    "interactive_request": false,
+    "manual_daily_scan": "long unattended scan only",
+    "scheduled_daily_batch": "requires deployment scheduling and actual completion before next batch"
+  },
+  "history_path": "outputs\\stage3c\\acceptance_history\\20261003_100011",
+  "commit": false,
+  "push": false,
+  "scoring_spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "data_contract_version": "1.4",
+  "evidence_sha256": {
+    "acceptance_observation.json": "1501a6ddf47441e9d0c665e35b0860cb431be7ca1c3b901fb1a152d01ca640f5",
+    "api_screen.json": "af66158740a6ef522ce4809bc27b8cf1aa880c70a143fb32563d770dc5630035",
+    "cli_screen.json": "3c49f7811687beff516a969d8eb70a377ab93fe0f87b8de2d3bfc2efbc7d6be8",
+    "final_acceptance_state.json": "1665f8545f5a3e0dfca41fb34cd88670de7da1f91436b7784741be464f00d9db",
+    "performance.json": "0983c746f212a85cbe80990290612bf4cd2079d18ab7543cbb2d315326ff0e5f",
+    "pytest.xml": "9655caac562845435ac34b149c23ba709d6b89df392759113f1edf42c96fa312",
+    "replay_screening.csv": "341788dad560edacd36f3909b2bc2f76dea625e0102ec4bed3b0846dd08224fc",
+    "runtime_diagnosis.json": "4a26efad226b61486644defa1775bec023786c4c3e0e6e21c88bec34ff23b0fd",
+    "runtime_samples.csv": "d6f3794f0bd83d3ff05861938d0f6769f82c8b670a36c0b2893e8f026bbefc37",
+    "runtime_samples_detail.json": "843ea95c768bf4b7e028bdbb0807f6d670caa71a1b5971bb2d55bc2fdc109346",
+    "screening_details.json": "1c10b28d7d51461762fdd490cd77894b45280c48dfacb4498f0cb9eb10ff4648",
+    "sector_quality.csv": "9909979295b0cd4613672121ed108075ab35b5fea92f56edade01a7f06e604c8",
+    "sector_scan.csv": "31fb0cb7b6dbf80820a6dbfaafb1585559d5d6907ceb609ae1728e12d7c7d713",
+    "small_live_gate.json": "b950bf178f16aa5fc631e5fe827a131cc247ca2379ae7e0d187a98e28114d938",
+    "stock_failures.csv": "0fb09f377655d83f93d7fe2efa58b9689d0988ad44b16a55fcba973975e60f8f",
+    "stock_scan.csv": "980be26864cafc01867a0e94feb5db908cba1e9026e08fd5a02fb9c5b267aca2",
+    "strategy_match_candidates.csv": "092a7d89df239d1a989e4b484901a2c6d171ea4877de9858a3184ee92f63395e",
+    "pytest_clean_venv.xml": "42cd350167b0abf220ba8b85978b35afa8d014225a0c913417ae739821723d95",
+    "pytest_clean_venv.txt": "567558a5a076902e146543a4e81ac80006578987c5e0cb9392494dfdfdafdbd9",
+    "environment_closure.json": "5c1ca9c6116366797a5864790c03bed52ab8c2284d35714f675789ffa511dc30"
+  },
+  "environment_reproducibility": {
+    "interpreter": ".venv\\Scripts\\python.exe",
+    "python_version": "3.11.0",
+    "requirements_pyYaml": "PyYAML==6.0.3",
+    "pyproject_pyYaml": "PyYAML>=6,<7",
+    "venv_pyYaml_version": "6.0.3",
+    "venv_pyYaml_module": ".venv\\Lib\\site-packages\\yaml\\__init__.py",
+    "install_command": ".venv\\Scripts\\python.exe -m pip install -r requirements.txt",
+    "policy_import": "PASS: ScreeningPolicy.current() loaded with Heat>=70, QuantScore>=80, Risk HIGH excluded; no market calls",
+    "cli_help": "PASS: python -m app.cli screen --help",
+    "clean_venv_pytest": {
+      "command": ".venv\\Scripts\\python.exe -m pytest",
+      "junit": "outputs/stage3c/pytest_clean_venv.xml",
+      "text": "outputs/stage3c/pytest_clean_venv.txt",
+      "tests": 759,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 758
+    }
+  },
+  "fresh_venv_tests": {
+    "tests": 759,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 758
+  }
+}

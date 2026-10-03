@@ -1,0 +1,29 @@
+{
+  "provider_requests": 0,
+  "cache_hits": 0,
+  "retry_count": 0,
+  "replay_analysis_reads": 1,
+  "source_sha256": {
+    "600519_live.json": "6d28d740b5d1f069e7df1ae0d5ad88c98a23664960154df060d954c1e7c2b9cb",
+    "600688_live.json": "32dcc325aca3dd0475366e41b94b02afef06e95424bcea9ff882d3d6d9b793f5",
+    "600107_live.json": "7a95b8bdc64e16f0546dc218a2da274ff7b387786fddbfadb7d97c2bfac026af"
+  },
+  "stage35_heat_recomputed": {
+    "C18": {
+      "total_score": 18,
+      "overall_status": "VALID"
+    },
+    "C25": {
+      "total_score": 25,
+      "overall_status": "VALID"
+    },
+    "H61": {
+      "total_score": null,
+      "overall_status": "DATA_INCOMPLETE"
+    }
+  },
+  "total_duration_seconds": 0.125,
+  "sector_phase_seconds": 0.06199999999989814,
+  "stock_phase_seconds": 0.06300000000010186,
+  "average_stock_seconds": 0.06300000000010186
+}

@@ -1,0 +1,687 @@
+{
+  "trade_date": "2026-09-30",
+  "status": "PARTIAL",
+  "scope": "SH_SZ_PRIMARY_INDUSTRIES",
+  "is_mock": false,
+  "mode": "live",
+  "policy": {
+    "heat_min": 70,
+    "history_min": 120,
+    "quant_score_min": 80,
+    "coverage_field": null,
+    "coverage_min": null,
+    "excluded_risks": [
+      "HIGH"
+    ],
+    "sector_cap": null,
+    "sector_cap_resolved": true,
+    "resolution_source": "USER_CONFIRMED",
+    "semantic_gaps": []
+  },
+  "stats": {
+    "industry_total": 83,
+    "industry_scoreable": 40,
+    "industry_candidate": 2,
+    "industry_invalid": 43,
+    "stock_expected": 78,
+    "stock_analyzed": 78,
+    "stock_success": 78,
+    "stock_incomplete": 0,
+    "stock_error": 0,
+    "provider_error": 0,
+    "other_error": 0,
+    "strategy_match_candidates": 0,
+    "quality_counts": {
+      "VALID": 78,
+      "DATA_INCOMPLETE": 0,
+      "DATA_ERROR": 0,
+      "DATA_STALE": 0,
+      "DATA_INCONSISTENT": 0,
+      "SEMANTIC_GAP": 0
+    }
+  },
+  "performance": {
+    "provider_requests": 10329,
+    "cache_hits": 935,
+    "cache_misses": 9894,
+    "retry_count": 37,
+    "industry_heat_evaluations": 83,
+    "worker_starts": 53,
+    "provider_request_errors": [
+      {
+        "method": "query_trade_dates",
+        "parameters": {
+          "start_date": "2007-01-01",
+          "end_date": "2011-12-31"
+        },
+        "error": "BaoStock query_trade_dates error 10002007: 网络接收错误。; parameters={'start_date': '2007-01-01', 'end_date': '2011-12-31'}"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.000552",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002648",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "2"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002669",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002734",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002648",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "2"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002669",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002734",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002648",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "2"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002669",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002734",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002748",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002748",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002748",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600080",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600079",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600062",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600080",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600079",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600062",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600080",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600079",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600062",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600085",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600129",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600161",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600085",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600129",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600161",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600085",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600129",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600161",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600810",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600527",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600889",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600810",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600527",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600889",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600810",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600527",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600889",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.601233",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.603225",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.601233",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.603225",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.601233",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.603225",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.600143",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock login error 10002007: 网络接收错误。"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sz.002819",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock query_history_k_data_plus error 10002007: 网络接收错误。; parameters={'fields': 'date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST', 'code': 'sz.002819', 'start_date': '2026-07-12', 'end_date': '2026-09-30', 'frequency': 'd', 'adjustflag': '3'}"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+          "code": "sh.688018",
+          "start_date": "2026-07-12",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "3"
+        },
+        "error": "BaoStock query_history_k_data_plus error 10002007: 网络接收错误。; parameters={'fields': 'date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST', 'code': 'sh.688018', 'start_date': '2026-07-12', 'end_date': '2026-09-30', 'frequency': 'd', 'adjustflag': '3'}"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,open,high,low",
+          "code": "sz.000869",
+          "start_date": "2000-01-01",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "2"
+        },
+        "error": "BaoStock query_history_k_data_plus error 10002007: 网络接收错误。; parameters={'fields': 'date,code,open,high,low', 'code': 'sz.000869', 'start_date': '2000-01-01', 'end_date': '2026-09-30', 'frequency': 'd', 'adjustflag': '2'}"
+      },
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,close,preclose,pctChg",
+          "code": "sh.603369",
+          "start_date": "2000-01-01",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "2"
+        },
+        "error": "BaoStock query_history_k_data_plus error 10002007: 网络接收错误。; parameters={'fields': 'date,code,close,preclose,pctChg', 'code': 'sh.603369', 'start_date': '2000-01-01', 'end_date': '2026-09-30', 'frequency': 'd', 'adjustflag': '2'}"
+      }
+    ],
+    "total_duration_seconds": 30064.172,
+    "sector_phase_seconds": 25882.125,
+    "stock_phase_seconds": 4182.046999999999,
+    "average_stock_seconds": 53.61598717948716
+  },
+  "errors": [],
+  "display_order_scope": "ENGINEERING_DISPLAY_ORDER",
+  "disclaimer": "策略匹配候选表示规则匹配，不构成投资建议。",
+  "spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "data_contract_version": "1.4",
+  "start_time": "2026-10-02T08:41:26.657057+00:00",
+  "operational_limit_industries": null,
+  "industry_universe_total": 83,
+  "end_time": "2026-10-02T17:02:30.835920+00:00"
+}

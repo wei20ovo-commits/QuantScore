@@ -1,5 +1,16 @@
 # Rule Implementation Matrix
 
+## Stage 3C orchestration
+
+Candidate semantics ACTIVE / USER_CONFIRMED 2026-10-02, see
+STAGE3C_RULE_FREEZE.md and STAGE3C_SPEC_INDEX.md. Existing 44 implemented and
+4 unimplemented scoring rules are unchanged. Screening reuses existing
+SectorHeat, B1/B2 and full stock scoring; it introduces no new rule ID.
+32 dedicated offline screening tests cover gates, failure isolation, order,
+metadata denominator preservation, request reuse, worker lifecycle and core
+scoring equivalence. Live acceptance status is recorded in STAGE3C_RESULT.md;
+offline test PASS must not be interpreted as full-market live acceptance.
+
 Spec Status=FROZEN_V1_4表示定义来自冻结Word，不代表代码完成。用户语义已冻结；IMPLEMENTED为完整执行器，UNKNOWN仍可由客观数据条件产生。
 Test Status只针对评分执行器：未实现规则的UNKNOWN守卫测试即使通过，仍标NOT_TESTED，不冒充业务验收通过。Code Status与规则返回的PARTIAL分档状态是不同维度。
 

@@ -88,5 +88,5 @@ def test_pending_spec_acceptance(test_id,reason):
         d=bars([10]*30+[9.9]*3)
         snap=ScoreSnapshot(str(d.date.iloc[29].date()),10,80,'LOW','1.3','synthetic-acceptance')
         assert engine.evaluate('R7',Context(d,metadata={'score_snapshots':[snap]})).penalty==10
-    elif test_id=='T20': pytest.skip('T20: 自动选股排名属于明确排除的Stage 2；不伪造通过。')
+    elif test_id=='T20': pytest.skip('T20 HISTORICAL / SUPERSEDED_BY_STAGE3C: 旧AutoCoverage<80%排名门槛不用于当前候选；活动语义另有专项验收。')
     else: raise AssertionError(test_id)

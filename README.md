@@ -175,3 +175,33 @@ python -m streamlit run app/web.py
 Cloud本地缓存为空也可启动，缓存由现有服务按需创建；重启后的缓存及冻结快照不保证持久保存。默认不设置 TUSHARE_TOKEN；可选 Tushare 回退需要另装SDK并通过 Cloud Secrets配置，不应写入仓库。
 
 官方流程：[部署说明](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy)。
+
+## Stage 3C — Backend Strategy Match Screening
+
+新增后台扫描入口；真实全市场验收状态见
+[Stage 3C报告](docs/STAGE3C_RESULT.md)，不要把离线测试通过视作全市场验收通过。
+本轮用户冻结的候选语义见[活动规范](docs/STAGE3C_RULE_FREEZE.md)：所有可评
+SectorHeat>=70的行业进入股票扫描；完整QuantScore>=80且Risk非HIGH才可匹配。
+不新增全局Coverage门槛，不设Top5业务限制，不使用旧AutoScreenScore。
+数据错误/过期/不一致及样本不足独立记录为NOT_EVALUABLE。
+
+```powershell
+python -m app.cli screen --industry C15 --industry C25 --industry H61 --json --output-dir outputs/stage3c/smoke
+python -m app.cli screen --json --output-dir outputs/stage3c/full_market
+python tools/stage3c_replay.py
+python tools/stage3c_live.py --full
+```
+
+FastAPI提供`GET /api/screen`，可使用`industry_id`或`limit_industries`进行有限范围
+验证。这些参数是运行范围控制，不是业务TopN。扫描同步运行，可能耗时较长；
+请求串行化并使用现有Provider互斥、节流、字段分组与有限重试。
+同一行业Heat只计算一次，基准与相同查询结果在本次请求中复用。
+
+输出顺序为QuantScore降序、Heat降序、代码升序，标为
+ENGINEERING_DISPLAY_ORDER；不影响候选资格，也不表示投资优先级。
+策略匹配候选不是收益预测或投资建议。Web页面未接入此功能。
+
+
+## Stage 3C Environment & Reproducibility
+
+Stage 3C was revalidated in an isolated Python 3.11 `.venv` installed from the root `requirements.txt`. PyYAML is declared in both dependency manifests. Do not use an unrelated global interpreter; activate the project `.venv` before running `python -m app.cli` or `python -m pytest`. The current full-market acceptance, data-quality counts, and clean-environment test evidence are recorded in [Stage 3C result](docs/STAGE3C_RESULT.md).

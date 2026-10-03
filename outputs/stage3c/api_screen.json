@@ -1,0 +1,2272 @@
+{
+  "trade_date": "2026-09-30",
+  "status": "PARTIAL",
+  "scope": "SH_SZ_PRIMARY_INDUSTRIES",
+  "is_mock": false,
+  "mode": "live",
+  "policy": {
+    "heat_min": 70,
+    "history_min": 120,
+    "quant_score_min": 80,
+    "coverage_field": null,
+    "coverage_min": null,
+    "excluded_risks": [
+      "HIGH"
+    ],
+    "sector_cap": null,
+    "sector_cap_resolved": true,
+    "resolution_source": "USER_CONFIRMED",
+    "semantic_gaps": []
+  },
+  "sectors": [
+    {
+      "sector_id": "H61",
+      "sector_name": "H61住宿业",
+      "constituent_count": 5,
+      "trade_date": "2026-09-30",
+      "sector_heat": null,
+      "data_status": "DATA_INCOMPLETE",
+      "candidate_status": "NOT_EVALUABLE",
+      "context": {
+        "data_status": "VALID",
+        "primary_industry": {
+          "symbol": "000428.SZ",
+          "sector_id": "H61",
+          "name": "H61住宿业",
+          "provider": "baostock",
+          "as_of": "2026-09-30",
+          "provenance": {
+            "provider": "baostock",
+            "as_of": "2026-09-30",
+            "retrieved_at": "2026-10-02T08:41:26.008993+00:00",
+            "source": "query_stock_industry + raw/qfq + calendar",
+            "requests": [
+              {
+                "request": "recent_calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 15,
+                "last_updated": 1790928096.2380807
+              },
+              {
+                "request": "membership",
+                "symbol": "SH_SZ",
+                "cache_hit": true,
+                "rows": 5222,
+                "last_updated": null
+              },
+              {
+                "request": "benchmark",
+                "symbol": "000001.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930425.8372457
+              },
+              {
+                "request": "metadata",
+                "symbol": "all",
+                "cache_hit": true,
+                "rows": 8991,
+                "last_updated": 1790930390.7793727
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1827,
+                "last_updated": 1790930432.7753441
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1826,
+                "last_updated": 1790930438.1986563
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1826,
+                "last_updated": 1790930444.3299391
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1826,
+                "last_updated": 1790930448.5608268
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1827,
+                "last_updated": 1790930450.9176917
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 273,
+                "last_updated": 1790930460.874418
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1826,
+                "last_updated": 1790930457.8507776
+              },
+              {
+                "request": "raw",
+                "symbol": "600258.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930461.424383
+              },
+              {
+                "request": "raw",
+                "symbol": "600754.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930465.1704755
+              },
+              {
+                "request": "raw",
+                "symbol": "601007.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930462.42924
+              },
+              {
+                "request": "qfq",
+                "symbol": "600258.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930466.735008
+              },
+              {
+                "request": "qfq",
+                "symbol": "600754.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930470.0409362
+              },
+              {
+                "request": "raw",
+                "symbol": "000428.SZ",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930476.4421556
+              },
+              {
+                "request": "qfq",
+                "symbol": "601007.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930467.369486
+              },
+              {
+                "request": "raw",
+                "symbol": "301073.SZ",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930477.7167087
+              },
+              {
+                "request": "qfq",
+                "symbol": "000428.SZ",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930480.5707605
+              },
+              {
+                "request": "qfq",
+                "symbol": "301073.SZ",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930483.801095
+              }
+            ]
+          }
+        },
+        "sector_heat": {
+          "sector_id": "H61",
+          "sector_name": "H61住宿业",
+          "trade_date": "2026-09-30",
+          "s1": {
+            "rule_id": "S1",
+            "rule_name": "板块1日相对强度",
+            "raw_inputs": {
+              "sector_return_1d": 0.003052894436654485,
+              "benchmark_return_1d": 0.003065774521137987,
+              "sector_excess_return_1d": -1.2880084483502061e-05,
+              "coverage": 1.0,
+              "return_intervals": 5
+            },
+            "threshold_band": "x<0",
+            "score": 0,
+            "max_score": 20,
+            "status": "FAIL",
+            "data_status": "VALID",
+            "explanation": "行业1d收益=0.305289%，上证指数收益=0.306577%，超额=-0.001288%；落入x<0，因此S1得0/20分（V1工程阈值）。",
+            "source_date": "2026-09-30",
+            "reason_code": null
+          },
+          "s2": {
+            "rule_id": "S2",
+            "rule_name": "板块5日相对强度",
+            "raw_inputs": {
+              "sector_return_5d": -0.043294503783995554,
+              "benchmark_return_5d": -0.02781625493911133,
+              "sector_excess_return_5d": -0.015478248844884225,
+              "coverage": 1.0,
+              "return_intervals": 5
+            },
+            "threshold_band": "x<0",
+            "score": 0,
+            "max_score": 20,
+            "status": "FAIL",
+            "data_status": "VALID",
+            "explanation": "行业5d收益=-4.329450%，上证指数收益=-2.781625%，超额=-1.547825%；落入x<0，因此S2得0/20分（V1工程阈值）。",
+            "source_date": "2026-09-30",
+            "reason_code": null
+          },
+          "s3": {
+            "rule_id": "S3",
+            "rule_name": "上涨广度",
+            "raw_inputs": {
+              "advancing_constituents": 2,
+              "valid_constituents": 5,
+              "expected_constituents": 5,
+              "breadth": 0.4,
+              "coverage": 1.0
+            },
+            "threshold_band": null,
+            "score": null,
+            "max_score": 15,
+            "status": "UNKNOWN",
+            "data_status": "DATA_INCONSISTENT",
+            "explanation": "上涨广度暂不可评分：INSUFFICIENT_MEMBERS；缺项不计为0分。",
+            "source_date": "2026-09-30",
+            "reason_code": "INSUFFICIENT_MEMBERS"
+          },
+          "s4": {
+            "rule_id": "S4",
+            "rule_name": "涨停联动密度",
+            "raw_inputs": {
+              "limit_up_count": 0,
+              "limit_up_ratio": 0.0,
+              "expected_count": 5,
+              "valid_limit_count": 5,
+              "limit_details": [
+                {
+                  "symbol": "600258.SH",
+                  "date": "2026-09-30",
+                  "status": "VALID",
+                  "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+                  "calculated_limit_up": 12.11,
+                  "actual_close": 11.01,
+                  "closed_at_limit_up": false
+                },
+                {
+                  "symbol": "600754.SH",
+                  "date": "2026-09-30",
+                  "status": "VALID",
+                  "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+                  "calculated_limit_up": 19.64,
+                  "actual_close": 18.05,
+                  "closed_at_limit_up": false
+                },
+                {
+                  "symbol": "601007.SH",
+                  "date": "2026-09-30",
+                  "status": "VALID",
+                  "rule_source": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/universal/c/c_20260424_10816492.shtml",
+                  "calculated_limit_up": 7.48,
+                  "actual_close": 6.78,
+                  "closed_at_limit_up": false
+                },
+                {
+                  "symbol": "000428.SZ",
+                  "date": "2026-09-30",
+                  "status": "VALID",
+                  "rule_source": "https://www.szse.cn/lawrules/rule/trade/t20260424_620190.html",
+                  "calculated_limit_up": 4.21,
+                  "actual_close": 3.83,
+                  "closed_at_limit_up": false
+                },
+                {
+                  "symbol": "301073.SZ",
+                  "date": "2026-09-30",
+                  "status": "VALID",
+                  "rule_source": "https://www.szse.cn/lawrules/rule/trade/t20260424_620190.html",
+                  "calculated_limit_up": 20.57,
+                  "actual_close": 17.26,
+                  "closed_at_limit_up": false
+                }
+              ]
+            },
+            "threshold_band": null,
+            "score": null,
+            "max_score": 15,
+            "status": "UNKNOWN",
+            "data_status": "DATA_INCONSISTENT",
+            "explanation": "涨停联动密度暂不可评分：INSUFFICIENT_MEMBERS；缺项不计为0分。",
+            "source_date": "2026-09-30",
+            "reason_code": "INSUFFICIENT_MEMBERS"
+          },
+          "s5": {
+            "rule_id": "S5",
+            "rule_name": "板块成交活跃度",
+            "raw_inputs": {
+              "sector_amount_today": 433041879.05,
+              "sector_amount_prior_20d_mean": 1009110181.6005001,
+              "amount_ratio": 0.42913240491060506,
+              "coverage": 1.0,
+              "daily_amounts": [
+                {
+                  "date": "2026-09-01",
+                  "sector_amount": 1384105033.2,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-02",
+                  "sector_amount": 1029220281.29,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-03",
+                  "sector_amount": 1189835781.95,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-04",
+                  "sector_amount": 1409562007.91,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-07",
+                  "sector_amount": 1489888277.4699998,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-08",
+                  "sector_amount": 1760933665.2900002,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-09",
+                  "sector_amount": 1375791976.4100003,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-10",
+                  "sector_amount": 1500059501.7500002,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-11",
+                  "sector_amount": 1383099331.01,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-14",
+                  "sector_amount": 987800357.88,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-15",
+                  "sector_amount": 930758466.45,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-16",
+                  "sector_amount": 709100747.65,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-17",
+                  "sector_amount": 578100835.51,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-18",
+                  "sector_amount": 836790443.08,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-21",
+                  "sector_amount": 803777466.0699999,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-22",
+                  "sector_amount": 710778316.86,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-23",
+                  "sector_amount": 768758889.24,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-24",
+                  "sector_amount": 490618335.49,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-28",
+                  "sector_amount": 481814649.12,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-29",
+                  "sector_amount": 361409268.38,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-30",
+                  "sector_amount": 433041879.05,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                }
+              ]
+            },
+            "threshold_band": "x<0.9",
+            "score": 0,
+            "max_score": 15,
+            "status": "FAIL",
+            "data_status": "VALID",
+            "explanation": "当日成交额=433041879.05，前20交易日均额=1009110181.6005001，比值=0.429132；落入x<0.9，因此S5得0/15分（V1工程阈值）。",
+            "source_date": "2026-09-30",
+            "reason_code": null
+          },
+          "s6": {
+            "rule_id": "S6",
+            "rule_name": "强势持续性",
+            "raw_inputs": {
+              "coverage": 1.0,
+              "daily_comparisons": [
+                {
+                  "date": "2026-09-23",
+                  "sector_return": -0.011631238788292819,
+                  "benchmark_return": -0.003949290103964387,
+                  "sector_win": false,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-24",
+                  "sector_return": -0.015900154829530333,
+                  "benchmark_return": -0.012230625329748723,
+                  "sector_win": false,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-28",
+                  "sector_return": -0.017785940337724782,
+                  "benchmark_return": -0.01665302857456752,
+                  "sector_win": false,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-29",
+                  "sector_return": -0.002077611023452541,
+                  "benchmark_return": 0.0017864481638163454,
+                  "sector_win": false,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                },
+                {
+                  "date": "2026-09-30",
+                  "sector_return": 0.003052894436654485,
+                  "benchmark_return": 0.003065774521137987,
+                  "sector_win": false,
+                  "coverage": 1.0,
+                  "status": "VALID"
+                }
+              ],
+              "expected_trade_dates": [
+                "2026-09-23",
+                "2026-09-24",
+                "2026-09-28",
+                "2026-09-29",
+                "2026-09-30"
+              ],
+              "win_days": 0
+            },
+            "threshold_band": "win_days=0",
+            "score": 0,
+            "max_score": 10,
+            "status": "FAIL",
+            "data_status": "VALID",
+            "explanation": "最近5个真实交易日逐日胜出=0天；落入win_days=0，因此S6得0/10分（V1工程阈值）。",
+            "source_date": "2026-09-30",
+            "reason_code": null
+          },
+          "s7": {
+            "rule_id": "S7",
+            "rule_name": "强势股深度",
+            "raw_inputs": {
+              "strong_count": 0,
+              "expected_count": 5,
+              "valid_return_count": 5,
+              "strong_ratio": 0.0
+            },
+            "threshold_band": null,
+            "score": null,
+            "max_score": 5,
+            "status": "UNKNOWN",
+            "data_status": "DATA_INCONSISTENT",
+            "explanation": "强势股深度暂不可评分：INSUFFICIENT_MEMBERS；缺项不计为0分。",
+            "source_date": "2026-09-30",
+            "reason_code": "INSUFFICIENT_MEMBERS"
+          },
+          "total_score": null,
+          "max_score": 100,
+          "available_score": 0,
+          "available_max_score": 65,
+          "score_coverage": 0.65,
+          "overall_status": "DATA_INCOMPLETE",
+          "provenance": {
+            "provider": "baostock",
+            "as_of": "2026-09-30",
+            "retrieved_at": "2026-10-02T08:41:26.008993+00:00",
+            "source": "query_stock_industry + raw/qfq + calendar",
+            "requests": [
+              {
+                "request": "recent_calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 15,
+                "last_updated": 1790928096.2380807
+              },
+              {
+                "request": "membership",
+                "symbol": "SH_SZ",
+                "cache_hit": true,
+                "rows": 5222,
+                "last_updated": null
+              },
+              {
+                "request": "benchmark",
+                "symbol": "000001.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930425.8372457
+              },
+              {
+                "request": "metadata",
+                "symbol": "all",
+                "cache_hit": true,
+                "rows": 8991,
+                "last_updated": 1790930390.7793727
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1827,
+                "last_updated": 1790930432.7753441
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1826,
+                "last_updated": 1790930438.1986563
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1826,
+                "last_updated": 1790930444.3299391
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1826,
+                "last_updated": 1790930448.5608268
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1827,
+                "last_updated": 1790930450.9176917
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 273,
+                "last_updated": 1790930460.874418
+              },
+              {
+                "request": "calendar",
+                "symbol": "calendar",
+                "cache_hit": true,
+                "rows": 1826,
+                "last_updated": 1790930457.8507776
+              },
+              {
+                "request": "raw",
+                "symbol": "600258.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930461.424383
+              },
+              {
+                "request": "raw",
+                "symbol": "600754.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930465.1704755
+              },
+              {
+                "request": "raw",
+                "symbol": "601007.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930462.42924
+              },
+              {
+                "request": "qfq",
+                "symbol": "600258.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930466.735008
+              },
+              {
+                "request": "qfq",
+                "symbol": "600754.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930470.0409362
+              },
+              {
+                "request": "raw",
+                "symbol": "000428.SZ",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930476.4421556
+              },
+              {
+                "request": "qfq",
+                "symbol": "601007.SH",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930467.369486
+              },
+              {
+                "request": "raw",
+                "symbol": "301073.SZ",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930477.7167087
+              },
+              {
+                "request": "qfq",
+                "symbol": "000428.SZ",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930480.5707605
+              },
+              {
+                "request": "qfq",
+                "symbol": "301073.SZ",
+                "cache_hit": true,
+                "rows": 57,
+                "last_updated": 1790930483.801095
+              }
+            ]
+          },
+          "spec_version": "1.4",
+          "assumption_version": "v1.3"
+        },
+        "returns": {
+          "sector_return_5d": -0.043294503783995554,
+          "window_start": "2026-09-22",
+          "window_end": "2026-09-30",
+          "trade_dates": [
+            "2026-09-22",
+            "2026-09-23",
+            "2026-09-24",
+            "2026-09-28",
+            "2026-09-29",
+            "2026-09-30"
+          ],
+          "adjustment_type": "qfq",
+          "data_status": "VALID"
+        },
+        "provenance": {
+          "provider": "baostock",
+          "as_of": "2026-09-30",
+          "retrieved_at": "2026-10-02T08:41:26.008993+00:00",
+          "source": "query_stock_industry + raw/qfq + calendar",
+          "requests": [
+            {
+              "request": "recent_calendar",
+              "symbol": "calendar",
+              "cache_hit": true,
+              "rows": 15,
+              "last_updated": 1790928096.2380807
+            },
+            {
+              "request": "membership",
+              "symbol": "SH_SZ",
+              "cache_hit": true,
+              "rows": 5222,
+              "last_updated": null
+            },
+            {
+              "request": "benchmark",
+              "symbol": "000001.SH",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930425.8372457
+            },
+            {
+              "request": "metadata",
+              "symbol": "all",
+              "cache_hit": true,
+              "rows": 8991,
+              "last_updated": 1790930390.7793727
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": true,
+              "rows": 1827,
+              "last_updated": 1790930432.7753441
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": true,
+              "rows": 1826,
+              "last_updated": 1790930438.1986563
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": true,
+              "rows": 1826,
+              "last_updated": 1790930444.3299391
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": true,
+              "rows": 1826,
+              "last_updated": 1790930448.5608268
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": true,
+              "rows": 1827,
+              "last_updated": 1790930450.9176917
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": true,
+              "rows": 273,
+              "last_updated": 1790930460.874418
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": true,
+              "rows": 1826,
+              "last_updated": 1790930457.8507776
+            },
+            {
+              "request": "raw",
+              "symbol": "600258.SH",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930461.424383
+            },
+            {
+              "request": "raw",
+              "symbol": "600754.SH",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930465.1704755
+            },
+            {
+              "request": "raw",
+              "symbol": "601007.SH",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930462.42924
+            },
+            {
+              "request": "qfq",
+              "symbol": "600258.SH",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930466.735008
+            },
+            {
+              "request": "qfq",
+              "symbol": "600754.SH",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930470.0409362
+            },
+            {
+              "request": "raw",
+              "symbol": "000428.SZ",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930476.4421556
+            },
+            {
+              "request": "qfq",
+              "symbol": "601007.SH",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930467.369486
+            },
+            {
+              "request": "raw",
+              "symbol": "301073.SZ",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930477.7167087
+            },
+            {
+              "request": "qfq",
+              "symbol": "000428.SZ",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930480.5707605
+            },
+            {
+              "request": "qfq",
+              "symbol": "301073.SZ",
+              "cache_hit": true,
+              "rows": 57,
+              "last_updated": 1790930483.801095
+            }
+          ]
+        },
+        "expected_count": 5
+      }
+    }
+  ],
+  "stocks": [],
+  "exclusions": [
+    {
+      "symbol": "600001.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600002.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600003.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600005.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600065.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600068.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600069.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600070.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600074.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600077.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600083.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600086.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600087.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600090.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600091.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600092.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600093.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600102.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600112.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600122.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600139.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600145.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600146.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600175.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600181.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600190.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600193.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600200.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600205.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600209.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600213.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600220.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600225.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600240.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600242.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600247.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600253.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600260.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600263.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600270.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600275.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600277.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600286.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600290.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600291.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600296.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600297.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600306.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600311.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600317.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600321.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600355.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600357.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600385.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600387.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600393.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600401.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600421.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600432.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600462.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600466.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600472.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600485.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600532.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600553.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600555.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600565.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600591.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600599.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600607.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600608.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600614.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600625.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600627.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600631.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600632.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600634.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600636.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600646.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600647.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600652.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600656.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600659.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600669.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600670.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600672.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600677.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600680.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600687.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600695.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600696.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600700.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600701.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600705.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600709.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600723.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600747.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600752.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600762.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600766.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600767.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600772.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600781.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600786.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600788.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600799.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600804.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600806.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600811.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600813.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600823.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600832.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600836.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600837.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600840.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600842.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600849.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600852.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600856.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600870.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600878.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600890.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600891.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600896.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600898.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600899.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600978.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "600991.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "601028.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "601258.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "601268.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "601299.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "601558.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "601989.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "603003.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "603056.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "603133.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "603157.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "603388.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "603555.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "603603.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "603963.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "603996.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "605081.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "688086.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "688287.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "688555.SH",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000003.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000004.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000005.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000013.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000015.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000018.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000023.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000024.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000033.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000038.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000040.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000046.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000047.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000150.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000405.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000406.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000412.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000413.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000416.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000418.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000502.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000508.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000511.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000515.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000522.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000527.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000535.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000540.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000542.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000549.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000556.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000562.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000569.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000578.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000583.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000584.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000585.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000587.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000588.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000594.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000602.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000606.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000611.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000613.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000616.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000618.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000621.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000622.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000627.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000638.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000653.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000658.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000660.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000662.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000666.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000667.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000671.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000673.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000675.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000687.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000689.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000693.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000699.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000730.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000732.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000748.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000760.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000763.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000765.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000769.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000780.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000787.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000805.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000806.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000817.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000827.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000832.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000835.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000836.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000851.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000861.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000866.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000916.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000918.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000939.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000956.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000961.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000971.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000976.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000979.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000982.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "000996.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002002.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002013.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002018.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002070.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002071.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002087.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002089.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002113.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002118.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002143.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002147.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002220.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002231.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002260.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002280.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002288.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002308.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002325.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002336.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002341.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002359.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002411.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002417.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002433.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002435.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002447.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002450.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002464.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002473.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002477.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002499.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002502.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002503.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002504.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002505.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002509.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002604.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002610.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002618.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002619.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002621.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002665.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002680.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002684.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002699.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002711.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002740.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002750.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002751.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002770.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002776.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002781.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002808.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "002898.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300023.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300028.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300029.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300038.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300064.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300089.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300090.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300104.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300108.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300116.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300117.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300156.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300178.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300186.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300202.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300208.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300216.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300262.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300273.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300280.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300282.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300297.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300309.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300312.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300325.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300330.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300336.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300344.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300356.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300362.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300367.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300372.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300379.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300391.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300392.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300431.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300495.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300526.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300630.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300742.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    },
+    {
+      "symbol": "300799.SZ",
+      "reason": "NO_PRIMARY_INDUSTRY"
+    }
+  ],
+  "candidates": [],
+  "stats": {
+    "industry_total": 1,
+    "industry_scoreable": 0,
+    "industry_candidate": 0,
+    "industry_invalid": 1,
+    "stock_expected": 0,
+    "stock_analyzed": 0,
+    "stock_success": 0,
+    "stock_incomplete": 0,
+    "stock_error": 0,
+    "provider_error": 0,
+    "other_error": 0,
+    "strategy_match_candidates": 0,
+    "quality_counts": {
+      "VALID": 0,
+      "DATA_INCOMPLETE": 0,
+      "DATA_ERROR": 0,
+      "DATA_STALE": 0,
+      "DATA_INCONSISTENT": 0,
+      "SEMANTIC_GAP": 0
+    }
+  },
+  "performance": {
+    "provider_requests": 0,
+    "cache_hits": 25,
+    "cache_misses": 0,
+    "retry_count": 0,
+    "industry_heat_evaluations": 1,
+    "worker_starts": 0,
+    "provider_request_errors": [],
+    "total_duration_seconds": 1.4369999999998981,
+    "sector_phase_seconds": 1.4369999999998981,
+    "stock_phase_seconds": 0.0,
+    "average_stock_seconds": null
+  },
+  "errors": [],
+  "display_order_scope": "ENGINEERING_DISPLAY_ORDER",
+  "disclaimer": "策略匹配候选表示规则匹配，不构成投资建议。",
+  "spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "data_contract_version": "1.4",
+  "start_time": "2026-10-02T08:41:25.171283+00:00",
+  "operational_limit_industries": null,
+  "industry_universe_total": 83,
+  "end_time": "2026-10-02T08:41:26.620640+00:00"
+}

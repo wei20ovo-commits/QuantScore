@@ -1,0 +1,31 @@
+{
+  "provider_requests": 1116,
+  "cache_hits": 214,
+  "cache_misses": 1114,
+  "retry_count": 2,
+  "industry_heat_evaluations": 23,
+  "worker_starts": 3,
+  "provider_request_errors": [
+    {
+      "method": "query_trade_dates",
+      "parameters": {
+        "start_date": "2007-01-01",
+        "end_date": "2011-12-31"
+      },
+      "error": "BaoStock query_trade_dates error 10002007: 网络接收错误。; parameters={'start_date': '2007-01-01', 'end_date': '2011-12-31'}"
+    },
+    {
+      "method": "query_history_k_data_plus",
+      "parameters": {
+        "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+        "code": "sz.000552",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-30",
+        "frequency": "d",
+        "adjustflag": "3"
+      },
+      "error": "BaoStock login error 10002007: 网络接收错误。"
+    }
+  ],
+  "total_duration_seconds": 2056.1410000000005
+}

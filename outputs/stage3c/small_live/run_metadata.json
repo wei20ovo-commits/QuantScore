@@ -1,0 +1,79 @@
+{
+  "trade_date": "2026-09-30",
+  "status": "PARTIAL",
+  "scope": "SH_SZ_PRIMARY_INDUSTRIES",
+  "is_mock": false,
+  "mode": "live",
+  "policy": {
+    "heat_min": 70,
+    "history_min": 120,
+    "quant_score_min": 80,
+    "coverage_field": null,
+    "coverage_min": null,
+    "excluded_risks": [
+      "HIGH"
+    ],
+    "sector_cap": null,
+    "sector_cap_resolved": true,
+    "resolution_source": "USER_CONFIRMED",
+    "semantic_gaps": []
+  },
+  "stats": {
+    "industry_total": 3,
+    "industry_scoreable": 2,
+    "industry_candidate": 1,
+    "industry_invalid": 1,
+    "stock_expected": 47,
+    "stock_analyzed": 47,
+    "stock_success": 47,
+    "stock_incomplete": 0,
+    "stock_error": 0,
+    "provider_error": 0,
+    "other_error": 0,
+    "strategy_match_candidates": 0,
+    "quality_counts": {
+      "VALID": 47,
+      "DATA_INCOMPLETE": 0,
+      "DATA_ERROR": 0,
+      "DATA_STALE": 0,
+      "DATA_INCONSISTENT": 0,
+      "SEMANTIC_GAP": 0
+    }
+  },
+  "performance": {
+    "provider_requests": 241,
+    "cache_hits": 308,
+    "cache_misses": 106,
+    "retry_count": 1,
+    "industry_heat_evaluations": 3,
+    "worker_starts": 2,
+    "provider_request_errors": [
+      {
+        "method": "query_history_k_data_plus",
+        "parameters": {
+          "fields": "date,code,volume,amount,adjustflag",
+          "code": "sh.600962",
+          "start_date": "2000-01-01",
+          "end_date": "2026-09-30",
+          "frequency": "d",
+          "adjustflag": "2"
+        },
+        "error": "BaoStock query_history_k_data_plus incomplete pagination"
+      }
+    ],
+    "total_duration_seconds": 2201.3590000000004,
+    "sector_phase_seconds": 6.405999999999949,
+    "stock_phase_seconds": 2194.9530000000004,
+    "average_stock_seconds": 46.701127659574475
+  },
+  "errors": [],
+  "display_order_scope": "ENGINEERING_DISPLAY_ORDER",
+  "disclaimer": "策略匹配候选表示规则匹配，不构成投资建议。",
+  "spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "data_contract_version": "1.4",
+  "start_time": "2026-10-02T08:01:34.050156+00:00",
+  "operational_limit_industries": null,
+  "industry_universe_total": 83,
+  "end_time": "2026-10-02T08:38:15.415928+00:00"
+}

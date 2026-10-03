@@ -1,0 +1,113 @@
+{
+  "stage": "3C",
+  "status": "PASS",
+  "original_process_id": 11468,
+  "metrics": {
+    "trade_date": "2026-09-30",
+    "start_time": "2026-10-02T08:41:26.657057+00:00",
+    "end_time": "2026-10-02T17:02:30.835920+00:00",
+    "total_duration_seconds": 30064.172,
+    "industry_total": 83,
+    "industry_processed": 83,
+    "industry_scoreable": 40,
+    "industry_not_evaluable": 43,
+    "industry_data_error": 3,
+    "industry_stale": 0,
+    "industry_inconsistent": 0,
+    "industry_heat_ge_70": 2,
+    "stock_expected": 78,
+    "stock_attempted": 78,
+    "stock_success": 78,
+    "stock_not_evaluable": 0,
+    "stock_data_error": 0,
+    "stock_stale": 0,
+    "stock_inconsistent": 0,
+    "strategy_match_candidates": 0,
+    "provider_request_count": 10329,
+    "cache_hit_count": 935,
+    "retry_count": 37,
+    "sector_phase_seconds": 25882.125,
+    "stock_phase_seconds": 4182.046999999999,
+    "sector_average_seconds": 311.8328313253012,
+    "stock_average_seconds": 53.61598717948716
+  },
+  "tests": {
+    "tests": 759,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 758
+  },
+  "final_test_exit_code": 0,
+  "validation_errors": [],
+  "sector_quality_counts": {
+    "DATA_INCOMPLETE": 40,
+    "VALID": 40,
+    "DATA_ERROR": 3
+  },
+  "stock_quality_counts": {
+    "VALID": 78
+  },
+  "small_live": {
+    "status": "PARTIAL",
+    "stats": {
+      "industry_total": 3,
+      "industry_scoreable": 2,
+      "industry_candidate": 1,
+      "industry_invalid": 1,
+      "stock_expected": 47,
+      "stock_analyzed": 47,
+      "stock_success": 47,
+      "stock_incomplete": 0,
+      "stock_error": 0,
+      "provider_error": 0,
+      "other_error": 0,
+      "strategy_match_candidates": 0,
+      "quality_counts": {
+        "VALID": 47,
+        "DATA_INCOMPLETE": 0,
+        "DATA_ERROR": 0,
+        "DATA_STALE": 0,
+        "DATA_INCONSISTENT": 0,
+        "SEMANTIC_GAP": 0
+      }
+    },
+    "gate": {
+      "verified": true,
+      "trade_date": "2026-09-30"
+    }
+  },
+  "cli_api_passed": true,
+  "full_universe_completed": true,
+  "PERFORMANCE_OPTIMIZATION_REQUIRED": true,
+  "CURRENT_RUNTIME_ACCEPTABLE_FOR": {
+    "interactive_request": false,
+    "manual_daily_scan": "long unattended scan only",
+    "scheduled_daily_batch": "requires deployment scheduling and actual completion before next batch"
+  },
+  "history_path": "outputs\\stage3c\\acceptance_history\\20261003_010318",
+  "commit": false,
+  "push": false,
+  "scoring_spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "data_contract_version": "1.4",
+  "evidence_sha256": {
+    "acceptance_observation.json": "73ff6e96ad3c43ecd4955b6b4582db16800730709b4cd6d7b00e1867b091aad4",
+    "api_screen.json": "011b3f19e9cace712d887b67f2a27353ef458465f15be08320141d07259e9623",
+    "cli_screen.json": "844e04dbc16cb0bb77e8093dece4d62ad08419705348a4670df2661dadb153f2",
+    "final_acceptance_state.json": "857681af2e13c1d311c16d0726c5b4114be8c7550fae4a16eabb94fc990dee27",
+    "performance.json": "63f9dfec019c578727457cf759294f8d7ff63f6e0141f75eeba7685ef696a0da",
+    "pytest.xml": "0e8c584e0d31b421c8541dcb312f3996507e6faae74cd2f1659786a90eeca35a",
+    "replay_screening.csv": "fcfd8608a8559babc196a04ed0f687d0bc7dde2c4a4df7d7ef8376f5975b4579",
+    "runtime_diagnosis.json": "cea3660f9a24ce35c471a480a8f4ef8321e80a95fe681b2d1a5e8cebc0e82bf0",
+    "runtime_samples.csv": "e09e7ac40e5f3f4853003f07b6edd8cec9dfa6e07ed4cc35130e806503a96df9",
+    "runtime_samples_detail.json": "843ea95c768bf4b7e028bdbb0807f6d670caa71a1b5971bb2d55bc2fdc109346",
+    "screening_details.json": "d8924440d2132353276314eced657f4ccf0f0c18740d84c17bd92219bb9107e2",
+    "sector_quality.csv": "0966f50d2a22a0e71ddf2f50c0c74565eb8f873ffdb261725ce28db4c9cdce0b",
+    "sector_scan.csv": "769621974c5b6bc64475d0def757545a59a7f449830ca8fdca08d2023ebac440",
+    "small_live_gate.json": "7499a66a88b6145931849b376d2506b7602e5c2761555982a74db3f87ea328a5",
+    "stock_failures.csv": "55d0e68ec9caa4f4cb1ccb2bf26c462e48fcf9a6c16b2f5fd6efa96b0f88c94f",
+    "stock_scan.csv": "759816155b317991567bc31169a6e1e5af3a66b1023346246456c66ba7f51c6b",
+    "strategy_match_candidates.csv": "bb2c92df470c74cd3f01d8e546cbbda19e45bce292f0d47f763f069fbc96c258"
+  }
+}

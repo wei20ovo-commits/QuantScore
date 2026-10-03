@@ -1,0 +1,82 @@
+{
+  "trade_date": "2026-09-30",
+  "status": "COMPLETE",
+  "scope": "SH_SZ_PRIMARY_INDUSTRIES",
+  "is_mock": false,
+  "mode": "archived-real-subset-replay",
+  "policy": {
+    "heat_min": 70,
+    "history_min": 120,
+    "quant_score_min": 80,
+    "coverage_field": null,
+    "coverage_min": null,
+    "excluded_risks": [
+      "HIGH"
+    ],
+    "sector_cap": null,
+    "sector_cap_resolved": true,
+    "resolution_source": "USER_CONFIRMED",
+    "semantic_gaps": []
+  },
+  "stats": {
+    "industry_total": 3,
+    "industry_scoreable": 3,
+    "industry_candidate": 1,
+    "industry_invalid": 0,
+    "stock_expected": 1,
+    "stock_analyzed": 1,
+    "stock_success": 1,
+    "stock_incomplete": 0,
+    "stock_error": 0,
+    "provider_error": 0,
+    "other_error": 0,
+    "strategy_match_candidates": 0,
+    "quality_counts": {
+      "VALID": 1,
+      "DATA_INCOMPLETE": 0,
+      "DATA_ERROR": 0,
+      "DATA_STALE": 0,
+      "DATA_INCONSISTENT": 0,
+      "SEMANTIC_GAP": 0
+    }
+  },
+  "performance": {
+    "provider_requests": 0,
+    "cache_hits": 0,
+    "retry_count": 0,
+    "replay_analysis_reads": 1,
+    "source_sha256": {
+      "600519_live.json": "6d28d740b5d1f069e7df1ae0d5ad88c98a23664960154df060d954c1e7c2b9cb",
+      "600688_live.json": "32dcc325aca3dd0475366e41b94b02afef06e95424bcea9ff882d3d6d9b793f5",
+      "600107_live.json": "7a95b8bdc64e16f0546dc218a2da274ff7b387786fddbfadb7d97c2bfac026af"
+    },
+    "stage35_heat_recomputed": {
+      "C18": {
+        "total_score": 18,
+        "overall_status": "VALID"
+      },
+      "C25": {
+        "total_score": 25,
+        "overall_status": "VALID"
+      },
+      "H61": {
+        "total_score": null,
+        "overall_status": "DATA_INCOMPLETE"
+      }
+    },
+    "total_duration_seconds": 0.125,
+    "sector_phase_seconds": 0.06199999999989814,
+    "stock_phase_seconds": 0.06300000000010186,
+    "average_stock_seconds": 0.06300000000010186
+  },
+  "errors": [],
+  "display_order_scope": "ENGINEERING_DISPLAY_ORDER",
+  "disclaimer": "策略匹配候选表示规则匹配，不构成投资建议。",
+  "spec_version": "1.4",
+  "assumption_version": "v1.3",
+  "data_contract_version": "1.4",
+  "start_time": "2026-10-02T07:53:19.553484+00:00",
+  "operational_limit_industries": null,
+  "industry_universe_total": 3,
+  "end_time": "2026-10-02T07:53:19.676705+00:00"
+}

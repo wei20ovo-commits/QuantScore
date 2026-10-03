@@ -1,5 +1,13 @@
 # QuantScore V1.3 歧义结案
 
+## Stage 3C ACTIVE candidate semantics
+
+2026-10-02 USER_CONFIRMED：Heat>=70、完整QuantScore>=80、Risk非HIGH；
+不新增全局Coverage门槛，不设Top5业务限制。关键数据错误/过期/不一致为
+NOT_EVALUABLE。旧AutoScreenScore在Stage 3C为SUPERSEDED / NOT USED。
+候选阈值、Coverage、风险及行业数量的初始SEMANTIC_GAP全部
+RESOLVED_IN_STAGE3C，详见STAGE3C_RULE_FREEZE.md；历史记录保留。
+
 No unresolved user-defined trading semantics remain in V1.3.
 
 A类规则语义已经冻结。B类数据不可得仍可UNKNOWN；C类未实现规则仍为NOT_IMPLEMENTED，不能冒充语义歧义。以下追加结案，不删除历史。

@@ -1,6 +1,6 @@
 from datetime import date
 
-from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException, Request, Query
 from app.data.models import BENCHMARK_SYMBOL, DataError
 from app.models.schemas import AnalysisResult, DataStatus
 from app.services.stock_analysis_service import StockAnalysisService
@@ -15,9 +15,19 @@ def get_service(request: Request):
     return service
 
 
-def create_app(service=None):
+def create_app(service=None, screening_service=None):
     application = FastAPI(title='QuantScore', version='1.4.0')
     application.state.analysis_service = service
+    application.state.screening_service = screening_service
+
+    @application.get('/api/screen')
+    def screen(limit_industries: int | None = None, industry_id: list[str] | None = Query(default=None)):
+        if limit_industries is not None and limit_industries < 1:
+            raise HTTPException(status_code=422, detail='limit_industries must be positive')
+        if application.state.screening_service is None:
+            from app.screening.service import ScreeningService
+            application.state.screening_service = ScreeningService()
+        return application.state.screening_service.run(limit_industries=limit_industries,industry_ids=industry_id)
 
     @application.get('/api/health')
     def health():

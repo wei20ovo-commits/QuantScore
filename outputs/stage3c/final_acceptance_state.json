@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "reason": "ORIGINAL_RUN_COMPLETE_VALIDATED",
+  "original_pid": 11468,
+  "new_scan_started": false,
+  "full_universe_completed": true,
+  "industry_processed": 83,
+  "stock_attempted": 78,
+  "candidates": 0,
+  "validation_errors": [],
+  "final_pytest": {
+    "tests": 759,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 758
+  },
+  "environment": "project .venv Python 3.11.0",
+  "earlier_global_import_failure_resolved": true
+}

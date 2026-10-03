@@ -1,0 +1,3084 @@
+{
+  "symbol": "600519.SH",
+  "name": "贵州茅台",
+  "evaluation_date": "2026-09-30",
+  "final_quant_score": 0.0,
+  "positive_score": 15.0,
+  "risk_penalty": 20.0,
+  "risk_level": "HIGH",
+  "positive_coverage": 0.71,
+  "data_status": {
+    "rows": 6089,
+    "status": "PARTIAL",
+    "is_mock": false,
+    "provider": "baostock"
+  },
+  "industry_context": {
+    "data_status": "VALID",
+    "primary_industry": {
+      "symbol": "600519.SH",
+      "sector_id": "C15",
+      "name": "C15酒、饮料和精制茶制造业",
+      "provider": "baostock",
+      "as_of": "2026-09-30"
+    },
+    "sector_heat": {
+      "sector_id": "C15",
+      "sector_name": "C15酒、饮料和精制茶制造业",
+      "trade_date": "2026-09-30",
+      "total_score": 70,
+      "overall_status": "VALID"
+    },
+    "returns": {
+      "sector_return_5d": -0.00026704120720617754,
+      "window_start": "2026-09-22",
+      "window_end": "2026-09-30",
+      "trade_dates": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-28",
+        "2026-09-29",
+        "2026-09-30"
+      ],
+      "adjustment_type": "qfq",
+      "data_status": "VALID"
+    },
+    "provenance": {
+      "provider": "baostock",
+      "archive_sha256": "6d28d740b5d1f069e7df1ae0d5ad88c98a23664960154df060d954c1e7c2b9cb"
+    },
+    "expected_count": 47
+  },
+  "rules": [
+    {
+      "rule_id": "B1",
+      "score": 6,
+      "status": "PARTIAL",
+      "raw_values": {
+        "primary_industry_id": "C15",
+        "primary_industry_name": "C15酒、饮料和精制茶制造业",
+        "trade_date": "2026-09-30",
+        "provenance": {
+          "provider": "baostock",
+          "as_of": "2026-09-30",
+          "retrieved_at": "2026-10-01T00:39:39.491535+00:00",
+          "source": "query_stock_industry + raw/qfq + calendar",
+          "requests": [
+            {
+              "request": "recent_calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 15,
+              "attempt": 1
+            },
+            {
+              "request": "membership",
+              "symbol": "SH_SZ",
+              "cache_hit": false,
+              "rows": 5556,
+              "attempt": 1
+            },
+            {
+              "request": "benchmark",
+              "symbol": "000001.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "metadata",
+              "symbol": "all",
+              "cache_hit": false,
+              "rows": 8991,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1827,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1827,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1734,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600059.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600084.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600132.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600059.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600084.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600132.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600189.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600197.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600199.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600189.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600197.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600199.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600238.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600300.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600519.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600238.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600300.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600519.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600543.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600559.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600573.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600543.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600559.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600573.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600600.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600616.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600702.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600600.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600616.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600702.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600809.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600962.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600809.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600962.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "601579.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603156.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "601579.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603156.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603369.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603589.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603711.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603369.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603589.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603711.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603919.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603919.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605337.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605388.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605499.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605337.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605388.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605499.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000596.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000729.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000596.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000752.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000729.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000799.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000752.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000848.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000799.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000858.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000848.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000860.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000858.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000869.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000860.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000929.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000869.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000995.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000929.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "001338.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000995.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002304.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "001338.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002461.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002304.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002461.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002646.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "300997.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002646.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "300997.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            }
+          ]
+        },
+        "primary_industry_provenance": {
+          "provider": "baostock",
+          "as_of": "2026-09-30",
+          "retrieved_at": "2026-10-01T00:39:39.491535+00:00",
+          "source": "query_stock_industry + raw/qfq + calendar",
+          "requests": [
+            {
+              "request": "recent_calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 15,
+              "attempt": 1
+            },
+            {
+              "request": "membership",
+              "symbol": "SH_SZ",
+              "cache_hit": false,
+              "rows": 5556,
+              "attempt": 1
+            },
+            {
+              "request": "benchmark",
+              "symbol": "000001.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "metadata",
+              "symbol": "all",
+              "cache_hit": false,
+              "rows": 8991,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1827,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1827,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1734,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600059.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600084.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600132.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600059.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600084.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600132.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600189.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600197.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600199.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600189.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600197.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600199.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600238.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600300.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600519.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600238.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600300.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600519.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600543.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600559.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600573.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600543.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600559.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600573.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600600.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600616.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600702.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600600.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600616.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600702.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600809.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600962.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600809.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600962.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "601579.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603156.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "601579.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603156.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603369.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603589.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603711.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603369.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603589.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603711.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603919.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603919.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605337.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605388.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605499.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605337.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605388.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605499.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000596.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000729.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000596.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000752.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000729.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000799.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000752.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000848.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000799.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000858.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000848.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000860.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000858.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000869.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000860.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000929.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000869.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000995.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000929.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "001338.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000995.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002304.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "001338.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002461.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002304.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002461.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002646.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "300997.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002646.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "300997.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            }
+          ]
+        },
+        "primary_industry_as_of": "2026-09-30",
+        "data_status": "VALID",
+        "upstream_data_status": "VALID",
+        "sector_heat_score": 70,
+        "sector_heat_max": 100,
+        "sector_heat_trade_date": "2026-09-30",
+        "sector_heat_status": "VALID",
+        "sector_heat_coverage": 1.0,
+        "threshold_band": "[70,75)"
+      }
+    },
+    {
+      "rule_id": "B2",
+      "score": 1,
+      "status": "PARTIAL",
+      "raw_values": {
+        "primary_industry_id": "C15",
+        "primary_industry_name": "C15酒、饮料和精制茶制造业",
+        "trade_date": "2026-09-30",
+        "provenance": {
+          "provider": "baostock",
+          "as_of": "2026-09-30",
+          "retrieved_at": "2026-10-01T00:39:39.491535+00:00",
+          "source": "query_stock_industry + raw/qfq + calendar",
+          "requests": [
+            {
+              "request": "recent_calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 15,
+              "attempt": 1
+            },
+            {
+              "request": "membership",
+              "symbol": "SH_SZ",
+              "cache_hit": false,
+              "rows": 5556,
+              "attempt": 1
+            },
+            {
+              "request": "benchmark",
+              "symbol": "000001.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "metadata",
+              "symbol": "all",
+              "cache_hit": false,
+              "rows": 8991,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1827,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1827,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1734,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600059.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600084.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600132.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600059.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600084.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600132.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600189.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600197.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600199.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600189.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600197.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600199.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600238.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600300.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600519.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600238.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600300.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600519.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600543.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600559.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600573.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600543.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600559.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600573.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600600.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600616.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600702.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600600.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600616.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600702.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600809.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600962.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600809.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600962.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "601579.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603156.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "601579.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603156.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603369.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603589.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603711.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603369.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603589.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603711.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603919.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603919.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605337.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605388.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605499.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605337.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605388.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605499.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000596.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000729.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000596.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000752.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000729.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000799.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000752.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000848.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000799.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000858.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000848.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000860.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000858.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000869.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000860.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000929.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000869.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000995.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000929.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "001338.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000995.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002304.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "001338.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002461.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002304.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002461.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002646.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "300997.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002646.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "300997.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            }
+          ]
+        },
+        "primary_industry_provenance": {
+          "provider": "baostock",
+          "as_of": "2026-09-30",
+          "retrieved_at": "2026-10-01T00:39:39.491535+00:00",
+          "source": "query_stock_industry + raw/qfq + calendar",
+          "requests": [
+            {
+              "request": "recent_calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 15,
+              "attempt": 1
+            },
+            {
+              "request": "membership",
+              "symbol": "SH_SZ",
+              "cache_hit": false,
+              "rows": 5556,
+              "attempt": 1
+            },
+            {
+              "request": "benchmark",
+              "symbol": "000001.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "metadata",
+              "symbol": "all",
+              "cache_hit": false,
+              "rows": 8991,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1827,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1827,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1826,
+              "attempt": 1
+            },
+            {
+              "request": "calendar",
+              "symbol": "calendar",
+              "cache_hit": false,
+              "rows": 1734,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600059.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600084.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600132.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600059.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600084.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600132.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600189.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600197.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600199.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600189.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600197.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600199.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600238.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600300.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600519.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600238.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600300.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600519.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600543.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600559.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600573.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600543.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600559.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600573.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600600.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600616.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600702.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600600.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600616.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600702.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600809.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "600962.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600809.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "600962.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "601579.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603156.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "601579.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603156.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603369.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603589.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603711.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603369.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603589.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603711.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "603919.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603779.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "603919.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605198.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605337.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605388.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "605499.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605337.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605388.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "605499.SH",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000596.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000729.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000596.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000752.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000729.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000799.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000752.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000848.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000799.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000858.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000848.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000860.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000858.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000869.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000860.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000929.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000869.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "000995.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000929.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "001338.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "000995.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002304.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "001338.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002461.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002304.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002461.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "002646.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002568.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "raw",
+              "symbol": "300997.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "002646.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            },
+            {
+              "request": "qfq",
+              "symbol": "300997.SZ",
+              "cache_hit": false,
+              "rows": 57,
+              "attempt": 1
+            }
+          ]
+        },
+        "primary_industry_as_of": "2026-09-30",
+        "data_status": "VALID",
+        "upstream_data_status": "VALID",
+        "sector_return_5d": -0.00026704120720617754,
+        "window_start": "2026-09-22",
+        "window_end": "2026-09-30",
+        "stock_return_5d": 0.003844313287605594,
+        "relative_return_5d": 0.004111354494811772,
+        "adjustment_type": "qfq",
+        "stock_window_start": "2026-09-22",
+        "stock_window_end": "2026-09-30",
+        "stock_trade_dates": [
+          "2026-09-22",
+          "2026-09-23",
+          "2026-09-24",
+          "2026-09-28",
+          "2026-09-29",
+          "2026-09-30"
+        ],
+        "sector_trade_dates": [
+          "2026-09-22",
+          "2026-09-23",
+          "2026-09-24",
+          "2026-09-28",
+          "2026-09-29",
+          "2026-09-30"
+        ],
+        "threshold_band": "[0,0.01)"
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "closed_at": "2026-10-03T03:06:51.504621+00:00",
+  "interpreter": ".venv\\Scripts\\python.exe",
+  "python_version": "3.11.0",
+  "old_successful_interpreter": "NOT_RECORDED_IN_HISTORICAL_PYTEST_XML_OR_LOGS",
+  "earlier_manual_failure": "Global Python did not have target-installed .deps on sys.path; PyYAML was already declared in both manifests.",
+  "requirements_pyYaml": "PyYAML==6.0.3",
+  "pyproject_pyYaml": "PyYAML>=6,<7",
+  "venv_pyYaml_version": "6.0.3",
+  "venv_pyYaml_module": ".venv\\Lib\\site-packages\\yaml\\__init__.py",
+  "install_command": ".venv\\Scripts\\python.exe -m pip install -r requirements.txt",
+  "policy_import": "PASS: ScreeningPolicy.current() loaded with Heat>=70, QuantScore>=80, Risk HIGH excluded; no market calls",
+  "cli_help": "PASS: python -m app.cli screen --help",
+  "clean_venv_pytest": {
+    "command": ".venv\\Scripts\\python.exe -m pytest",
+    "junit": "outputs/stage3c/pytest_clean_venv.xml",
+    "text": "outputs/stage3c/pytest_clean_venv.txt",
+    "tests": 759,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 758
+  },
+  "original_full_market": {
+    "status": "PARTIAL",
+    "start_time": "2026-10-02T08:41:26.657057+00:00",
+    "end_time": "2026-10-02T17:02:30.835920+00:00",
+    "sector_records": 83,
+    "unique_sector_ids": 83,
+    "stocks": 78,
+    "candidates": 0,
+    "metadata_status": "PASS",
+    "full_universe_completed": true,
+    "validation_errors": []
+  },
+  "old_pytest_junit_counts": {
+    "tests": 759,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "original_metadata_hashes_match": true,
+  "original_artifacts_preserved": true,
+  "new_full_scan_started": false
+}
