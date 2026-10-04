@@ -1,0 +1,40 @@
+{
+  "baseline": {
+    "cache_hits": 65,
+    "cache_misses": 800,
+    "history_cache": null,
+    "score_memo": null
+  },
+  "optimized_final": {
+    "cache_hits": 120,
+    "cache_misses": 726,
+    "history_cache": {
+      "hits": 0,
+      "cold_fetches": 572,
+      "incremental_fetches": 0,
+      "prefix_fetches": 94,
+      "anchor_refreshes": 0,
+      "failures": 9
+    },
+    "score_memo": {
+      "hits": 0,
+      "misses": 47
+    }
+  },
+  "warm_after_final": {
+    "cache_hits": 843,
+    "cache_misses": 3,
+    "history_cache": {
+      "hits": 0,
+      "cold_fetches": 0,
+      "incremental_fetches": 0,
+      "prefix_fetches": 0,
+      "anchor_refreshes": 0,
+      "failures": 9
+    },
+    "score_memo": {
+      "hits": 43,
+      "misses": 4
+    }
+  }
+}

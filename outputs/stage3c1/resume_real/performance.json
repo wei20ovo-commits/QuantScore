@@ -1,0 +1,39 @@
+{
+  "provider_requests": 0,
+  "cache_hits": 234,
+  "cache_misses": 0,
+  "retry_count": 0,
+  "industry_heat_evaluations": 0,
+  "worker_starts": null,
+  "profiling": {
+    "counts": {
+      "stock_data_fetch": 46,
+      "stock_data_and_scoring": 46
+    },
+    "seconds": {
+      "stock_data_fetch": 146.4661074999458,
+      "stock_data_and_scoring": 151.24522569998226
+    },
+    "timing_note": "Inclusive timings can overlap; do not sum nested phases."
+  },
+  "history_cache": {
+    "hits": 0,
+    "cold_fetches": 0,
+    "incremental_fetches": 0,
+    "prefix_fetches": 0,
+    "anchor_refreshes": 0,
+    "failures": 0
+  },
+  "score_memo": {
+    "hits": 46,
+    "misses": 0
+  },
+  "timeout_count": 0,
+  "retry_timeout_wait_seconds": 0,
+  "provider_request_errors": [],
+  "total_duration_seconds": 158.07799999999406,
+  "serialization_io_seconds": 0.8880000000353903,
+  "sector_phase_seconds": 5.952999999994063,
+  "stock_phase_seconds": 152.125,
+  "average_stock_seconds": 3.2367021276595747
+}

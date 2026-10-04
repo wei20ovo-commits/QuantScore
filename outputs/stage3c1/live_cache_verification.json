@@ -1,0 +1,298 @@
+{
+  "is_mock": false,
+  "mode": "live-network",
+  "provider": "baostock",
+  "status": "PASS",
+  "requests": [
+    {
+      "method": "query_stock_basic",
+      "parameters": {
+        "code": "sh.600519"
+      },
+      "status": "VALID",
+      "rows": 1,
+      "seconds": 1.375
+    },
+    {
+      "method": "query_history_k_data_plus",
+      "parameters": {
+        "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+        "code": "sh.600519",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-29",
+        "frequency": "d",
+        "adjustflag": "3"
+      },
+      "status": "VALID",
+      "rows": 56,
+      "seconds": 1.235000000000582
+    },
+    {
+      "method": "query_history_k_data_plus",
+      "parameters": {
+        "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+        "code": "sh.600519",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-29",
+        "frequency": "d",
+        "adjustflag": "2"
+      },
+      "status": "VALID",
+      "rows": 56,
+      "seconds": 0.9380000000091968
+    },
+    {
+      "method": "query_history_k_data_plus",
+      "parameters": {
+        "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag",
+        "code": "sh.000001",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-29",
+        "frequency": "d",
+        "adjustflag": "3"
+      },
+      "status": "VALID",
+      "rows": 56,
+      "seconds": 0.9379999999946449
+    },
+    {
+      "method": "query_history_k_data_plus",
+      "parameters": {
+        "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+        "code": "sh.600519",
+        "start_date": "2026-09-15",
+        "end_date": "2026-09-30",
+        "frequency": "d",
+        "adjustflag": "3"
+      },
+      "status": "VALID",
+      "rows": 11,
+      "seconds": 0.8279999999940628
+    },
+    {
+      "method": "query_history_k_data_plus",
+      "parameters": {
+        "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag,turn,tradestatus,isST",
+        "code": "sh.600519",
+        "start_date": "2026-09-15",
+        "end_date": "2026-09-30",
+        "frequency": "d",
+        "adjustflag": "2"
+      },
+      "status": "VALID",
+      "rows": 11,
+      "seconds": 0.5310000000026776
+    },
+    {
+      "method": "query_history_k_data_plus",
+      "parameters": {
+        "fields": "date,code,open,high,low,close,preclose,pctChg,volume,amount,adjustflag",
+        "code": "sh.000001",
+        "start_date": "2026-09-15",
+        "end_date": "2026-09-30",
+        "frequency": "d",
+        "adjustflag": "3"
+      },
+      "status": "VALID",
+      "rows": 11,
+      "seconds": 0.5460000000020955
+    }
+  ],
+  "phases": [
+    {
+      "phase": "cold",
+      "symbol": "600519.SH",
+      "adjustment": "raw",
+      "requested_end": "2026-09-29",
+      "actual_last_date": "2026-09-29",
+      "rows": 56,
+      "cache_metadata": {
+        "provider": "baostock",
+        "symbol": "600519.SH",
+        "adjustment": "raw",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-29",
+        "fetched_at": 1791039040.9660468,
+        "data_status": "VALID",
+        "validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+        "cache_hit": false
+      }
+    },
+    {
+      "phase": "cold",
+      "symbol": "600519.SH",
+      "adjustment": "qfq",
+      "requested_end": "2026-09-29",
+      "actual_last_date": "2026-09-29",
+      "rows": 56,
+      "cache_metadata": {
+        "provider": "baostock",
+        "symbol": "600519.SH",
+        "adjustment": "qfq",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-29",
+        "fetched_at": 1791039041.9415467,
+        "data_status": "VALID",
+        "validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+        "cache_hit": false
+      }
+    },
+    {
+      "phase": "cold",
+      "symbol": "000001.SH",
+      "adjustment": "NONE",
+      "requested_end": "2026-09-29",
+      "actual_last_date": "2026-09-29",
+      "rows": 56,
+      "cache_metadata": {
+        "provider": "baostock",
+        "symbol": "000001.SH",
+        "adjustment": "NONE",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-29",
+        "fetched_at": 1791039042.904112,
+        "data_status": "VALID",
+        "validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+        "cache_hit": false
+      }
+    },
+    {
+      "phase": "warm",
+      "symbol": "600519.SH",
+      "adjustment": "raw",
+      "requested_end": "2026-09-29",
+      "actual_last_date": "2026-09-29",
+      "rows": 56,
+      "cache_metadata": {
+        "provider": "baostock",
+        "symbol": "600519.SH",
+        "adjustment": "raw",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-29",
+        "fetched_at": 1791039040.9660468,
+        "data_status": "VALID",
+        "validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+        "cache_hit": true
+      }
+    },
+    {
+      "phase": "warm",
+      "symbol": "600519.SH",
+      "adjustment": "qfq",
+      "requested_end": "2026-09-29",
+      "actual_last_date": "2026-09-29",
+      "rows": 56,
+      "cache_metadata": {
+        "provider": "baostock",
+        "symbol": "600519.SH",
+        "adjustment": "qfq",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-29",
+        "fetched_at": 1791039041.9415467,
+        "data_status": "VALID",
+        "validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+        "cache_hit": true
+      }
+    },
+    {
+      "phase": "warm",
+      "symbol": "000001.SH",
+      "adjustment": "NONE",
+      "requested_end": "2026-09-29",
+      "actual_last_date": "2026-09-29",
+      "rows": 56,
+      "cache_metadata": {
+        "provider": "baostock",
+        "symbol": "000001.SH",
+        "adjustment": "NONE",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-29",
+        "fetched_at": 1791039042.904112,
+        "data_status": "VALID",
+        "validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+        "cache_hit": true
+      }
+    },
+    {
+      "phase": "incremental",
+      "symbol": "600519.SH",
+      "adjustment": "raw",
+      "requested_end": "2026-09-30",
+      "actual_last_date": "2026-09-30",
+      "rows": 57,
+      "cache_metadata": {
+        "provider": "baostock",
+        "symbol": "600519.SH",
+        "adjustment": "raw",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-30",
+        "fetched_at": 1791039043.7893605,
+        "data_status": "VALID",
+        "validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+        "cache_hit": false
+      }
+    },
+    {
+      "phase": "incremental",
+      "symbol": "600519.SH",
+      "adjustment": "qfq",
+      "requested_end": "2026-09-30",
+      "actual_last_date": "2026-09-30",
+      "rows": 57,
+      "cache_metadata": {
+        "provider": "baostock",
+        "symbol": "600519.SH",
+        "adjustment": "qfq",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-30",
+        "fetched_at": 1791039044.362905,
+        "data_status": "VALID",
+        "validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+        "cache_hit": false
+      }
+    },
+    {
+      "phase": "incremental",
+      "symbol": "000001.SH",
+      "adjustment": "NONE",
+      "requested_end": "2026-09-30",
+      "actual_last_date": "2026-09-30",
+      "rows": 57,
+      "cache_metadata": {
+        "provider": "baostock",
+        "symbol": "000001.SH",
+        "adjustment": "NONE",
+        "start_date": "2026-07-12",
+        "end_date": "2026-09-30",
+        "fetched_at": 1791039044.9748824,
+        "data_status": "VALID",
+        "validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+        "cache_hit": false
+      }
+    }
+  ],
+  "stock_name": "贵州茅台",
+  "timings": {
+    "cold": {
+      "seconds": 3.235000000000582,
+      "requests": 3
+    },
+    "warm": {
+      "seconds": 0.0,
+      "requests": 0
+    },
+    "incremental": {
+      "seconds": 2.061999999990803,
+      "requests": 3
+    }
+  },
+  "cache_metrics": {
+    "hits": 3,
+    "cold_fetches": 3,
+    "incremental_fetches": 3,
+    "prefix_fetches": 0,
+    "anchor_refreshes": 0,
+    "failures": 0
+  },
+  "retrieved_at": "2026-10-03T14:50:45.123673+00:00"
+}

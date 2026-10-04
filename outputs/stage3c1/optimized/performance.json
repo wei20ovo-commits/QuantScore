@@ -1,0 +1,118 @@
+{
+  "provider_requests": 682,
+  "cache_hits": 120,
+  "cache_misses": 725,
+  "retry_count": 4,
+  "industry_heat_evaluations": 3,
+  "worker_starts": null,
+  "profiling": {
+    "counts": {
+      "provider_request": 682,
+      "calendar_fetch": 8,
+      "benchmark_fetch": 1,
+      "stock_history_fetch": 671,
+      "sector_data_and_scoring": 3,
+      "stock_data_fetch": 47,
+      "QuantScore": 47,
+      "stock_data_and_scoring": 47
+    },
+    "seconds": {
+      "provider_request": 22.46448460011743,
+      "calendar_fetch": 0.6633627000119304,
+      "benchmark_fetch": 0.08300699999381322,
+      "stock_history_fetch": 21.718912499942235,
+      "sector_data_and_scoring": 52.465426799986744,
+      "stock_data_fetch": 161.3667016000545,
+      "QuantScore": 609.7954743999435,
+      "stock_data_and_scoring": 775.9390135999856
+    },
+    "timing_note": "Inclusive timings can overlap; do not sum nested phases."
+  },
+  "history_cache": {
+    "hits": 0,
+    "cold_fetches": 572,
+    "incremental_fetches": 0,
+    "prefix_fetches": 94,
+    "anchor_refreshes": 0,
+    "failures": 6
+  },
+  "score_memo": {
+    "hits": 0,
+    "misses": 47
+  },
+  "timeout_count": 0,
+  "retry_timeout_wait_seconds": 0,
+  "provider_request_errors": [
+    {
+      "method": "normalized_history",
+      "parameters": {
+        "symbol": "002648.SZ",
+        "adjustments": "('qfq', 'industry_context:qfq')",
+        "start": "2026-07-12 00:00:00",
+        "end": "2026-09-30 00:00:00",
+        "adjustment": "qfq"
+      },
+      "error": "Missing real archive: 002648.SZ ('qfq', 'industry_context:qfq') 2026-07-12 00:00:00 2026-09-30 00:00:00"
+    },
+    {
+      "method": "normalized_history",
+      "parameters": {
+        "symbol": "002648.SZ",
+        "adjustments": "('qfq', 'industry_context:qfq')",
+        "start": "2026-07-12 00:00:00",
+        "end": "2026-09-30 00:00:00",
+        "adjustment": "qfq"
+      },
+      "error": "Missing real archive: 002648.SZ ('qfq', 'industry_context:qfq') 2026-07-12 00:00:00 2026-09-30 00:00:00"
+    },
+    {
+      "method": "normalized_history",
+      "parameters": {
+        "symbol": "002669.SZ",
+        "adjustments": "('raw', 'industry_context:raw')",
+        "start": "2026-07-12 00:00:00",
+        "end": "2026-09-30 00:00:00",
+        "adjustment": "raw"
+      },
+      "error": "Missing real archive: 002669.SZ ('raw', 'industry_context:raw') 2026-07-12 00:00:00 2026-09-30 00:00:00"
+    },
+    {
+      "method": "normalized_history",
+      "parameters": {
+        "symbol": "002648.SZ",
+        "adjustments": "('qfq', 'industry_context:qfq')",
+        "start": "2026-07-12 00:00:00",
+        "end": "2026-09-30 00:00:00",
+        "adjustment": "qfq"
+      },
+      "error": "Missing real archive: 002648.SZ ('qfq', 'industry_context:qfq') 2026-07-12 00:00:00 2026-09-30 00:00:00"
+    },
+    {
+      "method": "normalized_history",
+      "parameters": {
+        "symbol": "002669.SZ",
+        "adjustments": "('raw', 'industry_context:raw')",
+        "start": "2026-07-12 00:00:00",
+        "end": "2026-09-30 00:00:00",
+        "adjustment": "raw"
+      },
+      "error": "Missing real archive: 002669.SZ ('raw', 'industry_context:raw') 2026-07-12 00:00:00 2026-09-30 00:00:00"
+    },
+    {
+      "method": "normalized_history",
+      "parameters": {
+        "symbol": "002669.SZ",
+        "adjustments": "('raw', 'industry_context:raw')",
+        "start": "2026-07-12 00:00:00",
+        "end": "2026-09-30 00:00:00",
+        "adjustment": "raw"
+      },
+      "error": "Missing real archive: 002669.SZ ('raw', 'industry_context:raw') 2026-07-12 00:00:00 2026-09-30 00:00:00"
+    }
+  ],
+  "total_duration_seconds": 834.8129999999946,
+  "serialization_io_seconds": 0.8700000000098953,
+  "sector_phase_seconds": 58.0,
+  "stock_phase_seconds": 776.8129999999946,
+  "average_stock_seconds": 16.52793617021265
+}

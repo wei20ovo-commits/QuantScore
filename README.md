@@ -6,6 +6,22 @@ QuantScore 是可解释的股票技术面策略匹配评分系统：回答“当
 
 V1.4 不存在未解决的用户交易规则含义问题。UNKNOWN 表示必要数据缺失或无效、历史不足、确认期未完成、未实现规则或人工证据缺失，不等于 FAIL。
 
+## Stage 3C.1 Performance & Runtime Optimization
+
+**PASS（2026-10-03）**：仅优化后端运行与缓存，评分规范、权重、候选门槛及 SH/SZ Universe 不变。固定真实 BaoStock 存档基准：3 个行业、406 个预期成分股、47 只合格行业股票；基线 3248.499s，最终冷回放 871.855s，热回放 235.550s。传输调用 797 → 685 → 9；这些是标准化数据回放调用数，不是在线 SDK 分页请求数，也不能外推为全市场运行承诺。冷运行比率包含主机调度差异；完整规则算法没有改变。
+
+新增范围缓存与跨日重叠校验、复权变化回退完整刷新、完整评分输入指纹缓存、校验版本/日期/Universe 的 checkpoint/resume，以及请求、行业、股票、整轮期限。独立真实网络验证已取得 600519 raw/qfq 和上证指数；同日复用 0 次请求，跨日仅补重叠与新增日期。真实存档断点恢复只补剩余 46 只股票，全部业务结果一致。
+
+完整回归 **788 项：787 PASS / 0 FAIL / 0 ERROR / 1 历史 SKIP**，原测试保留。证据和限制见 [Stage 3C.1 报告](docs/STAGE3C1_RESULT.md) 与 `outputs/stage3c1/`。没有重新跑全市场、提高 Provider 并发、改 UI、进入 Stage 4 或 commit/push。
+
+```powershell
+.\.venv\Scripts\python.exe -m app.cli screen --json --output-dir outputs/runtime/daily
+# 同日期、同版本、同范围中断后恢复；保留原 industry / limit 参数
+.\.venv\Scripts\python.exe -m app.cli screen --json --output-dir outputs/runtime/daily --resume
+```
+
+可设置 `--request-timeout 60 --sector-timeout 1800 --stock-timeout 300 --run-timeout 43200`。整轮期限到达返回 STOPPED 与未完成标记，保存断点并以非零退出码结束；单对象错误保持 NOT_EVALUABLE，不能作 0 分。跨交易日须另建输出目录。`--refresh` 完整刷新行情；Python/pandas/numpy 升级后清理派生评分缓存 `data/cache/screening_scores.sqlite3`，保留原始行情和历史冻结快照。当前测量支持后台批处理方向，不支持交互式全市场冷扫描的承诺。
+
 ## Stage 2 状态
 
 **Stage 2.2 / Stage 2 = PASS**：BaoStock真实取得贵州茅台、平安银行的raw/qfq/volume/turnover和上证指数；CLI与FastAPI成功，三种证券共45项M5/M30/M60手工均值比对通过。417项测试：416 PASS / 0 FAIL / 1 SKIP；原400项全部保留。首轮指数超时后真实复测成功，失败证据未删除。未进入Stage 3。

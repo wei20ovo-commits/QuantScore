@@ -1,0 +1,83 @@
+{
+  "label": "warm",
+  "duration_seconds": 13.9741076999926,
+  "mode": "real-normalized-transport-replay",
+  "trade_date": "2026-09-30",
+  "stats": {
+    "industry_total": 3,
+    "industry_scoreable": 0,
+    "industry_candidate": 0,
+    "industry_invalid": 3,
+    "stock_expected": 0,
+    "stock_analyzed": 0,
+    "stock_success": 0,
+    "stock_incomplete": 0,
+    "stock_error": 0,
+    "provider_error": 0,
+    "other_error": 0,
+    "strategy_match_candidates": 0,
+    "quality_counts": {
+      "VALID": 0,
+      "DATA_INCOMPLETE": 0,
+      "DATA_ERROR": 0,
+      "DATA_STALE": 0,
+      "DATA_INCONSISTENT": 0,
+      "SEMANTIC_GAP": 0
+    }
+  },
+  "profile": {
+    "counts": {
+      "prepare_phase": 1,
+      "sector_phase": 3,
+      "SectorHeat": 1,
+      "serialization_io": 1
+    },
+    "seconds": {
+      "prepare_phase": 4.340423400004511,
+      "sector_phase": 9.53497010000865,
+      "SectorHeat": 0.0006323999987216666,
+      "serialization_io": 0.027121599996462464
+    },
+    "timing_note": "Inclusive timings can overlap; do not sum nested phases."
+  },
+  "metrics": {
+    "provider_requests": 0,
+    "cache_hits": 102,
+    "cache_misses": 0,
+    "retry_count": 0,
+    "industry_heat_evaluations": 3,
+    "worker_starts": null,
+    "profiling": {
+      "counts": {
+        "sector_data_and_scoring": 3
+      },
+      "seconds": {
+        "sector_data_and_scoring": 9.534931199988932
+      },
+      "timing_note": "Inclusive timings can overlap; do not sum nested phases."
+    },
+    "history_cache": {
+      "hits": 0,
+      "cold_fetches": 0,
+      "incremental_fetches": 0,
+      "prefix_fetches": 0,
+      "anchor_refreshes": 0,
+      "failures": 0
+    },
+    "score_memo": {
+      "hits": 0,
+      "misses": 0
+    },
+    "timeout_count": 0,
+    "retry_timeout_wait_seconds": 0,
+    "provider_request_errors": [],
+    "total_duration_seconds": 13.906000000002678,
+    "serialization_io_seconds": 0.06300000000919681,
+    "sector_phase_seconds": 13.906000000002678,
+    "stock_phase_seconds": 0.0,
+    "average_stock_seconds": null
+  },
+  "normalized_requests": [],
+  "source": "retained real BaoStock normalized SQLite frames",
+  "is_live_network": false
+}

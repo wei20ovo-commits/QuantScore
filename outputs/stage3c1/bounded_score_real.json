@@ -1,0 +1,11 @@
+{
+  "mode": "real-archive-pure-score-worker",
+  "symbol": "000568.SZ",
+  "seconds": 20.812999999994645,
+  "result_equivalent": true,
+  "score": 0,
+  "risk": "HIGH",
+  "rules_compared": 41,
+  "deadline_seconds": 300,
+  "status": "PASS"
+}

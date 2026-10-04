@@ -1,0 +1,37 @@
+{
+  "baseline": {
+    "total": 797,
+    "by_method": {
+      "query_trade_dates": 16,
+      "query_stock_industry": 1,
+      "query_stock_basic": 48,
+      "normalized_benchmark": 1,
+      "normalized_history_raw": 396,
+      "normalized_history_qfq": 335
+    },
+    "retry_count": 44,
+    "unit": "normalized frame transport calls, not SDK field groups/pages"
+  },
+  "optimized_final": {
+    "total": 685,
+    "by_method": {
+      "query_trade_dates": 8,
+      "query_stock_industry": 1,
+      "query_stock_basic": 1,
+      "normalized_benchmark": 1,
+      "normalized_history_raw": 339,
+      "normalized_history_qfq": 335
+    },
+    "retry_count": 6,
+    "unit": "normalized frame transport calls, not SDK field groups/pages"
+  },
+  "warm_after_final": {
+    "total": 9,
+    "by_method": {
+      "normalized_history_qfq": 3,
+      "normalized_history_raw": 6
+    },
+    "retry_count": 6,
+    "unit": "normalized frame transport calls, not SDK field groups/pages"
+  }
+}

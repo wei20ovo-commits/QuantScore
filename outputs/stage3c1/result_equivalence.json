@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "comparisons": {
+    "optimized_final": {
+      "sectors": true,
+      "stocks": true,
+      "rules": true
+    },
+    "warm_after_final": {
+      "sectors": true,
+      "stocks": true,
+      "rules": true
+    }
+  },
+  "sectors": 3,
+  "expected_members": 406,
+  "stocks": 47,
+  "rules_per_stock": 41,
+  "compared_fields": [
+    "SectorHeat",
+    "B1",
+    "B2",
+    "QuantScore",
+    "Risk",
+    "candidate_status",
+    "data_status",
+    "all rule status/score/penalty/conditions"
+  ],
+  "source_mode": "real-normalized-transport-replay",
+  "is_live_network": false
+}

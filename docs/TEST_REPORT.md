@@ -1,3 +1,11 @@
+# Stage 3C.1 最终回归（2026-10-03）
+
+788 项：**787 PASS / 0 FAIL / 0 ERROR / 1 SKIP**。原 759 项全部保留，新增 29 项缓存、增量、复权保护、并发缓存一致性、checkpoint/resume、版本与日期拒绝、篡改拒绝、期限/失败隔离、真实进程终止及评分等价测试。
+
+实际命令：`.venv/Scripts/python.exe -m pytest --junitxml=outputs/stage3c1/pytest_final.xml`；用时 116.82s。日志 `outputs/stage3c1/pytest_final.txt`。唯一 SKIP 仍为旧 T20 HISTORICAL/SUPERSEDED_BY_STAGE3C。一个既有 FastAPI/Starlette TestClient 弃用警告，无测试 ERROR。早期新增测试失败已修正，未删除原测试或将失败改为 SKIP。
+
+固定真实数据回放、独立 BaoStock 真网冷/热/增量验证及结果等价证据单列在 [Stage 3C.1 报告](STAGE3C1_RESULT.md)。离线测试不冒充实时网络证明。以下保留历史阶段报告。
+
 # Stage 3C Environment Closure (2026-10-03)
 
 Clean `.venv` installed from `requirements.txt` with Python 3.11.0. PyYAML 6.0.3 imports from the isolated environment; `ScreeningPolicy.current()` and `app.cli screen --help` pass with no project `.deps` PYTHONPATH. Full suite: 759 total, 758 PASS / 0 FAIL / 0 ERROR / 1 historical SKIP. JUnit/text: `outputs/stage3c/pytest_clean_venv.xml` and `.txt`. Full-market evidence is separately audited in `docs/STAGE3C_RESULT.md`; no second scan was run.

@@ -7,10 +7,32 @@ from pathlib import Path
 import json as _json
 import threading
 import time
+from contextlib import nullcontext,contextmanager
+from functools import wraps
 import pandas as pd
 from .policy import ScreeningPolicy
 
 RUN_LOCK = threading.Lock()
+
+
+@contextmanager
+def run_slot(control):
+    if not RUN_LOCK.acquire(timeout=max(0,control.remaining())):
+        from .runtime import RuntimeDeadline
+        raise RuntimeDeadline('Run queue deadline exceeded')
+    try:
+        control.check()
+        yield
+    finally:
+        RUN_LOCK.release()
+
+
+def cache_locked(method):
+    @wraps(method)
+    def locked(self,*args,**kwargs):
+        with self._lock:
+            return method(self,*args,**kwargs)
+    return locked
 
 
 class RequestCache:
@@ -19,7 +41,24 @@ class RequestCache:
         self.cache = cache
         self.frames = {}
         self.hits = self.misses = 0
+        self._lock=threading.RLock()
+        self.range_index={}
+        self.calendars={}
 
+    @staticmethod
+    def mode(mode):
+        return {'benchmark':'NONE'}.get(mode.split(':')[-1],mode.split(':')[-1])
+
+    def remember(self,key,frame):
+        encoded=key.encode()
+        self.frames[encoded]=frame.copy(deep=True)
+        mode=self.mode(key.adjustment)
+        if mode in ('raw','qfq','NONE'):
+            self.range_index.setdefault((key.provider,key.symbol,mode),{})[encoded]=key
+        if 'calendar_date' in frame:
+            self.calendars[encoded]=self.frames[encoded]
+
+    @cache_locked
     def get(self, key, *, force_refresh=False):
         encoded = key.encode()
         if encoded in self.frames:
@@ -27,33 +66,47 @@ class RequestCache:
             value = self.frames[encoded].copy(deep=True)
             value.attrs['cache_hit'] = True
             return value
-        # One real full-range benchmark can satisfy narrower industry windows.
-        # Slice only already-validated frames; do not fill or extrapolate dates.
-        if key.symbol == '000001.SH' and key.adjustment in ('NONE','industry_context:benchmark'):
-            for candidate, frame in self.frames.items():
-                other = _json.loads(candidate)
-                if (other['provider'] == key.provider and other['symbol'] == key.symbol
-                        and other['adjustment'] in ('NONE','industry_context:benchmark')
-                        and pd.Timestamp(other['start_date']) <= pd.Timestamp(key.start_date)
-                        and pd.Timestamp(other['end_date']) >= pd.Timestamp(key.end_date)):
-                    dates = pd.to_datetime(frame.date)
-                    value = frame.loc[dates.between(pd.Timestamp(key.start_date),pd.Timestamp(key.end_date))].copy(deep=True)
+        # Reuse validated supersets across the industry/core label namespaces.
+        canonical = self.mode
+        mode=canonical(key.adjustment)
+        if mode in ('raw','qfq','NONE'):
+            for candidate in self.range_index.get((key.provider,key.symbol,mode),{}):
+                frame=self.frames[candidate]
+                other=_json.loads(candidate)
+                if (other['provider']==key.provider and other['symbol']==key.symbol
+                        and canonical(other['adjustment'])==mode
+                        and pd.Timestamp(other['start_date'])<=pd.Timestamp(key.start_date)
+                        and pd.Timestamp(other['end_date'])>=pd.Timestamp(key.end_date)):
+                    value=frame.loc[pd.to_datetime(frame.date).between(pd.Timestamp(key.start_date),pd.Timestamp(key.end_date))].copy(deep=True)
                     if not value.empty:
-                        value.attrs['cache_hit'] = True
-                        self.frames[encoded] = value
-                        self.hits += 1
+                        value.attrs['cache_hit']=True
+                        self.remember(key,value)
+                        self.hits+=1
                         return value.copy(deep=True)
+        if key.adjustment=='industry_context:calendar':
+            calendars=[frame for candidate,frame in self.calendars.items()
+                       if _json.loads(candidate)['provider']==key.provider and 'calendar_date' in frame]
+            if calendars:
+                combined=pd.concat(calendars).drop_duplicates('calendar_date').sort_values('calendar_date')
+                required=pd.date_range(key.start_date,key.end_date)
+                if set(required)<=set(pd.to_datetime(combined.calendar_date)):
+                    value=combined.loc[pd.to_datetime(combined.calendar_date).isin(required)].reset_index(drop=True)
+                    value.attrs['cache_hit']=True
+                    self.remember(key,value)
+                    self.hits+=1
+                    return value.copy(deep=True)
         value = self.cache.get(key, force_refresh=force_refresh)
         if value is not None:
-            self.frames[encoded] = value.copy(deep=True)
+            self.remember(key,value)
             self.hits += 1
         else:
             self.misses += 1
         return value
 
+    @cache_locked
     def put(self, key, frame):
         value = self.cache.put(key, frame)
-        self.frames[key.encode()] = value.copy(deep=True)
+        self.remember(key,value)
         return value
 
     def __getattr__(self, name):
@@ -87,23 +140,41 @@ class ScreeningService:
         self.adapter = adapter
         self.policy = policy or ScreeningPolicy.current()
 
-    def run(self, *, limit_industries=None, industry_ids=None, refresh=False, output_dir=None):
+    def run(self, *, limit_industries=None, industry_ids=None, refresh=False, output_dir=None,
+            resume=False, runtime_limits=None, optimized=True):
         if limit_industries is not None and limit_industries < 1:
             raise ValueError('limit_industries must be positive')
-        with RUN_LOCK:
+        from .runtime import RunControl
+        control=RunControl(runtime_limits)
+        with run_slot(control):
             from .live import LiveScreeningAdapter
-            adapter = self.adapter or LiveScreeningAdapter()
+            from .runtime import RunControl
+            from .history_cache import HistoryCache
+            from .score_cache import ScoreMemo
+            adapter = self.adapter or LiveScreeningAdapter(control=control,
+                score_memo=ScoreMemo(Path(__file__).resolve().parents[2]/'data/cache/screening_scores.sqlite3',control=control) if optimized else None,
+                history_cache=HistoryCache(Path(__file__).resolve().parents[2]/'data/cache/screening_history.sqlite3',control=control) if optimized else None)
+            if hasattr(adapter,'control'):
+                adapter.control=control
+                adapter.provider.control=control
+            if hasattr(adapter,'begin_run'):
+                adapter.begin_run()
             try:
-                return self._run(limit_industries, industry_ids, refresh, output_dir, adapter)
+                return self._run(limit_industries, industry_ids, refresh, output_dir, adapter,
+                                 control=control,resume=resume,optimized=optimized)
             finally:
                 close = getattr(adapter,'close',None)
                 if close:
                     close()
 
-    def _run(self, limit, ids, refresh, output_dir, adapter):
+    def _run(self, limit, ids, refresh, output_dir, adapter, *, control=None,resume=False,optimized=True):
         from app.data.models import ProviderError
         started = datetime.now(timezone.utc).isoformat()
         t0 = time.monotonic()
+        from .checkpoint import CheckpointStore
+        store=CheckpointStore(output_dir) if output_dir and optimized else None
+        universe={};selected=[]
+        io_seconds=0
         result = dict(trade_date=None, status='RUNNING', scope='SH_SZ_PRIMARY_INDUSTRIES',
                       is_mock=getattr(adapter, 'is_mock', False), mode=getattr(adapter, 'mode', 'live'),
                       policy=asdict(self.policy), sectors=[], stocks=[], exclusions=[],
@@ -113,10 +184,17 @@ class ScreeningService:
                       spec_version='1.4', assumption_version='v1.3', data_contract_version='1.4',
                       start_time=started, operational_limit_industries=limit)
         def checkpoint():
+            nonlocal io_seconds
             result['performance'].update(adapter.metrics())
             result['performance']['total_duration_seconds'] = time.monotonic()-t0
             if output_dir:
-                write_evidence(result, output_dir)
+                io_start=time.monotonic()
+                if store and result['trade_date']:
+                    store.save(result,universe,selected)
+                if not optimized or result['status']!='RUNNING':
+                    write_evidence(result, output_dir)
+                io_seconds+=time.monotonic()-io_start
+                result['performance']['serialization_io_seconds']=io_seconds
         try:
             day, universe, exclusions = adapter.prepare(refresh=refresh)
         except Exception as exc:
@@ -134,9 +212,25 @@ class ScreeningService:
                 result['errors'].append(dict(phase='selection', sector_id=missing, error='UNKNOWN_SECTOR'))
         if limit:
             selected = selected[:limit]
-        seen = set()
+        if resume:
+            if not store:
+                raise ValueError('Resume requires optimized output_dir')
+            result=store.load(day=day,policy=self.policy,universe=universe,selected=selected)
+            result['resumed_at']=started
+            # Hydrate Heat/returns in the run memo; B1/B2 use the same context.
+            shared=getattr(adapter,'shared',None)
+            if shared is not None:
+                shared.contexts.update({(r['sector_id'],day):r['context'] for r in result['sectors'] if r.get('context')})
+        seen = {r['symbol'] for r in result['stocks']}
+        completed_sectors={r['sector_id'] for r in result['sectors']}
+        stopped=False
         contexts = {}
         for sid in selected:
+            if sid in completed_sectors:
+                continue
+            if control and control.clock()>=control.run_end:
+                stopped=True
+                break
             item = universe[sid]
             members = sorted(set(item['symbols']))
             try:
@@ -147,7 +241,8 @@ class ScreeningService:
                     result['sectors'].append(row)
                     checkpoint()
                     continue
-                context = adapter.sector(sid, members[0], day, refresh=refresh)
+                with control.object('sector') if control else nullcontext():
+                    context = adapter.sector(sid, members[0], day, refresh=refresh)
                 heat = context.get('sector_heat') or {}
                 state, quality = self.policy.sector(heat, day)
                 if context.get('data_status') != 'VALID':
@@ -169,14 +264,22 @@ class ScreeningService:
         eligible = [r for r in result['sectors'] if r['candidate_status'] == 'ELIGIBLE']
         # Active V1 has no Top N business cap.
         for sector in eligible:
+            if stopped:
+                break
             sid = sector['sector_id']
             for symbol in sorted(set(universe[sid]['symbols'])):
                 if symbol in seen:
+                    if resume and any(r['symbol']==symbol for r in result['stocks']):
+                        continue
                     result['errors'].append(dict(phase='membership', symbol=symbol, error='DUPLICATE_PRIMARY_MEMBERSHIP'))
                     continue
+                if control and control.clock()>=control.run_end:
+                    stopped=True
+                    break
                 seen.add(symbol)
                 try:
-                    analysis = adapter.stock(symbol, day, refresh=refresh)
+                    with control.object('stock') if control else nullcontext():
+                        analysis = adapter.stock(symbol, day, refresh=refresh)
                     state, quality, explanation = self.policy.stock(analysis, day, sid)
                     rules = {r['rule_id']: r for r in analysis.get('rules', [])}
                     row = dict(symbol=symbol, stock_name=analysis.get('name'), primary_industry=sid,
@@ -218,6 +321,11 @@ class ScreeningService:
                                      average_stock_seconds=stock_duration/len(result['stocks']) if result['stocks'] else None)
         result['status'] = ('PARTIAL' if result['stats']['industry_invalid'] or result['stats']['stock_error']
                             or result['stats']['stock_incomplete'] or result['errors'] or not self.policy.resolved else 'COMPLETE')
+        if stopped:
+            result['status']='STOPPED'
+            result['errors'].append(dict(phase='runtime',error='WHOLE_RUN_DEADLINE',resume_allowed=True))
+        result['runtime_limits']=control.to_dict() if control else None
+        result['complete']=not stopped and len(result['sectors'])==len(selected) and result['stats']['stock_analyzed']==result['stats']['stock_expected']
         result['end_time'] = datetime.now(timezone.utc).isoformat()
         checkpoint()
         return result

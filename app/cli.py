@@ -22,18 +22,26 @@ def main(argv=None, *, service=None, screening_service=None):
     screen.add_argument('--industry', action='append', dest='industry_ids', help='smoke行业代码，可重复')
     screen.add_argument('--refresh', action='store_true')
     screen.add_argument('--output-dir', default='outputs/stage3c')
+    screen.add_argument('--resume',action='store_true',help='恢复同日同版本同Universe checkpoint')
+    screen.add_argument('--request-timeout',type=float,default=60)
+    screen.add_argument('--sector-timeout',type=float,default=1800)
+    screen.add_argument('--stock-timeout',type=float,default=300)
+    screen.add_argument('--run-timeout',type=float,default=43200)
     args = parser.parse_args(argv)
     json_output = args.json or args.root_json
     if args.command == 'screen':
         from app.screening.service import ScreeningService
         screening_service = screening_service or ScreeningService()
+        from app.screening.runtime import RuntimeLimits
+        limits=RuntimeLimits(request_seconds=args.request_timeout,sector_seconds=args.sector_timeout,
+                             stock_seconds=args.stock_timeout,run_seconds=args.run_timeout)
         result = screening_service.run(limit_industries=args.limit_industries, industry_ids=args.industry_ids,
-                                       refresh=args.refresh, output_dir=args.output_dir)
+                                       refresh=args.refresh, output_dir=args.output_dir,resume=args.resume,runtime_limits=limits)
         if json_output:
             print(json.dumps(result, ensure_ascii=False, allow_nan=False))
         else:
             print(f'策略匹配候选：{len(result["candidates"])}；运行状态：{result["status"]}')
-        return 1 if result['status']=='DATA_ERROR' else 0
+        return 1 if result['status'] in ('DATA_ERROR','STOPPED') else 0
     service = service if service is not None else StockAnalysisService()
     try:
         result = service.analyze(args.symbol, as_of=args.as_of.isoformat() if args.as_of else None,
