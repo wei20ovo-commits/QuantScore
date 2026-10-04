@@ -1,3 +1,11 @@
+# Stage 4B 最终回归（2026-10-04）
+
+912 项：**911 PASS / 0 FAIL / 0 ERROR / 1 SKIP**，126.55s。原840项全部保留，新增72项解释层/HTTP/Streamlit测试。唯一 SKIP 仍为历史 T20 / SUPERSEDED_BY_STAGE3C；1条既有 FastAPI/Starlette 弃用警告。
+
+实际命令：`.venv/Scripts/python.exe -m pytest -q --basetemp=outputs/tmp/pytest/stage4b-final-4 --junitxml=outputs/stage4b/pytest_final.xml --tb=short`。原始 XML/文本见 outputs/stage4b/。覆盖无配置、零调用、分数不可变、恶意 Provider 输入隔离、ACTIVE 计算结果白名单、原 K 线排除、禁止建议/预测、UNKNOWN/数据错误/不适用、完整解释、secrets配置、超时/限流/异常/非法响应回退及 Web 正常运行。所有模型分支为明确标注的 OFFLINE mock，**真实 API 未验证**，未付费调用。真实600519浏览器、解释面板Light/Dark/390px及最终截图均通过，另见 [Stage 4B 报告](STAGE4B_RESULT.md)。首轮示例模板与原保护测试冲突已修复，原测试未改。
+
+以下历史报告保留。
+
 # Stage 4A 最终回归（2026-10-04）
 
 840 项：**839 PASS / 0 FAIL / 0 ERROR / 1 SKIP**，143.38s。原 788 项全部保留，新增 52 项 Web 产品测试，覆盖 Dashboard、只读正式结果、最新批次、数据错误/缺文件、候选空与有结果、ACTIVE 规则、原有单股功能、主题/导航、暗色表格以及 Web 不启动 Full Market Scan。

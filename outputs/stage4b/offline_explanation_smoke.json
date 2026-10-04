@@ -1,0 +1,12 @@
+{
+  "is_mock": true,
+  "real_api_verified": false,
+  "paid_api_calls": 0,
+  "passed": 72,
+  "suites": {
+    "tests.test_explanation": 64,
+    "tests.test_web_explanation": 8
+  },
+  "evidence": "pytest_final.xml",
+  "purpose": "OFFLINE HTTP MockTransport and Streamlit AppTest only; not live API evidence"
+}

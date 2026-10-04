@@ -49,6 +49,8 @@ def render_result(data):
     dashboard(data)
     from app.web_pages import industry_summary
     industry_summary(data)
+    from app.web_explanation import render_explanation
+    render_explanation(data)
     with st.expander('评分与覆盖率 · 完整口径'):
         left, right = st.columns(2)
         left.metric('QuantScore', number_text(data['final_quant_score']))

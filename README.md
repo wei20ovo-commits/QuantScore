@@ -6,6 +6,26 @@ QuantScore 是可解释的股票技术面策略匹配评分系统：回答“当
 
 V1.4 不存在未解决的用户交易规则含义问题。UNKNOWN 表示必要数据缺失或无效、历史不足、确认期未完成、未实现规则或人工证据缺失，不等于 FAIL。
 
+## Stage 4B AI Explanation
+
+单股分析新增 `Standard Rules / AI Explanation / Auto`。默认 Standard Rules 完全不读取解释 API 配置或调用模型；AI Explanation 仅由“生成 AI 解释”按钮触发；Auto 在配置有效时对当前结果调用一次。切换主题、展开规则或页面重跑不会重复调用；结果指纹改变后清除旧解释。无配置、超时、限流、无效或不安全响应都回退标准规则解释，评分与分析仍正常。
+
+AI 是只读解释层：输入来自现有引擎的股票、交易日、QuantScore、Risk、行业、SectorHeat、B1/B2、ACTIVE 规则状态/原始值/条件/解释和数据状态，不发送原始 K 线、任意 metadata 或候选判定指令。模型只选择、组织既有证据 ID，不能返回新分数或自由事实；本地模板填入原始事实，且不能隐藏风险或 UNKNOWN。不会改变评分、风险、行业热度或策略匹配候选。页面明确标注：“这是对既有规则结果的解释，不构成投资建议。”
+
+可选环境变量或 Streamlit secrets（同名顶层键）：
+
+```toml
+# 本地 .streamlit/secrets.toml；已被 .gitignore 忽略。不要提交实际密钥。
+QUANTSCORE_EXPLANATION_API_KEY = "<你的解释服务密钥>"
+QUANTSCORE_EXPLANATION_BASE_URL = "https://api.openai.com/v1"
+QUANTSCORE_EXPLANATION_MODEL = "<支持 Chat Completions 严格 JSON Schema 的模型 ID>"
+QUANTSCORE_EXPLANATION_TIMEOUT_SECONDS = 20
+```
+
+环境变量优先；`config/explanation.env.example` 仅为模板，程序不会自动加载 `.env`。模型没有默认值，需显式指定；核心功能不需要任何 LLM 密钥。调用为 OpenAI-compatible `/chat/completions`，HTTPS、严格 JSON Schema、`store=false`、单次请求、1–60 秒超时，无自动重试或重定向，不继承本机代理。兼容服务不支持该契约时安全回退，不偷偷切换为自由文本。请求上下文上限 200KB，响应上限 64KB。密钥不进入页面、session state、日志、异常说明或 Git；本阶段没有 BYOK、聊天、RAG 或用户系统。
+
+确定性 HTTP mock 与 Streamlit AppTest 验证独立记录，**真实付费 API 未验证**，不将 mock 称为在线成功。实际 Web smoke 与测试见 [Stage 4B 报告](docs/STAGE4B_RESULT.md)。本阶段不 commit/push，不进入 Stage 5。
+
 ## Stage 4A Web App
 
 Web 提供首页 Dashboard、单股分析、板块热度、策略匹配候选、规则中心五个页面，保留 Light/Dark 与移动端布局。单股分析继续调用现有 `StockAnalysisService`，展示所属行业、SectorHeat、B1/B2 和逐条原始证据；页面不重新计算评分或候选条件。
