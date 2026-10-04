@@ -1,3 +1,11 @@
+# Stage 4A 最终回归（2026-10-04）
+
+840 项：**839 PASS / 0 FAIL / 0 ERROR / 1 SKIP**，143.38s。原 788 项全部保留，新增 52 项 Web 产品测试，覆盖 Dashboard、只读正式结果、最新批次、数据错误/缺文件、候选空与有结果、ACTIVE 规则、原有单股功能、主题/导航、暗色表格以及 Web 不启动 Full Market Scan。
+
+实际命令：`.venv/Scripts/python.exe -m pytest -q --basetemp=outputs/tmp/pytest/stage4a-final-3 --junitxml=outputs/stage4a/pytest_final.xml --tb=short`。Windows 默认临时目录权限错误通过项目内独立 basetemp 和允许的运行环境解决，未改业务规则或删测试。唯一 SKIP 仍为历史 T20 / SUPERSEDED_BY_STAGE3C，1 条既有 FastAPI/Starlette 弃用警告。实际 JUnit/输出见 outputs/stage4a/pytest_final.xml 与 pytest_final.txt。
+
+另行实际浏览器验收通过：真实 600519/贵州茅台/BaoStock 分析、行业/B1/B2、图表、五页面、Light/Dark、390px。正式全市场预计算结果 83 个行业、78 只股票、0 候选；未再次扫描。浏览器 JSON 和截图位于 outputs/stage4a/，详情见 [Stage 4A 报告](STAGE4A_RESULT.md)。离线候选有结果用例为明确标注的测试 fixture，不是实际股票候选证据。以下历史测试报告原样保留。
+
 # Stage 3C.1 最终回归（2026-10-03）
 
 788 项：**787 PASS / 0 FAIL / 0 ERROR / 1 SKIP**。原 759 项全部保留，新增 29 项缓存、增量、复权保护、并发缓存一致性、checkpoint/resume、版本与日期拒绝、篡改拒绝、期限/失败隔离、真实进程终止及评分等价测试。

@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "source": "outputs/stage3c/full_market/screening_details.json",
+  "sha256": "95395e29e900b98d71bdded84e7c1f1dbbff6b0fd99ae972d2457e49f27423b3",
+  "trade_date": "2026-09-30",
+  "generated_at": "2026-10-02T17:02:30.835920+00:00",
+  "provider": "baostock",
+  "sector_csv_rows_checked": 83,
+  "candidates_count": 0,
+  "backend_stats": {
+    "industry_total": 83,
+    "industry_scoreable": 40,
+    "industry_candidate": 2,
+    "industry_invalid": 43,
+    "stock_expected": 78,
+    "stock_analyzed": 78,
+    "stock_success": 78,
+    "stock_incomplete": 0,
+    "stock_error": 0,
+    "provider_error": 0,
+    "other_error": 0,
+    "strategy_match_candidates": 0,
+    "quality_counts": {
+      "VALID": 78,
+      "DATA_INCOMPLETE": 0,
+      "DATA_ERROR": 0,
+      "DATA_STALE": 0,
+      "DATA_INCONSISTENT": 0,
+      "SEMANTIC_GAP": 0
+    }
+  },
+  "rules_implemented": 44,
+  "no_network": true,
+  "is_mock": false
+}

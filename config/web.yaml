@@ -1,0 +1,5 @@
+# Presentation reads published final artifacts only. No scan is started by Web.
+# Newer valid full-universe result wins by trade_date, then generated_at.
+screening_results:
+  - outputs/runtime/daily/screening_details.json
+  - outputs/stage3c/full_market/screening_details.json

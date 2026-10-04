@@ -23,10 +23,21 @@ def load_analysis(code):
 
 def render_home(theme):
     from app.web_visuals import home_dashboard
-    try:
-        snapshot = load_market_snapshot()
-    except Exception:
-        snapshot = []
+    from app.web_pages import dashboard_summary
+    from app.web_results import load_screening_snapshot
+    dashboard_summary(load_screening_snapshot())
+    # Saved backend Dashboard is immediately usable. Optional index acquisition
+    # must not block navigation while a data source is slow/unreachable.
+    snapshot = st.session_state.get('market_snapshot', [])
+    if st.button('加载指数日线', key='load_indices', help='仅获取指数展示数据，不启动行业或全市场扫描'):
+        try:
+            with st.spinner('正在获取指数日线…'):
+                snapshot = load_market_snapshot()
+            st.session_state['market_snapshot'] = snapshot
+        except Exception:
+            snapshot = []
+        if not snapshot:
+            st.warning('指数数据暂不可用，后台分析概览仍可正常查看。')
     home_dashboard(snapshot, st.session_state.get('recent_analyses', []))
 
 def render_result(data):
@@ -36,6 +47,8 @@ def render_result(data):
         return
     from app.web_visuals import dashboard
     dashboard(data)
+    from app.web_pages import industry_summary
+    industry_summary(data)
     with st.expander('评分与覆盖率 · 完整口径'):
         left, right = st.columns(2)
         left.metric('QuantScore', number_text(data['final_quant_score']))
@@ -51,6 +64,10 @@ def render_result(data):
             with st.container(border=True):
                 st.write(f"**{rule['rule_id']} · {rule['name_cn']}**")
                 st.write(f"status：{rule['status']}")
+                if rule.get('applicable') is False:
+                    st.caption('NOT_APPLICABLE · 当前对象不适用本条规则；保留引擎原始状态与得分。')
+                if rule.get('reason_code'):
+                    st.caption('数据 / 确认原因：' + str(rule['reason_code']))
                 st.write(f"score：{number_text(rule['score'])} / max_score：{number_text(rule['max_score'])}")
                 if rule['rule_type'] == 'RISK':
                     st.write(f"penalty：{number_text(rule['penalty'])} / max_penalty：{number_text(rule['max_penalty'])}")
@@ -63,13 +80,13 @@ def render_result(data):
                 st.write(warning)
 
 def main():
-    st.set_page_config(page_title='QuantScore · 单股策略匹配', page_icon='📊', layout='wide')
+    st.set_page_config(page_title='QuantScore · 策略匹配工作台', page_icon='📊', layout='wide')
     st.html('<style>' + (ROOT/'app/web_style.css').read_text('utf-8') + '</style>')
     if 'theme' not in st.session_state:
         st.session_state['theme']='light'
     st.session_state.setdefault('view', 'home')
     with st.container(key='navigation'):
-        brand, links, search, theme_col = st.columns([1.0, 1.65, 1.55, .38], vertical_alignment='center')
+        brand, links, search, theme_col = st.columns([.9, 2.6, 1.55, .3], vertical_alignment='center')
         with brand: st.title('QuantScore')
         with search:
             with st.form('single_stock'):
@@ -80,10 +97,10 @@ def main():
             if st.button('☾' if st.session_state['theme']=='light' else '☀', key='theme_toggle', help='切换 Light / Dark Mode'):
                 st.session_state['theme']='dark' if st.session_state['theme']=='light' else 'light'; st.rerun()
         with links:
-            nav=st.columns(4)
-            for col,label,view in zip(nav,['首页','单股分析','规则明细','自选股'],['home','analysis','rules','watchlist']):
+            nav=st.columns([.65, 1, 1, 1.5, 1])
+            for col,label,view in zip(nav,['首页','单股分析','板块热度','策略匹配候选','规则中心'],['home','analysis','sectors','candidates','rules']):
                 with col:
-                    if st.button(label,key='nav_'+view,disabled=view=='watchlist',help='暂未开放' if view=='watchlist' else None):
+                    if st.button(label,key='nav_'+view):
                         st.session_state['view']=view
     theme=st.session_state['theme']
     st.html(f'<div class="theme-state theme-{theme}" data-theme="{theme}"></div>')
@@ -107,16 +124,18 @@ def main():
     view=st.session_state['view']
     if view=='home':
         render_home(theme)
-    elif view=='rules' and 'analysis' not in st.session_state:
-        from app.services.stock_analysis_service import StockAnalysisService
-        st.subheader('规则明细 · V1.4')
-        st.caption('规范中的原始规则与权重；输入股票代码后可查看实际命中结果。')
-        for rule in StockAnalysisService().rules():
-            with st.expander(rule['rule_id']+' · '+rule['name_cn']):
-                st.write({'来源':rule['source_type'],'最高得分':rule['max_score'],'最高扣分':rule['max_penalty'],'实现状态':rule['code_status']})
-    elif 'analysis' in st.session_state:
+    elif view=='rules':
+        from app.web_pages import rules_center
+        rules_center()
+    elif view in ('sectors','candidates'):
+        from app.web_results import load_screening_snapshot
+        from app.web_pages import sector_heat_page, candidates_page
+        (sector_heat_page if view=='sectors' else candidates_page)(load_screening_snapshot())
+    elif view=='analysis' and 'analysis' in st.session_state:
         render_result(st.session_state['analysis'])
     else:
         st.info('在顶部输入股票代码开始分析，结果将显示在这里。')
+    from app.web_pages import status_legend
+    status_legend()
 
 if __name__ == '__main__': main()

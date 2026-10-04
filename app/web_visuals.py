@@ -27,9 +27,9 @@ def home_dashboard(snapshot, recent):
             cards.append(f'<article class="market-card"><div class="market-top"><b>{e(item["name"])}</b><span class="day-label">最近交易日</span></div><div class="index-body"><div><div class="market-value">{item["close"]:,.2f}</div><div class="market-change" style="color:{color}">{item["change"]:+.2f}　{item["percent"]:+.2f}%</div></div>{sparkline(item["trend"],color)}</div><div class="market-meta">{e(item["symbol"])} · {e(item["date"])}</div></article>')
         st.html('<div class="market-grid">'+''.join(cards)+'</div>')
     else:
-        st.html('<div class="market-empty">指数行情暂不可用，请稍后刷新。</div>')
+        st.html('<div class="market-empty">点击“加载指数日线”查看真实指数数据；未加载时不展示行情数字。</div>')
     tools=st.columns(4)
-    for col,title,desc,icon,accent,view in zip(tools,['单股分析','规则明细','自选股观察','板块研究'],['真实日线与多维规则匹配','评分依据、权重与实现状态','当前版本暂未开放','当前版本暂未开放'],['↗','≡','☆','◈'],['blue','purple','amber','cyan'],['analysis','rules',None,None]):
+    for col,title,desc,icon,accent,view in zip(tools,['单股分析','规则中心','策略匹配候选','板块热度'],['真实日线与多维规则匹配','评分依据、权重与实现状态','后台正式候选结果','真实行业 S1–S7 评分'],['↗','≡','☆','◈'],['blue','purple','amber','cyan'],['analysis','rules','candidates','sectors']):
         with col:
             st.html(f'<div class="tool-card compact final-tool {accent}"><div class="tool-icon">{icon}</div><div><div class="tool-title">{title}</div><div class="tool-desc">{desc}</div></div></div>')
             if view and st.button('打开'+title,key='open_'+view,use_container_width=True):
@@ -89,8 +89,10 @@ def dashboard(data):
     color='neutral' if not change else ('up' if change['amount']>=0 else 'down')
     change_text='涨跌幅暂不可用' if not change else f"{change['amount']:+.2f}　{change['percent']:+.2f}%"
     price='—' if quote.get('close') is None else f"{quote['close']:,.2f}"
+    primary=(data.get('industry_context') or {}).get('primary_industry') or {}
+    industry_tag='' if not primary.get('name') else f'<span>{e(primary["name"])}</span>'
     # Stock quote header: only fields present in the real data contract are shown.
-    st.html(f'''<section class="quote dashboard-card"><div class="quote-name"><div class="stock-icon">{e(data['name'][:1])}</div><div><h2>{e(data['name'])}<span> · {e(data['symbol'])}</span></h2><div class="tags"><span>{e(data['symbol'][-2:])} · A股</span><span>日线分析</span></div></div></div><div class="quote-price"><div class="price {color}">{price} <small>元</small></div><div class="change {color}">{change_text}</div><div class="muted">最新日线收盘 · {e(data['evaluation_date'])}（非实时）</div></div><div class="quote-meta"><span class="source-pill">数据源：{e(status['provider'])}</span><span class="muted">数据日期 {e(data['evaluation_date'])}</span></div></section>''')
+    st.html(f'''<section class="quote dashboard-card"><div class="quote-name"><div class="stock-icon">{e(data['name'][:1])}</div><div><h2>{e(data['name'])}<span> · {e(data['symbol'])}</span></h2><div class="tags"><span>{e(data['symbol'][-2:])} · A股</span>{industry_tag}<span>日线分析</span></div></div></div><div class="quote-price"><div class="price {color}">{price} <small>元</small></div><div class="change {color}">{change_text}</div><div class="muted">最新日线收盘 · {e(data['evaluation_date'])}（非实时）</div></div><div class="quote-meta"><span class="source-pill">数据源：{e(status['provider'])}</span><span class="muted">数据日期 {e(data['evaluation_date'])}</span></div></section>''')
     st.caption(f"真实行情 · {data['evaluation_date']} · {status['provider']} · 结果最多缓存5分钟")
     # Five horizontal dashboard cards. Structure cards aggregate existing rule points only.
     cards=[f'<div class="score-card primary"><div class="score-label">综合评分 · QuantScore</div><div class="score-value">{number_text(data["final_quant_score"])} <small>/ 100</small></div><div class="score-foot">正向 {number_text(data["positive_score"])} · 风险扣分 {number_text(data["risk_penalty"])}</div></div>']
@@ -129,7 +131,7 @@ def dashboard(data):
         st.html(f'<div class="home-panel composition"><div class="panel-title">评分构成</div><div class="composition-values"><span>正向得分<b>{number_text(data["positive_score"])}</b></span><span>风险扣分<b>{number_text(data["risk_penalty"])}</b></span><span>最终得分<b>{number_text(data["final_quant_score"])}</b></span></div><div class="panel-sub">沿用原引擎结果，不重新加权或换算。</div></div>')
     with sections[1]:
         count=len(data['rules'])
-        st.html(f'<div class="home-panel composition"><div class="panel-title">其他信息</div><div class="info-row"><span>已完成判断 / 规则总数</span><strong>{count-unknown} / {count}</strong></div><div class="info-row"><span>数据日期 · 来源</span><strong>{e(data["evaluation_date"])} · {e(status["provider"])}</strong></div><div class="info-row"><span>正向 / 风险覆盖率</span><strong>{coverage_text(data["positive_coverage"])} / {coverage_text(data["risk_coverage"])}</strong></div><div class="info-row"><span>行业 / 市值 / 估值</span><strong>未接入</strong></div></div>')
+        st.html(f'<div class="home-panel composition"><div class="panel-title">其他信息</div><div class="info-row"><span>已完成判断 / 规则总数</span><strong>{count-unknown} / {count}</strong></div><div class="info-row"><span>数据日期 · 来源</span><strong>{e(data["evaluation_date"])} · {e(status["provider"])}</strong></div><div class="info-row"><span>正向 / 风险覆盖率</span><strong>{coverage_text(data["positive_coverage"])} / {coverage_text(data["risk_coverage"])}</strong></div><div class="info-row"><span>市值 / 估值</span><strong>未接入</strong></div></div>')
     with st.expander('主要正向原因 / 主要风险原因 · 完整说明'):
         for title,key in [('主要正向原因','top_positive_reasons'),('主要风险原因','top_risk_reasons')]:
             st.subheader(title)

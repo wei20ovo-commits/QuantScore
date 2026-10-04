@@ -1,0 +1,128 @@
+{
+  "started_at": "2026-10-04T07:27:24.952085+00:00",
+  "is_mock": false,
+  "url": "http://127.0.0.1:8505",
+  "screenshots": [
+    {
+      "name": "home_light",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "home_dark",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "sector_dark",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "sector_detail_dark",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "candidates_dark",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "rules_dark",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "rules_light",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "analysis_light",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "analysis_dark",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "name": "analysis_mobile",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "sector_mobile",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "candidates_mobile",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "name": "home_mobile",
+      "width": 390,
+      "overflow": false
+    }
+  ],
+  "pages": {
+    "板块热度": {
+      "status": "PASS",
+      "text": "QuantScore\n\n首页\n\n单股分析\n\n板块热度\n\n策略匹配候选\n\n规则中心\n\n开始分析\n\n☀\n\nQuantScore 是策略匹配分析工具，不构成投资建议。\n\n板块热度 · SectorHeat\n\n按最近正式后台结果查看行业热度与 S1–S7；页面不联网扫描成分股。\n\n历史数据 / 非实时 · 最近已保存交易日：2026-09-30 · 生成时间：2026-10-02T17:02:30.835920+00:00 · 数据源：baostock\n\n后台状态：PARTIAL（后台已结束，部分对象不可评） · 正式结果：outputs/stage3c/full_market/screening_details.json\n\n搜索行业名称或代码\n\nHeat 排序\n\n— / 空白表示不可评分；有效数据下的 0 分表示未命中规则。排序仅用于展示。\n\n查看行业详情\n\nM73研究和试验发展 · SectorHeat 80\n\n数据状态：VALID — 数据通过上游校验，可按已有规则评分。\n\n成分股 31 · 交易日 2026-09-30\n\n已判定分数（诊断）：80 / 100；不会冒充完整 SectorHeat。\n\nkeyboard_arrow_right\n\nS1 · 板块1日相对强度 · PASS\n\nkeyboard_arrow_right\n\nS2 · 板块5日相对强度 · PASS\n\nkeyboard_arrow_right\n\nS3 · 上涨广度 · PASS\n\nkeyboard_arrow_right\n\nS4 · 涨停联动密度 · PARTIAL\n\nkeyboard_arrow_right\n\nS5 · 板块成交活跃度 · PARTIAL\n\nkeyboard_arrow_right\n\nS6 · 强势持续性 · PARTIAL\n\nkeyboard_arrow_right\n\nS7 · 强势股深度 · PASS\n\nkeyboard_arrow_right\n\n行业数据来源 / 错误原因\n\nkeyboard_arrow_right\n\n数据状态说明 · 不可评不等于不匹配"
+    },
+    "策略匹配候选": {
+      "status": "PASS",
+      "text": "QuantScore\n\n首页\n\n单股分析\n\n板块热度\n\n策略匹配候选\n\n规则中心\n\n开始分析\n\n☀\n\nQuantScore 是策略匹配分析工具，不构成投资建议。\n\n策略匹配候选 · Strategy Match Candidates\n\n直接读取后台 MATCHED 结果；不重新评分、不添加 Coverage 门槛、不限制候选 Universe。\n\n历史数据 / 非实时 · 最近已保存交易日：2026-09-30 · 生成时间：2026-10-02T17:02:30.835920+00:00 · 数据源：baostock\n\n后台状态：PARTIAL（后台已结束，部分对象不可评） · 正式结果：outputs/stage3c/full_market/screening_details.json\n\n本批次策略匹配候选：0\n\n本次后台结果没有产生 MATCHED 股票。数据不可评对象另行保留，不会当作低分股票。\n\n策略匹配候选 ≠ 推荐股票。排列沿用后台 ENGINEERING_DISPLAY_ORDER，不表示收益预测或推荐顺序。\n\nkeyboard_arrow_right\n\n本批次扫描与数据质量说明\n\nkeyboard_arrow_right\n\n数据状态说明 · 不可评不等于不匹配"
+    },
+    "规则中心": {
+      "status": "PASS",
+      "text": "QuantScore\n\n首页\n\n单股分析\n\n板块热度\n\n策略匹配候选\n\n规则中心\n\n开始分析\n\n☀\n\nQuantScore 是策略匹配分析工具，不构成投资建议。\n\n规则中心 · ACTIVE V1.4\n\n当前冻结定义与实现审计；评分语义来源 v1.3。旧 AutoScreenScore 已替代，不用于候选判定。\n\n规则分类\n\n搜索规则名称或编号\n\n当前显示 48 条 ACTIVE 规则；实现状态与执行时 PARTIAL 状态不同。\n\nkeyboard_arrow_right\n\nS1 · 板块1日相对强度 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nS2 · 板块5日相对强度 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nS3 · 上涨广度 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nS4 · 涨停联动密度 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nS5 · 板块成交活跃度 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nS6 · 强势持续性 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nS7 · 强势股深度 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nA1 · 大盘短期趋势 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nA2 · 大盘中期结构 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nA3 · 大盘5日动能 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nB1 · 所属板块热度映射 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nB2 · 个股相对板块5日强度 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nB3 · 板块内龙头代理 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nC1 · 站稳M60 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nC2 · M60方向 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nC3 · 均线多头结构 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nC4 · M60有效突破/快速收复 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nC5 · M60起飞平台 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nC6 · 上升安全带完整 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nD1 · 关键突破放量 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nD2 · 突破后缩量回踩 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nD3 · 上涨量强于下跌量 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nD4 · 整理期成交量收缩 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nD5 · 换手率健康度 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nE1 · 底部小连阳 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nE2 · 周线成交量反转 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nE3 · 日/周线阻尼收敛 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nE4 · 低位筹码峰 · NOT_IMPLEMENTED\n\nkeyboard_arrow_right\n\nE5 · 筹码集中度改善 · NOT_IMPLEMENTED\n\nkeyboard_arrow_right\n\nF1-N · N板启动 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nF1-T · T板启动 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nF1-O · 一字板/一字T干净启动 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nF1-X · 仙人指路 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nF1-Y · 鲤鱼跃龙门 + 假摔 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nF2 · 启动位置质量 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nF3 · 空中加油（高位中继） · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR1 · 高位异常换手 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR2 · 高位异常放量 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR3 · 高位涨停出货/烂板 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR4 · 双子顶 Double-Top Risk · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR5 · 三K高位反转组合 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR6 · 分时缩量诱多 · NOT_IMPLEMENTED\n\nkeyboard_arrow_right\n\nR7 · 该涨不涨/关键位突破失败 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR8 · 安全带跌破 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR9 · M30有效跌破 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR10 · 筹码由低位向高位迁移 · NOT_IMPLEMENTED\n\nkeyboard_arrow_right\n\nR11 · N板换手期失效 · IMPLEMENTED\n\nkeyboard_arrow_right\n\nR12 · T板/一字板异常成交 · IMPLEMENTED\n\nkeyboard_arrow_right\n\n数据状态说明 · 不可评不等于不匹配"
+    },
+    "单股分析": {
+      "status": "PASS"
+    },
+    "首页": {
+      "status": "PASS"
+    }
+  },
+  "status": "PASS",
+  "analysis": {
+    "status": "PASS",
+    "symbol": "600519.SH",
+    "name": "贵州茅台",
+    "text": "QuantScore\n\n首页\n\n单股分析\n\n板块热度\n\n策略匹配候选\n\n规则中心\n\n开始分析\n\n☾\n\nQuantScore 是策略匹配分析工具，不构成投资建议。\n\n贵\n贵州茅台 · 600519.SH\nSH · A股\nC15酒、饮料和精制茶制造业\n日线分析\n1,258.62 元\n+23.04　+1.86%\n最新日线收盘 · 2026-09-30（非实时）\n数据源：baostock\n数据日期 2026-09-30\n\n真实行情 · 2026-09-30 · baostock · 结果最多缓存5分钟\n\n综合评分 · QuantScore\n0 / 100\n正向 15 · 风险扣分 20\n趋势结构\n4 / 25 分\n原规则得分合计 · 1 项未知\n成交量结构\n1 / 20 分\n原规则得分合计 · 1 项未知\n形态结构\n2 / 66 分\n原规则得分合计 · 9 项未知\n风险 · Risk Level\nHIGH\n已确认扣分 20 · 未知不等于无风险\n行情走势\n日K · 前复权\n最近120个交易日 · 均线沿用现有特征 · 成交量单位：股\n1200\n1300\n1400\n2026-04-09\n2026-05-18\n2026-06-22\n2026-07-24\n2026-08-27\n0\n5M\n10M\n前复权日K\nM5\nM30\nM60\n\n图表来源：baostock；K线及均线为前复权，顶部收盘价为未复权。\n\n核心判断\n查看全部规则 →\n↑\n所属板块热度映射 B1\n规范 v1.3 工程阈值；C15酒、饮料和精制茶制造业完整Heat=70/100，落入[70,75)，B1=6/8；不重复累加S1–S7。\n+6\n↑\nM60方向 C2\n规范 v1.3 工程阈值；M60十日变化0.80%，得4分。\n+4\n↑\n日/周线阻尼收敛 E3\nV1.3代理规则/工程阈值；最长有效窗口6088日，至少80%日绝对涨跌幅不超过5%；上涨量大于下跌量；得2分，不要求振幅逐级缩小。\n+2\n↓\n安全带跌破 R8\nV1.3代理规则/工程阈值；仅按已完成周期收盘判破位；破位周期['D', 'W']，多个周期只取最高扣分10。\n−10\n↓\nM30有效跌破 R9\n规范 v1.3 工程阈值；M30有效跌破当日=True，前日=True；盘中警告=False，仅扣10分。\n−10\n综合结论\n\n当前规则匹配得分 0 分，已判断风险等级 HIGH。正向得分 15，风险扣分 20；仍有 16 条规则为 UNKNOWN。请结合规则解释与覆盖率阅读，不将缺少证据理解为条件不成立。\n\n策略匹配分析工具\n不构成投资建议\n数据日期 2026-09-30\n评分构成\n正向得分\n15\n风险扣分\n20\n最终得分\n0\n沿用原引擎结果，不重新加权或换算。\n其他信息\n已完成判断 / 规则总数\n25 / 41\n数据日期 · 来源\n2026-09-30 · baostock\n正向 / 风险覆盖率\n71.0% / 66.7%\n市值 / 估值\n未接入\nkeyboard_arrow_right\n\n主要正向原因 / 主要风险原因 · 完整说明\n\nPrimary Industry\nC15酒、饮料和精制茶制造业\nVALID\nSectorHeat\n70\nVALID\nB1\n6\nPARTIAL\nB2\n1\nPARTIAL\n\n行业数据状态：VALID · 行业日期：2026-09-30 · B1/B2直接来自单股规则引擎。\n\nkeyboard_arrow_right\n\n评分与覆盖率 · 完整口径\n\nkeyboard_arrow_right\n\n全部规则明细（41条）\n\nkeyboard_arrow_right\n\n数据说明与限制\n\nkeyboard_arrow_right\n\n数据状态说明 · 不可评不等于不匹配"
+  },
+  "chart_traces": [
+    {
+      "type": "candlestick",
+      "name": "前复权日K",
+      "points": 120
+    },
+    {
+      "type": "scatter",
+      "name": "M5",
+      "points": 120
+    },
+    {
+      "type": "scatter",
+      "name": "M30",
+      "points": 120
+    },
+    {
+      "type": "scatter",
+      "name": "M60",
+      "points": 120
+    },
+    {
+      "type": "bar",
+      "name": "成交量（股）",
+      "points": 120
+    }
+  ],
+  "page_errors": [],
+  "completed_at": "2026-10-04T07:28:26.966070+00:00"
+}

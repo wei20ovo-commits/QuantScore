@@ -6,6 +6,24 @@ QuantScore 是可解释的股票技术面策略匹配评分系统：回答“当
 
 V1.4 不存在未解决的用户交易规则含义问题。UNKNOWN 表示必要数据缺失或无效、历史不足、确认期未完成、未实现规则或人工证据缺失，不等于 FAIL。
 
+## Stage 4A Web App
+
+Web 提供首页 Dashboard、单股分析、板块热度、策略匹配候选、规则中心五个页面，保留 Light/Dark 与移动端布局。单股分析继续调用现有 `StockAnalysisService`，展示所属行业、SectorHeat、B1/B2 和逐条原始证据；页面不重新计算评分或候选条件。
+
+板块与候选页面只读取后台正式 `screening_details.json`，**打开页面与切换导航不会启动全市场扫描**。读取路径配置于 `config/web.yaml`，默认依次审计 `outputs/runtime/daily/` 和 Stage 3C 正式 `outputs/stage3c/full_market/`，按交易日、生成时间选择最新合法完整 Universe 结果。不会读取 Stage 3C.1 性能子集、mock、RUNNING/STOPPED 或未完成输出。PARTIAL 后台结果仍可展示，但保留各行业的数据异常与空分。界面沿用后台候选成员及顺序，不追加 Coverage 门槛或 TopN 限制。
+
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run app/web.py
+```
+
+后台发布到 Web 的结果必须包含完整行业/股票/候选列表、统计、真实来源标记和带时区生成时间；Web 服务只需要读权限。后台应原子替换完整发布文件，不要让 Web 读取写到一半的文件。`config/web.yaml` 只接受项目内相对路径。每次页面重新运行都会读发布结果；指数日线通过独立按钮加载，避免慢数据源阻塞首页。
+
+Streamlit Cloud 入口仍为 `app/web.py`，Python 3.11，无新增运行依赖或 Secrets。`outputs/` 保持忽略，部署包没有后台结果时显示“暂无最新筛选结果”，不会尝试扫描或依赖本机缓存。上线展示正式结果需要另行提供上述发布文件；本阶段没有添加后台调度器、远程结果同步或自动部署。单股行情失败也不会以假数据替代。
+
+页面始终标明历史日线 / 非实时、数据交易日、生成时间、来源与数据状态。数据错误不等于 0 分，不可评不等于不匹配；0 候选正常展示空状态。策略匹配候选不构成股票推荐或投资建议。当前 ACTIVE 规则共 48 条，44 IMPLEMENTED、4 NOT_IMPLEMENTED（E4/E5/R6/R10）；S1–S7 的独立实现状态来自实现矩阵与当前 Stage 3B 冻结条款，不使用单股登记中的旧占位状态。
+
+实际测试与浏览器证据见 [Stage 4A 报告](docs/STAGE4A_RESULT.md)。以下较早阶段段落保留为历史验收记录，当前运行环境为项目 `.venv`，不需要 `.deps` 或设置 `PYTHONPATH`。本阶段不 commit/push，不进入 Stage 4B。
+
 ## Stage 3C.1 Performance & Runtime Optimization
 
 **PASS（2026-10-03）**：仅优化后端运行与缓存，评分规范、权重、候选门槛及 SH/SZ Universe 不变。固定真实 BaoStock 存档基准：3 个行业、406 个预期成分股、47 只合格行业股票；基线 3248.499s，最终冷回放 871.855s，热回放 235.550s。传输调用 797 → 685 → 9；这些是标准化数据回放调用数，不是在线 SDK 分页请求数，也不能外推为全市场运行承诺。冷运行比率包含主机调度差异；完整规则算法没有改变。
