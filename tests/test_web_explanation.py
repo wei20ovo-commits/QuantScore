@@ -7,7 +7,7 @@ import pytest
 import streamlit as st
 from streamlit.testing.v1 import AppTest
 
-from app.explanation import ExplanationConfig, OpenAICompatibleExplanationProvider
+from app.explanation import ExplanationConfig, OpenAICompatibleExplanationProvider, DeepSeekExplanationProvider
 from app.web_results import ScreeningSnapshot
 from test_stage2_service import service
 
@@ -131,3 +131,21 @@ def test_invalid_ai_output_fallback_does_not_crash(data):
         assert not app.exception and app.metric
         assert app.session_state['explanation_result'].reason_code == 'INVALID_RESPONSE'
         assert all('建议建仓' not in x.value for x in app.text)
+
+
+@pytest.mark.parametrize('failure', [False, True])
+def test_deepseek_config_reaches_web_and_fails_safely(data, failure, monkeypatch):
+    # Env fixture is synthetic. No real key or network access in AppTest.
+    monkeypatch.delenv('QUANTSCORE_EXPLANATION_API_KEY', raising=False)
+    monkeypatch.setenv('DEEPSEEK_API_KEY', 'offline-web-fixture')
+    before = deepcopy(data)
+    with patch('app.web_backend.analyze_stock', return_value=data), \
+         patch.object(DeepSeekExplanationProvider, 'explain',
+                      side_effect=RuntimeError('private-fixture') if failure else empty_plan) as provider:
+        app = analyzed_app(data)
+        app.selectbox(key='explanation_mode').select('Auto').run()
+        app.run()
+        assert provider.call_count == 1 and not app.exception
+        assert app.session_state['explanation_result'].source == ('Standard Rules' if failure else 'AI Explanation')
+        assert 'offline-web-fixture' not in repr(app.session_state['explanation_result'])
+    assert data == before

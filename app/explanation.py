@@ -14,6 +14,7 @@ import math
 import os
 import re
 import unicodedata
+from time import perf_counter
 from urllib.parse import urlsplit
 
 import httpx
@@ -137,6 +138,7 @@ class ExplanationConfig:
     base_url: str = field(default='https://api.openai.com/v1', repr=False)
     model: str = ''
     timeout_seconds: float = 20.0
+    provider: str = 'openai-compatible'
 
     @property
     def valid(self):
@@ -147,6 +149,10 @@ class ExplanationConfig:
                         and not forbidden(self.model)
                         and url.scheme == 'https' and url.hostname and not url.username
                         and not url.password and not url.query and not url.fragment
+                        and self.provider in ('openai-compatible', 'deepseek')
+                        and (self.provider != 'deepseek' or
+                             (url.hostname == 'api.deepseek.com' and url.port in (None, 443)
+                              and url.path.rstrip('/') in ('', '/v1')))
                         and 1 <= self.timeout_seconds <= 60)
         except (TypeError, ValueError):
             return False
@@ -155,21 +161,32 @@ class ExplanationConfig:
     def from_sources(cls, environ=None, secrets=None):
         """Explicit project settings only. Do not scan unrelated environment secrets."""
         env = os.environ if environ is None else environ
-        values = {}
-        for suffix in ('API_KEY', 'BASE_URL', 'MODEL', 'TIMEOUT_SECONDS'):
-            key = 'QUANTSCORE_EXPLANATION_' + suffix
+        def read(key):
             value = env.get(key)
             if not value and secrets is not None:
                 try:
                     value = secrets.get(key)
                 except Exception:
                     value = None
-            values[suffix] = value
+            return value
+        # Keep configuration families together: never send one provider's key
+        # to the other provider's endpoint. Existing explicit settings win.
+        generic_key = read('QUANTSCORE_EXPLANATION_API_KEY')
+        deepseek_key = read('DEEPSEEK_API_KEY') if not generic_key else None
+        deepseek = bool(deepseek_key)
+        prefix = 'DEEPSEEK_' if deepseek else 'QUANTSCORE_EXPLANATION_'
+        values = {suffix: read(prefix + suffix) for suffix in ('BASE_URL', 'MODEL', 'TIMEOUT_SECONDS')}
+        values['API_KEY'] = deepseek_key if deepseek else generic_key
         try:
+            base = str(values['BASE_URL'] or ('https://api.deepseek.com' if deepseek else
+                                              'https://api.openai.com/v1')).rstrip('/')
+            # Also recognize an explicit generic configuration for official DeepSeek.
+            deepseek = deepseek or urlsplit(base).hostname == 'api.deepseek.com'
             return cls(api_key=str(values['API_KEY'] or ''),
-                       base_url=str(values['BASE_URL'] or 'https://api.openai.com/v1').rstrip('/'),
-                       model=str(values['MODEL'] or ''),
-                       timeout_seconds=float(values['TIMEOUT_SECONDS'] or 20))
+                       base_url=base,
+                       model=str(values['MODEL'] or ('deepseek-flash' if deepseek else '')),
+                       timeout_seconds=float(values['TIMEOUT_SECONDS'] or 20),
+                       provider='deepseek' if deepseek else 'openai-compatible')
         except (ValueError, TypeError):
             return cls()
 
@@ -190,17 +207,17 @@ class OpenAICompatibleExplanationProvider(ExplanationProvider):
     def __init__(self, config, transport=None):
         self.config = config
         self.transport = transport  # Deterministic offline HTTP contract tests only.
+        self.last_http_status = None  # Bounded safe diagnostics; no body/headers/key.
+        self.last_elapsed_seconds = None
 
-    def explain(self, context):
-        if not self.config.valid:
-            raise ExplanationFailure('NO_CONFIGURATION')
+    def _payload(self, context):
         ids = [r['rule_id'] for r in context['rules']]
         if not ids:
             raise ExplanationFailure('INVALID_CONTEXT')
         schema = {'type': 'object', 'properties': {
             key: {'type': 'array', 'items': {'type': 'string', 'enum': ids}, 'maxItems': len(ids)}
             for key in BUCKETS}, 'required': list(BUCKETS), 'additionalProperties': False}
-        payload = {
+        return {
             'model': self.config.model, 'store': False,
             'messages': [
                 {'role': 'system', 'content':
@@ -214,12 +231,21 @@ class OpenAICompatibleExplanationProvider(ExplanationProvider):
                 'name': 'quant_score_evidence_plan', 'strict': True, 'schema': schema}},
             'max_completion_tokens': 1200,
         }
+
+    def explain(self, context):
+        self.last_http_status = None
+        self.last_elapsed_seconds = None
+        if not self.config.valid:
+            raise ExplanationFailure('NO_CONFIGURATION')
+        payload = self._payload(context)
+        started = perf_counter()
         try:
             # A single bounded attempt. No redirects, retries or implicit proxy credentials.
             with httpx.Client(timeout=self.config.timeout_seconds, follow_redirects=False,
                               trust_env=False, transport=self.transport) as client:
                 with client.stream('POST', self.config.base_url.rstrip('/') + '/chat/completions',
                                    headers={'Authorization': 'Bearer ' + self.config.api_key}, json=payload) as response:
+                    self.last_http_status = response.status_code
                     if response.status_code == 429:
                         raise ExplanationFailure('RATE_LIMIT')
                     if response.status_code != 200:
@@ -248,6 +274,26 @@ class OpenAICompatibleExplanationProvider(ExplanationProvider):
             raise ExplanationFailure('PROVIDER_ERROR') from None
         except (ValueError, KeyError, IndexError, TypeError):
             raise ExplanationFailure('INVALID_RESPONSE') from None
+        finally:
+            self.last_elapsed_seconds = round(perf_counter() - started, 3)
+
+
+class DeepSeekExplanationProvider(OpenAICompatibleExplanationProvider):
+    """Official DeepSeek JSON mode; the same local evidence-only validation.
+
+    JSON mode is not a schema guarantee. validate_plan remains authoritative;
+    invalid/unsafe/empty/truncated output falls back without a second request.
+    """
+    def _payload(self, context):
+        payload = super()._payload(context)
+        payload.pop('store')  # Not an official DeepSeek request parameter.
+        payload['max_tokens'] = payload.pop('max_completion_tokens')
+        payload['response_format'] = {'type': 'json_object'}
+        payload['thinking'] = {'type': 'disabled'}
+        payload['messages'][0]['content'] += (
+            ' JSON格式示例：{"positive_rule_ids":[],"risk_rule_ids":[],"unmet_rule_ids":[]}。'
+            '仅允许这三个字段；列表成员必须来自输入规则，并符合各自分组，不增加其它字段。')
+        return payload
 
 
 def _number(value):
@@ -357,7 +403,8 @@ class ExplanationService:
         if mode == 'AI Explanation' and not triggered:
             return self._standard(context, 'AWAITING_USER_TRIGGER')
         try:
-            provider = self.provider or OpenAICompatibleExplanationProvider(self.config)
+            provider_type = DeepSeekExplanationProvider if self.config.provider == 'deepseek' else OpenAICompatibleExplanationProvider
+            provider = self.provider or provider_type(self.config)
             # A third-party provider can mutate only its disposable copy.
             plan = provider.explain(deepcopy(context))
             return _render(context, validate_plan(plan, context), 'AI Explanation')

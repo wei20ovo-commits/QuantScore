@@ -1,0 +1,52 @@
+{
+  "status": "PARTIAL",
+  "local_url": "http://127.0.0.1:8503/",
+  "public_url": "https://quantscore-grrgr4oqy5pfhfqnyp9q9b.streamlit.app/",
+  "is_mock": false,
+  "ai_calls": 0,
+  "full_market_scan_triggered": false,
+  "public_optimized_cold_seconds": null,
+  "public_optimized_warm_seconds": null,
+  "public_optimized_status": "NOT_DEPLOYED_NO_COMMIT_PUSH",
+  "public_limitation": "Local modifications cannot reach Community Cloud under current no-commit/no-push instruction",
+  "local_cold_definition": "First click in fresh browser; persistent market cache state not forced",
+  "local_warm_definition": "Same-session second click; existing st.cache_data may serve result",
+  "local_http_status": 200,
+  "client_first_local_web_seconds": 76.219,
+  "client_first_real_analysis": "PASS",
+  "same_session_warm_local_web_seconds": 0.531,
+  "same_session_warm_real_analysis": "PASS",
+  "plotly_traces": [
+    {
+      "name": "前复权日K",
+      "type": "candlestick",
+      "points": 120
+    },
+    {
+      "name": "M5",
+      "type": "scatter",
+      "points": 120
+    },
+    {
+      "name": "M30",
+      "type": "scatter",
+      "points": 120
+    },
+    {
+      "name": "M60",
+      "type": "scatter",
+      "points": 120
+    },
+    {
+      "name": "成交量（股）",
+      "type": "bar",
+      "points": 120
+    }
+  ],
+  "local_light_dark": "PASS",
+  "local_mobile": "PASS",
+  "public_home_http_status": 200,
+  "public_home_ready_seconds": 10.516,
+  "public_stock_analysis_triggered": false,
+  "local_verification_status": "PASS"
+}

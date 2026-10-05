@@ -1,0 +1,16 @@
+{
+  "provider": "baostock",
+  "symbol": "000001.SH",
+  "adjustment_type": "NONE",
+  "data_status": "VALID",
+  "is_mock": false,
+  "trade_date": "2026-09-30",
+  "rows": 6482,
+  "file": "data/published/market_context/benchmark.csv",
+  "sha256": "20b0aee8396a4986db35ee162995f420e9c76b7837a3733bd10103f340d7af5b",
+  "retrieved_at_epoch": 1791040558.2519896,
+  "source_cache": "outputs/stage3c1/final_history.sqlite3",
+  "source_payload_sha256": "816d13950ac1af5a98309aab6f3dd6be861b9e3053be8aaa96f1b51d0901c8e8",
+  "source_validation": "OHLC/date/symbol + exact overlap; qfq anchor changes force full refresh",
+  "publication": "Read-only export of Stage3C.1 verified real benchmark; no network or price transformation"
+}

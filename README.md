@@ -26,6 +26,24 @@ QUANTSCORE_EXPLANATION_TIMEOUT_SECONDS = 20
 
 确定性 HTTP mock 与 Streamlit AppTest 验证独立记录，**真实付费 API 未验证**，不将 mock 称为在线成功。实际 Web smoke 与测试见 [Stage 4B 报告](docs/STAGE4B_RESULT.md)。本阶段不 commit/push，不进入 Stage 5。
 
+### Stage 4C.1 DeepSeek 配置
+
+支持环境变量或 Streamlit secrets 顶层键 `DEEPSEEK_API_KEY`、`DEEPSEEK_BASE_URL`、`DEEPSEEK_MODEL`、`DEEPSEEK_TIMEOUT_SECONDS`。只在实际运行环境中安全填写Key，不粘贴到源码、配置样例、聊天或Git。模板中的Key保持为空，程序不自动读取 `.env`。
+
+```toml
+# 在 Streamlit Cloud 的 App Settings → Secrets 中配置，勿提交实际值。
+DEEPSEEK_API_KEY = "<仅在秘密配置中填写>"
+DEEPSEEK_BASE_URL = "https://api.deepseek.com"
+DEEPSEEK_MODEL = "deepseek-flash"
+DEEPSEEK_TIMEOUT_SECONDS = 20
+```
+
+同名环境变量优先于secrets。已有 `QUANTSCORE_EXPLANATION_API_KEY` 若非空，整套通用配置优先；不会混用两个服务的Key/URL。DeepSeek默认官方HTTPS地址、`deepseek-flash`、20秒超时；可显式指定模型。DeepSeek专用配置只允许官方域名，路径为空或 `/v1`。默认模型与请求参数依据[官方当前API文档](https://api-docs.deepseek.com/api/create-chat-completion/)与[JSON模式说明](https://api-docs.deepseek.com/guides/json_mode/)核验，不沿用已退出的历史模型名。
+
+DeepSeek使用 `json_object`、`max_tokens=1200`、非思考模式，仍只返回三个已有规则ID列表。JSON模式不保证Schema，因此本地严格验证字段、ID、分组及禁止措辞；空、非法、截断响应均回退，不自动重试，不回退成自由文本。DeepSeek请求不发送OpenAI专属 `store` / `max_completion_tokens`；其余安全限制不变。
+
+可运行 `python tools/stage4c1_deepseek_smoke.py --allow-real-api`：只读取环境/secrets，使用真实600519历史引擎结果，最多AI Explanation一次、Auto一次；首次失败即停止后续真实调用。无配置记录 `REAL_API_CONFIGURATION_REQUIRED`，不联网调用模型。证据只含状态、请求模型、HTTP状态与耗时，不保存Key/请求体/模型原文。此脚本不是新行情请求或公网新版部署验收；本轮无commit/push，云端不会因此自动升级。见 [Stage 4C.1 报告](docs/STAGE4C1_RESULT.md)。
+
 ## Stage 4A Web App
 
 Web 提供首页 Dashboard、单股分析、板块热度、策略匹配候选、规则中心五个页面，保留 Light/Dark 与移动端布局。单股分析继续调用现有 `StockAnalysisService`，展示所属行业、SectorHeat、B1/B2 和逐条原始证据；页面不重新计算评分或候选条件。

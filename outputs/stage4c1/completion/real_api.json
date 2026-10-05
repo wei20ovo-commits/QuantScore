@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-10-05T12:22:09.976202+00:00",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "real_api_calls": 2,
+  "attempts": [
+    {
+      "mode": "AI Explanation",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "http_status": 200,
+      "latency_seconds": 1.917,
+      "status": "OK",
+      "source": "AI Explanation",
+      "reason_code": "",
+      "fallback": false,
+      "existing_facts_identical": true,
+      "disclaimer_present": true,
+      "no_forbidden_advice": true
+    },
+    {
+      "mode": "Auto",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "http_status": 200,
+      "latency_seconds": 1.379,
+      "status": "OK",
+      "source": "AI Explanation",
+      "reason_code": "",
+      "fallback": false,
+      "existing_facts_identical": true,
+      "disclaimer_present": true,
+      "no_forbidden_advice": true
+    }
+  ],
+  "input_type": "ARCHIVED_GENUINE_600519_ENGINE_RESULT_NOT_NEW_MARKET_FETCH",
+  "symbol": "600519.SH",
+  "name": "贵州茅台",
+  "trade_date": "2026-09-30",
+  "input_source": "outputs/stage3c/full_market/stock_details/600519.SH.json",
+  "analysis_sha256": "dc0b604e282ab485bddab7a6cfe82ddc0f9806df6312ee254f203695ce989172",
+  "fallback": {
+    "status": "PASS",
+    "source": "Standard Rules",
+    "reason_code": "NO_CONFIGURATION",
+    "http_requests": 0
+  },
+  "analysis_unchanged": true,
+  "score_risk_heat_B1_B2_candidate_unchanged": true,
+  "raw_chart_or_bars_sent": false,
+  "unknown_and_data_error_not_invented": true,
+  "real_api_status": "PASS",
+  "credential_environment_removed": true
+}

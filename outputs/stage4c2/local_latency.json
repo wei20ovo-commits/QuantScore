@@ -1,0 +1,86 @@
+{
+  "scope": "LOCAL genuine 600519; controlled empty cache then same persistent cache; NOT PUBLIC",
+  "started_at": "2026-10-05T13:23:57.753998+00:00",
+  "is_mock": false,
+  "api_calls": 0,
+  "runs": {
+    "cold": {
+      "total_seconds": 56.3085,
+      "chart_figure_seconds": 0.2645,
+      "symbol": "600519.SH",
+      "name": "贵州茅台",
+      "trade_date": "2026-09-30",
+      "data_status": "PARTIAL",
+      "provider": "baostock",
+      "is_mock": false,
+      "quant_score": 0.0,
+      "risk": "HIGH",
+      "sector_heat": 70,
+      "rule_count": 41,
+      "chart_points": 120,
+      "architecture": "same_date_snapshots_v1",
+      "phase_seconds": {
+        "market_context_load": 0.3262,
+        "provider_request": 31.9078,
+        "stock_raw_qfq_fetch": 30.7835,
+        "industry_context_load": 0.0022,
+        "B1_B2": 0.0358,
+        "rule_scoring": 16.3441,
+        "chart_data": 1.2374
+      },
+      "provider_requests": 10,
+      "ai_call_seconds": 0,
+      "screening_snapshot_source": "outputs/stage3c/full_market/screening_details.json",
+      "cache_hits": 6,
+      "cache_misses": 5,
+      "benchmark_status": "VALID",
+      "benchmark_snapshot": {
+        "source": "data/published/market_context/benchmark.csv",
+        "trade_date": "2026-09-30",
+        "provider": "baostock",
+        "status": "VALID",
+        "sha256": "20b0aee8396a4986db35ee162995f420e9c76b7837a3733bd10103f340d7af5b"
+      },
+      "total_backend_seconds": 56.031
+    },
+    "warm": {
+      "total_seconds": 22.1128,
+      "chart_figure_seconds": 0.0405,
+      "symbol": "600519.SH",
+      "name": "贵州茅台",
+      "trade_date": "2026-09-30",
+      "data_status": "PARTIAL",
+      "provider": "baostock",
+      "is_mock": false,
+      "quant_score": 0.0,
+      "risk": "HIGH",
+      "sector_heat": 70,
+      "rule_count": 41,
+      "chart_points": 120,
+      "architecture": "same_date_snapshots_v1",
+      "phase_seconds": {
+        "market_context_load": 0.3521,
+        "industry_context_load": 0.0018,
+        "B1_B2": 0.0849,
+        "rule_scoring": 16.1147,
+        "chart_data": 1.2203
+      },
+      "provider_requests": 0,
+      "ai_call_seconds": 0,
+      "screening_snapshot_source": "outputs/stage3c/full_market/screening_details.json",
+      "cache_hits": 11,
+      "cache_misses": 0,
+      "benchmark_status": "VALID",
+      "benchmark_snapshot": {
+        "source": "data/published/market_context/benchmark.csv",
+        "trade_date": "2026-09-30",
+        "provider": "baostock",
+        "status": "VALID",
+        "sha256": "20b0aee8396a4986db35ee162995f420e9c76b7837a3733bd10103f340d7af5b"
+      },
+      "total_backend_seconds": 22.063
+    }
+  },
+  "status": "PASS",
+  "completed_at": "2026-10-05T13:25:16.256334+00:00"
+}
