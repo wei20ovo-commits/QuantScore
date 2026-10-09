@@ -9,17 +9,24 @@ from app.data.models import DataError
 from app.web_backend import analyze_stock, coverage_text, normalize_stock_code, number_text
 
 
-@st.cache_data(ttl=900, max_entries=4, show_spinner=False)
 def load_market_snapshot():
     from app.web_market import load_index_snapshots
     return load_index_snapshots()
 
-@st.cache_data(ttl=300, max_entries=64, show_spinner=False)
 def load_analysis(code):
     result = analyze_stock(code)
     if result['data_status']['status'] == 'UNAVAILABLE':
-        raise DataError('暂时无法取得完整行情，请稍后重试。数据源返回不可用，本次不展示评分。')
+        from app.web_diagnostics import WebDataError
+        raise WebDataError('暂时无法取得完整行情，请稍后重试。数据源返回不可用，本次不展示评分。',
+                           result.get('web_diagnostics'))
     return result
+
+
+# Spawn reimports this entrypoint without a Streamlit runtime. Workers must not
+# register UI caches; the serving process retains the exact existing TTLs.
+if __name__ != '__mp_main__':
+    load_market_snapshot = st.cache_data(ttl=900, max_entries=4, show_spinner=False)(load_market_snapshot)
+    load_analysis = st.cache_data(ttl=300, max_entries=64, show_spinner=False)(load_analysis)
 
 def render_home(theme):
     from app.web_visuals import home_dashboard
@@ -120,7 +127,11 @@ def main():
                     from datetime import datetime
                     recent = [x for x in st.session_state.get('recent_analyses', []) if x['data']['symbol'] != data['symbol']]
                     st.session_state['recent_analyses'] = [{'data':data,'analyzed_at':datetime.now().strftime('%H:%M:%S')},*recent][:6]
-        except DataError as exc: st.error(str(exc))
+        except DataError as exc:
+            st.error(str(exc))
+            if getattr(exc,'diagnostics',None):
+                with st.expander('请求诊断 · 不含凭据'):
+                    st.json(exc.diagnostics,expanded=False)
         except Exception: st.error('分析暂时未完成，请稍后重试。当前没有可展示的新结果。')
     st.html(f'<div class="view-state view-{st.session_state["view"]}"></div>')
     view=st.session_state['view']

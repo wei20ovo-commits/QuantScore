@@ -54,6 +54,14 @@ class WebContextSnapshots:
                     self.mapping_error = True
                 self.membership[symbol] = sector
         self.benchmark_evidence = {}
+        # Diagnostic metadata only; benchmark() still independently verifies
+        # date, provider, hash and OHLC before a single price may be reused.
+        from app.web_diagnostics import date_only
+        try:
+            self.published_benchmark_date=date_only(json.loads(
+                (self.root/'data/published/market_context/manifest.json').read_text('utf-8')).get('trade_date'))
+        except (OSError,ValueError,AttributeError):
+            self.published_benchmark_date=None
 
     def industry(self, symbol, day):
         if self.screening.status != 'VALID':

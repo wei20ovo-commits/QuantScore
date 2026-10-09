@@ -9,7 +9,7 @@ import signal
 import time
 from uuid import uuid4
 
-from app.data.models import DataError
+from app.web_diagnostics import WebDataError, bind_sink, reset_sink, safe_event, error_reason
 
 
 def _windows_job(process):
@@ -48,10 +48,20 @@ def _worker(gate,target,args,directory):
     if os.name!='nt': os.setsid()
     gate.recv()  # Parent attaches the owned Windows job before SDK children exist.
     gate.close()
+    events=[]
+    def progress(event):
+        events.append(event)
+        temporary=directory/'diagnostic.partial'
+        temporary.write_text(json.dumps({'events':events[-100:]}),'utf-8')
+        temporary.replace(directory/'diagnostic.json')
+    token=bind_sink(progress)
     try:
         output={'ok':True,'value':target(*args)}
     except Exception as exc:
-        output={'ok':False,'error_type':type(exc).__name__}
+        output={'ok':False,'diagnostics':{'events':events[-100:],
+                'reason_code':error_reason(exc)}}
+    finally:
+        reset_sink(token)
     temporary=directory/'response.partial'
     temporary.write_text(json.dumps(output,ensure_ascii=False,allow_nan=False),'utf-8')
     temporary.replace(directory/'response.json')
@@ -66,6 +76,14 @@ def bounded_web_call(target,args,*,root,seconds=240):
     parent,child=context.Pipe()
     process=context.Process(target=_worker,args=(child,target,args,str(directory)),daemon=False)
     closer=None;started=time.monotonic()
+    def failure(message,reason):
+        try:
+            saved=json.loads((directory/'diagnostic.json').read_text('utf-8'))
+            events=[safe_event(e.get('stage'),e.get('status'),**{k:e[k] for k in
+                    ('seconds','reason_code','provider','method','adjustment') if k in e}) for e in saved['events'][-100:]]
+        except (OSError,ValueError,KeyError,TypeError): events=[]
+        return WebDataError(message,{'reason_code':reason,'events':events,
+                                    'total_backend_seconds':round(time.monotonic()-started,4)})
     try:
         process.start();child.close()
         if os.name=='nt': closer=_windows_job(process)
@@ -73,16 +91,22 @@ def bounded_web_call(target,args,*,root,seconds=240):
         while process.is_alive() and time.monotonic()-started<seconds:
             process.join(min(.1,max(.001,seconds-(time.monotonic()-started))))
         if process.is_alive():
-            raise DataError('单股分析达到运行时限，已停止本次请求；未生成新评分，请稍后重试。')
+            raise failure('单股分析达到运行时限，已停止本次请求；未生成新评分，请稍后重试。','WEB_DEADLINE_EXCEEDED')
         path=directory/'response.json'
         if process.exitcode!=0 or not path.exists() or path.stat().st_size>16*1024*1024:
-            raise DataError('单股分析未返回完整结果；本次不展示新评分。')
+            raise failure('单股分析未返回完整结果；本次不展示新评分。','WORKER_RESPONSE_INVALID')
         result=json.loads(path.read_text('utf-8'))
         if not result['ok']:
-            raise DataError('单股数据源或快照暂不可用；本次不展示新评分，请稍后重试。')
+            reason=result.get('diagnostics',{}).get('reason_code','WORKER_ERROR')
+            from app.web_diagnostics import REASONS
+            raise failure('单股数据源或快照暂不可用；本次不展示新评分，请稍后重试。',
+                          reason if reason in REASONS else 'WORKER_ERROR')
         output=result['value']
         if isinstance(output,dict):
-            output.setdefault('web_latency',{})['total_backend_seconds']=round(time.monotonic()-started,4)
+            elapsed=round(time.monotonic()-started,4)
+            output.setdefault('web_latency',{})['total_backend_seconds']=elapsed
+            if isinstance(output.get('web_diagnostics'),dict):
+                output['web_diagnostics'].update(total_backend_seconds=elapsed,web_deadline_seconds=seconds)
         return output
     finally:
         parent.close();child.close()

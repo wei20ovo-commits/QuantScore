@@ -4,6 +4,7 @@ from pathlib import Path
 from time import perf_counter
 from app.data.models import DataError
 from app.services.stock_analysis_service import StockAnalysisService
+from app.web_diagnostics import trace_call, emit, safe_event, date_only
 
 
 def normalize_stock_code(value):
@@ -42,13 +43,18 @@ def create_web_service(root=None, cache=None):
     service=StockAnalysisService(provider_manager=manager,industry_service=SnapshotIndustryService(snapshots))
     service.web_latency={'architecture':'same_date_snapshots_v1','phase_seconds':{'market_context_load':round(perf_counter()-started,4)},
                          'provider_requests':0,'provider_events':[],
-                         'provider_request_count_scope':'BaoStock SDK queries, including retry attempts; fallback provider HTTP internals not observed',
+                         'provider_request_count_scope':'Wrapped provider calls including BaoStock SDK queries and AKShare calls; retries counted; HTTP internals not observed',
                          'ai_call_seconds':0,'screening_snapshot_source':snapshots.screening.source}
+    service.web_diagnostic_events=[]
     def wrap(obj,name,label):
         original=getattr(obj,name)
         def measured(*args,**kwargs):
             before=perf_counter();status='OK'
-            try:return original(*args,**kwargs)
+            try:
+                return trace_call(service.web_diagnostic_events,label,
+                                  lambda:original(*args,**kwargs),provider=getattr(obj,'name',None),
+                                  method=args[0] if label=='provider_request' and args else None,
+                                  adjustment=args[3] if label=='stock_raw_qfq_fetch' and len(args)>3 else None)
             except Exception as exc:
                 status=type(exc).__name__
                 raise
@@ -64,6 +70,10 @@ def create_web_service(root=None, cache=None):
     for provider in providers:
         wrap(provider,'fetch_stock_daily','stock_raw_qfq_fetch')
         if hasattr(provider,'_call'): wrap(provider,'_call','provider_request')
+    wrap(manager.resolver,'resolve','security_resolve')
+    wrap(manager,'lookup_securities','security_lookup')
+    wrap(manager,'list_securities','security_list')
+    wrap(manager,'fetch','market_fetch')
     if service.industry_service is not None:
         wrap(service.industry_service,'build','industry_context_load')
     wrap(service.score_engine,'evaluate','rule_scoring')
@@ -80,7 +90,8 @@ def create_web_service(root=None, cache=None):
 
 
 def _analyze_inprocess(code,root=None,cache=None,service=None):
-    service=service or create_web_service(root,cache)
+    events=[]
+    service=service or trace_call(events,'service_init',lambda:create_web_service(root,cache))
     try:
         return _analysis_and_chart(code,service)
     finally:
@@ -136,6 +147,23 @@ def _analysis_and_chart(code,service):
                                    provider_worker_starts=sum(getattr(p,'worker_starts',0) for p in service.provider_manager.providers),
                                    benchmark_snapshot=cache.snapshots.benchmark_evidence)
         output['web_latency']=service.web_latency
+        failed=[e for e in service.web_diagnostic_events if e['status']=='FAILED']
+        output['web_diagnostics']={
+            'events':service.web_diagnostic_events,
+            'reason_code':'DATA_UNAVAILABLE' if output['data_status']['status']=='UNAVAILABLE' else 'NONE',
+            'provider_failures':[e for e in failed if e['stage']=='stock_raw_qfq_fetch'],
+            'stock_trade_date':date_only(output.get('evaluation_date')),
+            'industry_snapshot_date':date_only(cache.snapshots.screening.payload.get('trade_date')),
+            'benchmark_snapshot_date':cache.snapshots.published_benchmark_date,
+            'industry_data_status':output['industry_context'].get('data_status','UNKNOWN'),
+            'benchmark_data_status':cache.benchmark_status,
+            'phase_seconds':dict(service.web_latency['phase_seconds']),
+            'provider_requests':service.web_latency['provider_requests'],
+            'provider_timeouts':service.web_latency['provider_timeouts'],
+            'max_fetch_attempts':service.provider_manager.retries,
+            'cache_hits':cache.hits,'cache_misses':cache.misses}
+        if output['data_status']['status']=='UNAVAILABLE':
+            emit(safe_event('analysis','UNAVAILABLE',reason_code=output['web_diagnostics']['reason_code']))
         if output['industry_context'].get('data_status')!='VALID':
             output['warnings'].append('行业快照缺失、日期不匹配或不可用；B1/B2按原规则返回对应数据状态，不实时抓取整个行业。')
         if cache.benchmark_status!='VALID':

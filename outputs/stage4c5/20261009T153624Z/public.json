@@ -1,0 +1,39 @@
+{
+  "kind": "REAL_PUBLIC",
+  "ai_calls": 0,
+  "full_market_scan_submitted": false,
+  "stock_submissions": 1,
+  "cloud_revision": null,
+  "status": "ANALYSIS_SUCCESS",
+  "http_status": 200,
+  "home_seconds": 13.969,
+  "chart_visible": true,
+  "analysis_seconds": 28.875,
+  "trade_dates": [
+    "2026-10-09"
+  ],
+  "industry_cards": [
+    {
+      "label": "Primary Industry",
+      "value": "暂无数据",
+      "status": "DATA_STALE"
+    },
+    {
+      "label": "SectorHeat",
+      "value": "—",
+      "status": "DATA_STALE"
+    },
+    {
+      "label": "B1",
+      "value": "—",
+      "status": "UNKNOWN"
+    },
+    {
+      "label": "B2",
+      "value": "—",
+      "status": "UNKNOWN"
+    }
+  ],
+  "diagnostic_expander_present": false,
+  "page_errors": []
+}

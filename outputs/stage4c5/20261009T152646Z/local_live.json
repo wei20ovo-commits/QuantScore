@@ -1,0 +1,259 @@
+{
+  "kind": "REAL_LOCAL_WEB_PATH",
+  "is_mock": false,
+  "status": "UNAVAILABLE",
+  "symbol": "600519.SH",
+  "name": "",
+  "trade_date": null,
+  "quant_score": 0.0,
+  "risk": "LOW",
+  "rule_count": 41,
+  "chart_rows": 0,
+  "industry_data_status": null,
+  "industry_reason": null,
+  "B1_B2": [
+    {
+      "rule_id": "B1",
+      "status": "UNKNOWN",
+      "score": null,
+      "reason_code": "DATA_INSUFFICIENT"
+    },
+    {
+      "rule_id": "B2",
+      "status": "UNKNOWN",
+      "score": null,
+      "reason_code": "DATA_INSUFFICIENT"
+    }
+  ],
+  "diagnostics": {
+    "events": [
+      {
+        "stage": "provider_request",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 1.7698,
+        "provider": "baostock",
+        "method": "query_stock_basic"
+      },
+      {
+        "stage": "provider_request",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 0.8988,
+        "provider": "baostock",
+        "method": "query_stock_basic"
+      },
+      {
+        "stage": "security_lookup",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 2.7338
+      },
+      {
+        "stage": "security_resolve",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 2.7456
+      },
+      {
+        "stage": "provider_request",
+        "status": "FAILED",
+        "reason_code": "PROVIDER_TIMEOUT",
+        "seconds": 31.2967,
+        "provider": "baostock",
+        "method": "query_history_k_data_plus"
+      },
+      {
+        "stage": "stock_raw_qfq_fetch",
+        "status": "FAILED",
+        "reason_code": "PROVIDER_TIMEOUT",
+        "seconds": 31.3043,
+        "provider": "baostock",
+        "adjustment": "raw"
+      },
+      {
+        "stage": "provider_request",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 27.6733,
+        "provider": "baostock",
+        "method": "query_history_k_data_plus"
+      },
+      {
+        "stage": "provider_request",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 22.477,
+        "provider": "baostock",
+        "method": "query_history_k_data_plus"
+      },
+      {
+        "stage": "provider_request",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 9.3138,
+        "provider": "baostock",
+        "method": "query_history_k_data_plus"
+      },
+      {
+        "stage": "provider_request",
+        "status": "FAILED",
+        "reason_code": "PROVIDER_TIMEOUT",
+        "seconds": 31.3002,
+        "provider": "baostock",
+        "method": "query_history_k_data_plus"
+      },
+      {
+        "stage": "stock_raw_qfq_fetch",
+        "status": "FAILED",
+        "reason_code": "PROVIDER_TIMEOUT",
+        "seconds": 90.8901,
+        "provider": "baostock",
+        "adjustment": "raw"
+      },
+      {
+        "stage": "provider_request",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 6.3422,
+        "provider": "akshare",
+        "method": "stock_zh_a_hist"
+      },
+      {
+        "stage": "stock_raw_qfq_fetch",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 6.3601,
+        "provider": "akshare",
+        "adjustment": "raw"
+      },
+      {
+        "stage": "provider_request",
+        "status": "OK",
+        "reason_code": "NONE",
+        "seconds": 2.1063,
+        "provider": "akshare",
+        "method": "stock_zh_a_hist"
+      },
+      {
+        "stage": "stock_raw_qfq_fetch",
+        "status": "FAILED",
+        "reason_code": "DATA_VALIDATION_ERROR",
+        "seconds": 2.1208,
+        "provider": "akshare",
+        "adjustment": "qfq"
+      },
+      {
+        "stage": "market_fetch",
+        "status": "FAILED",
+        "reason_code": "PROVIDER_TIMEOUT",
+        "seconds": 130.7626
+      }
+    ],
+    "reason_code": "PROVIDER_TIMEOUT",
+    "stock_trade_date": null,
+    "industry_snapshot_date": "2026-09-30",
+    "benchmark_snapshot_date": "2026-09-30",
+    "industry_data_status": "UNKNOWN",
+    "cache_hits": 0,
+    "cache_misses": 5
+  },
+  "latency": {
+    "architecture": "same_date_snapshots_v1",
+    "phase_seconds": {
+      "market_context_load": 0.4079,
+      "provider_request": 133.2429,
+      "security_lookup": 2.7429,
+      "security_resolve": 2.7542,
+      "stock_raw_qfq_fetch": 130.7026,
+      "market_fetch": 130.7687,
+      "benchmark_snapshot_load": 0
+    },
+    "provider_requests": 9,
+    "provider_events": [
+      {
+        "provider": "baostock",
+        "method": "query_stock_basic",
+        "code": "sh.600519",
+        "adjustflag": null,
+        "status": "OK",
+        "seconds": 1.7764
+      },
+      {
+        "provider": "baostock",
+        "method": "query_stock_basic",
+        "code": "sz.600519",
+        "adjustflag": null,
+        "status": "OK",
+        "seconds": 0.9055
+      },
+      {
+        "provider": "baostock",
+        "method": "query_history_k_data_plus",
+        "code": "sh.600519",
+        "adjustflag": "3",
+        "status": "ProviderError",
+        "seconds": 31.3041
+      },
+      {
+        "provider": "baostock",
+        "method": "query_history_k_data_plus",
+        "code": "sh.600519",
+        "adjustflag": "3",
+        "status": "OK",
+        "seconds": 27.6803
+      },
+      {
+        "provider": "baostock",
+        "method": "query_history_k_data_plus",
+        "code": "sh.600519",
+        "adjustflag": "3",
+        "status": "OK",
+        "seconds": 22.4831
+      },
+      {
+        "provider": "baostock",
+        "method": "query_history_k_data_plus",
+        "code": "sh.600519",
+        "adjustflag": "3",
+        "status": "OK",
+        "seconds": 9.3208
+      },
+      {
+        "provider": "baostock",
+        "method": "query_history_k_data_plus",
+        "code": "sh.600519",
+        "adjustflag": "3",
+        "status": "ProviderError",
+        "seconds": 31.3077
+      },
+      {
+        "provider": "akshare",
+        "method": "stock_zh_a_hist",
+        "code": null,
+        "adjustflag": null,
+        "status": "OK",
+        "seconds": 6.3507
+      },
+      {
+        "provider": "akshare",
+        "method": "stock_zh_a_hist",
+        "code": null,
+        "adjustflag": null,
+        "status": "OK",
+        "seconds": 2.1144
+      }
+    ],
+    "provider_request_count_scope": "BaoStock SDK queries, including retry attempts; fallback provider HTTP internals not observed",
+    "ai_call_seconds": 0,
+    "screening_snapshot_source": "outputs/stage3c/full_market/screening_details.json",
+    "cache_hits": 0,
+    "cache_misses": 5,
+    "benchmark_status": "UNKNOWN",
+    "provider_timeouts": 2,
+    "provider_worker_starts": 2,
+    "benchmark_snapshot": {},
+    "total_backend_seconds": 135.484
+  },
+  "total_seconds": 135.5
+}

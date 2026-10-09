@@ -1,0 +1,30 @@
+{
+  "head": "bcd65956097509e52582f9d8066f055ac7fbc242",
+  "cached_origin_main": "bcd65956097509e52582f9d8066f055ac7fbc242",
+  "git_fetch_this_stage": false,
+  "commit_or_push_performed": false,
+  "protected_changes": [],
+  "protected_sources_unchanged": true,
+  "spawn_import_without_network": {
+    "baseline_warning_count": 2,
+    "patched_warning_count": 0
+  },
+  "sdk_endpoint": {
+    "host": "public-api.baostock.com",
+    "port": 10030,
+    "transport": "TCP",
+    "evidence": "installed baostock 0.9.4 common/contants.py + util/socketutil.py"
+  },
+  "stage_file_hashes": {
+    "app/web_diagnostics.py": "f7b1804b15647de803e2cc5e08dae5986b764ec8bde1aa1a5107b066193de5a2",
+    "tests/test_web_diagnostics.py": "a9430b05cba37f503c4266b8ae618990bea16d703e54abb038ab600ce6482d30",
+    "tools/stage4c5_diagnose.py": "0abf52e5a8138920821c82e34a0e1f7ffc0bda222833ca76bf21eab2de1c9f87",
+    "tools/stage4c5_audit.py": "54ecd72af2f879427bd66bf8eb780d664630c73b43c5c58052cba3679d261429",
+    "docs/STAGE4C5_RESULT.md": "df9c658bbdfec8a4d9a5c9f348eac7c17b9119b5748b2019dd0745828c9e2b40",
+    "app/web.py": "650f47bbf1626ad73904309c40133afd7ef377de680c871fbc578ebdc802d26a",
+    "app/web_backend.py": "276dc43792f75271282ed84ddc3bda99fca50f26a30a7fcfb3bf4584d053329c",
+    "app/web_runtime.py": "bd53be1ba319e8dc7b95b905ee037729074f3a2a704de0646adec86947369e28",
+    "app/web_snapshots.py": "51eefb83811f2a043603ad1db4a5fe084815ac74b9041e7978ed58757eef1476"
+  },
+  "live_request_success_proves_prior_failure_root_cause": false
+}
