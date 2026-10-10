@@ -1,0 +1,33 @@
+{
+  "formal_tests": {
+    "total": 1017,
+    "pass": 1016,
+    "fail": 0,
+    "error": 0,
+    "skip": 1,
+    "pytest_seconds": 237.98,
+    "evidence": "pytest-final-v2.xml"
+  },
+  "existing_skip": "Historical T20 superseded by Stage3C; unchanged",
+  "source_identity": {
+    "git_commit": "93e6eb2b883bebe54297a2be567a7af91d20153e",
+    "source_modified": true,
+    "code_fingerprint": "de594340a4e9bcc97e7fb2221ac2633545b00910d0491bf7383b345f7f54c0b7",
+    "fingerprint_algorithm": "sha256-path-content-lf-v1",
+    "fingerprint_complete": true,
+    "source_file_count": 87
+  },
+  "privacy_redactions": [
+    {
+      "file": "pytest-final-v2.xml",
+      "private_prefixes_redacted": 1
+    }
+  ],
+  "business_changes": false,
+  "public_verification": "PENDING_USER_AUTHORIZED_PUBLICATION",
+  "api_calls": 0,
+  "public_analysis_requests": 0,
+  "commit_push": false,
+  "local_status": "PASS",
+  "overall_stage4c_status": "PARTIAL"
+}

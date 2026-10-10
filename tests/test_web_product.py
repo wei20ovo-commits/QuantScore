@@ -170,7 +170,10 @@ def test_navigation_no_scan_or_auto_analysis(view, snapshot):
         app.button(key='nav_' + view).click().run()
         assert not app.exception
         if view == 'rules':
-            assert len(app.expander) == 49  # 48 ACTIVE rules plus shared status legend
+            # Preserve all 48 ACTIVE rules and the shared status legend; the
+            # release evidence panel is independently present on every page.
+            assert sum(e.label!='部署版本 · 可核验' for e in app.expander)==49
+            assert sum(e.label=='部署版本 · 可核验' for e in app.expander)==1
         elif view == 'sectors':
             assert len(app.dataframe[0].value) == 1
         else:

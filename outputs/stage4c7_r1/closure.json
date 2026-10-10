@@ -1,0 +1,254 @@
+{
+  "integrity": {
+    "index_unchanged": true,
+    "staged_entries_unchanged": true,
+    "staged_file_count": 12,
+    "working_changes_to_staged_files": [
+      "app/web_deployment.py",
+      "tests/test_web_observability.py"
+    ]
+  },
+  "tests": {
+    "after_combined.xml": {
+      "tests": 83,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 83,
+      "seconds": 60.141
+    },
+    "after_independent_0.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 3.27
+    },
+    "after_independent_1.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 2.969
+    },
+    "after_independent_2.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 2.324
+    },
+    "after_independent_3.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 2.134
+    },
+    "after_independent_4.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 2.323
+    },
+    "after_independent_5.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 10.636
+    },
+    "after_independent_6.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 8.548
+    },
+    "after_observability.xml": {
+      "tests": 28,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 28,
+      "seconds": 25.993
+    },
+    "after_reverse.xml": {
+      "tests": 83,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 83,
+      "seconds": 63.178
+    },
+    "before_combined.xml": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 6,
+      "seconds": 16.705
+    },
+    "before_independent_0.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 2.526
+    },
+    "before_independent_1.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 2.542
+    },
+    "before_independent_2.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 2.512
+    },
+    "before_independent_3.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 2.468
+    },
+    "before_independent_4.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 2.405
+    },
+    "before_independent_5.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 9.524
+    },
+    "before_spawn.xml": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1,
+      "seconds": 9.235
+    },
+    "formal.xml": {
+      "tests": 1020,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 1019,
+      "seconds": 246.556
+    }
+  },
+  "privacy_scan": {
+    "scope": "staged files/diffs + R1 changes/report/new artifacts; historical raw temporary logs excluded and preserved",
+    "scanned_items": 80,
+    "findings": [],
+    "redactions_of_new_test_metadata": [
+      {
+        "file": "outputs/stage4c7_r1/after_combined.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/after_independent_0.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/after_independent_1.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/after_independent_2.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/after_independent_3.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/after_independent_4.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/after_independent_5.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/after_independent_6.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/after_observability.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/after_reverse.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/before_combined.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/before_independent_0.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/before_independent_1.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/before_independent_2.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/before_independent_3.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/before_independent_4.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/before_independent_5.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/before_spawn.xml",
+        "count": 1
+      },
+      {
+        "file": "outputs/stage4c7_r1/formal.xml",
+        "count": 1
+      }
+    ]
+  },
+  "production_request_deadline_seconds": 240,
+  "app_test_default_seconds": 3,
+  "spawn_timeout_test_seconds": 8,
+  "git_mutations": false,
+  "public_requests": 0,
+  "api_calls": 0
+}

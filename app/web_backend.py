@@ -46,6 +46,10 @@ def create_web_service(root=None, cache=None):
                          'provider_request_count_scope':'Wrapped provider calls including BaoStock SDK queries and AKShare calls; retries counted; HTTP internals not observed',
                          'ai_call_seconds':0,'screening_snapshot_source':snapshots.screening.source}
     service.web_diagnostic_events=[]
+    snapshot_context=safe_event('context','OK',
+        industry_snapshot_date=date_only(snapshots.screening.payload.get('trade_date')),
+        benchmark_snapshot_date=snapshots.published_benchmark_date)
+    service.web_diagnostic_events.append(emit(snapshot_context))
     def wrap(obj,name,label):
         original=getattr(obj,name)
         def measured(*args,**kwargs):
@@ -74,6 +78,27 @@ def create_web_service(root=None, cache=None):
     wrap(manager,'lookup_securities','security_lookup')
     wrap(manager,'list_securities','security_list')
     wrap(manager,'fetch','market_fetch')
+    # Observe the existing callback attempts; _fetch still owns every cache,
+    # validation and retry decision. No retry is added or removed here.
+    original_fetch=manager._fetch
+    def measured_fetch(provider,symbol,start,end,adjustment,call,refresh):
+        attempts=0
+        def measured_attempt():
+            nonlocal attempts
+            attempts+=1
+            if attempts>1:
+                service.web_diagnostic_events.append(emit(safe_event('fetch_retry','OK',
+                    provider=provider.name,adjustment=adjustment)))
+            return trace_call(service.web_diagnostic_events,'fetch_attempt',call,
+                              provider=provider.name,adjustment=adjustment)
+        try:
+            return trace_call(service.web_diagnostic_events,'fetch_group',
+                lambda:original_fetch(provider,symbol,start,end,adjustment,measured_attempt,refresh),
+                provider=provider.name,adjustment=adjustment)
+        finally:
+            event=emit(safe_event('context','OK',stock_trade_date=memo.stock_day))
+            service.web_diagnostic_events.append(event)
+    manager._fetch=measured_fetch
     if service.industry_service is not None:
         wrap(service.industry_service,'build','industry_context_load')
     wrap(service.score_engine,'evaluate','rule_scoring')
@@ -135,7 +160,11 @@ def _analysis_and_chart(code,service):
             output['chart_provider'] = market.metadata['provider']
             if hasattr(service,'web_latency'):
                 service.web_latency['phase_seconds']['chart_data']=round(perf_counter()-chart_started,4)
-        except Exception:
+                service.web_diagnostic_events.append(emit(safe_event('chart_data','OK',seconds=perf_counter()-chart_started)))
+        except Exception as exc:
+            if hasattr(service,'web_diagnostic_events'):
+                from app.web_diagnostics import error_reason
+                service.web_diagnostic_events.append(emit(safe_event('chart_data','FAILED',reason_code=error_reason(exc))))
             output['chart'] = []
             output['chart_warning'] = '行情图数据暂不可用，已有规则分析结果保持不变。'
     if hasattr(service,'web_latency'):
@@ -162,6 +191,8 @@ def _analysis_and_chart(code,service):
             'provider_timeouts':service.web_latency['provider_timeouts'],
             'max_fetch_attempts':service.provider_manager.retries,
             'cache_hits':cache.hits,'cache_misses':cache.misses}
+        output['web_diagnostics']['fetch_attempts_observed']=True
+        output['web_diagnostics']['provider_requests_observed']=True
         if output['data_status']['status']=='UNAVAILABLE':
             emit(safe_event('analysis','UNAVAILABLE',reason_code=output['web_diagnostics']['reason_code']))
         if output['industry_context'].get('data_status')!='VALID':

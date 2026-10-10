@@ -14,6 +14,8 @@ def load_market_snapshot():
     return load_index_snapshots()
 
 def load_analysis(code):
+    from app.web_observability import mark_analysis_execution
+    mark_analysis_execution()
     result = analyze_stock(code)
     if result['data_status']['status'] == 'UNAVAILABLE':
         from app.web_diagnostics import WebDataError
@@ -115,12 +117,20 @@ def main():
     st.html(f'<div class="theme-state theme-{theme}" data-theme="{theme}"></div>')
     st.html('<div id="overview"></div>')
     st.info('QuantScore 是策略匹配分析工具，不构成投资建议。')
+    from app.web_deployment import deployment_identity
+    identity=deployment_identity(ROOT)
+    with st.expander('部署版本 · 可核验'):
+        import json
+        st.code(json.dumps(identity,ensure_ascii=False,indent=2),language='json')
     if submitted:
         st.session_state.pop('analysis', None)
+        st.session_state.pop('request_diagnostics', None)
         try:
             code = normalize_stock_code(code)
             with st.spinner('正在获取真实行情并逐条分析，首次运行可能需要数分钟…'):
-                data = load_analysis(code)
+                from app.web_observability import run_observed_analysis
+                data,diagnostics = run_observed_analysis(code,load_analysis,cache_observable=True,deployment=identity)
+                st.session_state['request_diagnostics']=diagnostics
                 st.session_state['analysis'] = data
                 st.session_state['view'] = 'analysis'
                 if not data['data_status']['is_mock']:
@@ -130,6 +140,7 @@ def main():
         except DataError as exc:
             st.error(str(exc))
             if getattr(exc,'diagnostics',None):
+                st.session_state['request_diagnostics']=exc.diagnostics
                 with st.expander('请求诊断 · 不含凭据'):
                     st.json(exc.diagnostics,expanded=False)
         except Exception: st.error('分析暂时未完成，请稍后重试。当前没有可展示的新结果。')
@@ -146,6 +157,10 @@ def main():
         (sector_heat_page if view=='sectors' else candidates_page)(load_screening_snapshot())
     elif view=='analysis' and 'analysis' in st.session_state:
         render_result(st.session_state['analysis'])
+        if st.session_state.get('request_diagnostics'):
+            with st.expander('请求诊断 · 不含凭据'):
+                import json
+                st.code(json.dumps(st.session_state['request_diagnostics'],ensure_ascii=False,indent=2),language='json')
     else:
         st.info('在顶部输入股票代码开始分析，结果将显示在这里。')
     from app.web_pages import status_legend

@@ -9,7 +9,8 @@ import signal
 import time
 from uuid import uuid4
 
-from app.web_diagnostics import WebDataError, bind_sink, reset_sink, safe_event, error_reason
+from app.web_diagnostics import (WebDataError, bind_sink, reset_sink, safe_event, error_reason,
+    bind_request, reset_request, current_request, clean_events, request_summary, publish_terminal)
 
 
 def _windows_job(process):
@@ -40,7 +41,7 @@ def _windows_job(process):
     return lambda:api.CloseHandle(handle)
 
 
-def _worker(gate,target,args,directory):
+def _worker(gate,target,args,directory,rid):
     directory=Path(directory)
     os.environ.update({k:str(directory) for k in ('TMP','TEMP','TMPDIR')})
     import tempfile
@@ -48,11 +49,18 @@ def _worker(gate,target,args,directory):
     if os.name!='nt': os.setsid()
     gate.recv()  # Parent attaches the owned Windows job before SDK children exist.
     gate.close()
-    events=[]
+    events=[];metadata={};request_token=bind_request(rid)
     def progress(event):
         events.append(event)
+        for key in ('stock_trade_date','industry_snapshot_date','benchmark_snapshot_date'):
+            if key in event:metadata[key]=event[key]
+        if event['stage']=='fetch_group':metadata['fetch_attempts_observed']=True
+        if event['stage']=='fetch_group' and event.get('adjustment') in {'raw','qfq'}:
+            if event['status']=='START':
+                metadata['active_fetch']={'adjustment':event['adjustment'],'started_monotonic':time.monotonic()}
+            else:metadata.pop('active_fetch',None)
         temporary=directory/'diagnostic.partial'
-        temporary.write_text(json.dumps({'events':events[-100:]}),'utf-8')
+        temporary.write_text(json.dumps({'events':events[-100:],**metadata}),'utf-8')
         temporary.replace(directory/'diagnostic.json')
     token=bind_sink(progress)
     try:
@@ -62,6 +70,7 @@ def _worker(gate,target,args,directory):
                 'reason_code':error_reason(exc)}}
     finally:
         reset_sink(token)
+        reset_request(request_token)
     temporary=directory/'response.partial'
     temporary.write_text(json.dumps(output,ensure_ascii=False,allow_nan=False),'utf-8')
     temporary.replace(directory/'response.json')
@@ -74,16 +83,28 @@ def bounded_web_call(target,args,*,root,seconds=240):
     directory.mkdir(parents=True)
     context=mp.get_context('spawn')
     parent,child=context.Pipe()
-    process=context.Process(target=_worker,args=(child,target,args,str(directory)),daemon=False)
+    rid=current_request() or uuid4().hex
+    process=context.Process(target=_worker,args=(child,target,args,str(directory),rid),daemon=False)
     closer=None;started=time.monotonic()
     def failure(message,reason):
         try:
             saved=json.loads((directory/'diagnostic.json').read_text('utf-8'))
-            events=[safe_event(e.get('stage'),e.get('status'),**{k:e[k] for k in
-                    ('seconds','reason_code','provider','method','adjustment') if k in e}) for e in saved['events'][-100:]]
-        except (OSError,ValueError,KeyError,TypeError): events=[]
-        return WebDataError(message,{'reason_code':reason,'events':events,
-                                    'total_backend_seconds':round(time.monotonic()-started,4)})
+            saved['events']=clean_events(saved.get('events'))
+        except (OSError,ValueError,KeyError,TypeError): saved={}
+        pending=saved.pop('active_fetch',None)
+        if isinstance(pending,dict) and pending.get('adjustment') in {'raw','qfq'}:
+            began=pending.get('started_monotonic')
+            if isinstance(began,(int,float)) and started<=began<=time.monotonic():
+                saved.setdefault('events',[]).append(safe_event('fetch_group',
+                    'TIMEOUT' if reason=='WEB_DEADLINE_EXCEEDED' else 'FAILED',
+                    request_id=rid,adjustment=pending['adjustment'],reason_code=reason,
+                    seconds=time.monotonic()-began))
+        saved.update(reason_code=reason,partial_events=True)
+        summary=request_summary(saved,rid=rid,outcome='TIMEOUT' if reason=='WEB_DEADLINE_EXCEEDED' else 'FAILURE',
+                                seconds=time.monotonic()-started,layer='WORKER')
+        summary.update(total_backend_seconds=summary['total_latency_seconds'],web_deadline_seconds=seconds)
+        publish_terminal(summary)
+        return WebDataError(message,summary)
     try:
         process.start();child.close()
         if os.name=='nt': closer=_windows_job(process)
@@ -105,9 +126,28 @@ def bounded_web_call(target,args,*,root,seconds=240):
         if isinstance(output,dict):
             elapsed=round(time.monotonic()-started,4)
             output.setdefault('web_latency',{})['total_backend_seconds']=elapsed
-            if isinstance(output.get('web_diagnostics'),dict):
-                output['web_diagnostics'].update(total_backend_seconds=elapsed,web_deadline_seconds=seconds)
+            original=output.get('web_diagnostics',{})
+            source=dict(original) if isinstance(original,dict) else {}
+            try:
+                progress=json.loads((directory/'diagnostic.json').read_text('utf-8'))
+                source['events']=clean_events(progress.get('events'))
+                for key in ('stock_trade_date','industry_snapshot_date','benchmark_snapshot_date','fetch_attempts_observed'):
+                    if key in progress and not source.get(key):source[key]=progress[key]
+            except (OSError,ValueError,AttributeError):pass
+            summary=request_summary(source,rid=rid,
+                outcome='FAILURE' if output.get('data_status',{}).get('status')=='UNAVAILABLE' else 'SUCCESS',
+                seconds=elapsed,layer='WORKER')
+            # Preserve raw instrumentation for the Web summary and cached-origin
+            # attribution. All fields already cross the existing worker boundary.
+            if isinstance(source,dict):
+                source.update(request_id=rid,total_backend_seconds=elapsed,web_deadline_seconds=seconds)
+                output['web_diagnostics']=source
+            publish_terminal(summary)
         return output
+    except WebDataError:
+        raise
+    except Exception:
+        raise failure('单股分析未返回完整结果；本次不展示新评分。','WORKER_ERROR') from None
     finally:
         parent.close();child.close()
         if closer:
