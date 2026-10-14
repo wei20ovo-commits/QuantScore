@@ -23,27 +23,17 @@ jobs:
     timeout-minutes: 735
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Dedicated main-only workspace retains ignored caches/checkpoints
+          # locally. Never upload raw provider errors to a public Actions cache.
+          clean: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - uses: actions/cache/restore@v4
-        with:
-          path: |
-            data/cache
-            outputs/runtime/market-update
-          key: market-context-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: market-context-${{ runner.os }}-
       - run: python -m pip install -r requirements.txt
       - name: Run the bounded unchanged full universe and publish atomically
         env:
           UPDATE_RESUME: ${{ inputs.resume }}
         run: python tools/scheduled_market_update.py
-      - uses: actions/cache/save@v4
-        if: always()
-        with:
-          path: |
-            data/cache
-            outputs/runtime/market-update
-          key: market-context-${{ runner.os }}-${{ github.run_id }}
       - name: Commit only validated publication files, never caches or secrets
         run: python tools/commit_market_publication.py

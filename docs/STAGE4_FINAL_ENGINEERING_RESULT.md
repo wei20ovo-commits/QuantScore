@@ -9,7 +9,7 @@ Date: 2026-10-14. Published starting baseline: `8b57a7989612dd37727e8b1941bfacdb
 | Local engineering and regression | LOCAL_PASS | 1084 PASS / 0 FAIL / 0 ERROR / 1 existing SKIP |
 | Same-input scoring semantics | LOCAL_PASS | Exact equality of 41 RuleResults, full score, Risk, B1/B2 industry context and candidate-policy result |
 | Baseline public stock analysis | PUBLIC_PASS | Actual deployed SHA identified; two successful 600519 requests, second Web cache HIT |
-| New release public verification | PENDING_RELEASE_VERIFICATION | Updated below after ordinary push and independent deployment check |
+| New release public stock verification | PARTIAL | Deployed code SHA matched; first request had no observable terminal after 260.250s; no second request |
 | Atomic daily publication implementation | LOCAL_PASS | Failure retention, generation pinning, corruption rejection and date-quality tests |
 | Current daily market data / scheduled production | PARTIAL / EXTERNAL_BLOCKED | Calendar works; controlled real update failed at industry-provider initialization; no dedicated runner registered |
 | Overall product closure | PARTIAL | A working stock request does not establish reliable daily industry updates |
@@ -52,7 +52,7 @@ The Web never imports/runs the updater. Default homepage index display can read 
 
 GitHub-hosted jobs have a [6-hour limit](https://docs.github.com/en/actions/reference/limits). Standard public-repository runners are [free subject to platform limits](https://docs.github.com/en/billing/concepts/product-billing/github-actions). Community Cloud documents [690MB–2.7GB memory limits](https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app). The existing measurements do not establish that either platform can reliably run the whole updater.
 
-The prepared workflow is therefore opt-in, using a trusted self-hosted runner labeled `quantscore-market-data`, main-only, repository variable `QUANTSCORE_DAILY_UPDATES_ENABLED=true`, weekday 17:23 Shanghai schedule plus calendar verification, a 12h scan budget, serialized publication and ordinary non-force bot push of only validated snapshot files. No runner, paid service or Windows scheduled task was registered. See [operations](MARKET_UPDATE_OPERATIONS.md).
+The prepared workflow is therefore opt-in, using a trusted self-hosted runner labeled `quantscore-market-data`, main-only, repository variable `QUANTSCORE_DAILY_UPDATES_ENABLED=true`, weekday 17:23 Shanghai schedule plus calendar verification, a 12h scan budget, serialized publication and ordinary non-force bot push of only validated snapshot files. Its dedicated persistent workspace retains ignored caches/checkpoints locally; raw runtime material is not uploaded to a readable public Actions cache. No runner, paid service or Windows scheduled task was registered. See [operations](MARKET_UPDATE_OPERATIONS.md).
 
 ## Real stock reliability and latency
 
@@ -67,6 +67,16 @@ The browser independently observed deployed SHA `8b57a7989612dd37727e8b1941bfacd
 
 Both returned actual stock date 2026-10-14 and industry/benchmark snapshot date 2026-09-30. Industry was DATA_STALE and benchmark BENCHMARK_SNAPSHOT_DATA_STALE. Warm zero Provider calls is based on the observed cache-hit path, not inferred from missing events. Cold here means a new browser's first request with observed MISS; server caches were not cleared and the app was already awake. Homepage/navigation/network time cannot be separated into a pure Streamlit cold-start measurement.
 
+### Newly pushed public code
+
+Ordinary non-force push published `5caa33948d9fe0aa299596a4a5bcdef4940e4062`; independent `git ls-remote` and fetched origin/main matched. The browser then observed that exact deployed SHA, unmodified source and fingerprint `aa9cf0030e8bde034c76cae5f0976b2e3db2f53526859360e333aca941c9d6ec`. Home HTTP was 200 and ready at 15:11:18.337 UTC; browser start was 15:11:01.170 UTC. The app was already awake (zero wake clicks); this 17.167s browser interval is not a measured pure server cold start.
+
+Exactly one 600519 analysis was submitted at 15:11:18.419 UTC. At 260.250s the browser had received no verifiable terminal, request ID, quote/date, cache state, score or diagnosis. These fields remain **UNKNOWN**, not zero Provider calls and not a proven backend timeout. No warm analysis followed a failed/non-terminal cold request. Theme testing on that still-busy session also timed out; current analysis-page theme/mobile/AI evidence is NOT_VERIFIED, not fabricated from the old passing UI report. Evidence: `outputs/final_engineering/public_release/verification.json`.
+
+Audit confirms the 240s cutoff applies inside `bounded_web_call`; parent preparation, Streamlit cache locking and browser/server delivery are outside the child polling loop. No observation from this request identifies which boundary blocked, whether the server restarted, or whether the worker timed out but its result was not delivered. Existing parent initialization is network-free; this fact alone does not prove it was fast in Cloud. Changing deadlines, retries or data validation without this missing evidence would not establish a fix. Current public reliability is therefore **PARTIAL**, notwithstanding the two earlier baseline successes.
+
+A subsequent final Git publication contains only workflow/privacy/acceptance-tool/report refinements; application/scoring code remains that tested and observed above. Final GitHub and homepage-only identity evidence are saved separately as `outputs/final_engineering/final_release_identity.json` and `public_identity/verification.json`. That follow-up must submit **zero analyses** and cannot substitute for the missing cold/warm acceptance. No claim of stock PUBLIC_PASS is based on homepage identity alone.
+
 ### Local real Provider failure
 
 One isolated empty-data-cache real request failed in 78.1754s; it was not repeatedly retried for a success. Request ID `355d181b9f9b4753a0035b5b6108fd74`: raw 68.4855s, qfq 2.0983s, six requests, one retry, two SDK timeouts. BaoStock raw timed out; AKShare qfq failed `INVALID_PRICE_VALUES`. The existing validator correctly rejected the data. The result was UNAVAILABLE, not a scored stock; internal engine placeholders in the archived failure payload are **not accepted QuantScore/Risk values** and the Web does not display them. Evidence: `outputs/final_engineering/local_live/verification.json`.
@@ -75,7 +85,7 @@ These results prove the failure is diagnosable and bounded; they do not prove th
 
 ## Automated verification
 
-Final formal environment: project Python 3.11 `.venv`, project-local temporary storage. Full `python -m pytest`: **1084 passed, 1 skipped, 0 failures, 0 errors**, 271.97s console time. JUnit: 1085 total, 271.903s. Existing historical/superseded T20 skip remains; no skip was added, assertion removed or AppTest/production deadline increased.
+Final formal environment: project Python 3.11 `.venv`, project-local temporary storage. Full `python -m pytest`: **1084 passed, 1 skipped, 0 failures, 0 errors**, 254.92s final console time. JUnit: 1085 total, 254.868s (`full_3.xml`). The prior complete run also passed in 271.97s. Existing historical/superseded T20 skip remains; no skip was added, assertion removed or AppTest/production deadline increased.
 
 Initial targeted publication tests exposed Windows path handling and two fixture-contract defects; all were repaired without removing the checks. Targeted publication/snapshot/pre-worker suite: 95 passed. After process cleanup fix, publication/startup/runtime suite: 73 passed. Earlier complete regression: 1082 passed / 1 skipped; final includes the two startup-resource tests.
 
@@ -104,6 +114,6 @@ Documentation: this report, `docs/MARKET_UPDATE_OPERATIONS.md`, README appended 
 ## Remaining minimum external operations
 
 1. Register a trusted continuously available runner with `quantscore-market-data`, adequate storage and working BaoStock connectivity; review repository write/branch permissions, enable the opt-in variable, then run and verify one **complete** daily publication before claiming daily operation. If no such free resource exists, hosting selection remains an owner decision; no paid infrastructure is assumed.
-2. If Cloud fails to update automatically, its owner must inspect main/app/web.py deployment logs and reboot/redeploy the existing app. This session has no authenticated Cloud management access. A push alone cannot prove a deployed SHA.
+2. The owner needs to provide the existing Cloud app's allowlisted QUANTSCORE_WEB_DIAGNOSTIC rows for 2026-10-14 15:11:18–15:15:55 UTC and its process restart/resource messages for the same interval. No raw traceback, key or personal path is needed. No redeployment-source correction is currently evidenced: the new SHA was actually observed. This session has no authenticated Cloud management-log access.
 
 No additional scoring decision or key is required. No full-market scan is started by page navigation.

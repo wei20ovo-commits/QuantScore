@@ -69,10 +69,14 @@ Neither is assumed to support this workload reliably.
 `QUANTSCORE_DAILY_UPDATES_ENABLED=true`. It runs weekdays at 17:23 Shanghai time,
 still checks the calendar, and permits a manual same-date resume. Its full-run
 budget remains 12h; queue, scheduler availability and cleanup are separate operational
-limits. It caches validated data/checkpoints and commits **only** the validated
+limits. Its dedicated main-only runner retains ignored data/checkpoints locally
+(`checkout clean: false`), never uploads raw Provider error/checkpoint material
+to a public Actions cache, and commits **only** the validated
 generation/pointer with an ordinary non-force push. A concurrent main update
 causes a push failure, not a destructive merge/reset. Branch policy must allow
 that narrowly scoped bot publication. Workflow and repo permissions are required.
+Use a persistent dedicated workspace, not an ephemeral runner or a shared PR runner.
+GitHub warns against sensitive contents in [readable Actions caches](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching).
 
 This workflow is opt-in and is **not** evidence that a runner has been registered,
 enabled, or has completed a daily production publication. Registration must be

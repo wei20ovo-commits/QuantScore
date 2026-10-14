@@ -86,7 +86,7 @@ def main():
     value['privacy']['tracked_secret_files']=decode(git('ls-files','--','.env','.streamlit/secrets.toml')).splitlines()
     (OUT/'security_and_gate.json').write_text(json.dumps(value,ensure_ascii=False,indent=2),'utf-8')
     print(json.dumps(dict(findings=len(findings),preserved=all(preserved.values()),changed_core=core,
-        final_gate=tests.get('full_2.xml'))))
+        final_gate=tests.get('full_3.xml') or tests.get('full_2.xml'))))
     assert not findings and not value['privacy']['tracked_secret_files']
 
 if __name__=='__main__':main()

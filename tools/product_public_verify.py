@@ -58,6 +58,7 @@ def main():
               'intentional_clicks': 0, 'protocol_submissions': 0, 'runs': [],
               'ai_calls': 0, 'full_market_scan_submitted': False,
               'server_cache_reset': False, 'browser_automatic_retry': False,
+              'scope':'IDENTITY_HOME_ONLY' if '--identity-only' in sys.argv else 'STOCK_ANALYSIS',
               'status': 'RUNNING', 'browser_closed': False}
     finished = []
     active = {'run': None, 'rule': None}
@@ -176,7 +177,7 @@ def main():
             save()
             if report['deployment_sha_status']=='MISMATCH':
                 raise RuntimeError('DEPLOYMENT_NOT_UPDATED')
-            for index in range(2):
+            for index in range(0 if '--identity-only' in sys.argv else 2):
                 record = {'request_number': index + 1, 'stock': '600519', 'started_at_utc': now(), 'status': 'RUNNING', 'diagnostics': None}
                 report['runs'].append(record); active['run'] = record; active['rule']=None
                 app.get_by_role('textbox', name='股票代码', exact=True).fill('600519')
@@ -224,7 +225,10 @@ def main():
             page.set_viewport_size({'width':390,'height':844})
             report['theme_and_mobile_checks']['mobile_390']=app.get_by_role('button',name='开始分析',exact=True).is_visible()
             report['theme_and_mobile_checks']['mobile_no_horizontal_overflow']=app.locator('body').evaluate('(e)=>e.scrollWidth<=window.innerWidth+2')
-            report['status'] = 'PASS' if len(report['runs']) == 2 and all(r['status'] == 'ANALYSIS_SUCCESS' for r in report['runs']) and (report['runs'][1].get('diagnostics') or {}).get('web_cache') == 'HIT' and report['deployment_sha_status'] == 'MATCH' else 'PARTIAL'
+            if '--identity-only' in sys.argv:
+                report['status']='PASS' if report['deployment_sha_status']=='MATCH' and all(report['theme_and_mobile_checks'].get(k) for k in ('dark','light','mobile_390','mobile_no_horizontal_overflow')) else 'PARTIAL'
+            else:
+                report['status'] = 'PASS' if len(report['runs']) == 2 and all(r['status'] == 'ANALYSIS_SUCCESS' for r in report['runs']) and (report['runs'][1].get('diagnostics') or {}).get('web_cache') == 'HIT' and report['deployment_sha_status'] == 'MATCH' else 'PARTIAL'
         except Exception as exc:
             report['status'] = 'BLOCKED' if '--wake-once' in sys.argv and not report['runs'] else 'PARTIAL'
             report['error_type'] = type(exc).__name__
