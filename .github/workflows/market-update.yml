@@ -1,0 +1,49 @@
+name: Market context update
+on:
+  schedule:
+    # 17:23 Asia/Shanghai, after the existing 16:00 daily-data cutoff.
+    - cron: '23 9 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      resume:
+        description: Resume the same trade-date checkpoint
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: market-context-publication
+  cancel-in-progress: false
+jobs:
+  update:
+    # Opt-in until a dedicated trusted runner is registered and sized. Public
+    # GitHub-hosted jobs stop at 6h; the measured full scan exceeded 8h.
+    if: vars.QUANTSCORE_DAILY_UPDATES_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: [self-hosted, quantscore-market-data]
+    timeout-minutes: 735
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/cache
+            outputs/runtime/market-update
+          key: market-context-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: market-context-${{ runner.os }}-
+      - run: python -m pip install -r requirements.txt
+      - name: Run the bounded unchanged full universe and publish atomically
+        env:
+          UPDATE_RESUME: ${{ inputs.resume }}
+        run: python tools/scheduled_market_update.py
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            data/cache
+            outputs/runtime/market-update
+          key: market-context-${{ runner.os }}-${{ github.run_id }}
+      - name: Commit only validated publication files, never caches or secrets
+        run: python tools/commit_market_publication.py

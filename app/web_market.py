@@ -6,6 +6,22 @@ from app.data.baostock_provider import BaoStockProvider
 INDEX_CANDIDATES = [('上证指数','sh.000001'),('深证成指','sz.399001'),
                     ('创业板指','sz.399006'),('沪深300','sh.000300'),('科创50','sh.000688')]
 
+def published_index_snapshots(root=None):
+    """Offline default display; preserve actual date, never label it realtime."""
+    from app.web_snapshots import WebContextSnapshots,SnapshotUnavailable
+    try:
+        snapshots=WebContextSnapshots(root)
+        day=snapshots.published_benchmark_date
+        if day is None:return []
+        bars=snapshots.benchmark(day,'2000-01-01',day)
+        if len(bars)<2:return []
+        last=bars.iloc[-1];previous=float(bars.close.iloc[-2])
+        change=float(last.close)-previous
+        return [dict(name='上证指数',source_name='上证指数',symbol='000001.SH',
+                     close=float(last.close),change=change,percent=change/previous*100,
+                     date=day,provider='baostock',trend=[float(x) for x in bars.close.tail(24)])]
+    except (OSError,ValueError,KeyError,TypeError,SnapshotUnavailable):return []
+
 def load_index_snapshots():
     def fetch(candidate):
         name,code=candidate

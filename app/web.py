@@ -37,7 +37,10 @@ def render_home(theme):
     dashboard_summary(load_screening_snapshot())
     # Saved backend Dashboard is immediately usable. Optional index acquisition
     # must not block navigation while a data source is slow/unreachable.
-    snapshot = st.session_state.get('market_snapshot', [])
+    from app.web_market import published_index_snapshots
+    snapshot = st.session_state.get('market_snapshot')
+    if snapshot is None:
+        snapshot=published_index_snapshots()
     if st.button('加载指数日线', key='load_indices', help='仅获取指数展示数据，不启动行业或全市场扫描'):
         try:
             with st.spinner('正在获取指数日线…'):

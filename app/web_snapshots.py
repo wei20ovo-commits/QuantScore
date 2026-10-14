@@ -11,7 +11,7 @@ import pandas as pd
 from app.data.models import ProviderError
 from app.data.validators import DataValidator
 from app.screening.service import RequestCache
-from app.web_results import ROOT, load_screening_snapshot, _relative_file
+from app.web_results import ROOT, ScreeningSnapshot, load_screening_snapshot, _relative_file
 
 
 class SnapshotUnavailable(ProviderError):
@@ -21,7 +21,19 @@ class SnapshotUnavailable(ProviderError):
 class WebContextSnapshots:
     def __init__(self, root=None):
         self.root = Path(root or ROOT).resolve()
-        self.screening = load_screening_snapshot(self.root)
+        self.publication=None
+        self.publication_error=False
+        if (self.root/'data/published/market_context/current.json').exists():
+            try:
+                from app.snapshot_publication import load_published_context
+                self.publication=load_published_context(self.root)
+                self.screening=ScreeningSnapshot('VALID',source=f'data/published/market_context/generations/{self.publication.generation}/screening.json',
+                                                payload=self.publication.screening)
+            except (OSError,ValueError,KeyError,TypeError,AttributeError):
+                self.publication_error=True
+                self.screening=ScreeningSnapshot('DATA_ERROR','发布代校验失败；本次不使用其他日期的数据。')
+        else:
+            self.screening = load_screening_snapshot(self.root)
         if self.screening.status == 'VALID' and any(
                 self.screening.payload.get(k) != v for k,v in
                 [('spec_version','1.4'),('assumption_version','v1.3'),('data_contract_version','1.4')]):
@@ -58,8 +70,9 @@ class WebContextSnapshots:
         # date, provider, hash and OHLC before a single price may be reused.
         from app.web_diagnostics import date_only
         try:
-            self.published_benchmark_date=date_only(json.loads(
-                (self.root/'data/published/market_context/manifest.json').read_text('utf-8')).get('trade_date'))
+            manifest=(self.publication.benchmark_manifest if self.publication else {} if self.publication_error else json.loads(
+                (self.root/'data/published/market_context/manifest.json').read_text('utf-8')))
+            self.published_benchmark_date=date_only(manifest.get('trade_date'))
         except (OSError,ValueError,AttributeError):
             self.published_benchmark_date=None
 
@@ -90,8 +103,10 @@ class WebContextSnapshots:
 
     def benchmark(self, day, start, end):
         try:
+            if self.publication_error:
+                raise SnapshotUnavailable('BENCHMARK_SNAPSHOT_DATA_ERROR')
             path = self.root/'data/published/market_context/manifest.json'
-            manifest = json.loads(path.read_text('utf-8'))
+            manifest = self.publication.benchmark_manifest if self.publication else json.loads(path.read_text('utf-8'))
             if manifest.get('is_mock') is not False or manifest.get('data_status') != 'VALID':
                 raise SnapshotUnavailable('BENCHMARK_SNAPSHOT_DATA_ERROR')
             if manifest.get('trade_date') != day:
@@ -100,9 +115,9 @@ class WebContextSnapshots:
                     or manifest.get('provider') != 'baostock'):
                 raise SnapshotUnavailable('BENCHMARK_SNAPSHOT_DATA_INCONSISTENT')
             source = _relative_file(self.root, manifest['file'])
-            if source.stat().st_size > 16*1024*1024:
+            if (len(self.publication.benchmark_bytes) if self.publication else source.stat().st_size) > 16*1024*1024:
                 raise SnapshotUnavailable('BENCHMARK_SNAPSHOT_DATA_ERROR')
-            data = source.read_bytes()
+            data = self.publication.benchmark_bytes if self.publication else source.read_bytes()
             if sha256(data).hexdigest() != manifest['sha256']:
                 raise SnapshotUnavailable('BENCHMARK_SNAPSHOT_DATA_INCONSISTENT')
             from io import BytesIO

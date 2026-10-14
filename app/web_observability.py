@@ -22,12 +22,21 @@ def run_observed_analysis(code,loader,*,cache_observable=False,deployment=None,p
     observed=[];sink_token=bind_event_capture(observed)
     def evidence(source):
         source=dict(source) if isinstance(source,dict) else {}
-        # emit() returns the same object sent to the capture sink. Preserve
-        # distinct worker IPC events, but do not double count in-process events.
-        identities={id(e) for e in observed}
+        # Failure summaries rebuild safe events, so object identity is lost.
+        # Multiset subtraction removes only captured copies; genuine repeated
+        # worker events (including equal measurements) remain distinct.
+        from collections import Counter
+        import json
+        def signature(event):
+            return json.dumps(event,sort_keys=True,separators=(',',':'))
+        captured=Counter(signature(e) for e in observed)
         original=source.get('events')
-        source['events']=[*observed,*([e for e in original if id(e) not in identities]
-                                    if isinstance(original,list) else [])]
+        additional=[]
+        for event in original if isinstance(original,list) else []:
+            key=signature(event)
+            if captured[key]:captured[key]-=1
+            else:additional.append(event)
+        source['events']=[*observed,*additional]
         if len(source['events'])>100:source['partial_events']=True
         return source
     def finish(summary):

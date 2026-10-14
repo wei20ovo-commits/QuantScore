@@ -277,3 +277,10 @@ ENGINEERING_DISPLAY_ORDER；不影响候选资格，也不表示投资优先级�
 ## Stage 3C Environment & Reproducibility
 
 Stage 3C was revalidated in an isolated Python 3.11 `.venv` installed from the root `requirements.txt`. PyYAML is declared in both dependency manifests. Do not use an unrelated global interpreter; activate the project `.venv` before running `python -m app.cli` or `python -m pytest`. The current full-market acceptance, data-quality counts, and clean-environment test evidence are recorded in [Stage 3C result](docs/STAGE3C_RESULT.md).
+
+
+## Stage 4 engineering closure
+
+当前工程回归：1084 PASS / 0 FAIL / 0 ERROR / 1 既有 SKIP。单股评分、Risk、B1/B2及候选语义保持不变。公网验收和真实数据限制见 [统一报告](docs/STAGE4_FINAL_ENGINEERING_RESULT.md)。
+
+后台更新已有可执行的真实交易日计划、缓存/断点复用、质量检查及原子发布；Web不启动全市场扫描。旧快照日期不匹配仍为DATA_STALE。定时生产更新尚需注册可信专用runner并完成首次完整验证，不代表已经实现每日新鲜行情。操作步骤见 [市场更新运维](docs/MARKET_UPDATE_OPERATIONS.md)。

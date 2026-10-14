@@ -74,13 +74,21 @@ class BatchBaoStockProvider(BaoStockProvider):
         self.wait_seconds = 0
 
     def _start(self):
-        context = mp.get_context('spawn')
-        self._pipe, child = context.Pipe()
-        self._result_dir = tempfile.mkdtemp(prefix='quantscore-sdk-')
-        self._process = context.Process(target=batch_file_worker, args=(child, min(45,self.timeout), self._result_dir), daemon=True)
-        self._process.start()
-        child.close()
-        self.worker_starts += 1
+        child=None
+        try:
+            context = mp.get_context('spawn')
+            self._pipe, child = context.Pipe()
+            self._result_dir = tempfile.mkdtemp(prefix='quantscore-sdk-')
+            self._process = context.Process(target=batch_file_worker, args=(child, min(45,self.timeout), self._result_dir), daemon=True)
+            self._process.start()
+            self.worker_starts += 1
+        except Exception:
+            # Startup rejection must not leak resources or get replaced by
+            # join()'s "can only join a started process" assertion in cleanup.
+            self.close()
+            raise
+        finally:
+            if child is not None:child.close()
 
     def _call(self, method, **kwargs):
         if self.control is None:
@@ -136,7 +144,7 @@ class BatchBaoStockProvider(BaoStockProvider):
                 self._pipe.send(None)
             except (BrokenPipeError, EOFError, OSError):
                 pass
-        if self._process is not None:
+        if self._process is not None and getattr(self._process,'pid',None) is not None:
             self._process.join(1)
             if self._process.is_alive():
                 self._process.terminate()

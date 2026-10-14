@@ -140,6 +140,13 @@ def _validate(payload):
 def load_screening_snapshot(root=None):
     root = Path(root or ROOT).resolve()
     try:
+        # A published pointer is authoritative. Never fall back to another
+        # generation when its hash/date validation fails.
+        if (root/'data/published/market_context/current.json').exists():
+            from app.snapshot_publication import load_published_context
+            generation=load_published_context(root)
+            return ScreeningSnapshot('VALID',source=f'data/published/market_context/generations/{generation.generation}/screening.json',
+                                     payload=generation.screening)
         settings = yaml.safe_load((root / 'config/web.yaml').read_text('utf-8'))
         values = settings['screening_results']
         if not isinstance(values, list) or not values:
