@@ -13,7 +13,10 @@ _log = logging.getLogger(__name__)
 STAGES = {'worker', 'service_init', 'security_resolve', 'security_lookup',
           'security_list', 'stock_raw_qfq_fetch', 'provider_request', 'market_fetch',
           'industry_context_load', 'rule_scoring', 'analysis', 'chart_data', 'cache',
-          'context', 'fetch_group', 'fetch_attempt', 'fetch_retry'}
+          'context', 'fetch_group', 'fetch_attempt', 'fetch_retry',
+          'web_preprocess','backend_preprocess','pre_worker_service_init',
+          'snapshot_init','cache_init','provider_init','provider_policy',
+          'service_components_init','worker_setup','worker_start'}
 REASONS = {'NONE', 'PROVIDER_TIMEOUT', 'PROVIDER_CONNECTION_ERROR', 'PROVIDER_PROXY_ERROR',
            'PROVIDER_LOGIN_ERROR', 'PROVIDER_INCOMPLETE_PAGINATION', 'PROVIDER_SDK_ERROR',
            'PROVIDER_UNAVAILABLE', 'DATA_VALIDATION_ERROR', 'RAW_QFQ_DATE_MISMATCH',
@@ -22,7 +25,12 @@ REASONS = {'NONE', 'PROVIDER_TIMEOUT', 'PROVIDER_CONNECTION_ERROR', 'PROVIDER_PR
            'INVALID_OHLC_RELATION', 'EMPTY_MARKET_DATA',
            'BENCHMARK_SNAPSHOT_UNAVAILABLE','BENCHMARK_SNAPSHOT_DATA_STALE',
            'BENCHMARK_SNAPSHOT_DATA_ERROR','BENCHMARK_SNAPSHOT_DATA_INCONSISTENT',
-           'BENCHMARK_SNAPSHOT_PROVIDER_MISMATCH'}
+           'BENCHMARK_SNAPSHOT_PROVIDER_MISMATCH',
+           'WEB_INPUT_REJECTED','WEB_PREPROCESSING_FAILED',
+           'SERVICE_INITIALIZATION_FAILED','INITIALIZATION_IMPORT_ERROR',
+           'INITIALIZATION_FILE_NOT_FOUND','INITIALIZATION_PERMISSION_ERROR',
+           'PROVIDER_CONFIGURATION_ERROR','PROVIDER_CONFIGURATION_REJECTED',
+           'PROVIDER_INITIALIZATION_FAILED','WORKER_SETUP_FAILED','WORKER_START_FAILED'}
 METHODS = {'query_stock_basic', 'query_history_k_data_plus', 'query_trade_dates',
            'stock_zh_a_hist', 'stock_info_sh_name_code', 'stock_info_sz_name_code'}
 
@@ -56,6 +64,23 @@ def error_reason(exc):
     if 'DataError' in names: return 'DATA_VALIDATION_ERROR'
     if 'ProviderError' in names: return 'PROVIDER_UNAVAILABLE'
     return 'WORKER_ERROR'
+
+
+def boundary_reason(exc,stage):
+    """Type and known boundary only; never infer startup failures from prose."""
+    if stage in {'web_preprocess','backend_preprocess'}:
+        return 'WEB_INPUT_REJECTED' if isinstance(exc,DataError) else 'WEB_PREPROCESSING_FAILED'
+    if stage=='provider_policy':return 'PROVIDER_CONFIGURATION_REJECTED'
+    if stage=='worker_start':return 'WORKER_START_FAILED'
+    if stage=='worker_setup':return 'WORKER_SETUP_FAILED'
+    if isinstance(exc,PermissionError):return 'INITIALIZATION_PERMISSION_ERROR'
+    if isinstance(exc,FileNotFoundError):return 'INITIALIZATION_FILE_NOT_FOUND'
+    if isinstance(exc,ImportError):return 'INITIALIZATION_IMPORT_ERROR'
+    if stage=='provider_init':
+        # ProviderManager's explicit config rejections are ValueError. Other
+        # constructor errors remain initialization failures, not network guesses.
+        return 'PROVIDER_CONFIGURATION_ERROR' if isinstance(exc,ValueError) else 'PROVIDER_INITIALIZATION_FAILED'
+    return 'DATA_VALIDATION_ERROR' if isinstance(exc,DataError) else 'SERVICE_INITIALIZATION_FAILED'
 
 
 def valid_request_id(value):
@@ -105,13 +130,24 @@ def bind_sink(sink): return _sink.set(sink)
 def reset_sink(token): _sink.reset(token)
 
 
-def trace_call(events, stage, call, *, provider=None, method=None, adjustment=None):
+def bind_event_capture(events):
+    previous=_sink.get()
+    def capture(event):
+        events.append(event)
+        if previous is not None:
+            try:previous(event)
+            except Exception:pass
+    return bind_sink(capture)
+
+
+def trace_call(events, stage, call, *, provider=None, method=None, adjustment=None,error_classifier=None):
     emit(safe_event(stage, 'START', provider=provider, method=method, adjustment=adjustment))
     started = perf_counter(); reason = 'NONE'; status = 'OK'
     try:
         return call()
     except Exception as exc:
-        reason = error_reason(exc); status = 'FAILED'
+        reason = error_classifier(exc,stage) if error_classifier is not None else error_reason(exc)
+        status = 'FAILED'
         raise
     finally:
         events.append(emit(safe_event(stage, status, seconds=perf_counter()-started,
@@ -199,10 +235,14 @@ def request_summary(diagnostics, *, rid, outcome, seconds, web_cache='UNKNOWN', 
     if isinstance(source.get('provider_retry_count'),int) and not isinstance(source['provider_retry_count'],bool) and source['provider_retry_count']>=0:
         result['provider_retry_count']=source['provider_retry_count']
     # On a killed/failed worker, partial events only prove a lower bound.
-    result['observed_provider_timeout_events']=sum(e['stage']=='provider_request' and e['status'] in {'FAILED','TIMEOUT'}
-                                                  and e['reason_code']=='PROVIDER_TIMEOUT' for e in events)
-    result['observed_fetch_retry_events']=sum(e['stage']=='fetch_retry' for e in events)
-    result['provider_error_observation']='UNKNOWN' if not events else ('PARTIAL' if result['partial_events'] else 'OBSERVED_WRAPPERS')
+    provider_observed=source.get('provider_requests_observed') is True or any(
+        e['stage'] in {'provider_request','stock_raw_qfq_fetch','fetch_attempt','fetch_group'} for e in events)
+    fetch_observed=source.get('fetch_attempts_observed') is True or any(
+        e['stage'] in {'fetch_group','fetch_attempt','fetch_retry'} for e in events)
+    result['observed_provider_timeout_events']=(sum(e['stage']=='provider_request' and e['status'] in {'FAILED','TIMEOUT'}
+        and e['reason_code']=='PROVIDER_TIMEOUT' for e in events) if provider_observed else 'UNKNOWN')
+    result['observed_fetch_retry_events']=sum(e['stage']=='fetch_retry' for e in events) if fetch_observed else 'UNKNOWN'
+    result['provider_error_observation']='UNKNOWN' if not provider_observed else ('PARTIAL' if result['partial_events'] else 'OBSERVED_WRAPPERS')
     result['timeout_count_scope']='classified wrapped provider calls; socket/SDK internals UNKNOWN'
     native=source.get('provider_timeouts',source.get('sdk_poll_timeout_count'))
     result['sdk_poll_timeout_count']=native if isinstance(native,int) and not isinstance(native,bool) and native>=0 else 'UNKNOWN'

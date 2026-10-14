@@ -1,0 +1,51 @@
+[
+  {
+    "control": "service_init_failure",
+    "diagnostic": {
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "request_id": "62c6fbeb903a46649460ddbc9380cf4a",
+      "layer": "WEB",
+      "outcome": "FAILURE",
+      "reason_code": "DATA_VALIDATION_ERROR",
+      "total_latency_seconds": 0.0005,
+      "latency_scope": "loader_including_cache_and_worker",
+      "web_cache": "MISS",
+      "events": [],
+      "last_completed_stage": "UNKNOWN",
+      "last_observed_stage": "UNKNOWN",
+      "provider_error_categories": [],
+      "data_error_categories": [],
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "partial_events": false,
+      "stock_trade_date": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "industry_data_status": "UNKNOWN",
+      "benchmark_data_status": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "observed_provider_timeout_events": 0,
+      "observed_fetch_retry_events": 0,
+      "provider_error_observation": "UNKNOWN",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "deployment": {
+        "git_commit": "UNKNOWN",
+        "code_fingerprint": "UNKNOWN",
+        "source_modified": "UNKNOWN"
+      }
+    },
+    "worker_called": false
+  }
+]

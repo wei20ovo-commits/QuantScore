@@ -4,7 +4,7 @@ from pathlib import Path
 from time import perf_counter
 from app.data.models import DataError
 from app.services.stock_analysis_service import StockAnalysisService
-from app.web_diagnostics import trace_call, emit, safe_event, date_only
+from app.web_diagnostics import trace_call, emit, safe_event, date_only, boundary_reason
 
 
 def normalize_stock_code(value):
@@ -25,9 +25,14 @@ def create_web_service(root=None, cache=None):
     from app.web_snapshots import WebContextSnapshots,SnapshotIndustryService,WebMarketCache
     root=Path(root or Path(__file__).resolve().parents[1])
     started=perf_counter()
-    snapshots=WebContextSnapshots(root)
-    memo=WebMarketCache(cache or DataCache(),snapshots)
-    manager=ProviderManager(cache=memo)
+    snapshots=trace_call([],'snapshot_init',lambda:WebContextSnapshots(root),error_classifier=boundary_reason)
+    # Emit dates only after this reader actually completed, even if a later
+    # cache/provider/service constructor fails. A date is not VALID status.
+    snapshot_context=emit(safe_event('context','OK',
+        industry_snapshot_date=date_only(snapshots.screening.payload.get('trade_date')),
+        benchmark_snapshot_date=snapshots.published_benchmark_date))
+    memo=trace_call([],'cache_init',lambda:WebMarketCache(cache or DataCache(),snapshots),error_classifier=boundary_reason)
+    manager=trace_call([],'provider_init',lambda:ProviderManager(cache=memo),error_classifier=boundary_reason)
     control=RunControl(RuntimeLimits(request_seconds=30,stock_seconds=230,run_seconds=230))
     providers=[]
     for provider in manager.providers:
@@ -40,16 +45,14 @@ def create_web_service(root=None, cache=None):
         provider.fetch_benchmark=lambda *args,**kwargs: (_ for _ in ()).throw(SnapshotUnavailable('BENCHMARK_SNAPSHOT_UNAVAILABLE'))
         providers.append(provider)
     manager.providers=providers;manager.provider=providers[0]
-    service=StockAnalysisService(provider_manager=manager,industry_service=SnapshotIndustryService(snapshots))
+    service=trace_call([],'service_components_init',lambda:StockAnalysisService(
+        provider_manager=manager,industry_service=SnapshotIndustryService(snapshots)),error_classifier=boundary_reason)
     service.web_latency={'architecture':'same_date_snapshots_v1','phase_seconds':{'market_context_load':round(perf_counter()-started,4)},
                          'provider_requests':0,'provider_events':[],
                          'provider_request_count_scope':'Wrapped provider calls including BaoStock SDK queries and AKShare calls; retries counted; HTTP internals not observed',
                          'ai_call_seconds':0,'screening_snapshot_source':snapshots.screening.source}
     service.web_diagnostic_events=[]
-    snapshot_context=safe_event('context','OK',
-        industry_snapshot_date=date_only(snapshots.screening.payload.get('trade_date')),
-        benchmark_snapshot_date=snapshots.published_benchmark_date)
-    service.web_diagnostic_events.append(emit(snapshot_context))
+    service.web_diagnostic_events.append(snapshot_context)
     def wrap(obj,name,label):
         original=getattr(obj,name)
         def measured(*args,**kwargs):
@@ -116,7 +119,7 @@ def create_web_service(root=None, cache=None):
 
 def _analyze_inprocess(code,root=None,cache=None,service=None):
     events=[]
-    service=service or trace_call(events,'service_init',lambda:create_web_service(root,cache))
+    service=service or trace_call(events,'service_init',lambda:create_web_service(root,cache),error_classifier=boundary_reason)
     try:
         return _analysis_and_chart(code,service)
     finally:
@@ -126,11 +129,13 @@ def _analyze_inprocess(code,root=None,cache=None,service=None):
 
 
 def analyze_stock(code):
-    code=normalize_stock_code(code)
+    code=trace_call([],'backend_preprocess',lambda:normalize_stock_code(code),error_classifier=boundary_reason)
     # Construction is network-free and retains the existing mock rejection seam.
-    service=create_web_service()
-    if service.provider_manager.provider.is_mock:
-        raise DataError('当前数据源不是可用于公开展示的真实行情。')
+    service=trace_call([],'pre_worker_service_init',create_web_service,error_classifier=boundary_reason)
+    def check_provider():
+        if service.provider_manager.provider.is_mock:
+            raise DataError('当前数据源不是可用于公开展示的真实行情。')
+    trace_call([],'provider_policy',check_provider,error_classifier=boundary_reason)
     from app.web_runtime import bounded_web_call
     return bounded_web_call(_analyze_inprocess,(code,),root=Path(__file__).resolve().parents[1])
 

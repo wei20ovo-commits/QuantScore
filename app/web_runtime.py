@@ -10,7 +10,8 @@ import time
 from uuid import uuid4
 
 from app.web_diagnostics import (WebDataError, bind_sink, reset_sink, safe_event, error_reason,
-    bind_request, reset_request, current_request, clean_events, request_summary, publish_terminal)
+    bind_request, reset_request, current_request, clean_events, request_summary, publish_terminal,
+    trace_call,boundary_reason)
 
 
 def _windows_job(process):
@@ -66,8 +67,10 @@ def _worker(gate,target,args,directory,rid):
     try:
         output={'ok':True,'value':target(*args)}
     except Exception as exc:
+        initialization_failure=next((e['reason_code'] for e in events if e['status']=='FAILED'
+            and e['stage'] in {'service_init','snapshot_init','cache_init','provider_init','service_components_init'}),None)
         output={'ok':False,'diagnostics':{'events':events[-100:],
-                'reason_code':error_reason(exc)}}
+                'reason_code':initialization_failure or error_reason(exc)}}
     finally:
         reset_sink(token)
         reset_request(request_token)
@@ -78,19 +81,49 @@ def _worker(gate,target,args,directory,rid):
 
 def bounded_web_call(target,args,*,root,seconds=240):
     if not 0<seconds<=240: raise ValueError('Invalid Web deadline')
-    root=Path(root).resolve()
-    directory=root/'outputs/runtime/web-jobs'/uuid4().hex
-    directory.mkdir(parents=True)
-    context=mp.get_context('spawn')
-    parent,child=context.Pipe()
     rid=current_request() or uuid4().hex
-    process=context.Process(target=_worker,args=(child,target,args,str(directory),rid),daemon=False)
+    token=bind_request(rid);setup_events=[];setup_started=time.monotonic()
+    try:
+        return _bounded_web_call(target,args,root=root,seconds=seconds,rid=rid,setup_events=setup_events)
+    except WebDataError:
+        raise
+    except Exception:
+        # Failures creating a directory/Pipe/Process occur before the original
+        # worker try block. They still need a safe correlated terminal record.
+        summary=request_summary({'events':setup_events,'reason_code':'WORKER_SETUP_FAILED'},
+            rid=rid,outcome='FAILURE',seconds=time.monotonic()-setup_started,layer='WORKER')
+        publish_terminal(summary)
+        raise WebDataError('单股分析未返回完整结果；本次不展示新评分。',summary) from None
+    finally:reset_request(token)
+
+
+def _bounded_web_call(target,args,*,root,seconds,rid,setup_events):
+    def prepare():
+        directory=None;parent=child=None
+        resolved_root=Path(root).resolve()
+        try:
+            directory=resolved_root/'outputs/runtime/web-jobs'/uuid4().hex
+            directory.mkdir(parents=True)
+            context=mp.get_context('spawn')
+            parent,child=context.Pipe()
+            process=context.Process(target=_worker,args=(child,target,args,str(directory),rid),daemon=False)
+            return resolved_root,directory,parent,child,process
+        except Exception:
+            for connection in (parent,child):
+                if connection is not None:connection.close()
+            if directory is not None and directory.resolve().parent==(resolved_root/'outputs/runtime/web-jobs').resolve():
+                shutil.rmtree(directory,ignore_errors=True)
+            raise
+    root,directory,parent,child,process=trace_call(setup_events,'worker_setup',prepare,error_classifier=boundary_reason)
+    startup_events=[]
     closer=None;started=time.monotonic()
     def failure(message,reason):
         try:
             saved=json.loads((directory/'diagnostic.json').read_text('utf-8'))
             saved['events']=clean_events(saved.get('events'))
         except (OSError,ValueError,KeyError,TypeError): saved={}
+        if reason=='WORKER_START_FAILED':
+            saved['events']=[*setup_events,*startup_events,*saved.get('events',[])]
         pending=saved.pop('active_fetch',None)
         if isinstance(pending,dict) and pending.get('adjustment') in {'raw','qfq'}:
             began=pending.get('started_monotonic')
@@ -106,9 +139,12 @@ def bounded_web_call(target,args,*,root,seconds=240):
         publish_terminal(summary)
         return WebDataError(message,summary)
     try:
-        process.start();child.close()
-        if os.name=='nt': closer=_windows_job(process)
-        parent.send('GO');parent.close()
+        def launch():
+            nonlocal closer
+            process.start();child.close()
+            if os.name=='nt': closer=_windows_job(process)
+            parent.send('GO');parent.close()
+        trace_call(startup_events,'worker_start',launch,error_classifier=boundary_reason)
         while process.is_alive() and time.monotonic()-started<seconds:
             process.join(min(.1,max(.001,seconds-(time.monotonic()-started))))
         if process.is_alive():
@@ -147,7 +183,8 @@ def bounded_web_call(target,args,*,root,seconds=240):
     except WebDataError:
         raise
     except Exception:
-        raise failure('单股分析未返回完整结果；本次不展示新评分。','WORKER_ERROR') from None
+        reason='WORKER_START_FAILED' if startup_events and startup_events[-1]['status']=='FAILED' else 'WORKER_ERROR'
+        raise failure('单股分析未返回完整结果；本次不展示新评分。',reason) from None
     finally:
         parent.close();child.close()
         if closer:

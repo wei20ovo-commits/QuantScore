@@ -1,0 +1,1693 @@
+{
+  "scope": "LOCAL_OFFLINE_ONLY",
+  "public_requests": 0,
+  "market_requests": 0,
+  "api_calls": 0,
+  "runs": [
+    {
+      "path": "web_preprocess_failure",
+      "OFFLINE_CONTROLLED": true,
+      "diagnostics": {
+        "diagnostic_version": 2,
+        "event_type": "REQUEST_COMPLETE",
+        "request_id": "a95bfeb677f5478a97a22651d3457766",
+        "layer": "WEB",
+        "outcome": "FAILURE",
+        "reason_code": "WEB_INPUT_REJECTED",
+        "total_latency_seconds": 0.0021,
+        "latency_scope": "loader_including_cache_and_worker",
+        "web_cache": "UNKNOWN",
+        "events": [
+          {
+            "stage": "web_preprocess",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "a95bfeb677f5478a97a22651d3457766"
+          },
+          {
+            "stage": "web_preprocess",
+            "status": "FAILED",
+            "reason_code": "WEB_INPUT_REJECTED",
+            "seconds": 0.0014,
+            "request_id": "a95bfeb677f5478a97a22651d3457766"
+          }
+        ],
+        "last_completed_stage": "UNKNOWN",
+        "last_observed_stage": "web_preprocess",
+        "provider_error_categories": [],
+        "data_error_categories": [],
+        "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+        "security_retry_count": "UNKNOWN",
+        "provider_internal_retry_count": "UNKNOWN",
+        "provider_retry_count": "UNKNOWN",
+        "provider_timeout_count": "UNKNOWN",
+        "raw_seconds": "UNKNOWN",
+        "qfq_seconds": "UNKNOWN",
+        "data_cache_hits": "UNKNOWN",
+        "data_cache_misses": "UNKNOWN",
+        "provider_requests": "UNKNOWN",
+        "counter_scope": "this request only; cached-origin measurements not reused",
+        "partial_events": false,
+        "stock_trade_date": "UNKNOWN",
+        "industry_snapshot_date": "UNKNOWN",
+        "benchmark_snapshot_date": "UNKNOWN",
+        "industry_data_status": "UNKNOWN",
+        "benchmark_data_status": "UNKNOWN",
+        "raw_measurement": "UNKNOWN",
+        "qfq_measurement": "UNKNOWN",
+        "observed_provider_timeout_events": "UNKNOWN",
+        "observed_fetch_retry_events": "UNKNOWN",
+        "provider_error_observation": "UNKNOWN",
+        "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+        "sdk_poll_timeout_count": "UNKNOWN",
+        "deployment": {
+          "git_commit": "UNKNOWN",
+          "code_fingerprint": "UNKNOWN",
+          "source_modified": "UNKNOWN"
+        }
+      }
+    },
+    {
+      "path": "pre_worker_service_failure",
+      "OFFLINE_CONTROLLED": true,
+      "diagnostics": {
+        "diagnostic_version": 2,
+        "event_type": "REQUEST_COMPLETE",
+        "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+        "layer": "WEB",
+        "outcome": "FAILURE",
+        "reason_code": "DATA_VALIDATION_ERROR",
+        "total_latency_seconds": 0.0003,
+        "latency_scope": "loader_including_cache_and_worker",
+        "web_cache": "MISS",
+        "events": [
+          {
+            "stage": "backend_preprocess",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "b2daf193aba04a73a071d59dedfeb5cf"
+          },
+          {
+            "stage": "backend_preprocess",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "b2daf193aba04a73a071d59dedfeb5cf"
+          },
+          {
+            "stage": "pre_worker_service_init",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "b2daf193aba04a73a071d59dedfeb5cf"
+          },
+          {
+            "stage": "pre_worker_service_init",
+            "status": "FAILED",
+            "reason_code": "DATA_VALIDATION_ERROR",
+            "seconds": 0.0001,
+            "request_id": "b2daf193aba04a73a071d59dedfeb5cf"
+          }
+        ],
+        "last_completed_stage": "backend_preprocess",
+        "last_observed_stage": "pre_worker_service_init",
+        "provider_error_categories": [],
+        "data_error_categories": [],
+        "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+        "security_retry_count": "UNKNOWN",
+        "provider_internal_retry_count": "UNKNOWN",
+        "provider_retry_count": "UNKNOWN",
+        "provider_timeout_count": "UNKNOWN",
+        "raw_seconds": "UNKNOWN",
+        "qfq_seconds": "UNKNOWN",
+        "data_cache_hits": "UNKNOWN",
+        "data_cache_misses": "UNKNOWN",
+        "provider_requests": "UNKNOWN",
+        "counter_scope": "this request only; cached-origin measurements not reused",
+        "partial_events": false,
+        "stock_trade_date": "UNKNOWN",
+        "industry_snapshot_date": "UNKNOWN",
+        "benchmark_snapshot_date": "UNKNOWN",
+        "industry_data_status": "UNKNOWN",
+        "benchmark_data_status": "UNKNOWN",
+        "raw_measurement": "UNKNOWN",
+        "qfq_measurement": "UNKNOWN",
+        "observed_provider_timeout_events": "UNKNOWN",
+        "observed_fetch_retry_events": "UNKNOWN",
+        "provider_error_observation": "UNKNOWN",
+        "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+        "sdk_poll_timeout_count": "UNKNOWN",
+        "deployment": {
+          "git_commit": "UNKNOWN",
+          "code_fingerprint": "UNKNOWN",
+          "source_modified": "UNKNOWN"
+        }
+      }
+    },
+    {
+      "path": "provider_policy_rejected",
+      "OFFLINE_CONTROLLED": true,
+      "diagnostics": {
+        "diagnostic_version": 2,
+        "event_type": "REQUEST_COMPLETE",
+        "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+        "layer": "WEB",
+        "outcome": "FAILURE",
+        "reason_code": "PROVIDER_CONFIGURATION_REJECTED",
+        "total_latency_seconds": 0.0003,
+        "latency_scope": "loader_including_cache_and_worker",
+        "web_cache": "MISS",
+        "events": [
+          {
+            "stage": "backend_preprocess",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "44ba7670d313443ebe370d74f2fd7cd6"
+          },
+          {
+            "stage": "backend_preprocess",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "44ba7670d313443ebe370d74f2fd7cd6"
+          },
+          {
+            "stage": "pre_worker_service_init",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "44ba7670d313443ebe370d74f2fd7cd6"
+          },
+          {
+            "stage": "pre_worker_service_init",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "44ba7670d313443ebe370d74f2fd7cd6"
+          },
+          {
+            "stage": "provider_policy",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "44ba7670d313443ebe370d74f2fd7cd6"
+          },
+          {
+            "stage": "provider_policy",
+            "status": "FAILED",
+            "reason_code": "PROVIDER_CONFIGURATION_REJECTED",
+            "seconds": 0.0,
+            "request_id": "44ba7670d313443ebe370d74f2fd7cd6"
+          }
+        ],
+        "last_completed_stage": "pre_worker_service_init",
+        "last_observed_stage": "provider_policy",
+        "provider_error_categories": [],
+        "data_error_categories": [],
+        "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+        "security_retry_count": "UNKNOWN",
+        "provider_internal_retry_count": "UNKNOWN",
+        "provider_retry_count": "UNKNOWN",
+        "provider_timeout_count": "UNKNOWN",
+        "raw_seconds": "UNKNOWN",
+        "qfq_seconds": "UNKNOWN",
+        "data_cache_hits": "UNKNOWN",
+        "data_cache_misses": "UNKNOWN",
+        "provider_requests": "UNKNOWN",
+        "counter_scope": "this request only; cached-origin measurements not reused",
+        "partial_events": false,
+        "stock_trade_date": "UNKNOWN",
+        "industry_snapshot_date": "UNKNOWN",
+        "benchmark_snapshot_date": "UNKNOWN",
+        "industry_data_status": "UNKNOWN",
+        "benchmark_data_status": "UNKNOWN",
+        "raw_measurement": "UNKNOWN",
+        "qfq_measurement": "UNKNOWN",
+        "observed_provider_timeout_events": "UNKNOWN",
+        "observed_fetch_retry_events": "UNKNOWN",
+        "provider_error_observation": "UNKNOWN",
+        "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+        "sdk_poll_timeout_count": "UNKNOWN",
+        "deployment": {
+          "git_commit": "UNKNOWN",
+          "code_fingerprint": "UNKNOWN",
+          "source_modified": "UNKNOWN"
+        }
+      }
+    },
+    {
+      "path": "provider_config_rejected",
+      "OFFLINE_CONTROLLED": true,
+      "diagnostics": {
+        "diagnostic_version": 2,
+        "event_type": "REQUEST_COMPLETE",
+        "request_id": "8340d591ee6c48439fa2d27af389c555",
+        "layer": "WEB",
+        "outcome": "FAILURE",
+        "reason_code": "PROVIDER_CONFIGURATION_ERROR",
+        "total_latency_seconds": 0.1424,
+        "latency_scope": "loader_including_cache_and_worker",
+        "web_cache": "MISS",
+        "events": [
+          {
+            "stage": "backend_preprocess",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          },
+          {
+            "stage": "backend_preprocess",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          },
+          {
+            "stage": "pre_worker_service_init",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          },
+          {
+            "stage": "snapshot_init",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          },
+          {
+            "stage": "snapshot_init",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.1231,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          },
+          {
+            "stage": "context",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "8340d591ee6c48439fa2d27af389c555",
+            "industry_snapshot_date": "2026-09-30",
+            "benchmark_snapshot_date": "2026-09-30"
+          },
+          {
+            "stage": "cache_init",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          },
+          {
+            "stage": "cache_init",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          },
+          {
+            "stage": "provider_init",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          },
+          {
+            "stage": "provider_init",
+            "status": "FAILED",
+            "reason_code": "PROVIDER_CONFIGURATION_ERROR",
+            "seconds": 0.0,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          },
+          {
+            "stage": "pre_worker_service_init",
+            "status": "FAILED",
+            "reason_code": "SERVICE_INITIALIZATION_FAILED",
+            "seconds": 0.1422,
+            "request_id": "8340d591ee6c48439fa2d27af389c555"
+          }
+        ],
+        "last_completed_stage": "cache_init",
+        "last_observed_stage": "pre_worker_service_init",
+        "provider_error_categories": [],
+        "data_error_categories": [],
+        "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+        "security_retry_count": "UNKNOWN",
+        "provider_internal_retry_count": "UNKNOWN",
+        "provider_retry_count": "UNKNOWN",
+        "provider_timeout_count": "UNKNOWN",
+        "raw_seconds": "UNKNOWN",
+        "qfq_seconds": "UNKNOWN",
+        "data_cache_hits": "UNKNOWN",
+        "data_cache_misses": "UNKNOWN",
+        "provider_requests": "UNKNOWN",
+        "counter_scope": "this request only; cached-origin measurements not reused",
+        "partial_events": false,
+        "stock_trade_date": "UNKNOWN",
+        "industry_snapshot_date": "2026-09-30",
+        "benchmark_snapshot_date": "2026-09-30",
+        "industry_data_status": "UNKNOWN",
+        "benchmark_data_status": "UNKNOWN",
+        "raw_measurement": "UNKNOWN",
+        "qfq_measurement": "UNKNOWN",
+        "observed_provider_timeout_events": "UNKNOWN",
+        "observed_fetch_retry_events": "UNKNOWN",
+        "provider_error_observation": "UNKNOWN",
+        "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+        "sdk_poll_timeout_count": "UNKNOWN",
+        "deployment": {
+          "git_commit": "UNKNOWN",
+          "code_fingerprint": "UNKNOWN",
+          "source_modified": "UNKNOWN"
+        }
+      }
+    },
+    {
+      "path": "worker_start_failed",
+      "OFFLINE_CONTROLLED": true,
+      "diagnostics": {
+        "diagnostic_version": 2,
+        "event_type": "REQUEST_COMPLETE",
+        "request_id": "c6241433ea2a46d09c0783d13d751641",
+        "layer": "WEB",
+        "outcome": "FAILURE",
+        "reason_code": "WORKER_START_FAILED",
+        "total_latency_seconds": 0.0168,
+        "latency_scope": "loader_including_cache_and_worker",
+        "web_cache": "MISS",
+        "events": [
+          {
+            "stage": "worker_setup",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "c6241433ea2a46d09c0783d13d751641"
+          },
+          {
+            "stage": "worker_setup",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0144,
+            "request_id": "c6241433ea2a46d09c0783d13d751641"
+          },
+          {
+            "stage": "worker_start",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "c6241433ea2a46d09c0783d13d751641"
+          },
+          {
+            "stage": "worker_start",
+            "status": "FAILED",
+            "reason_code": "WORKER_START_FAILED",
+            "seconds": 0.0,
+            "request_id": "c6241433ea2a46d09c0783d13d751641"
+          },
+          {
+            "stage": "worker_setup",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0144,
+            "request_id": "c6241433ea2a46d09c0783d13d751641"
+          },
+          {
+            "stage": "worker_start",
+            "status": "FAILED",
+            "reason_code": "WORKER_START_FAILED",
+            "seconds": 0.0,
+            "request_id": "c6241433ea2a46d09c0783d13d751641"
+          }
+        ],
+        "last_completed_stage": "worker_setup",
+        "last_observed_stage": "worker_start",
+        "provider_error_categories": [],
+        "data_error_categories": [],
+        "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+        "security_retry_count": "UNKNOWN",
+        "provider_internal_retry_count": "UNKNOWN",
+        "provider_retry_count": "UNKNOWN",
+        "provider_timeout_count": "UNKNOWN",
+        "raw_seconds": "UNKNOWN",
+        "qfq_seconds": "UNKNOWN",
+        "data_cache_hits": "UNKNOWN",
+        "data_cache_misses": "UNKNOWN",
+        "provider_requests": "UNKNOWN",
+        "counter_scope": "this request only; cached-origin measurements not reused",
+        "partial_events": true,
+        "stock_trade_date": "UNKNOWN",
+        "industry_snapshot_date": "UNKNOWN",
+        "benchmark_snapshot_date": "UNKNOWN",
+        "industry_data_status": "UNKNOWN",
+        "benchmark_data_status": "UNKNOWN",
+        "raw_measurement": "UNKNOWN",
+        "qfq_measurement": "UNKNOWN",
+        "observed_provider_timeout_events": "UNKNOWN",
+        "observed_fetch_retry_events": "UNKNOWN",
+        "provider_error_observation": "UNKNOWN",
+        "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+        "sdk_poll_timeout_count": "UNKNOWN",
+        "deployment": {
+          "git_commit": "UNKNOWN",
+          "code_fingerprint": "UNKNOWN",
+          "source_modified": "UNKNOWN"
+        }
+      }
+    },
+    {
+      "path": "worker_available",
+      "OFFLINE_CONTROLLED": true,
+      "diagnostics": {
+        "diagnostic_version": 2,
+        "event_type": "REQUEST_COMPLETE",
+        "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+        "layer": "WEB",
+        "outcome": "SUCCESS",
+        "reason_code": "NONE",
+        "total_latency_seconds": 1.367,
+        "latency_scope": "loader_including_cache_and_worker",
+        "web_cache": "MISS",
+        "events": [
+          {
+            "stage": "worker_setup",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "ff0df16329a2437b8af19a70e6de2a8c"
+          },
+          {
+            "stage": "worker_setup",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0076,
+            "request_id": "ff0df16329a2437b8af19a70e6de2a8c"
+          },
+          {
+            "stage": "worker_start",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "ff0df16329a2437b8af19a70e6de2a8c"
+          },
+          {
+            "stage": "worker_start",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.1396,
+            "request_id": "ff0df16329a2437b8af19a70e6de2a8c"
+          },
+          {
+            "stage": "analysis",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "ff0df16329a2437b8af19a70e6de2a8c"
+          },
+          {
+            "stage": "analysis",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0013,
+            "request_id": "ff0df16329a2437b8af19a70e6de2a8c"
+          }
+        ],
+        "last_completed_stage": "analysis",
+        "last_observed_stage": "analysis",
+        "provider_error_categories": [],
+        "data_error_categories": [],
+        "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+        "security_retry_count": "UNKNOWN",
+        "provider_internal_retry_count": "UNKNOWN",
+        "provider_retry_count": "UNKNOWN",
+        "provider_timeout_count": "UNKNOWN",
+        "raw_seconds": "UNKNOWN",
+        "qfq_seconds": "UNKNOWN",
+        "data_cache_hits": "UNKNOWN",
+        "data_cache_misses": "UNKNOWN",
+        "provider_requests": "UNKNOWN",
+        "counter_scope": "this request only; cached-origin measurements not reused",
+        "partial_events": false,
+        "stock_trade_date": "2024-07-26",
+        "industry_snapshot_date": "UNKNOWN",
+        "benchmark_snapshot_date": "UNKNOWN",
+        "industry_data_status": "UNKNOWN",
+        "benchmark_data_status": "UNKNOWN",
+        "raw_measurement": "UNKNOWN",
+        "qfq_measurement": "UNKNOWN",
+        "observed_provider_timeout_events": "UNKNOWN",
+        "observed_fetch_retry_events": "UNKNOWN",
+        "provider_error_observation": "UNKNOWN",
+        "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+        "sdk_poll_timeout_count": "UNKNOWN",
+        "deployment": {
+          "git_commit": "UNKNOWN",
+          "code_fingerprint": "UNKNOWN",
+          "source_modified": "UNKNOWN"
+        }
+      }
+    },
+    {
+      "path": "worker_unavailable",
+      "OFFLINE_CONTROLLED": true,
+      "diagnostics": {
+        "diagnostic_version": 2,
+        "event_type": "REQUEST_COMPLETE",
+        "request_id": "482f4eeea08d410aaa4e4054f664184e",
+        "layer": "WEB",
+        "outcome": "FAILURE",
+        "reason_code": "DATA_UNAVAILABLE",
+        "total_latency_seconds": 1.1994,
+        "latency_scope": "loader_including_cache_and_worker",
+        "web_cache": "MISS",
+        "events": [
+          {
+            "stage": "worker_setup",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "482f4eeea08d410aaa4e4054f664184e"
+          },
+          {
+            "stage": "worker_setup",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0089,
+            "request_id": "482f4eeea08d410aaa4e4054f664184e"
+          },
+          {
+            "stage": "worker_start",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "482f4eeea08d410aaa4e4054f664184e"
+          },
+          {
+            "stage": "worker_start",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0714,
+            "request_id": "482f4eeea08d410aaa4e4054f664184e"
+          },
+          {
+            "stage": "analysis",
+            "status": "START",
+            "reason_code": "NONE",
+            "seconds": 0.0,
+            "request_id": "482f4eeea08d410aaa4e4054f664184e"
+          },
+          {
+            "stage": "analysis",
+            "status": "OK",
+            "reason_code": "NONE",
+            "seconds": 0.0014,
+            "request_id": "482f4eeea08d410aaa4e4054f664184e"
+          },
+          {
+            "stage": "analysis",
+            "status": "UNAVAILABLE",
+            "reason_code": "DATA_UNAVAILABLE",
+            "seconds": 0.0,
+            "request_id": "482f4eeea08d410aaa4e4054f664184e"
+          }
+        ],
+        "last_completed_stage": "analysis",
+        "last_observed_stage": "analysis",
+        "provider_error_categories": [],
+        "data_error_categories": [],
+        "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+        "security_retry_count": "UNKNOWN",
+        "provider_internal_retry_count": "UNKNOWN",
+        "provider_retry_count": "UNKNOWN",
+        "provider_timeout_count": "UNKNOWN",
+        "raw_seconds": "UNKNOWN",
+        "qfq_seconds": "UNKNOWN",
+        "data_cache_hits": "UNKNOWN",
+        "data_cache_misses": "UNKNOWN",
+        "provider_requests": "UNKNOWN",
+        "counter_scope": "this request only; cached-origin measurements not reused",
+        "partial_events": false,
+        "stock_trade_date": "2024-07-26",
+        "industry_snapshot_date": "UNKNOWN",
+        "benchmark_snapshot_date": "UNKNOWN",
+        "industry_data_status": "UNKNOWN",
+        "benchmark_data_status": "UNKNOWN",
+        "raw_measurement": "UNKNOWN",
+        "qfq_measurement": "UNKNOWN",
+        "observed_provider_timeout_events": "UNKNOWN",
+        "observed_fetch_retry_events": "UNKNOWN",
+        "provider_error_observation": "UNKNOWN",
+        "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+        "sdk_poll_timeout_count": "UNKNOWN",
+        "deployment": {
+          "git_commit": "UNKNOWN",
+          "code_fingerprint": "UNKNOWN",
+          "source_modified": "UNKNOWN"
+        }
+      }
+    }
+  ],
+  "logs": [
+    {
+      "reason_code": "NONE",
+      "request_id": "a95bfeb677f5478a97a22651d3457766",
+      "seconds": 0.0,
+      "stage": "web_preprocess",
+      "status": "START"
+    },
+    {
+      "reason_code": "WEB_INPUT_REJECTED",
+      "request_id": "a95bfeb677f5478a97a22651d3457766",
+      "seconds": 0.0014,
+      "stage": "web_preprocess",
+      "status": "FAILED"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "deployment": {
+        "code_fingerprint": "UNKNOWN",
+        "git_commit": "UNKNOWN",
+        "source_modified": "UNKNOWN"
+      },
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "a95bfeb677f5478a97a22651d3457766",
+          "seconds": 0.0,
+          "stage": "web_preprocess",
+          "status": "START"
+        },
+        {
+          "reason_code": "WEB_INPUT_REJECTED",
+          "request_id": "a95bfeb677f5478a97a22651d3457766",
+          "seconds": 0.0014,
+          "stage": "web_preprocess",
+          "status": "FAILED"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "last_completed_stage": "UNKNOWN",
+      "last_observed_stage": "web_preprocess",
+      "latency_scope": "loader_including_cache_and_worker",
+      "layer": "WEB",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "FAILURE",
+      "partial_events": false,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "WEB_INPUT_REJECTED",
+      "request_id": "a95bfeb677f5478a97a22651d3457766",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "UNKNOWN",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 0.0021,
+      "web_cache": "UNKNOWN"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+      "seconds": 0.0,
+      "stage": "backend_preprocess",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+      "seconds": 0.0,
+      "stage": "backend_preprocess",
+      "status": "OK"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+      "seconds": 0.0,
+      "stage": "pre_worker_service_init",
+      "status": "START"
+    },
+    {
+      "reason_code": "DATA_VALIDATION_ERROR",
+      "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+      "seconds": 0.0001,
+      "stage": "pre_worker_service_init",
+      "status": "FAILED"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "deployment": {
+        "code_fingerprint": "UNKNOWN",
+        "git_commit": "UNKNOWN",
+        "source_modified": "UNKNOWN"
+      },
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+          "seconds": 0.0,
+          "stage": "backend_preprocess",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+          "seconds": 0.0,
+          "stage": "backend_preprocess",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+          "seconds": 0.0,
+          "stage": "pre_worker_service_init",
+          "status": "START"
+        },
+        {
+          "reason_code": "DATA_VALIDATION_ERROR",
+          "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+          "seconds": 0.0001,
+          "stage": "pre_worker_service_init",
+          "status": "FAILED"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "last_completed_stage": "backend_preprocess",
+      "last_observed_stage": "pre_worker_service_init",
+      "latency_scope": "loader_including_cache_and_worker",
+      "layer": "WEB",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "FAILURE",
+      "partial_events": false,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "DATA_VALIDATION_ERROR",
+      "request_id": "b2daf193aba04a73a071d59dedfeb5cf",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "UNKNOWN",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 0.0003,
+      "web_cache": "MISS"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+      "seconds": 0.0,
+      "stage": "backend_preprocess",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+      "seconds": 0.0,
+      "stage": "backend_preprocess",
+      "status": "OK"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+      "seconds": 0.0,
+      "stage": "pre_worker_service_init",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+      "seconds": 0.0,
+      "stage": "pre_worker_service_init",
+      "status": "OK"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+      "seconds": 0.0,
+      "stage": "provider_policy",
+      "status": "START"
+    },
+    {
+      "reason_code": "PROVIDER_CONFIGURATION_REJECTED",
+      "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+      "seconds": 0.0,
+      "stage": "provider_policy",
+      "status": "FAILED"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "deployment": {
+        "code_fingerprint": "UNKNOWN",
+        "git_commit": "UNKNOWN",
+        "source_modified": "UNKNOWN"
+      },
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+          "seconds": 0.0,
+          "stage": "backend_preprocess",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+          "seconds": 0.0,
+          "stage": "backend_preprocess",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+          "seconds": 0.0,
+          "stage": "pre_worker_service_init",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+          "seconds": 0.0,
+          "stage": "pre_worker_service_init",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+          "seconds": 0.0,
+          "stage": "provider_policy",
+          "status": "START"
+        },
+        {
+          "reason_code": "PROVIDER_CONFIGURATION_REJECTED",
+          "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+          "seconds": 0.0,
+          "stage": "provider_policy",
+          "status": "FAILED"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "last_completed_stage": "pre_worker_service_init",
+      "last_observed_stage": "provider_policy",
+      "latency_scope": "loader_including_cache_and_worker",
+      "layer": "WEB",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "FAILURE",
+      "partial_events": false,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "PROVIDER_CONFIGURATION_REJECTED",
+      "request_id": "44ba7670d313443ebe370d74f2fd7cd6",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "UNKNOWN",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 0.0003,
+      "web_cache": "MISS"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.0,
+      "stage": "backend_preprocess",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.0,
+      "stage": "backend_preprocess",
+      "status": "OK"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.0,
+      "stage": "pre_worker_service_init",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.0,
+      "stage": "snapshot_init",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.1231,
+      "stage": "snapshot_init",
+      "status": "OK"
+    },
+    {
+      "benchmark_snapshot_date": "2026-09-30",
+      "industry_snapshot_date": "2026-09-30",
+      "reason_code": "NONE",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.0,
+      "stage": "context",
+      "status": "OK"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.0,
+      "stage": "cache_init",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.0,
+      "stage": "cache_init",
+      "status": "OK"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.0,
+      "stage": "provider_init",
+      "status": "START"
+    },
+    {
+      "reason_code": "PROVIDER_CONFIGURATION_ERROR",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.0,
+      "stage": "provider_init",
+      "status": "FAILED"
+    },
+    {
+      "reason_code": "SERVICE_INITIALIZATION_FAILED",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "seconds": 0.1422,
+      "stage": "pre_worker_service_init",
+      "status": "FAILED"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "2026-09-30",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "deployment": {
+        "code_fingerprint": "UNKNOWN",
+        "git_commit": "UNKNOWN",
+        "source_modified": "UNKNOWN"
+      },
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.0,
+          "stage": "backend_preprocess",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.0,
+          "stage": "backend_preprocess",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.0,
+          "stage": "pre_worker_service_init",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.0,
+          "stage": "snapshot_init",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.1231,
+          "stage": "snapshot_init",
+          "status": "OK"
+        },
+        {
+          "benchmark_snapshot_date": "2026-09-30",
+          "industry_snapshot_date": "2026-09-30",
+          "reason_code": "NONE",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.0,
+          "stage": "context",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.0,
+          "stage": "cache_init",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.0,
+          "stage": "cache_init",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.0,
+          "stage": "provider_init",
+          "status": "START"
+        },
+        {
+          "reason_code": "PROVIDER_CONFIGURATION_ERROR",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.0,
+          "stage": "provider_init",
+          "status": "FAILED"
+        },
+        {
+          "reason_code": "SERVICE_INITIALIZATION_FAILED",
+          "request_id": "8340d591ee6c48439fa2d27af389c555",
+          "seconds": 0.1422,
+          "stage": "pre_worker_service_init",
+          "status": "FAILED"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "2026-09-30",
+      "last_completed_stage": "cache_init",
+      "last_observed_stage": "pre_worker_service_init",
+      "latency_scope": "loader_including_cache_and_worker",
+      "layer": "WEB",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "FAILURE",
+      "partial_events": false,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "PROVIDER_CONFIGURATION_ERROR",
+      "request_id": "8340d591ee6c48439fa2d27af389c555",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "UNKNOWN",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 0.1424,
+      "web_cache": "MISS"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "c6241433ea2a46d09c0783d13d751641",
+      "seconds": 0.0,
+      "stage": "worker_setup",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "c6241433ea2a46d09c0783d13d751641",
+      "seconds": 0.0144,
+      "stage": "worker_setup",
+      "status": "OK"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "c6241433ea2a46d09c0783d13d751641",
+      "seconds": 0.0,
+      "stage": "worker_start",
+      "status": "START"
+    },
+    {
+      "reason_code": "WORKER_START_FAILED",
+      "request_id": "c6241433ea2a46d09c0783d13d751641",
+      "seconds": 0.0,
+      "stage": "worker_start",
+      "status": "FAILED"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "c6241433ea2a46d09c0783d13d751641",
+          "seconds": 0.0144,
+          "stage": "worker_setup",
+          "status": "OK"
+        },
+        {
+          "reason_code": "WORKER_START_FAILED",
+          "request_id": "c6241433ea2a46d09c0783d13d751641",
+          "seconds": 0.0,
+          "stage": "worker_start",
+          "status": "FAILED"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "last_completed_stage": "worker_setup",
+      "last_observed_stage": "worker_start",
+      "latency_scope": "worker_including_startup",
+      "layer": "WORKER",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "FAILURE",
+      "partial_events": true,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "WORKER_START_FAILED",
+      "request_id": "c6241433ea2a46d09c0783d13d751641",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "UNKNOWN",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 0.0,
+      "web_cache": "UNKNOWN"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "deployment": {
+        "code_fingerprint": "UNKNOWN",
+        "git_commit": "UNKNOWN",
+        "source_modified": "UNKNOWN"
+      },
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "c6241433ea2a46d09c0783d13d751641",
+          "seconds": 0.0,
+          "stage": "worker_setup",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "c6241433ea2a46d09c0783d13d751641",
+          "seconds": 0.0144,
+          "stage": "worker_setup",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "c6241433ea2a46d09c0783d13d751641",
+          "seconds": 0.0,
+          "stage": "worker_start",
+          "status": "START"
+        },
+        {
+          "reason_code": "WORKER_START_FAILED",
+          "request_id": "c6241433ea2a46d09c0783d13d751641",
+          "seconds": 0.0,
+          "stage": "worker_start",
+          "status": "FAILED"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "c6241433ea2a46d09c0783d13d751641",
+          "seconds": 0.0144,
+          "stage": "worker_setup",
+          "status": "OK"
+        },
+        {
+          "reason_code": "WORKER_START_FAILED",
+          "request_id": "c6241433ea2a46d09c0783d13d751641",
+          "seconds": 0.0,
+          "stage": "worker_start",
+          "status": "FAILED"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "last_completed_stage": "worker_setup",
+      "last_observed_stage": "worker_start",
+      "latency_scope": "loader_including_cache_and_worker",
+      "layer": "WEB",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "FAILURE",
+      "partial_events": true,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "WORKER_START_FAILED",
+      "request_id": "c6241433ea2a46d09c0783d13d751641",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "UNKNOWN",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 0.0168,
+      "web_cache": "MISS"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+      "seconds": 0.0,
+      "stage": "worker_setup",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+      "seconds": 0.0076,
+      "stage": "worker_setup",
+      "status": "OK"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+      "seconds": 0.0,
+      "stage": "worker_start",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+      "seconds": 0.1396,
+      "stage": "worker_start",
+      "status": "OK"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+          "seconds": 0.0,
+          "stage": "analysis",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+          "seconds": 0.0013,
+          "stage": "analysis",
+          "status": "OK"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "last_completed_stage": "analysis",
+      "last_observed_stage": "analysis",
+      "latency_scope": "worker_including_startup",
+      "layer": "WORKER",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "SUCCESS",
+      "partial_events": false,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "NONE",
+      "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "UNKNOWN",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 1.344,
+      "web_cache": "UNKNOWN"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "deployment": {
+        "code_fingerprint": "UNKNOWN",
+        "git_commit": "UNKNOWN",
+        "source_modified": "UNKNOWN"
+      },
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+          "seconds": 0.0,
+          "stage": "worker_setup",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+          "seconds": 0.0076,
+          "stage": "worker_setup",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+          "seconds": 0.0,
+          "stage": "worker_start",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+          "seconds": 0.1396,
+          "stage": "worker_start",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+          "seconds": 0.0,
+          "stage": "analysis",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+          "seconds": 0.0013,
+          "stage": "analysis",
+          "status": "OK"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "last_completed_stage": "analysis",
+      "last_observed_stage": "analysis",
+      "latency_scope": "loader_including_cache_and_worker",
+      "layer": "WEB",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "SUCCESS",
+      "partial_events": false,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "NONE",
+      "request_id": "ff0df16329a2437b8af19a70e6de2a8c",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "2024-07-26",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 1.367,
+      "web_cache": "MISS"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "482f4eeea08d410aaa4e4054f664184e",
+      "seconds": 0.0,
+      "stage": "worker_setup",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "482f4eeea08d410aaa4e4054f664184e",
+      "seconds": 0.0089,
+      "stage": "worker_setup",
+      "status": "OK"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "482f4eeea08d410aaa4e4054f664184e",
+      "seconds": 0.0,
+      "stage": "worker_start",
+      "status": "START"
+    },
+    {
+      "reason_code": "NONE",
+      "request_id": "482f4eeea08d410aaa4e4054f664184e",
+      "seconds": 0.0714,
+      "stage": "worker_start",
+      "status": "OK"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0,
+          "stage": "analysis",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0014,
+          "stage": "analysis",
+          "status": "OK"
+        },
+        {
+          "reason_code": "DATA_UNAVAILABLE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0,
+          "stage": "analysis",
+          "status": "UNAVAILABLE"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "last_completed_stage": "analysis",
+      "last_observed_stage": "analysis",
+      "latency_scope": "worker_including_startup",
+      "layer": "WORKER",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "FAILURE",
+      "partial_events": false,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "DATA_UNAVAILABLE",
+      "request_id": "482f4eeea08d410aaa4e4054f664184e",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "UNKNOWN",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 1.172,
+      "web_cache": "UNKNOWN"
+    },
+    {
+      "benchmark_data_status": "UNKNOWN",
+      "benchmark_snapshot_date": "UNKNOWN",
+      "counter_scope": "this request only; cached-origin measurements not reused",
+      "data_cache_hits": "UNKNOWN",
+      "data_cache_misses": "UNKNOWN",
+      "data_error_categories": [],
+      "deployment": {
+        "code_fingerprint": "UNKNOWN",
+        "git_commit": "UNKNOWN",
+        "source_modified": "UNKNOWN"
+      },
+      "diagnostic_version": 2,
+      "event_type": "REQUEST_COMPLETE",
+      "events": [
+        {
+          "reason_code": "NONE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0,
+          "stage": "worker_setup",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0089,
+          "stage": "worker_setup",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0,
+          "stage": "worker_start",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0714,
+          "stage": "worker_start",
+          "status": "OK"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0,
+          "stage": "analysis",
+          "status": "START"
+        },
+        {
+          "reason_code": "NONE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0014,
+          "stage": "analysis",
+          "status": "OK"
+        },
+        {
+          "reason_code": "DATA_UNAVAILABLE",
+          "request_id": "482f4eeea08d410aaa4e4054f664184e",
+          "seconds": 0.0,
+          "stage": "analysis",
+          "status": "UNAVAILABLE"
+        }
+      ],
+      "industry_data_status": "UNKNOWN",
+      "industry_snapshot_date": "UNKNOWN",
+      "last_completed_stage": "analysis",
+      "last_observed_stage": "analysis",
+      "latency_scope": "loader_including_cache_and_worker",
+      "layer": "WEB",
+      "observed_fetch_retry_events": "UNKNOWN",
+      "observed_provider_timeout_events": "UNKNOWN",
+      "outcome": "FAILURE",
+      "partial_events": false,
+      "provider_error_categories": [],
+      "provider_error_observation": "UNKNOWN",
+      "provider_internal_retry_count": "UNKNOWN",
+      "provider_requests": "UNKNOWN",
+      "provider_retry_count": "UNKNOWN",
+      "provider_timeout_count": "UNKNOWN",
+      "qfq_measurement": "UNKNOWN",
+      "qfq_seconds": "UNKNOWN",
+      "raw_measurement": "UNKNOWN",
+      "raw_seconds": "UNKNOWN",
+      "reason_code": "DATA_UNAVAILABLE",
+      "request_id": "482f4eeea08d410aaa4e4054f664184e",
+      "retry_scope": "ProviderManager._fetch callback retries; security/SDK internal retries UNKNOWN",
+      "sdk_poll_timeout_count": "UNKNOWN",
+      "security_retry_count": "UNKNOWN",
+      "stock_trade_date": "2024-07-26",
+      "timeout_count_scope": "classified wrapped provider calls; socket/SDK internals UNKNOWN",
+      "total_latency_seconds": 1.1994,
+      "web_cache": "MISS"
+    }
+  ]
+}

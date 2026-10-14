@@ -126,10 +126,10 @@ def main():
         st.session_state.pop('analysis', None)
         st.session_state.pop('request_diagnostics', None)
         try:
-            code = normalize_stock_code(code)
             with st.spinner('正在获取真实行情并逐条分析，首次运行可能需要数分钟…'):
                 from app.web_observability import run_observed_analysis
-                data,diagnostics = run_observed_analysis(code,load_analysis,cache_observable=True,deployment=identity)
+                data,diagnostics = run_observed_analysis(code,load_analysis,cache_observable=True,deployment=identity,
+                                                       preprocess=normalize_stock_code)
                 st.session_state['request_diagnostics']=diagnostics
                 st.session_state['analysis'] = data
                 st.session_state['view'] = 'analysis'
