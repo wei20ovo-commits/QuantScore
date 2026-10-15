@@ -220,8 +220,12 @@ def main():
                 control=app.get_by_role('button',name=label,exact=True)
                 if control.count():
                     control.click(timeout=10000)
-                    app.locator('.theme-'+theme).wait_for(timeout=15000)
+                    # This is an empty, zero-height CSS state marker, not a
+                    # visible card. Waiting for visibility always times out.
+                    app.locator('.theme-'+theme).wait_for(state='attached',timeout=15000)
+                    colour=app.locator('.stApp').evaluate('(e)=>getComputedStyle(e).backgroundColor')
                     report['theme_and_mobile_checks'][theme]=True
+                    report['theme_and_mobile_checks'][theme+'_background']=colour
             page.set_viewport_size({'width':390,'height':844})
             report['theme_and_mobile_checks']['mobile_390']=app.get_by_role('button',name='开始分析',exact=True).is_visible()
             report['theme_and_mobile_checks']['mobile_no_horizontal_overflow']=app.locator('body').evaluate('(e)=>e.scrollWidth<=window.innerWidth+2')

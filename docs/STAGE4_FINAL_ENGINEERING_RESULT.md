@@ -1,6 +1,6 @@
 # QuantScore Stage 4 Final Engineering Result
 
-Date: 2026-10-14. Published starting baseline: `8b57a7989612dd37727e8b1941bfacdb04477135`.
+Engineering/evidence dates: 2026-10-14–15, Asia/Shanghai; exact request times below are UTC. Published starting baseline: `8b57a7989612dd37727e8b1941bfacdb04477135`.
 
 ## Acceptance scope and status
 
@@ -9,6 +9,7 @@ Date: 2026-10-14. Published starting baseline: `8b57a7989612dd37727e8b1941bfacdb
 | Local engineering and regression | LOCAL_PASS | 1084 PASS / 0 FAIL / 0 ERROR / 1 existing SKIP |
 | Same-input scoring semantics | LOCAL_PASS | Exact equality of 41 RuleResults, full score, Risk, B1/B2 industry context and candidate-policy result |
 | Baseline public stock analysis | PUBLIC_PASS | Actual deployed SHA identified; two successful 600519 requests, second Web cache HIT |
+| Current public home / theme / mobile | PUBLIC_PASS | 0ad0cfb observed; actual background changes and 390px no overflow; zero stock submissions |
 | New release public stock verification | PARTIAL | Deployed code SHA matched; first request had no observable terminal after 260.250s; no second request |
 | Atomic daily publication implementation | LOCAL_PASS | Failure retention, generation pinning, corruption rejection and date-quality tests |
 | Current daily market data / scheduled production | PARTIAL / EXTERNAL_BLOCKED | Calendar works; controlled real update failed at industry-provider initialization; no dedicated runner registered |
@@ -75,7 +76,13 @@ Exactly one 600519 analysis was submitted at 15:11:18.419 UTC. At 260.250s the b
 
 Audit confirms the 240s cutoff applies inside `bounded_web_call`; parent preparation, Streamlit cache locking and browser/server delivery are outside the child polling loop. No observation from this request identifies which boundary blocked, whether the server restarted, or whether the worker timed out but its result was not delivered. Existing parent initialization is network-free; this fact alone does not prove it was fast in Cloud. Changing deadlines, retries or data validation without this missing evidence would not establish a fix. Current public reliability is therefore **PARTIAL**, notwithstanding the two earlier baseline successes.
 
-A subsequent final Git publication contains only workflow/privacy/acceptance-tool/report refinements; application/scoring code remains that tested and observed above. Final GitHub and homepage-only identity evidence are saved separately as `outputs/final_engineering/final_release_identity.json` and `public_identity/verification.json`. That follow-up must submit **zero analyses** and cannot substitute for the missing cold/warm acceptance. No claim of stock PUBLIC_PASS is based on homepage identity alone.
+The subsequent ordinary push of `0ad0cfb68e23b8dd2baaf87908febb6bad39a360` was independently verified against remote main and actual public deployment. It contains only workflow/privacy/acceptance-tool/report refinements; application/scoring code remains that tested and observed above. Final GitHub and homepage-only identity evidence are saved separately as `outputs/final_engineering/final_release_identity.json` and `public_identity/verification.json`. That follow-up must submit **zero analyses** and cannot substitute for the missing cold/warm acceptance. No claim of stock PUBLIC_PASS is based on homepage identity alone.
+
+### Homepage theme/mobile follow-up (no stock request)
+
+At 2026-10-15 02:04:16–02:04:25 UTC, an independent browser observed SHA `0ad0cfb68e23b8dd2baaf87908febb6bad39a360` and the same application fingerprint. Dark background actually became `rgb(9, 15, 30)`; Light became `rgb(244, 247, 251)`. At width 390px the analysis button was visible and the body had no horizontal overflow. Exactly zero analysis submissions, zero AI calls and zero full-market scans occurred. Evidence: `outputs/final_engineering/public_identity-ui/verification.json`. This is homepage PUBLIC_PASS only.
+
+The earlier homepage theme timeout was reproduced as an acceptance-script error: an empty CSS state marker has zero height, so Playwright's default visible wait cannot pass. The tool now waits for marker attachment and records computed background color. No application UI/CSS change was necessary. Original failed observations remain archived; the correction does not turn the non-terminal 600519 request into a success. The final documentation/tool-only commit can be identified from `final_release_identity.json`; independently checking its homepage still does not add stock-analysis acceptance.
 
 ### Local real Provider failure
 

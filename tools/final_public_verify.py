@@ -9,7 +9,7 @@ sys.path.insert(0,str(ROOT))
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--label',required=True,choices=['baseline','release','identity'])
+    parser.add_argument('--label',required=True,choices=['baseline','release','identity','identity-ui'])
     parser.add_argument('--wake-once',action='store_true')
     parser.add_argument('--identity-only',action='store_true')
     args=parser.parse_args()
