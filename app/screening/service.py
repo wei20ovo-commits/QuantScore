@@ -141,9 +141,11 @@ class ScreeningService:
         self.policy = policy or ScreeningPolicy.current()
 
     def run(self, *, limit_industries=None, industry_ids=None, refresh=False, output_dir=None,
-            resume=False, runtime_limits=None, optimized=True):
+            resume=False, runtime_limits=None, optimized=True, boundary_reserve_seconds=0):
         if limit_industries is not None and limit_industries < 1:
             raise ValueError('limit_industries must be positive')
+        if boundary_reserve_seconds < 0:
+            raise ValueError('boundary_reserve_seconds must be nonnegative')
         from .runtime import RunControl
         control=RunControl(runtime_limits)
         with run_slot(control):
@@ -161,13 +163,15 @@ class ScreeningService:
                 adapter.begin_run()
             try:
                 return self._run(limit_industries, industry_ids, refresh, output_dir, adapter,
-                                 control=control,resume=resume,optimized=optimized)
+                                 control=control,resume=resume,optimized=optimized,
+                                 boundary_reserve_seconds=boundary_reserve_seconds)
             finally:
                 close = getattr(adapter,'close',None)
                 if close:
                     close()
 
-    def _run(self, limit, ids, refresh, output_dir, adapter, *, control=None,resume=False,optimized=True):
+    def _run(self, limit, ids, refresh, output_dir, adapter, *, control=None,resume=False,optimized=True,
+             boundary_reserve_seconds=0):
         from app.data.models import ProviderError
         started = datetime.now(timezone.utc).isoformat()
         t0 = time.monotonic()
@@ -224,11 +228,18 @@ class ScreeningService:
         seen = {r['symbol'] for r in result['stocks']}
         completed_sectors={r['sector_id'] for r in result['sectors']}
         stopped=False
+        def pause_before(kind):
+            # Hosted slices pause between immutable objects. Leave the existing
+            # object/retry budgets and ordinary callers' deadline behavior intact.
+            if not control:
+                return False
+            budget = getattr(control.limits, kind+'_seconds') if boundary_reserve_seconds else 0
+            return control.run_end-control.clock() <= budget+boundary_reserve_seconds
         contexts = {}
         for sid in selected:
             if sid in completed_sectors:
                 continue
-            if control and control.clock()>=control.run_end:
+            if pause_before('sector'):
                 stopped=True
                 break
             item = universe[sid]
@@ -273,7 +284,7 @@ class ScreeningService:
                         continue
                     result['errors'].append(dict(phase='membership', symbol=symbol, error='DUPLICATE_PRIMARY_MEMBERSHIP'))
                     continue
-                if control and control.clock()>=control.run_end:
+                if pause_before('stock'):
                     stopped=True
                     break
                 seen.add(symbol)
@@ -323,7 +334,11 @@ class ScreeningService:
                             or result['stats']['stock_incomplete'] or result['errors'] or not self.policy.resolved else 'COMPLETE')
         if stopped:
             result['status']='STOPPED'
-            result['errors'].append(dict(phase='runtime',error='WHOLE_RUN_DEADLINE',resume_allowed=True))
+            if boundary_reserve_seconds:
+                result.setdefault('operational_pauses',[]).append(dict(
+                    phase='runtime',reason_code='SLICE_BOUNDARY_PAUSE',resume_allowed=True))
+            else:
+                result['errors'].append(dict(phase='runtime',error='WHOLE_RUN_DEADLINE',resume_allowed=True))
         result['runtime_limits']=control.to_dict() if control else None
         result['complete']=not stopped and len(result['sectors'])==len(selected) and result['stats']['stock_analyzed']==result['stats']['stock_expected']
         result['end_time'] = datetime.now(timezone.utc).isoformat()

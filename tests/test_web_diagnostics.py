@@ -21,6 +21,7 @@ from app.web_snapshots import SnapshotIndustryService
 from test_web_snapshots import published
 from test_stage2_data import provider
 from test_stage2_service import service
+from tools.stage4c7_r1_workers import diagnostic_failure_target, diagnostic_hang_target
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -80,17 +81,6 @@ def test_spawn_entrypoint_does_not_register_streamlit_caches():
     assert callable(namespace['load_analysis'])
 
 
-def diagnostic_failure_target():
-    emit(safe_event('provider_request','FAILED',provider='baostock',
-                    method='query_history_k_data_plus',reason_code='PROVIDER_TIMEOUT'))
-    raise ProviderError('private endpoint and credentials must not leave worker')
-
-
-def diagnostic_hang_target():
-    emit(safe_event('provider_request','START',provider='baostock',method='query_stock_basic'))
-    time.sleep(30)
-
-
 def test_worker_failure_transports_safe_phase_and_cleans(tmp_path):
     with pytest.raises(WebDataError) as caught:
         bounded_web_call(diagnostic_failure_target,(),root=tmp_path,seconds=20)
@@ -102,13 +92,39 @@ def test_worker_failure_transports_safe_phase_and_cleans(tmp_path):
 
 
 def test_deadline_retains_last_provider_stage_and_cleans(tmp_path):
+    ready=tmp_path/'provider.ready'
     start=time.monotonic()
     with pytest.raises(WebDataError) as caught:
-        bounded_web_call(diagnostic_hang_target,(),root=tmp_path,seconds=8)
+        bounded_web_call(diagnostic_hang_target,(str(ready),),root=tmp_path,seconds=8)
+    assert ready.read_text('utf-8')=='PROVIDER_EVENT_PERSISTED'
     assert caught.value.diagnostics['reason_code']=='WEB_DEADLINE_EXCEEDED'
     assert caught.value.diagnostics['events'][-1]['stage']=='provider_request'
     assert time.monotonic()-start<13
     assert not list((tmp_path/'outputs/runtime/web-jobs').iterdir())
+
+
+def test_spawn_diagnostic_targets_resolve_without_test_ui_or_market_imports():
+    # Spawn unpickles the target BEFORE entering _worker and binding its sink.
+    # A target defined here re-imports this whole module and its costly test/UI
+    # stack inside the eight-second deadline. Reject that dependency regression
+    # deterministically instead of relying on warm imports or a larger timeout.
+    import subprocess
+    import sys
+    child=subprocess.run([sys.executable,'-c', '''
+import importlib.abc, pickle, sys
+class RejectHeavy(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname, path=None, target=None):
+        if fullname.split('.')[0] in {'pytest', 'streamlit', 'pandas', 'test_web_diagnostics'}:
+            raise AssertionError('SPAWN_TARGET_IMPORTED_HEAVY_DEPENDENCY')
+sys.meta_path.insert(0, RejectHeavy())
+from app import web_runtime
+from tools.stage4c7_r1_workers import diagnostic_failure_target, diagnostic_hang_target
+for target in (diagnostic_failure_target, diagnostic_hang_target):
+    assert target.__module__ == 'tools.stage4c7_r1_workers'
+    assert pickle.loads(pickle.dumps(target)) is target
+assert not any(name in sys.modules for name in ('pytest', 'streamlit', 'pandas', 'test_web_diagnostics'))
+'''],cwd=ROOT,capture_output=True,timeout=20)
+    assert child.returncode==0
 
 
 def test_current_stock_date_rejects_september_snapshots(published):
@@ -140,7 +156,10 @@ def test_unavailable_ui_displays_diagnosis_and_no_scores(service):
     output['web_diagnostics']={'reason_code':'PROVIDER_TIMEOUT','events':[safe_event('provider_request','FAILED',reason_code='PROVIDER_TIMEOUT')]}
     st.cache_data.clear()
     with patch('app.web_backend.analyze_stock',return_value=output):
-        app=AppTest.from_file(str(ROOT/'app/web.py')).run()
+        # Isolated cold startup exceeds AppTest's 3s default (profiled main
+        # 3.11s, framework run 3.29s). Match the existing finite UI-suite budget;
+        # the provider deadline test stays at 8s and production stays at 240s.
+        app=AppTest.from_file(str(ROOT/'app/web.py'),default_timeout=8).run()
         app.button(key='analyze_submit').click().run(timeout=20)
     assert not app.exception and app.error and not app.metric
     assert any('请求诊断' in x.label for x in app.expander)

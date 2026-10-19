@@ -1,0 +1,52 @@
+# NOT ACTIVE. Do not replace the existing self-hosted production workflow.
+# Install only AFTER real hosted network, state-size and full-universe pilot.
+name: Hosted market update candidate
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Owner-verified publication only (default is a local generation)
+        type: boolean
+        default: false
+  schedule:
+    - cron: '23 9 * * 1-5' # 17:23 Shanghai, real calendar decides holidays
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: market-context-publication
+  cancel-in-progress: false
+jobs:
+  first:
+    if: (github.event_name == 'workflow_dispatch' || vars.QUANTSCORE_HOSTED_UPDATES_ENABLED == 'true') && github.repository == 'wei20ovo-commits/QuantScore' && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/hosted-market-slice.yml
+    with:
+      slice: 1
+      publish: ${{ inputs.publish == true || github.event_name == 'schedule' }}
+  second:
+    needs: first
+    if: needs.first.outputs.status == 'PAUSED'
+    uses: ./.github/workflows/hosted-market-slice.yml
+    with:
+      slice: 2
+      seed_key: ${{ needs.first.outputs.state_key }}
+      seed_artifact: ${{ needs.first.outputs.state_artifact }}
+      publish: ${{ inputs.publish == true || github.event_name == 'schedule' }}
+  third:
+    needs: second
+    if: needs.second.outputs.status == 'PAUSED'
+    uses: ./.github/workflows/hosted-market-slice.yml
+    with:
+      slice: 3
+      seed_key: ${{ needs.second.outputs.state_key }}
+      seed_artifact: ${{ needs.second.outputs.state_artifact }}
+      publish: ${{ inputs.publish == true || github.event_name == 'schedule' }}
+  fourth:
+    needs: third
+    if: needs.third.outputs.status == 'PAUSED'
+    uses: ./.github/workflows/hosted-market-slice.yml
+    with:
+      slice: 4
+      seed_key: ${{ needs.third.outputs.state_key }}
+      seed_artifact: ${{ needs.third.outputs.state_artifact }}
+      publish: ${{ inputs.publish == true || github.event_name == 'schedule' }}

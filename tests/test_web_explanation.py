@@ -31,7 +31,9 @@ def offline():
 
 
 def analyzed_app(data):
-    app = AppTest.from_file(str(WEB)).run()
+    # Cold framework initialization exceeded its 3s default in isolated runs;
+    # see STAGE4_FREE_CLOUD_FEASIBILITY.md. No production deadline changes.
+    app = AppTest.from_file(str(WEB), default_timeout=8).run()
     app.button(key='analyze_submit').click().run(timeout=20)
     assert not app.exception and app.metric
     return app

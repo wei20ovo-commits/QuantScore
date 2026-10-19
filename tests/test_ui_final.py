@@ -13,7 +13,9 @@ def test_theme_navigation_and_real_result_session_history(service):
     data['data_status']['is_mock']=False  # presentation fixture, not network evidence
     st.cache_data.clear()
     with patch('app.web_market.load_index_snapshots',return_value=[]),patch('app.web_backend.analyze_stock',return_value=data):
-        app=AppTest.from_file(str(WEB)).run()
+        # Measured cold Streamlit style initialization: 5.39s vs warm 1.3-1.8s.
+        # Test framework budget only; production Web/provider deadlines unchanged.
+        app=AppTest.from_file(str(WEB),default_timeout=8).run()
         app.button(key='theme_toggle').click().run()
         assert app.session_state['theme']=='dark'
         app.button(key='analyze_submit').click().run(timeout=20)

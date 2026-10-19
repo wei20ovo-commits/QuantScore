@@ -234,6 +234,7 @@ def test_actual_spawn_paths_emit_parent_terminal_at_warning(tmp_path,caplog,targ
                 assert evidence['request_id']=='d'*32 and evidence['outcome']==outcome
                 assert evidence['industry_snapshot_date']==evidence['benchmark_snapshot_date']=='2026-09-30'
                 if outcome=='TIMEOUT':
+                    assert snapshot.with_suffix('.ready').read_text('utf-8')=='CONTEXT_OBSERVED'
                     assert evidence['last_completed_stage']=='rule_scoring'
                     assert evidence['qfq_seconds']>0 and evidence['qfq_measurement']=='PARTIAL'
     finally:reset_request(token)
@@ -292,7 +293,10 @@ def test_web_success_deployment_and_per_submit_cache_panel(service):
     st.cache_data.clear()
     try:
         with patch('app.web_backend.analyze_stock',return_value=data) as analyze:
-            app=AppTest.from_file(str(ROOT/'app/web.py')).run()
+            # Same finite cold-framework budget as the other Web suites:
+            # isolated 3s cold startup fails; warmed imports pass. No provider
+            # or production deadline is changed, and cache assertions remain.
+            app=AppTest.from_file(str(ROOT/'app/web.py'),default_timeout=8).run()
             assert any('部署版本' in e.label for e in app.expander)
             app.button(key='analyze_submit').click().run(timeout=20)
             first=deepcopy(app.session_state['request_diagnostics'])
@@ -305,3 +309,22 @@ def test_web_success_deployment_and_per_submit_cache_panel(service):
         assert data==before and app.session_state['analysis']['rules']==before['rules']
         assert any('请求诊断' in e.label for e in app.expander)
     finally:st.cache_data.clear()
+
+
+def test_worker_diagnostic_import_does_not_load_market_or_ui_stack():
+    # A fresh interpreter, not sys.modules already warmed by conftest/pandas.
+    child=subprocess.run([__import__('sys').executable,'-c',
+        "import sys; import app.web_runtime; "
+        "assert 'pandas' not in sys.modules; assert 'streamlit' not in sys.modules; "
+        "assert 'app.data.provider_manager' not in sys.modules"],
+        cwd=ROOT,capture_output=True,timeout=20)
+    assert child.returncode==0
+
+
+def test_error_aliases_keep_existing_api_exception_identity():
+    import pickle
+    from app.data import errors, models
+    assert models.DataError is errors.DataError
+    assert models.ProviderError is errors.ProviderError
+    assert isinstance(pickle.loads(pickle.dumps(models.DataError('synthetic'))),errors.DataError)
+    assert errors.DataError.code=='DATA_INVALID' and errors.ProviderError.code=='PROVIDER_UNAVAILABLE'

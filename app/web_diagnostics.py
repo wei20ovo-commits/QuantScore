@@ -5,7 +5,7 @@ import logging
 import math
 import re
 from time import perf_counter
-from app.data.models import DataError
+from app.data.errors import DataError
 
 _sink = ContextVar('web_diagnostic_sink', default=None)
 _request = ContextVar('web_request_id', default=None)

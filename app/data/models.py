@@ -2,6 +2,7 @@
 from dataclasses import dataclass, field
 import re
 import pandas as pd
+from app.data.errors import DataError, ProviderError
 
 BENCHMARK_SYMBOL = '000001.SH'
 BENCHMARK_NAME = '上证指数'
@@ -51,11 +52,3 @@ class MarketData:
     def to_context(self, as_of=None):
         from app.features.market_context import build_context
         return build_context(self, as_of=as_of)
-
-
-class DataError(ValueError):
-    code = 'DATA_INVALID'
-
-
-class ProviderError(RuntimeError):
-    code = 'PROVIDER_UNAVAILABLE'

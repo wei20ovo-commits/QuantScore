@@ -1,0 +1,122 @@
+# NOT ACTIVE. Install as .github/workflows/hosted-market-slice.yml after pilot.
+name: Bounded market slice
+on:
+  workflow_call:
+    inputs:
+      slice:
+        type: number
+        required: true
+      seed_key:
+        type: string
+        default: ''
+      seed_artifact:
+        type: string
+        default: ''
+      publish:
+        type: boolean
+        default: false
+    outputs:
+      status:
+        value: ${{ jobs.slice.outputs.status }}
+      state_key:
+        value: ${{ jobs.slice.outputs.state_key }}
+      state_artifact:
+        value: ${{ jobs.slice.outputs.state_artifact }}
+permissions:
+  contents: read
+jobs:
+  slice:
+    if: github.repository == 'wei20ovo-commits/QuantScore' && github.ref == 'refs/heads/main' && vars.QUANTSCORE_HOSTED_PILOT_VERIFIED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 285
+    permissions:
+      contents: write
+      actions: write # delete only the consumed same-run handoff, below
+    outputs:
+      status: ${{ steps.status.outputs.status }}
+      state_key: ${{ steps.identity.outputs.key }}
+      state_artifact: hosted-state-${{ inputs.slice }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements.txt
+      - id: identity
+        env:
+          SLICE: ${{ inputs.slice }}
+        run: |
+          python - <<'PY'
+          import os
+          from app.cloud_state import fingerprint
+          prefix = 'qs-hosted-v1-' + fingerprint('.') + '-'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write('prefix=' + prefix + '\n')
+              f.write('key=' + prefix + os.environ['GITHUB_RUN_ID'] + '-' + os.environ['GITHUB_RUN_ATTEMPT'] + '-' + os.environ['SLICE'] + '\n')
+          PY
+      - uses: actions/cache/restore@v4
+        id: restore
+        with:
+          path: outputs/runtime/cloud-update/transfer/state.jsonl.gz
+          key: ${{ inputs.seed_key || steps.identity.outputs.key }}
+          restore-keys: ${{ inputs.slice == 1 && steps.identity.outputs.prefix || inputs.seed_key }}
+      - uses: actions/download-artifact@v4
+        if: inputs.slice != 1
+        with:
+          name: ${{ inputs.seed_artifact }}
+          path: outputs/runtime/cloud-update/transfer
+      - name: Existing scan, immutable checkpoint, same-day continuation
+        env:
+          SLICE: ${{ inputs.slice }}
+        run: python tools/cloud_market_update.py --slice "$SLICE" --bundle outputs/runtime/cloud-update/transfer/state.jsonl.gz
+      - id: status
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p = Path('outputs/runtime/cloud-update/status.json')
+          value = json.loads(p.read_text())['status'] if p.exists() else 'BLOCKED'
+          assert value in {'PUBLISHED_LOCALLY','PAUSED','BUDGET_EXHAUSTED','BLOCKED','NON_TRADING_DAY','MARKET_NOT_CLOSED','UNKNOWN','READY'}
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write('status=' + value + '\n')
+          PY
+      - uses: actions/cache/save@v4
+        if: success() && (steps.status.outputs.status == 'PAUSED' || steps.status.outputs.status == 'PUBLISHED_LOCALLY')
+        with:
+          path: outputs/runtime/cloud-update/transfer/state.jsonl.gz
+          key: ${{ steps.identity.outputs.key }}
+      - uses: actions/upload-artifact@v4
+        if: success() && (steps.status.outputs.status == 'PAUSED' || steps.status.outputs.status == 'PUBLISHED_LOCALLY')
+        with:
+          name: hosted-state-${{ inputs.slice }}
+          path: outputs/runtime/cloud-update/transfer/state.jsonl.gz
+          compression-level: 0
+          retention-days: 1
+          if-no-files-found: error
+      - name: Retire only the consumed same-run handoff after the new upload succeeds
+        if: success() && inputs.slice != 1
+        uses: actions/github-script@v7
+        env:
+          CONSUMED_ARTIFACT: ${{ inputs.seed_artifact }}
+          SLICE: ${{ inputs.slice }}
+        with:
+          script: |
+            const expected = `hosted-state-${Number(process.env.SLICE)-1}`;
+            if (process.env.CONSUMED_ARTIFACT !== expected) throw new Error('HANDOFF_NAME_MISMATCH');
+            const { data } = await github.rest.actions.listWorkflowRunArtifacts({
+              ...context.repo, run_id: context.runId, per_page: 100
+            });
+            const consumed = data.artifacts.find(a => a.name === expected);
+            if (!consumed) throw new Error('CONSUMED_HANDOFF_MISSING');
+            await github.rest.actions.deleteArtifact({...context.repo, artifact_id: consumed.id});
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hosted-slice-${{ inputs.slice }}-status
+          path: outputs/runtime/cloud-update/status.json
+          retention-days: 1
+          if-no-files-found: error
+      - name: Publish only validated generation (separate owner gate)
+        if: success() && inputs.publish && vars.QUANTSCORE_HOSTED_PUBLICATION_VERIFIED == 'true' && steps.status.outputs.status == 'PUBLISHED_LOCALLY'
+        run: python tools/commit_market_publication.py
