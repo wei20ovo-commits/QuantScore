@@ -1,0 +1,31 @@
+# NOT ACTIVE. WorkBuddy must install as .github/workflows/hosted-provider-probe.yml.
+name: Hosted provider pilot (manual only)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: hosted-market-pilot
+  cancel-in-progress: false
+jobs:
+  probe:
+    if: github.repository == 'wei20ovo-commits/QuantScore' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements.txt
+      - name: Five-call no-retry real probe, stop on first failure
+        run: python tools/cloud_provider_probe.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hosted-provider-probe
+          path: outputs/free_cloud/provider_probe.json
+          if-no-files-found: error
+          retention-days: 1
