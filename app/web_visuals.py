@@ -19,12 +19,12 @@ def sparkline(values, color):
 
 def home_dashboard(snapshot, recent):
     st.html('''<section class="home-hero compact final-hero"><div class="hero-copy"><div class="eyebrow">QUANTSCORE / RESEARCH WORKSPACE</div><h2>用数据看结构，<br>用规则看清每一分。</h2><p>趋势、成交量、形态与风险，一份可追溯的单股分析。</p><div class="hero-badges"><span>真实日线</span><span>规则透明</span><span>解释可追溯</span></div></div><div class="hero-system"><div class="system-core">Q<span>QuantScore</span></div><div class="system-node blue">↗ 趋势结构<small>均线与突破条件</small></div><div class="system-node cyan">▥ 成交量结构<small>量价关系与持续性</small></div><div class="system-node purple">◇ 形态识别<small>逐条匹配冻结规则</small></div><div class="system-node amber">◈ 风险信号<small>保留未知与失效状态</small></div></div></section>''')
-    st.html('<div class="home-section-head dense"><div><strong>市场概览</strong></div><small>最近交易日 · BaoStock日线 · 非实时行情</small></div>')
+    st.html('<div class="home-section-head dense"><div><strong>市场概览</strong></div><small>已获取日线 · BaoStock · 非实时行情</small></div>')
     if snapshot:
         cards=[]
         for item in snapshot:
             rising=item['change']>=0; color='#ef5266' if rising else '#1bb797'
-            cards.append(f'<article class="market-card"><div class="market-top"><b>{e(item["name"])}</b><span class="day-label">最近交易日</span></div><div class="index-body"><div><div class="market-value">{item["close"]:,.2f}</div><div class="market-change" style="color:{color}">{item["change"]:+.2f}　{item["percent"]:+.2f}%</div></div>{sparkline(item["trend"],color)}</div><div class="market-meta">{e(item["symbol"])} · {e(item["date"])}</div></article>')
+            cards.append(f'<article class="market-card"><div class="market-top"><b>{e(item["name"])}</b><span class="day-label">日线数据</span></div><div class="index-body"><div><div class="market-value">{item["close"]:,.2f}</div><div class="market-change" style="color:{color}">{item["change"]:+.2f}　{item["percent"]:+.2f}%</div></div>{sparkline(item["trend"],color)}</div><div class="market-meta">{e(item["symbol"])} · {e(item["date"])}</div></article>')
         st.html('<div class="market-grid">'+''.join(cards)+'</div>')
     else:
         st.html('<div class="market-empty">点击“加载指数日线”查看真实指数数据；未加载时不展示行情数字。</div>')
@@ -42,16 +42,16 @@ def home_dashboard(snapshot, recent):
             for title,cats in [('趋势',{'C'}),('量能',{'D'}),('形态',{'E','F'})]:
                 value,maximum,_=structure_totals(data['rules'],cats)
                 parts.append(f'<span>{title}<b>{value:g} <small>/ {maximum:g}</small></b></span>')
-            st.html(f'<div class="home-panel preview-final"><div class="panel-title">QuantScore 评分预览</div><div class="preview-row"><div><h3>{e(data["name"])}</h3><div class="muted">{e(data["symbol"])} · {e(data["evaluation_date"])}</div><div class="muted">风险等级 {e(data["risk_level"])}</div></div><div class="score-ring" style="--arc:{max(0,min(100,score))*3.6}deg"><div><b>{score:g}</b><small>/ 100</small></div></div></div><div class="composition-values">{"".join(parts)}</div><div class="panel-sub">来自本会话最近一次真实分析</div></div>')
+            st.html(f'<div class="home-panel preview-final"><div class="panel-title">QuantScore 历史评分预览</div><div class="preview-row"><div><h3>{e(data["name"])}</h3><div class="muted">{e(data["symbol"])} · 历史评价日期 {e(data["evaluation_date"])}</div><div class="muted">风险等级 {e(data["risk_level"])}</div></div><div class="score-ring" style="--arc:{max(0,min(100,score))*3.6}deg"><div><b>{score:g}</b><small>/ 100</small></div></div></div><div class="composition-values">{"".join(parts)}</div><div class="panel-sub">来自本会话最近一次真实历史分析，不代表当前评分</div></div>')
         else:
             st.html('<div class="home-panel preview-final"><div class="panel-title">QuantScore 评分预览</div><div class="preview-intro"><span class="preview-symbol">Q</span><div><h3>从一只股票开始</h3><p>分析后在这里回看真实评分与结构分项。</p></div></div><div class="preview-legend"><span>趋势结构</span><span>成交量结构</span><span>形态结构</span><span>风险等级</span></div></div>')
     with right:
         rows=[]
         for item in recent:
             d=item['data'];price=d.get('price',{}).get('close');price_text='暂无数据' if price is None else f'{price:,.2f}'
-            rows.append(f'<div class="recent-row"><span><b>{e(d["name"])}</b><small>{e(d["symbol"])}</small></span><span>{price_text}</span><span class="recent-score">{number_text(d["final_quant_score"])}</span><span>{e(item["analyzed_at"])}</span></div>')
+            rows.append(f'<div class="recent-row"><span><b>{e(d["name"])}</b><small>{e(d["symbol"])}</small></span><span>{price_text}</span><span class="recent-score">{number_text(d["final_quant_score"])}</span><span>{e(d["evaluation_date"])}</span></div>')
         body=''.join(rows) if rows else '<div class="recent-empty compact">尚无分析记录<small>　完成分析后自动保留在本会话，无热门排行。</small></div>'
-        st.html('<div class="home-panel preview-final"><div class="panel-title">最近分析 <span class="panel-sub">仅当前会话</span></div><div class="recent-row recent-header"><span>股票 / 代码</span><span>日线收盘</span><span>评分</span><span>分析时间</span></div>'+body+'</div>')
+        st.html('<div class="home-panel preview-final"><div class="panel-title">最近历史评分 <span class="panel-sub">仅当前会话 · 非当前评分</span></div><div class="recent-row recent-header"><span>股票 / 代码</span><span>日线收盘</span><span>历史评分</span><span>评价日期</span></div>'+body+'</div>')
     st.html('<div class="home-footnotes"><span>◉ 真实行情与原始规则可追溯</span><span>≡ 原规则权重保持不变</span><span>◷ 日线分析，不提供实时行情</span></div>')
 
 def structure_totals(rules, categories):

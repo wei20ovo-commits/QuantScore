@@ -84,7 +84,17 @@ def bounded_web_call(target,args,*,root,seconds=240):
     rid=current_request() or uuid4().hex
     token=bind_request(rid);setup_events=[];setup_started=time.monotonic()
     try:
-        return _bounded_web_call(target,args,root=root,seconds=seconds,rid=rid,setup_events=setup_events)
+        from app.web_budget import remaining_seconds
+        seconds=remaining_seconds(seconds)
+        if seconds<=0:
+            summary=request_summary({'events':setup_events,
+                'reason_code':'WEB_REQUEST_DEADLINE_EXCEEDED'},
+                rid=rid,outcome='TIMEOUT',seconds=time.monotonic()-setup_started,layer='WORKER')
+            publish_terminal(summary)
+            raise WebDataError('本次分析已达到请求时限，不展示迟到的新评分。',summary)
+        return _bounded_web_call(target,args,root=root,seconds=seconds,rid=rid,
+                                 setup_events=setup_events,started=setup_started,
+                                 deadline=setup_started+seconds)
     except WebDataError:
         raise
     except Exception:
@@ -97,7 +107,7 @@ def bounded_web_call(target,args,*,root,seconds=240):
     finally:reset_request(token)
 
 
-def _bounded_web_call(target,args,*,root,seconds,rid,setup_events):
+def _bounded_web_call(target,args,*,root,seconds,rid,setup_events,started,deadline):
     def prepare():
         directory=None;parent=child=None
         resolved_root=Path(root).resolve()
@@ -116,7 +126,7 @@ def _bounded_web_call(target,args,*,root,seconds,rid,setup_events):
             raise
     root,directory,parent,child,process=trace_call(setup_events,'worker_setup',prepare,error_classifier=boundary_reason)
     startup_events=[]
-    closer=None;started=time.monotonic()
+    closer=None
     def failure(message,reason):
         try:
             saved=json.loads((directory/'diagnostic.json').read_text('utf-8'))
@@ -141,18 +151,37 @@ def _bounded_web_call(target,args,*,root,seconds,rid,setup_events):
     try:
         def launch():
             nonlocal closer
+            if time.monotonic()>=deadline:
+                raise failure('本次分析已达到请求时限，不展示迟到的新评分。',
+                              'WEB_DEADLINE_EXCEEDED')
             process.start();child.close()
             if os.name=='nt': closer=_windows_job(process)
+            if time.monotonic()>=deadline:
+                raise failure('本次分析已达到请求时限，不展示迟到的新评分。',
+                              'WEB_DEADLINE_EXCEEDED')
             parent.send('GO');parent.close()
+            if time.monotonic()>=deadline:
+                raise failure('本次分析已达到请求时限，不展示迟到的新评分。',
+                              'WEB_DEADLINE_EXCEEDED')
+        if time.monotonic()>=deadline:
+            raise failure('本次分析已达到请求时限，不展示迟到的新评分。',
+                          'WEB_DEADLINE_EXCEEDED')
         trace_call(startup_events,'worker_start',launch,error_classifier=boundary_reason)
-        while process.is_alive() and time.monotonic()-started<seconds:
-            process.join(min(.1,max(.001,seconds-(time.monotonic()-started))))
+        while process.is_alive() and time.monotonic()<deadline:
+            process.join(min(.1,max(.001,deadline-time.monotonic())))
         if process.is_alive():
+            raise failure('单股分析达到运行时限，已停止本次请求；未生成新评分，请稍后重试。','WEB_DEADLINE_EXCEEDED')
+        if time.monotonic()>=deadline:
             raise failure('单股分析达到运行时限，已停止本次请求；未生成新评分，请稍后重试。','WEB_DEADLINE_EXCEEDED')
         path=directory/'response.json'
         if process.exitcode!=0 or not path.exists() or path.stat().st_size>16*1024*1024:
             raise failure('单股分析未返回完整结果；本次不展示新评分。','WORKER_RESPONSE_INVALID')
-        result=json.loads(path.read_text('utf-8'))
+        payload=path.read_text('utf-8')
+        if time.monotonic()>=deadline:
+            raise failure('单股分析达到运行时限，已停止本次请求；未生成新评分，请稍后重试。','WEB_DEADLINE_EXCEEDED')
+        result=json.loads(payload)
+        if time.monotonic()>=deadline:
+            raise failure('单股分析达到运行时限，已停止本次请求；未生成新评分，请稍后重试。','WEB_DEADLINE_EXCEEDED')
         if not result['ok']:
             reason=result.get('diagnostics',{}).get('reason_code','WORKER_ERROR')
             from app.web_diagnostics import REASONS
@@ -178,6 +207,9 @@ def _bounded_web_call(target,args,*,root,seconds,rid,setup_events):
             if isinstance(source,dict):
                 source.update(request_id=rid,total_backend_seconds=elapsed,web_deadline_seconds=seconds)
                 output['web_diagnostics']=source
+            if time.monotonic()>=deadline:
+                raise failure('单股分析达到运行时限，已停止本次请求；未生成新评分，请稍后重试。',
+                              'WEB_DEADLINE_EXCEEDED')
             publish_terminal(summary)
         return output
     except WebDataError:

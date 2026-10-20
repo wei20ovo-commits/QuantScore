@@ -1,7 +1,17 @@
-# NOT ACTIVE. WorkBuddy must install as .github/workflows/hosted-provider-probe.yml.
+# Manual diagnostics only. No secrets, retries, scanning or publication.
 name: Hosted provider pilot (manual only)
 on:
   workflow_dispatch:
+    inputs:
+      probe_kind:
+        description: Run one profile once; inspect evidence before another profile
+        type: choice
+        default: baostock
+        options:
+          - baostock
+          - https-eastmoney
+          - https-tencent
+          - schema
 permissions:
   contents: read
 concurrency:
@@ -20,12 +30,22 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install -r requirements.txt
-      - name: Five-call no-retry real probe, stop on first failure
-        run: python tools/cloud_provider_probe.py
+      - name: Bounded serial probe; stop on first failure
+        env:
+          PROBE_KIND: ${{ inputs.probe_kind }}
+        shell: bash
+        run: |
+          case "$PROBE_KIND" in
+            baostock|https-eastmoney|https-tencent) python tools/cloud_connection_probe.py --mode "$PROBE_KIND" ;;
+            schema) python tools/cloud_provider_probe.py ;;
+            *) exit 2 ;;
+          esac
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: hosted-provider-probe
-          path: outputs/free_cloud/provider_probe.json
+          path: |
+            outputs/free_cloud/connection_probe_*.json
+            outputs/free_cloud/provider_probe.json
           if-no-files-found: error
           retention-days: 1

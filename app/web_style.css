@@ -33,6 +33,12 @@ header[data-testid="stHeader"]{display:none!important;pointer-events:none!import
 .stApp:has(.theme-dark) button[kind="secondary"]{background:#162d49;border-color:#315075;color:#d6e6ff}
 .stApp:has(.theme-dark) button p{color:inherit!important}
 .stApp:has(.theme-dark) [data-testid="stAlert"] p{color:#d9e7fa!important}
+/* Preserve warning/error severity in both themes, including date warnings. */
+.stApp [data-testid="stAlert"]:has([data-testid="stAlertContentWarning"]){border-left:4px solid #d58a13}
+.stApp [data-testid="stAlert"]:has([data-testid="stAlertContentError"]){border-left:4px solid #dc4b63}
+.stApp:has(.theme-dark) [data-testid="stAlert"]:has([data-testid="stAlertContentWarning"]) [data-testid="stAlertContainer"]{background:#352b19}
+.stApp:has(.theme-dark) [data-testid="stAlert"]:has([data-testid="stAlertContentWarning"]) p{color:#ffe1a3!important}
+.stApp:has(.theme-dark) [data-testid="stAlert"]:has([data-testid="stAlertContentError"]) [data-testid="stAlertContainer"]{background:#3b1e2a}
 .stApp:has(.theme-dark) .score-ring{background:conic-gradient(#4b9cff var(--arc),#283e5d 0)}
 .stApp:has(.theme-dark) .system-node.blue{--accent:#69aaff}.stApp:has(.theme-dark) .system-node.purple{--accent:#ae91ff}
 @media(max-width:640px){

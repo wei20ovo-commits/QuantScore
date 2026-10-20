@@ -16,7 +16,7 @@ STAGES = {'worker', 'service_init', 'security_resolve', 'security_lookup',
           'context', 'fetch_group', 'fetch_attempt', 'fetch_retry',
           'web_preprocess','backend_preprocess','pre_worker_service_init',
           'snapshot_init','cache_init','provider_init','provider_policy',
-          'service_components_init','worker_setup','worker_start'}
+          'service_components_init','worker_setup','worker_start','web_task_start','web_admission'}
 REASONS = {'NONE', 'PROVIDER_TIMEOUT', 'PROVIDER_CONNECTION_ERROR', 'PROVIDER_PROXY_ERROR',
            'PROVIDER_LOGIN_ERROR', 'PROVIDER_INCOMPLETE_PAGINATION', 'PROVIDER_SDK_ERROR',
            'PROVIDER_UNAVAILABLE', 'DATA_VALIDATION_ERROR', 'RAW_QFQ_DATE_MISMATCH',
@@ -27,6 +27,8 @@ REASONS = {'NONE', 'PROVIDER_TIMEOUT', 'PROVIDER_CONNECTION_ERROR', 'PROVIDER_PR
            'BENCHMARK_SNAPSHOT_DATA_ERROR','BENCHMARK_SNAPSHOT_DATA_INCONSISTENT',
            'BENCHMARK_SNAPSHOT_PROVIDER_MISMATCH',
            'WEB_INPUT_REJECTED','WEB_PREPROCESSING_FAILED',
+           'WEB_REQUEST_DEADLINE_EXCEEDED',
+           'WEB_TASK_START_FAILED','WEB_CAPACITY_REJECTED',
            'SERVICE_INITIALIZATION_FAILED','INITIALIZATION_IMPORT_ERROR',
            'INITIALIZATION_FILE_NOT_FOUND','INITIALIZATION_PERMISSION_ERROR',
            'PROVIDER_CONFIGURATION_ERROR','PROVIDER_CONFIGURATION_REJECTED',

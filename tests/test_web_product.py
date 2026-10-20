@@ -172,8 +172,10 @@ def test_navigation_no_scan_or_auto_analysis(view, snapshot):
         if view == 'rules':
             # Preserve all 48 ACTIVE rules and the shared status legend; the
             # release evidence panel is independently present on every page.
-            assert sum(e.label!='部署版本 · 可核验' for e in app.expander)==49
+            ancillary={'部署版本 · 可核验','使用反馈 · 帮助我们改进','维护者配置说明'}
+            assert sum(e.label not in ancillary for e in app.expander)==49
             assert sum(e.label=='部署版本 · 可核验' for e in app.expander)==1
+            assert sum(e.label=='使用反馈 · 帮助我们改进' for e in app.expander)==1
         elif view == 'sectors':
             assert len(app.dataframe[0].value) == 1
         else:

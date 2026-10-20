@@ -18,7 +18,8 @@ from app.web_observability import run_observed_analysis,mark_analysis_execution
 from app.web_runtime import bounded_web_call
 from test_stage2_service import service
 from test_web_snapshots import published
-from tools.stage4c8_r1_workers import offline_result,offline_initialization_failure
+from tools.stage4c8_r1_workers import (
+    offline_result,offline_initialization_failure,read_json_result)
 
 ROOT=Path(__file__).resolve().parents[1]
 PRIVATE='PRIVATE_TEST_SENTINEL Z:/private'
@@ -188,6 +189,127 @@ def test_capture_forwards_outer_sink_without_changing_results():
     assert len(diag['events'])==1 and current_request() is None
 
 
+def test_setup_expiry_is_timeout_and_starts_no_process(tmp_path):
+    from app import web_runtime
+    clock=[0.]
+    real_context=web_runtime.mp.get_context
+    def context(*args,**kwargs):
+        clock[0]=2.
+        return real_context(*args,**kwargs)
+    with patch('app.web_runtime.time.monotonic',side_effect=lambda:clock[0]), \
+         patch('app.web_runtime.mp.get_context',side_effect=context), \
+         patch('multiprocessing.context.SpawnProcess.start') as start, \
+         pytest.raises(WebDataError) as caught:
+        bounded_web_call(read_json_result,('unused',),root=tmp_path,seconds=1)
+    assert caught.value.diagnostics['outcome']=='TIMEOUT'
+    assert caught.value.diagnostics['reason_code']=='WEB_DEADLINE_EXCEEDED'
+    start.assert_not_called()
+
+
+def test_start_expiry_is_timeout_before_go_signal(tmp_path):
+    class Connection:
+        def close(self):pass
+        def send(self,_):pytest.fail('GO must not be sent after expiry')
+    class Process:
+        pid=None
+        sentinel=None
+        exitcode=None
+        def start(self):clock[0]=2.
+        def is_alive(self):return False
+        def join(self,*_):pass
+    class Context:
+        def Pipe(self):return Connection(),Connection()
+        def Process(self,**_):return Process()
+    clock=[0.]
+    with patch('app.web_runtime.time.monotonic',side_effect=lambda:clock[0]), \
+         patch('app.web_runtime.mp.get_context',return_value=Context()), \
+         patch('app.web_runtime._windows_job',return_value=lambda:None), \
+         pytest.raises(WebDataError) as caught:
+        bounded_web_call(read_json_result,('unused',),root=tmp_path,seconds=1)
+    assert caught.value.diagnostics['outcome']=='TIMEOUT'
+    assert caught.value.diagnostics['reason_code']=='WEB_DEADLINE_EXCEEDED'
+
+
+def test_finished_late_response_is_timeout_not_failure(tmp_path):
+    class Connection:
+        def close(self):pass
+        def send(self,_):pass
+    class Process:
+        pid=None
+        sentinel=None
+        exitcode=0
+        def start(self):
+            directory=next((tmp_path/'outputs/runtime/web-jobs').iterdir())
+            (directory/'response.json').write_text(
+                json.dumps({'ok':True,'value':{
+                    'data_status':{'status':'AVAILABLE'}}}),
+                encoding='utf-8')
+        def is_alive(self):return False
+        def join(self,*_):pass
+        def terminate(self):pass
+        def kill(self):pass
+    class Context:
+        def Pipe(self):return Connection(),Connection()
+        def Process(self,**_):return Process()
+    ticks=iter([0.,0.,0.,0.,0.,2.,2.,2.,2.,2.,2.])
+    with patch('app.web_runtime.time.monotonic',
+               side_effect=lambda:next(ticks,2.)), \
+         patch('app.web_runtime.mp.get_context',return_value=Context()), \
+         patch('app.web_runtime._windows_job',return_value=lambda:None), \
+         pytest.raises(WebDataError) as caught:
+        bounded_web_call(read_json_result,('unused',),root=tmp_path,seconds=1)
+    assert caught.value.diagnostics['outcome']=='TIMEOUT'
+    assert caught.value.diagnostics['reason_code']=='WEB_DEADLINE_EXCEEDED'
+
+
+def test_success_is_not_published_before_last_deadline_check(tmp_path,caplog):
+    class Connection:
+        def close(self):pass
+        def send(self,_):pass
+    class Process:
+        pid=None
+        sentinel=None
+        exitcode=0
+        def start(self):
+            directory=next((tmp_path/'outputs/runtime/web-jobs').iterdir())
+            (directory/'response.json').write_text(
+                json.dumps({'ok':True,'value':original}),encoding='utf-8')
+        def is_alive(self):return False
+        def join(self,*_):pass
+        def terminate(self):pass
+        def kill(self):pass
+    class Context:
+        def Pipe(self):return Connection(),Connection()
+        def Process(self,**_):return Process()
+    original={'data_status':{'status':'AVAILABLE','is_mock':False}}
+    ticks=iter([0.,0.,0.,0.,0.,0.,0.,2.,2.,2.,2.])
+    with patch('app.web_runtime.time.monotonic',
+               side_effect=lambda:next(ticks,2.)), \
+         patch('app.web_runtime.mp.get_context',return_value=Context()), \
+         patch('app.web_runtime._windows_job',return_value=lambda:None), \
+         caplog.at_level(logging.WARNING),pytest.raises(WebDataError) as caught:
+        bounded_web_call(read_json_result,('unused',),
+                         root=tmp_path,seconds=1)
+    assert caught.value.diagnostics['outcome']=='TIMEOUT'
+    records=terminal_records(caplog)
+    assert not any(record['layer']=='WORKER' and record['outcome']=='SUCCESS'
+                   for record in records)
+
+
+def test_consumed_parent_budget_rejects_before_runtime_setup(tmp_path):
+    from app.web_budget import bind_remaining,reset_remaining
+    token=bind_remaining(lambda:0)
+    try:
+        with patch('app.web_runtime.mp.get_context') as context, \
+             pytest.raises(WebDataError) as caught:
+            bounded_web_call(read_json_result,('unused',),root=tmp_path)
+        assert caught.value.diagnostics['outcome']=='TIMEOUT'
+        assert caught.value.diagnostics['reason_code']=='WEB_REQUEST_DEADLINE_EXCEEDED'
+        context.assert_not_called()
+    finally:
+        reset_remaining(token)
+
+
 def test_worker_init_fault_keeps_typed_boundary_not_message_network_guess(tmp_path,caplog):
     def run(_):return bounded_web_call(offline_initialization_failure,(),root=tmp_path,seconds=20)
     with caplog.at_level(logging.WARNING),pytest.raises(WebDataError) as caught:
@@ -208,7 +330,8 @@ def test_initialization_events_do_not_prove_provider_zero_calls():
 def test_ui_input_failure_shows_safe_request_diagnostic_without_analysis():
     st.cache_data.clear()
     try:
-        with patch('app.web_market.load_index_snapshots',return_value=[]), \
+        with patch('app.web_runtime.bounded_web_call',
+                   side_effect=lambda target,args,**kwargs:target(*args)), \
              patch('app.web_backend.analyze_stock') as analyze:
             # This new test starts a completely cold UI. Three-second failures
             # were measured at web.py's initial CSS st.html, before diagnostics;

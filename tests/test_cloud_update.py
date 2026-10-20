@@ -356,7 +356,12 @@ def test_cloud_templates_are_dormant_serial_and_separately_gated():
     assert int(worker['timeout-minutes'])<360
     assert worker['runs-on']=='ubuntu-24.04'
     assert 'PILOT_VERIFIED' in worker['if']
-    assert not list((root/'.github/workflows').glob('hosted-*.yml'))
+    # Main now contains the explicitly authorized manual probe, not a daily scan.
+    hosted=list((root/'.github/workflows').glob('hosted-*.yml'))
+    assert [p.name for p in hosted]==['hosted-provider-probe.yml']
+    probe=yaml.load(hosted[0].read_text(),Loader=yaml.BaseLoader)
+    assert set(probe['on'])=={'workflow_dispatch'}
+    assert probe['permissions']=={'contents':'read'}
 
 
 @pytest.mark.parametrize('fail',[False,True])

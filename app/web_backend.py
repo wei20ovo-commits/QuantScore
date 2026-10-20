@@ -129,9 +129,13 @@ def _analyze_inprocess(code,root=None,cache=None,service=None):
 
 
 def analyze_stock(code):
+    from app.web_budget import require_remaining
+    require_remaining()
     code=trace_call([],'backend_preprocess',lambda:normalize_stock_code(code),error_classifier=boundary_reason)
+    require_remaining()
     # Construction is network-free and retains the existing mock rejection seam.
     service=trace_call([],'pre_worker_service_init',create_web_service,error_classifier=boundary_reason)
+    require_remaining()
     def check_provider():
         if service.provider_manager.provider.is_mock:
             raise DataError('当前数据源不是可用于公开展示的真实行情。')

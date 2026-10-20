@@ -15,11 +15,20 @@ def mark_analysis_execution():
     if marker is not None:marker['executed']=True
 
 
-def run_observed_analysis(code,loader,*,cache_observable=False,deployment=None,preprocess=None):
+def run_observed_analysis(code,loader,*,cache_observable=False,deployment=None,preprocess=None,
+                          request_id=None,accept_result=None,on_event=None,remaining_budget=None):
     """Return the original result untouched and a separate sanitized summary."""
-    rid=uuid4().hex;marker={'executed':False};start=perf_counter()
+    from app.web_diagnostics import valid_request_id, bind_sink
+    rid=valid_request_id(request_id) or uuid4().hex;marker={'executed':False};start=perf_counter()
     token=bind_request(rid);execution_token=_execution.set(marker)
-    observed=[];sink_token=bind_event_capture(observed)
+    observed=[]
+    if on_event is None:sink_token=bind_event_capture(observed)
+    else:
+        # Mirror only allowlisted events; the listener must not render UI.
+        def capture(event):
+            observed.append(event)
+            on_event(event)
+        sink_token=bind_sink(capture)
     def evidence(source):
         source=dict(source) if isinstance(source,dict) else {}
         # Failure summaries rebuild safe events, so object identity is lost.
@@ -52,15 +61,38 @@ def run_observed_analysis(code,loader,*,cache_observable=False,deployment=None,p
         publish_terminal(summary)
         return summary
     try:
+        from app.web_budget import bind_remaining, require_remaining
+        budget_token=bind_remaining(remaining_budget)
+        if accept_result is not None and not accept_result():
+            raise WebDataError('本次分析已达到请求时限，不展示迟到的新评分。',
+                               {'reason_code':'WEB_REQUEST_DEADLINE_EXCEEDED'})
+        require_remaining()
         if preprocess is not None:
             code=trace_call([],'web_preprocess',lambda:preprocess(code),error_classifier=boundary_reason)
+        if accept_result is not None and not accept_result():
+            raise WebDataError('本次分析已达到请求时限，不展示迟到的新评分。',
+                               {'reason_code':'WEB_REQUEST_DEADLINE_EXCEEDED'})
+        require_remaining()
         result=loader(code)
-        outcome='FAILURE' if result.get('data_status',{}).get('status')=='UNAVAILABLE' else 'SUCCESS'
-        summary=request_summary(evidence(result.get('web_diagnostics')),rid=rid,outcome=outcome,
+        if accept_result is not None and not accept_result():
+            raise WebDataError('本次分析已达到请求时限，不展示迟到的新评分。',
+                               {'reason_code':'WEB_REQUEST_DEADLINE_EXCEEDED'})
+        require_remaining()
+        # This generic transport observer is also used by explicitly synthetic
+        # offline engine tests. The user-facing task/loader rejects mock data.
+        invalid=result.get('data_status',{}).get('status')=='UNAVAILABLE'
+        outcome='FAILURE' if invalid else 'SUCCESS'
+        source=evidence(result.get('web_diagnostics'))
+        if invalid and source.get('reason_code') in (None,'NONE'):source['reason_code']='DATA_UNAVAILABLE'
+        summary=request_summary(source,rid=rid,outcome=outcome,
                                 seconds=perf_counter()-start,web_cache='MISS' if marker['executed'] else ('HIT' if cache_observable else 'UNKNOWN'))
         # Legacy results may omit diagnostics; the original result date is safe.
         from app.web_diagnostics import date_only
         summary['stock_trade_date']=date_only(result.get('evaluation_date')) or summary['stock_trade_date']
+        if accept_result is not None and not accept_result():
+            raise WebDataError('本次分析已达到请求时限，不展示迟到的新评分。',
+                               {'reason_code':'WEB_REQUEST_DEADLINE_EXCEEDED'})
+        require_remaining()
         finish(summary)
         return result,summary
     except Exception as exc:
@@ -70,13 +102,14 @@ def run_observed_analysis(code,loader,*,cache_observable=False,deployment=None,p
         if 'reason_code' not in source:
             failed_reason=next((e['reason_code'] for e in observed if e['status']=='FAILED'),None)
             source['reason_code']=failed_reason or error_reason(exc)
-        outcome='TIMEOUT' if source['reason_code']=='WEB_DEADLINE_EXCEEDED' else 'FAILURE'
+        outcome='TIMEOUT' if source['reason_code'] in {'WEB_DEADLINE_EXCEEDED','WEB_REQUEST_DEADLINE_EXCEEDED'} else 'FAILURE'
         summary=request_summary(source,rid=rid,outcome=outcome,seconds=perf_counter()-start,
                                 web_cache='MISS' if marker['executed'] else 'UNKNOWN')
         finish(summary)
         # Only known safe existing Web errors retain their message. Arbitrary
         # provider exceptions and private paths must never reach the page.
         known_messages={
+            '本次分析已达到请求时限，不展示迟到的新评分。',
             '暂时无法取得完整行情，请稍后重试。数据源返回不可用，本次不展示评分。',
             '单股分析达到运行时限，已停止本次请求；未生成新评分，请稍后重试。',
             '单股分析未返回完整结果；本次不展示新评分。',
@@ -87,5 +120,8 @@ def run_observed_analysis(code,loader,*,cache_observable=False,deployment=None,p
         message=str(exc) if safe_input or (isinstance(exc,WebDataError) and str(exc) in known_messages) else '分析暂时未完成，请稍后重试。当前没有可展示的新结果。'
         raise WebDataError(message,summary) from None
     finally:
+        if 'budget_token' in locals():
+            from app.web_budget import reset_remaining
+            reset_remaining(budget_token)
         reset_sink(sink_token)
         _execution.reset(execution_token);reset_request(token)

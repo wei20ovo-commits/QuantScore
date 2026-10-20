@@ -31,6 +31,8 @@ def result_metadata(snapshot):
         return False
     st.caption(f'历史数据 / 非实时 · 最近已保存交易日：{snapshot.payload["trade_date"]} '
                f'· 生成时间：{snapshot.generated_at} · 数据源：{snapshot.providers}')
+    from app.web_freshness import render_notice
+    render_notice('后台行业与候选历史记录',snapshot.payload['trade_date'])
     st.caption(f'后台状态：{snapshot.payload["status"]}（{RUN_HELP[snapshot.payload["status"]]}） '
                f'· 正式结果：{snapshot.source}')
     return True
